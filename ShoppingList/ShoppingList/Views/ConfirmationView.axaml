@@ -1,0 +1,22 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="ShoppingList.Views.ConfirmationView"
+        Width="400" Height="200"
+        MinWidth="400" MinHeight="200"
+        WindowStartupLocation="CenterScreen"
+        SizeToContent="Height"
+        ExtendClientAreaToDecorationsHint="True"
+        Title="ConfirmationView">
+  <StackPanel Orientation="Vertical" HorizontalAlignment="Center"
+              VerticalAlignment="Center" Spacing="20" Margin="30 50 30 30">
+    <TextBlock x:Name="Question" HorizontalAlignment="Center" TextWrapping="Wrap" Classes="h3" TextAlignment="Center"/>
+    <TextBlock x:Name="Details" HorizontalAlignment="Center" TextWrapping="Wrap" TextAlignment="Center"/>
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Spacing="20">
+      <Button x:Name="DefaultBtn" Width="100" Click="YesButton_Click" IsDefault="True"/>
+      <Button x:Name="CancelBtn" Width="100" Click="NoButton_Click"/>
+    </StackPanel>
+  </StackPanel>
+</Window>

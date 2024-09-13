@@ -6,20 +6,4 @@
              mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="800"
              x:Class="ShoppingList.Views.MainView"
              x:DataType="vm:MainViewModel">
-  <Grid RowDefinitions="Auto, Auto, Auto">
-    <TextBlock Text="Shopping list" HorizontalAlignment="Center" Margin="20" FontSize="23"/>
-    <ItemsControl Grid.Row="1" ItemsSource="{Binding ShoppingList}" Margin="20">
-      <ItemsControl.ItemTemplate>
-        <DataTemplate>
-          <StackPanel Orientation="Horizontal" Margin="10 0" Spacing="10">
-            <TextBlock Text="{Binding Name}"/>
-            <TextBlock Text="{Binding Quantity}"/>
-          </StackPanel>
-        </DataTemplate>
-      </ItemsControl.ItemTemplate>
-    </ItemsControl>
-    <Button Grid.Row="2" HorizontalAlignment="Center">
-      <PathIcon Data="{StaticResource add_regular}"/>
-    </Button>
-  </Grid>
 </UserControl>

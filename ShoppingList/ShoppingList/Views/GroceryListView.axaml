@@ -1,0 +1,62 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:ShoppingList.ViewModels"
+             xmlns:converters="clr-namespace:ShoppingList.Converters"
+             mc:Ignorable="d" d:DesignWidth="405" d:DesignHeight="900"
+             x:Class="ShoppingList.Views.GroceryListView"
+             x:DataType="vm:GroceryListViewModel"
+             Background="#e3cc81">
+  <UserControl.Resources>
+    <converters:ShoppingItemNameConverter x:Key="ShoppingItemNameConverter"/>
+  </UserControl.Resources>
+
+
+  <Grid RowDefinitions="Auto, Auto">
+    <TextBlock Grid.Row="0" Text="Shopping list" HorizontalAlignment="Center" Margin="20" Classes="h1"/>
+    <ScrollViewer Grid.Row="1">
+      <Grid RowDefinitions="Auto, Auto">
+        <ItemsControl Grid.Row="0" ItemsSource="{Binding ShoppingList}" Margin="20">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <Border Classes="shopping_list_item" BorderBrush="#e0ae0d" BorderThickness="0 3" Margin="0 5">
+                <Grid Margin="10" ColumnDefinitions="Auto, *, Auto, Auto" RowDefinitions="Auto, Auto">
+                  <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Name, Converter={StaticResource ShoppingItemNameConverter}}" VerticalAlignment="Center"/>
+                  <StackPanel Grid.Column="2" Grid.Row="0" Orientation="Horizontal" Spacing="5" Margin="10 0" VerticalAlignment="Center">
+                    <TextBlock Text="{Binding Quantity}"/>
+                    <TextBlock Text="{Binding Unit}"/>
+                  </StackPanel>
+                  <Button Grid.Column="3" Grid.Row="0" Command="{Binding ToggleExpandedCommand}"
+                          Classes.animatedIn="{Binding IsExpanded}"
+                          Classes.animatedOut="{Binding !IsExpanded}">
+                    <PathIcon Data="{StaticResource chevron_down_regular}"/>
+                  </Button>
+                  <StackPanel Grid.Row="1" Grid.ColumnSpan="4" IsVisible="{Binding IsExpanded}" Orientation="Horizontal" Spacing="15" Margin="10 10 10 0" HorizontalAlignment="Center">
+                    <Button Classes="green shopping_list_button" Click="Bought_Click" Tag="{Binding}">
+                      <PathIcon Data="{StaticResource money_regular}"/>
+                    </Button>
+                    <Button Classes="red shopping_list_button" Click="Delete_Click" Tag="{Binding}">
+                      <PathIcon Data="{StaticResource delete_regular}"/>
+                    </Button>
+                  </StackPanel>
+                </Grid>
+              </Border>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <StackPanel Orientation="Horizontal" IsVisible="{Binding InputMode}" Spacing="15">
+          <Button Classes="shopping_list_button">
+            <PathIcon Data="{StaticResource checkmark_regular}"/>
+          </Button>
+          <Button Classes="shopping_list_button" Command="{Binding InputModeToggleCommand}">
+            <PathIcon Data="{StaticResource dismiss_regular}"/>
+          </Button>
+        </StackPanel>
+        <Button IsVisible="{Binding !InputMode}" Grid.Row="1" HorizontalAlignment="Center" Classes="shopping_list_button" Command="{Binding InputModeToggleCommand}">
+          <PathIcon Data="{StaticResource add_regular}"/>
+        </Button>
+      </Grid>
+    </ScrollViewer>
+  </Grid>
+</UserControl>
