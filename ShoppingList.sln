@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35303.130
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingList", "ShoppingList\ShoppingList\ShoppingList.csproj", "{118E3B90-D473-44BC-8DC2-38383B874ADF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingList.Android", "ShoppingList\ShoppingList.Android\ShoppingList.Android.csproj", "{3F34A750-3BA6-4521-BE3C-210ED21F2233}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingList.Desktop", "ShoppingList\ShoppingList.Desktop\ShoppingList.Desktop.csproj", "{323F4A5F-B070-40DC-86FE-28BA6F34F409}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingList.iOS", "ShoppingList\ShoppingList.iOS\ShoppingList.iOS.csproj", "{5BC14A7B-0044-4682-8BF4-424C2FB299F6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingList.Browser", "ShoppingList\ShoppingList.Browser\ShoppingList.Browser.csproj", "{77398E86-9920-4979-AA89-DD2E1F73AF46}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{118E3B90-D473-44BC-8DC2-38383B874ADF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{118E3B90-D473-44BC-8DC2-38383B874ADF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{118E3B90-D473-44BC-8DC2-38383B874ADF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{118E3B90-D473-44BC-8DC2-38383B874ADF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F34A750-3BA6-4521-BE3C-210ED21F2233}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F34A750-3BA6-4521-BE3C-210ED21F2233}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F34A750-3BA6-4521-BE3C-210ED21F2233}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{3F34A750-3BA6-4521-BE3C-210ED21F2233}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F34A750-3BA6-4521-BE3C-210ED21F2233}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F34A750-3BA6-4521-BE3C-210ED21F2233}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{323F4A5F-B070-40DC-86FE-28BA6F34F409}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{323F4A5F-B070-40DC-86FE-28BA6F34F409}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{323F4A5F-B070-40DC-86FE-28BA6F34F409}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{323F4A5F-B070-40DC-86FE-28BA6F34F409}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BC14A7B-0044-4682-8BF4-424C2FB299F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5BC14A7B-0044-4682-8BF4-424C2FB299F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5BC14A7B-0044-4682-8BF4-424C2FB299F6}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{5BC14A7B-0044-4682-8BF4-424C2FB299F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5BC14A7B-0044-4682-8BF4-424C2FB299F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5BC14A7B-0044-4682-8BF4-424C2FB299F6}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{77398E86-9920-4979-AA89-DD2E1F73AF46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77398E86-9920-4979-AA89-DD2E1F73AF46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77398E86-9920-4979-AA89-DD2E1F73AF46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77398E86-9920-4979-AA89-DD2E1F73AF46}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {06730AD1-447B-44AD-B629-7D90F1119AA2}
+	EndGlobalSection
+EndGlobal
