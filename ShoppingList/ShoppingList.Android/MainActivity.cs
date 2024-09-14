@@ -1,7 +1,10 @@
 ﻿using Android.App;
+using Android.OS;
+using Android.Views;
+using Android.Graphics;
+using Avalonia.Android;
 using Android.Content.PM;
 using Avalonia;
-using Avalonia.Android;
 using Avalonia.ReactiveUI;
 
 namespace ShoppingList.Android

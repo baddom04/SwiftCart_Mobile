@@ -12,7 +12,6 @@
         Title="ShoppingList"
         ExtendClientAreaToDecorationsHint="True"
         WindowStartupLocation="CenterScreen"
-        Background="#e3cc81">
+        Background="{StaticResource MainBG}">
   <views:GroceryListView Margin="0 30 0 0"/>
-  <!--<TextBlock Text="Szia" FontSize="50" HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
 </Window>

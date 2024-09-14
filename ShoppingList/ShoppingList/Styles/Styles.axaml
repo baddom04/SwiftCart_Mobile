@@ -6,6 +6,7 @@
         <StackPanel Spacing="10">
           <TextBlock Text="Header 1 text" Classes="h1"/>
           <TextBlock Text="Normal text"/>
+          <TextBlock Text="Mini text" Classes="mini"/>
           <StackPanel Orientation="Horizontal" Spacing="10">
             <Button Content="Click me"/>
             <Button Classes="green" Content="Click me"/>
@@ -18,43 +19,44 @@
       </Border>
     </UserControl>
   </Design.PreviewWith>
-
+  
   <Style Selector="TextBlock">
     <Setter Property="FontSize" Value="20"/>
     <Style Selector="^.h1">
       <Setter Property="FontSize" Value="30"/>
       <Setter Property="FontWeight" Value="Bold"/>
     </Style>
-    <Style Selector="^.form_label">
-      <Setter Property="FontSize" Value="15"/>
+    <Style Selector="^.mini">
+      <Setter Property="FontSize" Value="17"/>
+      <Setter Property="Opacity" Value="70"/>
     </Style>
   </Style>
 
   <Style Selector="UserControl">
-    <Setter Property="Background" Value="#e3cc81"/>
+    <Setter Property="Background" Value="{StaticResource MainBG}"/>
   </Style>
 
   <Style Selector="Button">
     <Setter Property="CornerRadius" Value="10"/>
     <Setter Property="Padding" Value="7"/>
-    <Setter Property="Background" Value="#e0ae0d"/>
+    <Setter Property="Background" Value="{StaticResource MainButtonBG}"/>
     <Style Selector="^:pressed /template/ ContentPresenter" >
-      <Setter Property="Background" Value="#c4990d"/>
+      <Setter Property="Background" Value="{StaticResource MainButtonPressedBG}"/>
     </Style>
     <Style Selector="^.shopping_list_button">
       <Setter Property="Width" Value="100"/>
     </Style>
     <Style Selector="^.green /template/ ContentPresenter">
-      <Setter Property="Background" Value="#11cc00"/>
+      <Setter Property="Background" Value="{StaticResource GreenButtonBG}"/>
     </Style>
     <Style Selector="^.green:pressed /template/ ContentPresenter">
-      <Setter Property="Background" Value="#0fb500"/>
+      <Setter Property="Background" Value="{StaticResource GreenButtonPressedBG}"/>
     </Style>
     <Style Selector="^.red /template/ ContentPresenter">
-      <Setter Property="Background" Value="#e32929"/>
+      <Setter Property="Background" Value="{StaticResource RedButtonBG}"/>
     </Style>
     <Style Selector="^.red:pressed /template/ ContentPresenter">
-      <Setter Property="Background" Value="#c72424"/>
+      <Setter Property="Background" Value="{StaticResource RedButtonPressedBG}"/>
     </Style>
     <Style Selector="^.animatedOut">
       <Style.Animations>
@@ -82,9 +84,13 @@
 
   <Style Selector="Border">
     <Style Selector="^.shopping_list_item">
-      <Setter Property="BorderBrush" Value="#e0ae0d"/>
+      <Setter Property="BorderBrush" Value="{StaticResource MainButtonBG}"/>
       <Setter Property="BorderThickness" Value="0 3"/>
       <Setter Property="Margin" Value="0 5"/>
     </Style>
+  </Style>
+
+  <Style Selector="TextBox">
+    <Setter Property="FontSize" Value="20"/>
   </Style>
 </Styles>

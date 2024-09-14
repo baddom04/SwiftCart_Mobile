@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using ShoppingList.Models;
 using ShoppingList.ViewModels;
 using ShoppingList.Views;
 
@@ -8,6 +9,7 @@ namespace ShoppingList
 {
     public partial class App : Application
     {
+        public static User CurrentUser { get; set; }
         public override void Initialize()
         {
             AvaloniaXamlLoader.Load(this);
@@ -24,11 +26,10 @@ namespace ShoppingList
             }
             else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
             {
-                singleViewPlatform.MainView = new MainView
-                {
-                    DataContext = new MainViewModel()
-                };
+                singleViewPlatform.MainView = new GroceryListView();
             }
+
+            CurrentUser = new("Batki Domonkos", "Domika", "domonkosbatki98@gmail.com");
 
             base.OnFrameworkInitializationCompleted();
         }

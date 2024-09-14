@@ -2,7 +2,7 @@
 {
     public enum Unit
     {
-        Piece,
+        Pieces,
         Kilogram,
         Pound,
         Inch,
