@@ -1,4 +1,5 @@
 ﻿using ReactiveUI;
+using ShoppingList.Loaders;
 using ShoppingList.Models;
 using System;
 using System.Collections.ObjectModel;
@@ -31,12 +32,8 @@ namespace ShoppingList.ViewModels
 
             User me = App.CurrentUser;
 
-            ShoppingList = [
-                new ShoppingItem("Chips", me, 2, Unit.Pound),
-                new ShoppingItem("Matek füzet", me, 3, Unit.Kilogram, "This is an experimental description for a shopping list item."),
-                new ShoppingItem("Mosópor", me),
-                new ShoppingItem("Fogkrém", me, 5),
-            ];
+            ShoppingList = [.. ShoppingListLoader.LoadShoppingList()];
+            ShoppingList.CollectionChanged += (_, _) => ShoppingListLoader.SaveShoppingList([.. ShoppingList]);
 
             InputModeToggleCommand = ReactiveCommand.Create(ToggleInputMode);
         }

@@ -7,6 +7,7 @@
           <TextBlock Text="Header 1 text" Classes="h1"/>
           <TextBlock Text="Normal text"/>
           <TextBlock Text="Mini text" Classes="mini"/>
+          <TextBlock Text="Mini text" Classes="error"/>
           <StackPanel Orientation="Horizontal" Spacing="10">
             <Button Content="Click me"/>
             <Button Classes="green" Content="Click me"/>
@@ -29,6 +30,10 @@
     <Style Selector="^.mini">
       <Setter Property="FontSize" Value="17"/>
       <Setter Property="Opacity" Value="70"/>
+    </Style>
+    <Style Selector="^.error">
+      <Setter Property="FontSize" Value="17"/>
+      <Setter Property="Foreground" Value="Red"/>
     </Style>
   </Style>
 

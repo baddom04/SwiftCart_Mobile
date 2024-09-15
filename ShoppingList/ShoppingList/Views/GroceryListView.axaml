@@ -30,10 +30,12 @@
       </Border>
     </Border>
 
-
+    <!--Title-->
     <TextBlock Grid.Row="0" Text="Shopping list" HorizontalAlignment="Center" Margin="20" Classes="h1"/>
+
     <ScrollViewer Grid.Row="1">
       <Grid RowDefinitions="Auto, Auto, Auto">
+        <!--List-->
         <ItemsControl Grid.Row="0" ItemsSource="{Binding ShoppingList}" Margin="20">
           <ItemsControl.ItemTemplate>
             <DataTemplate>
@@ -65,12 +67,20 @@
             </DataTemplate>
           </ItemsControl.ItemTemplate>
         </ItemsControl>
-        <Grid Grid.Row="1" ColumnDefinitions="*, Auto, Auto" RowDefinitions="Auto, Auto" Margin="20 0 20 20" IsVisible="{Binding InputMode}">
-          <TextBox Grid.Row="0" Grid.Column="0" x:Name="ItemName" Watermark="Your item's name" MaxLength="34" TextWrapping="Wrap"/>
-          <TextBox Grid.Row="0" Grid.Column="1" x:Name="ItemQuantity" Watermark="123" MaxLength="3" KeyDown="OnKeyDown"/>
-          <ComboBox Grid.Row="0" Grid.Column="2" x:Name="ItemUnit" ItemsSource="{Binding Units}" SelectedItem="{Binding SelectedUnit}" VerticalAlignment="Stretch"/>
-          <TextBox Grid.Row="1" Grid.ColumnSpan="3" x:Name="ItemDescription" Watermark="This is an optional description for your item" TextWrapping="Wrap"/>
-        </Grid>
+
+        <!--InputForm-->
+        <StackPanel Grid.Row="1" Spacing="10" IsVisible="{Binding InputMode}" Margin="20 0 20 20">
+          <Grid ColumnDefinitions="*, Auto, Auto" RowDefinitions="Auto, Auto">
+            <TextBox Grid.Row="0" Grid.Column="0" x:Name="ItemName" Watermark="Your item's name" MaxLength="34" TextWrapping="Wrap"/>
+            <TextBox Grid.Row="0" Grid.Column="1" x:Name="ItemQuantity" Watermark="123" MaxLength="3" TextChanged="OnTextChanged"/>
+            <ComboBox Grid.Row="0" Grid.Column="2" x:Name="ItemUnit" ItemsSource="{Binding Units}" SelectedItem="{Binding SelectedUnit}" VerticalAlignment="Stretch"/>
+            <TextBox Grid.Row="1" Grid.ColumnSpan="3" x:Name="ItemDescription" Watermark="This is an optional description for your item" TextWrapping="Wrap"/>
+          </Grid>
+          <!--ErrorMessage-->
+          <TextBlock Classes="error" x:Name="ErrorMessage"/>
+        </StackPanel>
+
+        <!--Confirm Dismiss Buttons-->
         <StackPanel Grid.Row="2" Orientation="Horizontal" IsVisible="{Binding InputMode}" Spacing="15" HorizontalAlignment="Center">
           <Button Classes="shopping_list_button" Click="Save_Click">
             <PathIcon Data="{StaticResource checkmark_regular}"/>
@@ -79,9 +89,12 @@
             <PathIcon Data="{StaticResource dismiss_regular}"/>
           </Button>
         </StackPanel>
+
+        <!--Add Button-->
         <Button Grid.Row="2" IsVisible="{Binding !InputMode}" HorizontalAlignment="Center" Classes="shopping_list_button" Command="{Binding InputModeToggleCommand}">
           <PathIcon Data="{StaticResource add_regular}"/>
         </Button>
+
       </Grid>
     </ScrollViewer>
   </Grid>
