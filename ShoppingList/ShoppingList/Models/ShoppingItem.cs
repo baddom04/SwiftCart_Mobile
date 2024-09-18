@@ -25,6 +25,7 @@ namespace ShoppingList.Models
             Quantity = quantity;
             Unit = unit;
             Description = description;
+
             IsExpanded = false;
             ToggleExpandedCommand = ReactiveCommand.Create(() => IsExpanded = !IsExpanded);
         }

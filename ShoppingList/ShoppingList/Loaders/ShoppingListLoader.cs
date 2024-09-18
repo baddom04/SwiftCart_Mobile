@@ -1,25 +1,23 @@
 ﻿using ShoppingList.Models;
-using System;
+using ShoppingList.Utils;
 using System.Collections.Generic;
-using System.IO;
+using System.Linq;
 using System.Text.Json;
 
 namespace ShoppingList.Loaders
 {
     internal static class ShoppingListLoader
     {
-        private readonly static string dataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "shoppinglist.json");
-        private readonly static JsonSerializerOptions options = new JsonSerializerOptions() { WriteIndented = true };
-        static ShoppingListLoader()
-        {
-            if (!File.Exists(dataPath)) using (File.Create(dataPath)) { }
-        }
-
+        private readonly static JsonSerializerOptions options = new() { WriteIndented = true };
+        private readonly static string _shoppingListPath = "shopping_list.json";
         public static List<ShoppingItem> LoadShoppingList()
         {
             try
             {
-                string jsonString = File.ReadAllText(dataPath);
+                IFileService fileService = ServiceProvider.Resolve<IFileService>();
+                string? jsonString = fileService.ReadFile(_shoppingListPath);
+                if (jsonString is null) return [];
+
                 List<ShoppingItem>? shoppingList = JsonSerializer.Deserialize<List<ShoppingItem>>(jsonString);
                 return shoppingList ?? [];
             }
@@ -29,10 +27,30 @@ namespace ShoppingList.Loaders
             }
         }
 
-        public static async void SaveShoppingList(List<ShoppingItem> shoppingList)
+        public static void SaveShoppingList(List<ShoppingItem> shoppingList)
         {
-            string jsonString = JsonSerializer.Serialize(shoppingList, options);
-            await File.WriteAllTextAsync(dataPath, jsonString);
+            List<JsonShoppingItemModel> jsonModels = 
+                [.. shoppingList.Select(item => new JsonShoppingItemModel() 
+                {
+                    Owner = item.Owner,
+                    Name = item.Name,
+                    Quantity = item.Quantity,
+                    Unit = item.Unit,
+                    Description = item.Description,
+                })];
+
+            string jsonContent = JsonSerializer.Serialize(jsonModels, options);
+
+            IFileService fileService = ServiceProvider.Resolve<IFileService>();
+            fileService.SaveFile(_shoppingListPath, jsonContent);
         }
+    }
+    internal class JsonShoppingItemModel
+    {
+        public User Owner { get; set; }
+        public string Name { get; set; }
+        public int Quantity { get; set; }
+        public Unit Unit { get; set; }
+        public string? Description { get; set; }
     }
 }

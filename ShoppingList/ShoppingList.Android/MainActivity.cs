@@ -6,6 +6,7 @@ using Avalonia.Android;
 using Android.Content.PM;
 using Avalonia;
 using Avalonia.ReactiveUI;
+using ShoppingList.Utils;
 
 namespace ShoppingList.Android
 {
@@ -19,6 +20,8 @@ namespace ShoppingList.Android
     {
         protected override AppBuilder CustomizeAppBuilder(AppBuilder builder)
         {
+            ServiceProvider.Register<IFileService>(new AndroidFileService(this));
+
             return base.CustomizeAppBuilder(builder)
                 .WithInterFont()
                 .UseReactiveUI();
