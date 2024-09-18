@@ -16,8 +16,9 @@ public partial class GroceryListView : UserControl
     public GroceryListView()
     {
         InitializeComponent();
-        viewModel = new GroceryListViewModel();
-        DataContext = viewModel;
+        //viewModel = new GroceryListViewModel();
+        //DataContext = viewModel;
+        viewModel = (DataContext as GroceryListViewModel)!;
     }
     private void Save_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {

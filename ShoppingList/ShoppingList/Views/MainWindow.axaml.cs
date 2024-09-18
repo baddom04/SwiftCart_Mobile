@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using ShoppingList.ViewModels;
 
 namespace ShoppingList.Views
 {
@@ -7,6 +8,8 @@ namespace ShoppingList.Views
         public MainWindow()
         {
             InitializeComponent();
+
+            DataContext = new MainWindowViewModel();
         }
     }
 }

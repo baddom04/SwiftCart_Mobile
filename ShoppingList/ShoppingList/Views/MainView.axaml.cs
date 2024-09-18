@@ -9,7 +9,7 @@ namespace ShoppingList.Views
         {
             InitializeComponent();
 
-            DataContext = new MainViewModel();
+            //DataContext = new MainViewModel();
         }
     }
 }

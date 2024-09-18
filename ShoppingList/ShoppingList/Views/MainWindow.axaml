@@ -4,14 +4,36 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:views="clr-namespace:ShoppingList.Views"
-        mc:Ignorable="d" d:DesignWidth="540" d:DesignHeight="1200"
+        mc:Ignorable="d" d:DesignWidth="405" d:DesignHeight="500"
         Width="405" Height="500"
         MinWidth="405" MinHeight="500"
         x:Class="ShoppingList.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
         Title="ShoppingList"
         ExtendClientAreaToDecorationsHint="True"
         WindowStartupLocation="CenterScreen"
         Background="{StaticResource MainBG}">
-  <views:GroceryListView Margin="0 30 0 0"/>
+  <Grid RowDefinitions="*, Auto">
+    <Panel Grid.Row="0" Background="White"> 
+      <TransitioningContentControl Content="{Binding CurrentPage}"/>
+    </Panel>
+    <ItemsControl Grid.Row="1" ItemsSource="{Binding MenuItems}">
+      <ItemsControl.ItemsPanel>
+        <ItemsPanelTemplate>
+          <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch"/>
+        </ItemsPanelTemplate>
+      </ItemsControl.ItemsPanel>
+      <ItemsControl.ItemTemplate>
+        <DataTemplate>
+          <Button HorizontalAlignment="Stretch">
+            <StackPanel Spacing="5">
+              <PathIcon Data="{Binding Icon}"/>
+              <TextBlock Text="{Binding Title}" Classes="mini"/>
+            </StackPanel>
+          </Button>
+        </DataTemplate>
+      </ItemsControl.ItemTemplate>
+    </ItemsControl>
+  </Grid>
 </Window>
