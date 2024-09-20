@@ -40,6 +40,8 @@ namespace ShoppingList.ViewModels
         public MainWindowViewModel()
         {
             MenuItems = [.. Menus.Select(item => item.Key)];
+            _selectedMenuItem = MenuItems[0];
+            _currentPage = Menus[_selectedMenuItem];
                 
             //this.WhenAnyValue(x => x.SelectedMenuItem)
             //    .Where(selectedItem => selectedItem is not null)

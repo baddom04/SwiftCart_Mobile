@@ -1,12 +1,10 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Media;
-using ReactiveUI;
-using System;
 
 namespace ShoppingList.Models
 {
-    internal class MenuItem : ReactiveObject
+    internal class MenuItem
     {
         public string Title { get; }
         public StreamGeometry Icon { get; }

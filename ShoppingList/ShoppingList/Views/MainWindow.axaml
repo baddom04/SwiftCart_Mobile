@@ -13,27 +13,30 @@
         Title="ShoppingList"
         ExtendClientAreaToDecorationsHint="True"
         WindowStartupLocation="CenterScreen"
-        Background="{StaticResource MainBG}">
-  <Grid RowDefinitions="*, Auto">
-    <Panel Grid.Row="0" Background="White"> 
-      <TransitioningContentControl Content="{Binding CurrentPage}"/>
-    </Panel>
-    <ItemsControl Grid.Row="1" ItemsSource="{Binding MenuItems}">
-      <ItemsControl.ItemsPanel>
+        Background="{DynamicResource MainBG}">
+  <DockPanel Margin="0 30 0 0">
+    <ListBox ItemsSource="{Binding MenuItems}" 
+             DockPanel.Dock="Bottom" 
+             Background="{DynamicResource MainButtonBG}"
+             SelectedItem="{Binding SelectedMenuItem}">
+      <ListBox.ItemsPanel>
         <ItemsPanelTemplate>
-          <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch"/>
+          <UniformGrid Rows="1"/>
         </ItemsPanelTemplate>
-      </ItemsControl.ItemsPanel>
-      <ItemsControl.ItemTemplate>
+      </ListBox.ItemsPanel>
+      <ListBox.ItemTemplate>
         <DataTemplate>
-          <Button HorizontalAlignment="Stretch">
-            <StackPanel Spacing="5">
+            <StackPanel HorizontalAlignment="Center">
               <PathIcon Data="{Binding Icon}"/>
-              <TextBlock Text="{Binding Title}" Classes="mini"/>
+              <TextBlock Text="{Binding Title}" Classes="menuLabel"/>
             </StackPanel>
-          </Button>
         </DataTemplate>
-      </ItemsControl.ItemTemplate>
-    </ItemsControl>
-  </Grid>
+      </ListBox.ItemTemplate>
+    </ListBox>
+    <TransitioningContentControl Content="{Binding CurrentPage}">
+      <TransitioningContentControl.PageTransition>
+        <PageSlide Orientation="Horizontal" Duration="0:00:00.300" />
+      </TransitioningContentControl.PageTransition>
+    </TransitioningContentControl>
+  </DockPanel>
 </Window>

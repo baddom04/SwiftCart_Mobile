@@ -20,7 +20,7 @@
       </Border>
     </UserControl>
   </Design.PreviewWith>
-  
+
   <Style Selector="TextBlock">
     <Setter Property="FontSize" Value="20"/>
     <Style Selector="^.h1">
@@ -34,6 +34,9 @@
     <Style Selector="^.error">
       <Setter Property="FontSize" Value="17"/>
       <Setter Property="Foreground" Value="Red"/>
+    </Style>
+    <Style Selector="^.menuLabel">
+      <Setter Property="FontSize" Value="13"/>
     </Style>
   </Style>
 
@@ -97,5 +100,9 @@
 
   <Style Selector="TextBox">
     <Setter Property="FontSize" Value="20"/>
+  </Style>
+
+  <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
+    <Setter Property="Background" Value="{DynamicResource MainButtonPressedBG}"/>
   </Style>
 </Styles>

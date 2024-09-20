@@ -19,14 +19,11 @@ namespace ShoppingList
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                desktop.MainWindow = new MainWindow
-                {
-                    DataContext = new MainViewModel()
-                };
+                desktop.MainWindow = new MainWindow();
             }
             else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
             {
-                singleViewPlatform.MainView = new GroceryListView();
+                singleViewPlatform.MainView = new MainWindow();
             }
 
             CurrentUser = new("Batki Domonkos", "Domika", "domonkosbatki98@gmail.com");
