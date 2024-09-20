@@ -6,5 +6,29 @@
              mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="800"
              x:Class="ShoppingList.Views.MainView"
              x:DataType="vm:MainViewModel">
-  <TextBlock Classes="h1" Text="Main page" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+  <DockPanel Margin="0 30 0 0">
+    <ListBox ItemsSource="{Binding MenuItems}"
+             DockPanel.Dock="Bottom"
+             Background="{DynamicResource MainButtonBG}"
+             SelectedItem="{Binding SelectedMenuItem}">
+      <ListBox.ItemsPanel>
+        <ItemsPanelTemplate>
+          <UniformGrid Rows="1"/>
+        </ItemsPanelTemplate>
+      </ListBox.ItemsPanel>
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <StackPanel HorizontalAlignment="Center">
+            <PathIcon Data="{Binding Icon}"/>
+            <TextBlock Text="{Binding Title}" Classes="menuLabel"/>
+          </StackPanel>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
+    <TransitioningContentControl Content="{Binding CurrentPage}">
+      <TransitioningContentControl.PageTransition>
+        <CrossFade Duration="0:00:00.100"/>
+      </TransitioningContentControl.PageTransition>
+    </TransitioningContentControl>
+  </DockPanel>
 </UserControl>

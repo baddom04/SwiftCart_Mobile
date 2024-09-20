@@ -12,15 +12,14 @@ public partial class GroceryListView : UserControl
 {
     public bool _confirmation;
 
-    private readonly GroceryListViewModel viewModel;
+    private GroceryListViewModel viewModel;
     public GroceryListView()
     {
         InitializeComponent();
-        //viewModel = new GroceryListViewModel();
-        //DataContext = viewModel;
-        viewModel = (DataContext as GroceryListViewModel)!;
+        DataContextChanged += (s, e) => viewModel = (DataContext as GroceryListViewModel)!;
     }
-    private void Save_Click(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+
+    private void Save_Click(object? sender, RoutedEventArgs e)
     {
         if (sender is not Button) return;
         if (Validate())

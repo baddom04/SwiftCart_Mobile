@@ -8,35 +8,10 @@
         Width="405" Height="500"
         MinWidth="405" MinHeight="500"
         x:Class="ShoppingList.Views.MainWindow"
-        x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
         Title="ShoppingList"
         ExtendClientAreaToDecorationsHint="True"
         WindowStartupLocation="CenterScreen"
         Background="{DynamicResource MainBG}">
-  <DockPanel Margin="0 30 0 0">
-    <ListBox ItemsSource="{Binding MenuItems}" 
-             DockPanel.Dock="Bottom" 
-             Background="{DynamicResource MainButtonBG}"
-             SelectedItem="{Binding SelectedMenuItem}">
-      <ListBox.ItemsPanel>
-        <ItemsPanelTemplate>
-          <UniformGrid Rows="1"/>
-        </ItemsPanelTemplate>
-      </ListBox.ItemsPanel>
-      <ListBox.ItemTemplate>
-        <DataTemplate>
-            <StackPanel HorizontalAlignment="Center">
-              <PathIcon Data="{Binding Icon}"/>
-              <TextBlock Text="{Binding Title}" Classes="menuLabel"/>
-            </StackPanel>
-        </DataTemplate>
-      </ListBox.ItemTemplate>
-    </ListBox>
-    <TransitioningContentControl Content="{Binding CurrentPage}">
-      <TransitioningContentControl.PageTransition>
-        <PageSlide Orientation="Horizontal" Duration="0:00:00.300" />
-      </TransitioningContentControl.PageTransition>
-    </TransitioningContentControl>
-  </DockPanel>
+      <views:MainView />
 </Window>

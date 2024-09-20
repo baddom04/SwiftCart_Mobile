@@ -23,7 +23,7 @@ namespace ShoppingList
             }
             else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
             {
-                singleViewPlatform.MainView = new MainWindow();
+                singleViewPlatform.MainView = new MainView();
             }
 
             CurrentUser = new("Batki Domonkos", "Domika", "domonkosbatki98@gmail.com");
