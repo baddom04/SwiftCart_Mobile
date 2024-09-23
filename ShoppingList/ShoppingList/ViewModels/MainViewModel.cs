@@ -31,7 +31,7 @@ namespace ShoppingList.ViewModels
 
         public Dictionary<MenuItem, ViewModelBase> Menus { get; } = new Dictionary<MenuItem, ViewModelBase>
         {
-            //{ new MenuItem("Home", "globe_regular"), new MainViewModel() },
+            { new MenuItem("Map", "globe_regular"), new MapViewModel() },
             { new MenuItem("Shopping list", "cart_regular"), new GroceryListViewModel() },
             { new MenuItem("Social", "people_regular"), new SocialPanelViewModel() },
             { new MenuItem("Settings", "settings_regular"), new SettingsViewModel() },

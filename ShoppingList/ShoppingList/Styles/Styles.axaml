@@ -22,9 +22,13 @@
   </Design.PreviewWith>
 
   <Style Selector="TextBlock">
-    <Setter Property="FontSize" Value="20"/>
+    <Setter Property="FontSize" Value="19"/>
     <Style Selector="^.h1">
       <Setter Property="FontSize" Value="30"/>
+      <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+    <Style Selector="^.h3">
+      <Setter Property="FontSize" Value="22"/>
       <Setter Property="FontWeight" Value="Bold"/>
     </Style>
     <Style Selector="^.mini">
@@ -47,9 +51,12 @@
   <Style Selector="Button">
     <Setter Property="CornerRadius" Value="10"/>
     <Setter Property="Padding" Value="7"/>
-    <Setter Property="Background" Value="{StaticResource MainButtonBG}"/>
+    <Setter Property="Background" Value="{StaticResource MainBtnBG}"/>
     <Style Selector="^:pressed /template/ ContentPresenter" >
-      <Setter Property="Background" Value="{StaticResource MainButtonPressedBG}"/>
+      <Setter Property="Background" Value="{StaticResource MainBtnPressedBG}"/>
+    </Style>
+    <Style Selector="^:pointerover /template/ ContentPresenter" >
+      <Setter Property="Background" Value="{StaticResource MainBtnPressedBG}"/>
     </Style>
     <Style Selector="^.shopping_list_button">
       <Setter Property="Width" Value="100"/>
@@ -92,17 +99,39 @@
 
   <Style Selector="Border">
     <Style Selector="^.shopping_list_item">
-      <Setter Property="BorderBrush" Value="{StaticResource MainButtonBG}"/>
-      <Setter Property="BorderThickness" Value="0 3"/>
+      <Setter Property="Background" Value="{StaticResource SecBG}"/>
       <Setter Property="Margin" Value="0 5"/>
+      <Setter Property="CornerRadius" Value="10"/>
     </Style>
   </Style>
 
   <Style Selector="TextBox">
-    <Setter Property="FontSize" Value="20"/>
+    <Setter Property="FontSize" Value="19"/>
+    <Setter Property="CornerRadius" Value="5"/>
+    <Setter Property="BorderBrush" Value="{StaticResource MainBtnBG}"/>
+    <Setter Property="BorderThickness" Value="2"/>
+  </Style>
+
+  <Style Selector="ComboBox">
+    <Setter Property="CornerRadius" Value="5"/>
+    <Setter Property="BorderThickness" Value="2"/>
+    <Setter Property="BorderBrush" Value="{StaticResource MainBtnBG}"/>
   </Style>
 
   <Style Selector="ListBoxItem:selected /template/ ContentPresenter">
-    <Setter Property="Background" Value="{DynamicResource MainButtonPressedBG}"/>
+    <Setter Property="Background" Value="{DynamicResource TerBG}"/>
+  </Style>
+
+  <Style Selector="PathIcon">
+    <Style Selector="^.menu_icon">
+      <Setter Property="Width" Value="22"/>
+      <Setter Property="Height" Value="22"/>
+    </Style>
+    <Style Selector="^.menu_icon_selected">
+      <Setter Property="Foreground" Value="{StaticResource MainBtnBG}"/>
+    </Style>
+    <Style Selector="^.white_foreground">
+      <Setter Property="Foreground" Value="White"/>
+    </Style>
   </Style>
 </Styles>

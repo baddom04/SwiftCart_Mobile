@@ -9,8 +9,10 @@
   <DockPanel Margin="0 30 0 0">
     <ListBox ItemsSource="{Binding MenuItems}"
              DockPanel.Dock="Bottom"
-             Background="{DynamicResource MainButtonBG}"
-             SelectedItem="{Binding SelectedMenuItem}">
+             Background="{DynamicResource SecBG}"
+             SelectedItem="{Binding SelectedMenuItem}"
+             Margin="10"
+             CornerRadius="10">
       <ListBox.ItemsPanel>
         <ItemsPanelTemplate>
           <UniformGrid Rows="1"/>
@@ -18,10 +20,8 @@
       </ListBox.ItemsPanel>
       <ListBox.ItemTemplate>
         <DataTemplate>
-          <StackPanel HorizontalAlignment="Center">
-            <PathIcon Data="{Binding Icon}"/>
-            <TextBlock Text="{Binding Title}" Classes="menuLabel"/>
-          </StackPanel>
+            <PathIcon Data="{Binding Icon}" Classes="menu_icon" VerticalAlignment="Center" Margin="0 5"/>
+            <!--<TextBlock Text="{Binding Title}" Classes="menuLabel"/>-->
         </DataTemplate>
       </ListBox.ItemTemplate>
     </ListBox>

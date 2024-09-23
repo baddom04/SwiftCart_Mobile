@@ -1,10 +1,9 @@
 using Avalonia.Controls;
+using Avalonia.Interactivity;
 using ShoppingList.Models;
 using ShoppingList.ViewModels;
-using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Avalonia.Interactivity;
 
 namespace ShoppingList.Views;
 
@@ -24,19 +23,8 @@ public partial class GroceryListView : UserControl
         if (sender is not Button) return;
         if (Validate())
         {
-            viewModel.ShoppingList.Add(new ShoppingItem(ItemName.Text!, App.CurrentUser, Int32.Parse(ItemQuantity.Text!), (Models.Unit)ItemUnit.SelectedItem!, ItemDescription.Text));
-            viewModel.ToggleInputMode();
-            SetControlsToDefault();
+            viewModel.Save();
         }
-    }
-
-    private void SetControlsToDefault()
-    {
-        ErrorMessage.Text = null;
-        ItemName.Text = null;
-        ItemQuantity.Text = null;
-        ItemUnit.SelectedIndex = 0;
-        ItemDescription.Text = null;
     }
 
     private bool Validate()
@@ -56,7 +44,7 @@ public partial class GroceryListView : UserControl
     }
     private async void Delete_Click(object? sender, RoutedEventArgs e)
     {
-        if (sender is not Button btn || btn.Tag is null || btn.Tag is not ShoppingItem item) return;
+        if (sender is not Button btn || btn.Tag is null || btn.Tag is not ShoppingItemDisplay item) return;
 
         DialogOverlay.IsVisible = true;
 
@@ -65,6 +53,7 @@ public partial class GroceryListView : UserControl
         if (_confirmation)
         {
             // TODO: send notification to users
+            item.Editing -= viewModel.OnEditing;
             viewModel.ShoppingList.Remove(item);
         }
     }
@@ -80,9 +69,10 @@ public partial class GroceryListView : UserControl
     }
     private void Bought_Click(object? sender, RoutedEventArgs e)
     {
-        if (sender is not Button btn || btn.Tag is null || btn.Tag is not ShoppingItem item) return;
+        if (sender is not Button btn || btn.Tag is null || btn.Tag is not ShoppingItemDisplay item) return;
 
         // TODO: send notification to users
+        item.Editing -= viewModel.OnEditing;
         viewModel.ShoppingList.Remove(item);
     }
 

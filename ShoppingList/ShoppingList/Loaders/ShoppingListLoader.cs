@@ -29,28 +29,10 @@ namespace ShoppingList.Loaders
 
         public static void SaveShoppingList(List<ShoppingItem> shoppingList)
         {
-            List<JsonShoppingItemModel> jsonModels = 
-                [.. shoppingList.Select(item => new JsonShoppingItemModel() 
-                {
-                    Owner = item.Owner,
-                    Name = item.Name,
-                    Quantity = item.Quantity,
-                    Unit = item.Unit,
-                    Description = item.Description,
-                })];
-
-            string jsonContent = JsonSerializer.Serialize(jsonModels, options);
+            string jsonContent = JsonSerializer.Serialize(shoppingList, options);
 
             IFileService fileService = ServiceProvider.Resolve<IFileService>();
             fileService.SaveFile(_shoppingListPath, jsonContent);
         }
-    }
-    internal class JsonShoppingItemModel
-    {
-        public User Owner { get; set; }
-        public string Name { get; set; }
-        public int Quantity { get; set; }
-        public Unit Unit { get; set; }
-        public string? Description { get; set; }
     }
 }

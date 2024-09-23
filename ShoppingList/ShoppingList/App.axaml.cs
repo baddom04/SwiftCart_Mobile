@@ -2,7 +2,6 @@ using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using ShoppingList.Models;
-using ShoppingList.ViewModels;
 using ShoppingList.Views;
 
 namespace ShoppingList

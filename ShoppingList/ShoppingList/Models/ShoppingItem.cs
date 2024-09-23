@@ -1,33 +1,19 @@
-﻿using ReactiveUI;
+﻿using System;
 
 namespace ShoppingList.Models
 {
-    public class ShoppingItem : ReactiveObject
+    internal class ShoppingItem(string name, User owner, string quantity = "", UnitType unit = UnitType.Pieces, string? description = null) : ICloneable
     {
-        public User Owner { get; set; }
-        public string Name { get; set; }
-        public int Quantity { get; set; }
-        public Unit Unit { get; set; }
-        public string? Description { get; set; }
+        public User Owner { get; set; } = owner;
+        public string Name { get; set; } = name;
+        public string Quantity { get; set; } = quantity;
+        public UnitType Unit { get; set; } = unit;
+        public string? Description { get; set; } = description;
+        public static ShoppingItem Empty => new(string.Empty, App.CurrentUser);
 
-        private bool _isExpanded;
-        public bool IsExpanded
+        public object Clone()
         {
-            get { return _isExpanded; }
-            set { this.RaiseAndSetIfChanged(ref _isExpanded, value); }
-        }
-        public string QuantityDisplay => Quantity + " " + Unit.ToString();
-        public ReactiveCommand<System.Reactive.Unit, bool> ToggleExpandedCommand { get; }
-        public ShoppingItem(string name, User owner, int quantity = 1, Unit unit = Unit.Pieces, string? description = null)
-        {
-            Owner = owner;
-            Name = name;
-            Quantity = quantity;
-            Unit = unit;
-            Description = description;
-
-            IsExpanded = false;
-            ToggleExpandedCommand = ReactiveCommand.Create(() => IsExpanded = !IsExpanded);
+            return new ShoppingItem(Name, new User(Owner.UserName, Owner.NickName, Owner.Email), Quantity, Unit, Description);
         }
     }
 }

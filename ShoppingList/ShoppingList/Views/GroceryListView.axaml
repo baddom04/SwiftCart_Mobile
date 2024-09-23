@@ -8,7 +8,7 @@
              x:DataType="vm:GroceryListViewModel"
              Background="{StaticResource MainBG}">
 
-  <Grid RowDefinitions="Auto, Auto">
+  <Grid RowDefinitions="Auto, *">
 
     <!--ConfirmationPopup-->
     <Border Name="DialogOverlay" ZIndex="1"
@@ -30,6 +30,50 @@
       </Border>
     </Border>
 
+    <!--Form popup-->
+    <Border ZIndex="1"
+            Background="#80000000"
+            IsVisible="{Binding InputMode}"
+            VerticalAlignment="Stretch"
+            HorizontalAlignment="Stretch"
+            Grid.RowSpan="2">
+      <Border CornerRadius="10" Background="{StaticResource MainBG}"
+              HorizontalAlignment="Center" VerticalAlignment="Center"
+              Width="400" Height="250" ZIndex="2">
+        <StackPanel Spacing="10" Margin="20">
+          <TextBlock Text="Add a new item!" Classes="h3" HorizontalAlignment="Center"/>
+
+          <Grid ColumnDefinitions="*, Auto, Auto" RowDefinitions="Auto, Auto">
+            <TextBox Grid.Row="0" Grid.Column="0" Margin="2" x:Name="ItemName" Text="{Binding CurrentlyEditedItem.Name}" Watermark="Your item's name" MaxLength="34" TextWrapping="Wrap"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Margin="2" x:Name="ItemQuantity" Text="{Binding CurrentlyEditedItem.Quantity}" Watermark="123" MaxLength="3" TextChanged="OnTextChanged"/>
+            <ComboBox Grid.Row="0" Grid.Column="2" Margin="2" x:Name="ItemUnit" ItemsSource="{Binding Units}" SelectedItem="{Binding CurrentlyEditedItem.Unit}" VerticalAlignment="Stretch"/>
+            <TextBox Grid.Row="1" Grid.ColumnSpan="3" Margin="2" x:Name="ItemDescription" Text="{Binding CurrentlyEditedItem.Description}" Watermark="This is an optional description for your item" TextWrapping="Wrap"/>
+          </Grid>
+
+          <!--ErrorMessage-->
+          <TextBlock Classes="error" x:Name="ErrorMessage" Text="{Binding ErrorMessage, Mode=TwoWay}"/>
+
+          <!--Button panel-->
+          <StackPanel Orientation="Horizontal" Spacing="15" HorizontalAlignment="Center">
+
+            <!--Confirm button-->
+            <Button Classes="shopping_list_button" Click="Save_Click">
+              <PathIcon Data="{StaticResource checkmark_regular}"
+                        Classes="white_foreground"/>
+            </Button>
+
+            <!--Dismiss button-->
+            <Button Classes="shopping_list_button" Command="{Binding InputModeOffCommand}">
+              <PathIcon Data="{StaticResource dismiss_regular}"
+                        Classes="white_foreground"/>
+            </Button>
+
+          </StackPanel>
+
+        </StackPanel>
+      </Border>
+    </Border>
+
     <!--Title-->
     <TextBlock Grid.Row="0" Text="Shopping list" HorizontalAlignment="Center" Margin="20" Classes="h1"/>
 
@@ -39,27 +83,55 @@
         <ItemsControl Grid.Row="0" ItemsSource="{Binding ShoppingList}" Margin="20">
           <ItemsControl.ItemTemplate>
             <DataTemplate>
-              <Border Classes="shopping_list_item" BorderBrush="{StaticResource MainButtonBG}" BorderThickness="2" Margin="0 5">
+              <!--ItemDisplay-->
+              <Border Classes="shopping_list_item">
                 <Grid Margin="10" ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto">
-                  <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Name}"
+
+                  <!--Name-->
+                  <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Item.Name}"
                              VerticalAlignment="Center" TextWrapping="Wrap" MaxWidth="150"/>
+
                   <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
+
+                    <!--Quantity display-->
                     <TextBlock Text="{Binding QuantityDisplay}" VerticalAlignment="Center" Margin="10 0" TextWrapping="Wrap"/>
+                    <!--Dropdown button-->
                     <Button Grid.Column="3" Grid.Row="0" Command="{Binding ToggleExpandedCommand}"
                             Classes.animatedIn="{Binding IsExpanded}"
                             Classes.animatedOut="{Binding !IsExpanded}">
-                      <PathIcon Data="{StaticResource chevron_down_regular}"/>
+                      <PathIcon Data="{StaticResource chevron_down_regular}"
+                                Classes="white_foreground"/>
                     </Button>
+
                   </StackPanel>
+
                   <Grid Grid.Row="1" Grid.ColumnSpan="4" IsVisible="{Binding IsExpanded}" RowDefinitions="Auto, Auto">
-                    <TextBlock Grid.Row="0" IsVisible="{Binding Description, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" Text="{Binding Description}" Classes="mini" Margin="10" TextWrapping="Wrap"/>
+
+                    <!--Description-->
+                    <TextBlock Grid.Row="0" IsVisible="{Binding Item.Description, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+                               Text="{Binding Item.Description}" Classes="mini" Margin="10" TextWrapping="Wrap"/>
+
+                    <!--Action buttons-->
                     <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="15" Margin="10 10 10 0" HorizontalAlignment="Center">
+
+                      <!--Bought button-->
                       <Button Classes="green shopping_list_button" Click="Bought_Click" Tag="{Binding}">
-                        <PathIcon Data="{StaticResource money_regular}"/>
+                        <PathIcon Data="{StaticResource money_regular}"
+                                  Classes="white_foreground"/>
                       </Button>
+
+                      <!--Edit button-->
+                      <Button Classes="shopping_list_button" Command="{Binding EditCommand}">
+                        <PathIcon Data="{StaticResource edit_regular}"
+                                  Classes="white_foreground"/>
+                      </Button>
+
+                      <!--Delete button-->
                       <Button Classes="red shopping_list_button" Click="Delete_Click" Tag="{Binding}">
-                        <PathIcon Data="{StaticResource delete_regular}"/>
+                        <PathIcon Data="{StaticResource delete_regular}"
+                                  Classes="white_foreground"/>
                       </Button>
+
                     </StackPanel>
                   </Grid>
                 </Grid>
@@ -68,31 +140,42 @@
           </ItemsControl.ItemTemplate>
         </ItemsControl>
 
-        <!--InputForm-->
-        <StackPanel Grid.Row="1" Spacing="10" IsVisible="{Binding InputMode}" Margin="20 0 20 20">
+        <!--InputForm--><!--
+        <StackPanel Grid.Row="1" Spacing="10" IsVisible="{Binding InputMode}" Margin="20 0">
           <Grid ColumnDefinitions="*, Auto, Auto" RowDefinitions="Auto, Auto">
-            <TextBox Grid.Row="0" Grid.Column="0" x:Name="ItemName" Watermark="Your item's name" MaxLength="34" TextWrapping="Wrap"/>
-            <TextBox Grid.Row="0" Grid.Column="1" x:Name="ItemQuantity" Watermark="123" MaxLength="3" TextChanged="OnTextChanged"/>
-            <ComboBox Grid.Row="0" Grid.Column="2" x:Name="ItemUnit" ItemsSource="{Binding Units}" SelectedItem="{Binding SelectedUnit}" VerticalAlignment="Stretch"/>
-            <TextBox Grid.Row="1" Grid.ColumnSpan="3" x:Name="ItemDescription" Watermark="This is an optional description for your item" TextWrapping="Wrap"/>
+            <TextBox Grid.Row="0" Grid.Column="0" x:Name="ItemName" Text="{Binding CurrentlyEditedItem.Name}" Watermark="Your item's name" MaxLength="34" TextWrapping="Wrap"/>
+            <TextBox Grid.Row="0" Grid.Column="1" x:Name="ItemQuantity" Text="{Binding CurrentlyEditedItem.Quantity}" Watermark="123" MaxLength="3" TextChanged="OnTextChanged"/>
+            <ComboBox Grid.Row="0" Grid.Column="2" x:Name="ItemUnit" ItemsSource="{Binding Units}" SelectedItem="{Binding CurrentlyEditedItem.Unit}" VerticalAlignment="Stretch"/>
+            <TextBox Grid.Row="1" Grid.ColumnSpan="3" x:Name="ItemDescription" Text="{Binding CurrentlyEditedItem.Description}" Watermark="This is an optional description for your item" TextWrapping="Wrap"/>
           </Grid>
-          <!--ErrorMessage-->
-          <TextBlock Classes="error" x:Name="ErrorMessage"/>
-        </StackPanel>
 
-        <!--Confirm Dismiss Buttons-->
-        <StackPanel Grid.Row="2" Orientation="Horizontal" IsVisible="{Binding InputMode}" Spacing="15" HorizontalAlignment="Center">
-          <Button Classes="shopping_list_button" Click="Save_Click">
-            <PathIcon Data="{StaticResource checkmark_regular}"/>
-          </Button>
-          <Button Classes="shopping_list_button" Command="{Binding InputModeToggleCommand}">
-            <PathIcon Data="{StaticResource dismiss_regular}"/>
-          </Button>
-        </StackPanel>
+          --><!--ErrorMessage--><!--
+          <TextBlock Classes="error" x:Name="ErrorMessage"/>
+
+          --><!--Button panel--><!--
+          <StackPanel Orientation="Horizontal" Spacing="15" HorizontalAlignment="Center">
+
+            --><!--Confirm button--><!--
+            <Button Classes="shopping_list_button" Click="Save_Click">
+              <PathIcon Data="{StaticResource checkmark_regular}"
+                        Classes="white_foreground"/>
+            </Button>
+
+            --><!--Dismiss button--><!--
+            <Button Classes="shopping_list_button" Command="{Binding InputModeOffCommand}">
+              <PathIcon Data="{StaticResource dismiss_regular}"
+                        Classes="white_foreground"/>
+            </Button>
+
+          </StackPanel>
+          
+        </StackPanel>-->
+
 
         <!--Add Button-->
-        <Button Grid.Row="2" IsVisible="{Binding !InputMode}" HorizontalAlignment="Center" Classes="shopping_list_button" Command="{Binding InputModeToggleCommand}">
-          <PathIcon Data="{StaticResource add_regular}"/>
+        <Button Grid.Row="2" IsVisible="{Binding !InputMode}" HorizontalAlignment="Center" Classes="shopping_list_button" Command="{Binding InputModeOnCommand}">
+          <PathIcon Data="{StaticResource add_regular}"
+                    Classes="white_foreground"/>
         </Button>
 
       </Grid>
