@@ -4,11 +4,11 @@ using Avalonia.Media;
 
 namespace ShoppingList.Models
 {
-    public class MenuItem
+    public class MenuIcon
     {
         public string Title { get; }
         public StreamGeometry Icon { get; }
-        public MenuItem(string title, string iconKey)
+        public MenuIcon(string title, string iconKey)
         {
             Title = title;
 

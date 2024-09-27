@@ -15,7 +15,8 @@ public partial class GroceryListView : UserControl
     public GroceryListView()
     {
         InitializeComponent();
-        DataContextChanged += (s, e) => viewModel = (DataContext as GroceryListViewModel)!;
+        viewModel = new GroceryListViewModel();
+        DataContext = viewModel;
     }
 
     private void Save_Click(object? sender, RoutedEventArgs e)

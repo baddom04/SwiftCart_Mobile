@@ -1,5 +1,7 @@
-﻿using ReactiveUI;
+﻿using Avalonia.Controls;
+using ReactiveUI;
 using ShoppingList.Models;
+using ShoppingList.Views;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -9,15 +11,15 @@ namespace ShoppingList.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        private ViewModelBase _currentPage;
-        public ViewModelBase CurrentPage
+        private UserControl _currentPage;
+        public UserControl CurrentPage
         {
             get { return _currentPage; }
             set { this.RaiseAndSetIfChanged(ref _currentPage, value); }
         }
 
-        private MenuItem _selectedMenuItem;
-        public MenuItem SelectedMenuItem
+        private MenuIcon _selectedMenuItem;
+        public MenuIcon SelectedMenuItem
         {
             get { return _selectedMenuItem; }
             set
@@ -27,14 +29,14 @@ namespace ShoppingList.ViewModels
                 CurrentPage = Menus[value];
             }
         }
-        public ObservableCollection<MenuItem> MenuItems { get; }
+        public ObservableCollection<MenuIcon> MenuItems { get; }
 
-        public Dictionary<MenuItem, ViewModelBase> Menus { get; } = new Dictionary<MenuItem, ViewModelBase>
+        public Dictionary<MenuIcon, UserControl> Menus { get; } = new Dictionary<MenuIcon, UserControl>
         {
-            { new MenuItem("Map", "globe_regular"), new MapViewModel() },
-            { new MenuItem("Shopping list", "cart_regular"), new GroceryListViewModel() },
-            { new MenuItem("Social", "people_regular"), new SocialPanelViewModel() },
-            { new MenuItem("Settings", "settings_regular"), new SettingsViewModel() },
+            { new MenuIcon("Map", "globe_regular"), new MapView() },
+            { new MenuIcon("Shopping list", "cart_regular"), new GroceryListView() },
+            { new MenuIcon("Social", "people_regular"), new SocialPanelView() },
+            { new MenuIcon("Settings", "settings_regular"), new SettingsView() },
         };
 
         public MainViewModel()
