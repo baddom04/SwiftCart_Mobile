@@ -13,5 +13,5 @@
         ExtendClientAreaToDecorationsHint="True"
         WindowStartupLocation="CenterScreen"
         Background="{DynamicResource MainBG}">
-      <views:MainView />
+      <views:MainView x:Name="MainView"/>
 </Window>

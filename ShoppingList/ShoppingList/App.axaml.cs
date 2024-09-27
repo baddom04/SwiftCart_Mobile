@@ -8,7 +8,8 @@ namespace ShoppingList
 {
     public partial class App : Application
     {
-        public static User CurrentUser { get; set; }
+        public static User CurrentUser { get; private set; }
+        public static MainView MainView { get; private set; }
         public override void Initialize()
         {
             AvaloniaXamlLoader.Load(this);
@@ -19,10 +20,12 @@ namespace ShoppingList
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 desktop.MainWindow = new MainWindow();
+                MainView = (desktop.MainWindow as MainWindow)!.MainView;
             }
             else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
             {
-                singleViewPlatform.MainView = new MainView();
+                MainView = new MainView();
+                singleViewPlatform.MainView = MainView;
             }
 
             CurrentUser = new("Batki Domonkos", "Domika", "domonkosbatki98@gmail.com");

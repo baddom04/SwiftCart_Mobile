@@ -2,6 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using ShoppingList.Models;
 using ShoppingList.ViewModels;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -9,8 +10,6 @@ namespace ShoppingList.Views;
 
 public partial class GroceryListView : UserControl
 {
-    public bool _confirmation;
-
     private GroceryListViewModel viewModel;
     public GroceryListView()
     {
@@ -43,30 +42,20 @@ public partial class GroceryListView : UserControl
 
         return true;
     }
-    private async void Delete_Click(object? sender, RoutedEventArgs e)
+    private void Delete_Click(object? sender, RoutedEventArgs e)
     {
         if (sender is not Button btn || btn.Tag is null || btn.Tag is not ShoppingItemDisplay item) return;
 
-        DialogOverlay.IsVisible = true;
-
-        while (DialogOverlay.IsVisible) await Task.Delay(100);
-
-        if (_confirmation)
+        Action<bool> action = (b) =>
         {
-            // TODO: send notification to users
-            item.Editing -= viewModel.OnEditing;
-            viewModel.ShoppingList.Remove(item);
-        }
-    }
-    private void Confirm_Click(object? sender, RoutedEventArgs e)
-    {
-        _confirmation = true;
-        DialogOverlay.IsVisible = false;
-    }
-    private void Cancel_Click(object? sender, RoutedEventArgs e)
-    {
-        _confirmation = false;
-        DialogOverlay.IsVisible = false;
+            if (b)
+            {
+                // TODO: send notification to users
+                item.Editing -= viewModel.OnEditing;
+                viewModel.ShoppingList.Remove(item);
+            }
+        };
+        App.MainView.ShowConfirmDialog("Are you sure you want to delete this item?", action);
     }
     private void Bought_Click(object? sender, RoutedEventArgs e)
     {
