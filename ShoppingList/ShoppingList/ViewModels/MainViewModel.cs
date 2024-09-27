@@ -3,10 +3,11 @@ using ShoppingList.Models;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reactive.Linq;
 
 namespace ShoppingList.ViewModels
 {
-    internal class MainViewModel : ViewModelBase
+    public class MainViewModel : ViewModelBase
     {
         private ViewModelBase _currentPage;
         public ViewModelBase CurrentPage
@@ -26,7 +27,6 @@ namespace ShoppingList.ViewModels
                 CurrentPage = Menus[value];
             }
         }
-
         public ObservableCollection<MenuItem> MenuItems { get; }
 
         public Dictionary<MenuItem, ViewModelBase> Menus { get; } = new Dictionary<MenuItem, ViewModelBase>
@@ -36,6 +36,7 @@ namespace ShoppingList.ViewModels
             { new MenuItem("Social", "people_regular"), new SocialPanelViewModel() },
             { new MenuItem("Settings", "settings_regular"), new SettingsViewModel() },
         };
+
         public MainViewModel()
         {
             MenuItems = [.. Menus.Select(item => item.Key)];

@@ -4,7 +4,7 @@ using Avalonia.Media;
 
 namespace ShoppingList.Models
 {
-    internal class MenuItem
+    public class MenuItem
     {
         public string Title { get; }
         public StreamGeometry Icon { get; }

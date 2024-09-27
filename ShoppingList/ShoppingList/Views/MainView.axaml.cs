@@ -1,5 +1,7 @@
 using Avalonia.Controls;
 using ShoppingList.ViewModels;
+using ReactiveUI;
+using Avalonia.ReactiveUI;
 
 namespace ShoppingList.Views
 {
@@ -8,7 +10,6 @@ namespace ShoppingList.Views
         public MainView()
         {
             InitializeComponent();
-
             DataContext = new MainViewModel();
         }
     }
