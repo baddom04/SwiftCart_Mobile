@@ -101,16 +101,23 @@
                       </Button>
 
                       <!--Edit button-->
-                      <Button Classes="shopping_list_button" Command="{Binding EditCommand}">
+                      <Button Classes="shopping_list_button" Command="{Binding EditCommand}" IsVisible="{Binding IsOwner}">
                         <PathIcon Data="{StaticResource edit_regular}"
                                   Classes="white_foreground"/>
                       </Button>
 
+                      <!--Add comment button-->
+                      <Button Classes="shopping_list_button" Click="Delete_Click" Tag="{Binding}">
+                        <PathIcon Data="{StaticResource comment_add_regular}"
+                                  Classes="white_foreground"/>
+                      </Button>
+                      
                       <!--Delete button-->
                       <Button Classes="red shopping_list_button" Click="Delete_Click" Tag="{Binding}">
                         <PathIcon Data="{StaticResource delete_regular}"
                                   Classes="white_foreground"/>
                       </Button>
+
 
                     </StackPanel>
                   </Grid>

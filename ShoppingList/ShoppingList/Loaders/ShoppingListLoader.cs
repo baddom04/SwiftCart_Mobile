@@ -1,14 +1,13 @@
 ﻿using ShoppingList.Models;
 using ShoppingList.Utils;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text.Json;
 
 namespace ShoppingList.Loaders
 {
     internal static class ShoppingListLoader
     {
-        private readonly static JsonSerializerOptions options = new() { WriteIndented = true };
+        private readonly static JsonSerializerOptions options = new() { WriteIndented = true, DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull };
         private readonly static string _shoppingListPath = "shopping_list.json";
         public static List<ShoppingItem> LoadShoppingList()
         {

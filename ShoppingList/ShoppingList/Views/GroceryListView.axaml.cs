@@ -2,15 +2,13 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using ShoppingList.Models;
 using ShoppingList.ViewModels;
-using System;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ShoppingList.Views;
 
 public partial class GroceryListView : UserControl
 {
-    private GroceryListViewModel viewModel;
+    private readonly GroceryListViewModel viewModel;
     public GroceryListView()
     {
         InitializeComponent();
@@ -46,7 +44,7 @@ public partial class GroceryListView : UserControl
     {
         if (sender is not Button btn || btn.Tag is null || btn.Tag is not ShoppingItemDisplay item) return;
 
-        Action<bool> action = (b) =>
+        void action(bool b)
         {
             if (b)
             {
@@ -54,7 +52,7 @@ public partial class GroceryListView : UserControl
                 item.Editing -= viewModel.OnEditing;
                 viewModel.ShoppingList.Remove(item);
             }
-        };
+        }
         App.MainView.ShowConfirmDialog("Are you sure you want to delete this item?", action);
     }
     private void Bought_Click(object? sender, RoutedEventArgs e)

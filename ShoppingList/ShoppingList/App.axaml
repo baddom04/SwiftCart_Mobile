@@ -19,7 +19,7 @@
 
   <Application.Styles>
     <FluentTheme />
-    <StyleInclude Source="avares://ShoppingList/Styles/Icons.axaml"/>
+    <StyleInclude Source="avares://ShoppingList/Resources/Icons.axaml"/>
     <StyleInclude Source="avares://ShoppingList/Styles/Styles.axaml"/>
   </Application.Styles>
 

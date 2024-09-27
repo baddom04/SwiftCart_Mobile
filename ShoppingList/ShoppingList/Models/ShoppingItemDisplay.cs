@@ -20,6 +20,7 @@ namespace ShoppingList.Models
             set { this.RaiseAndSetIfChanged(ref _isExpanded, value); }
         }
 
+        public bool IsOwner => App.CurrentUser.Equals(Item.Owner);
         public string QuantityDisplay => Item.Quantity + " " + Item.Unit.ToString();
         public ReactiveCommand<Unit, bool> ToggleExpandedCommand { get; }
         public ReactiveCommand<Unit, Unit> EditCommand { get; }

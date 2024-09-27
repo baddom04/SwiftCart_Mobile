@@ -59,7 +59,7 @@
       <Setter Property="Background" Value="{StaticResource MainBtnPressedBG}"/>
     </Style>
     <Style Selector="^.shopping_list_button">
-      <Setter Property="Width" Value="100"/>
+      <Setter Property="Width" Value="50"/>
     </Style>
     <Style Selector="^.green /template/ ContentPresenter">
       <Setter Property="Background" Value="{StaticResource GreenButtonBG}"/>
