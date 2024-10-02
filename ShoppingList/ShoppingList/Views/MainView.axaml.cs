@@ -19,5 +19,11 @@ namespace ShoppingList.Views
             MainGrid.Children.Add(cv);
             return cv.ShowDialog();
         }
+        public Task<string> ShowTextInputDialog(string instruction, Func<string, bool> validateInput)
+        {
+            TextInputView tiv = new(instruction, validateInput);
+            MainGrid.Children.Add(tiv);
+            return tiv.ShowDialog();
+        }
     }
 }

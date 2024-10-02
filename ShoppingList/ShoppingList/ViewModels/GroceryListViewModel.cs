@@ -38,6 +38,8 @@ namespace ShoppingList.ViewModels
 
         public ReactiveCommand<Unit, Unit> InputModeOnCommand { get; }
         public ReactiveCommand<Unit, Unit> InputModeOffCommand { get; }
+        public ReactiveCommand<ShoppingItemDisplay, Unit> DeleteItemCommand { get; }
+        public ReactiveCommand<ShoppingItemDisplay, Unit> BoughtItemCommand { get; }
         public GroceryListViewModel()
         {
             InputMode = false;
@@ -53,6 +55,8 @@ namespace ShoppingList.ViewModels
 
             InputModeOnCommand = ReactiveCommand.Create(() => OnInputModeOn(ShoppingItem.Empty, -1));
             InputModeOffCommand = ReactiveCommand.Create(OnInputModeOff);
+            DeleteItemCommand = ReactiveCommand.Create<ShoppingItemDisplay>(DeleteItem);
+            BoughtItemCommand = ReactiveCommand.Create<ShoppingItemDisplay>(Boughtitem);
         }
         private void OnInputModeOn(ShoppingItem item, int index)
         {
@@ -83,6 +87,21 @@ namespace ShoppingList.ViewModels
         internal void OnEditing(ShoppingItemDisplay display)
         {
             OnInputModeOn((display.Item.Clone() as ShoppingItem)!, ShoppingList.IndexOf(display));
+        }
+
+        internal async void DeleteItem(ShoppingItemDisplay item)
+        {
+            bool result = await App.MainView!.ShowConfirmDialog("Are you sure you want to delete this item?");
+
+            if (!result) return;
+
+            item.Editing -= OnEditing;
+            ShoppingList.Remove(item);
+        }
+        internal void Boughtitem(ShoppingItemDisplay item)
+        {
+            item.Editing -= OnEditing;
+            ShoppingList.Remove(item);
         }
     }
 }

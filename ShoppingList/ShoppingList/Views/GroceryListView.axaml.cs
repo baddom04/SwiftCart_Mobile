@@ -38,27 +38,6 @@ public partial class GroceryListView : UserControl
 
         return true;
     }
-    private async void Delete_Click(object? sender, RoutedEventArgs e)
-    {
-        if (sender is not Button btn || btn.Tag is null || btn.Tag is not ShoppingItemDisplay item) return;
-
-        bool result = await App.MainView!.ShowConfirmDialog("Are you sure you want to delete this item?");
-
-        if (!result) return;
-
-        // TODO: send notification to users on this household
-        item.Editing -= viewModel.OnEditing;
-        viewModel.ShoppingList.Remove(item);
-    }
-    private void Bought_Click(object? sender, RoutedEventArgs e)
-    {
-        if (sender is not Button btn || btn.Tag is null || btn.Tag is not ShoppingItemDisplay item) return;
-
-        // TODO: send notification to users on this household
-        item.Editing -= viewModel.OnEditing;
-        viewModel.ShoppingList.Remove(item);
-    }
-
     private void OnTextChanged(object? sender, TextChangedEventArgs e)
     {
         if (sender is not TextBox textBox || textBox.Text is null) return;
