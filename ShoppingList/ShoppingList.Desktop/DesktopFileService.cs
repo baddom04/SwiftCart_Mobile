@@ -18,7 +18,7 @@ namespace ShoppingList.Desktop
             if(string.IsNullOrWhiteSpace(filePath)) return null;
 
             string path = Path.Combine(_folderPath, filePath);
-            return File.ReadAllText(path);
+            return File.Exists(path) ? File.ReadAllText(path) : null;
         }
 
         public bool SaveFile(string filePath, string content)

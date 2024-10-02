@@ -40,36 +40,38 @@ namespace ShoppingList.ViewModels
         public ReactiveCommand<Unit, Unit> InputModeOffCommand { get; }
         public ReactiveCommand<ShoppingItemDisplay, Unit> DeleteItemCommand { get; }
         public ReactiveCommand<ShoppingItemDisplay, Unit> BoughtItemCommand { get; }
+        public ReactiveCommand<ShoppingItemDisplay, Unit> AddCommentCommand { get; }
         public GroceryListViewModel()
         {
             InputMode = false;
             _currentlyEditedItem = ShoppingItem.Empty;
             CurrentlyEditedItemIndex = -1;
 
-            _errorMessage = "";
+            _errorMessage = string.Empty;
             Units = [.. (UnitType[])Enum.GetValues(typeof(UnitType))];
 
             ShoppingList = [.. ShoppingListLoader.LoadShoppingList().Select(item => new ShoppingItemDisplay(item))];
-            ShoppingList.CollectionChanged += (_, _) => ShoppingListLoader.SaveShoppingList([.. ShoppingList.Select(display => display.Item)]);
+            ShoppingList.CollectionChanged += (_, _) => ShoppingListLoader.SaveShoppingList(ShoppingList);
             ShoppingList.ToList().ForEach(display => display.Editing += OnEditing);
 
             InputModeOnCommand = ReactiveCommand.Create(() => OnInputModeOn(ShoppingItem.Empty, -1));
             InputModeOffCommand = ReactiveCommand.Create(OnInputModeOff);
             DeleteItemCommand = ReactiveCommand.Create<ShoppingItemDisplay>(DeleteItem);
             BoughtItemCommand = ReactiveCommand.Create<ShoppingItemDisplay>(Boughtitem);
+            AddCommentCommand = ReactiveCommand.Create<ShoppingItemDisplay>(AddComment);
         }
+
         private void OnInputModeOn(ShoppingItem item, int index)
         {
             CurrentlyEditedItem = item;
             CurrentlyEditedItemIndex = index;
+            ErrorMessage = string.Empty;
             InputMode = true;
         }
         private void OnInputModeOff()
         {
             InputMode = false;
-            ErrorMessage = string.Empty;
         }
-
         internal void Save()
         {
             ShoppingItemDisplay newDisplay = new(CurrentlyEditedItem);
@@ -78,18 +80,20 @@ namespace ShoppingList.ViewModels
             if (CurrentlyEditedItemIndex < 0)
                 ShoppingList.Add(newDisplay);
             else
+            {
+                ShoppingList[CurrentlyEditedItemIndex].Editing -= OnEditing;
                 ShoppingList[CurrentlyEditedItemIndex] = newDisplay;
+            }
 
             InputMode = false;
 
-            ShoppingListLoader.SaveShoppingList([.. ShoppingList.Select(display => display.Item)]);
+            ShoppingListLoader.SaveShoppingList(ShoppingList);
         }
         internal void OnEditing(ShoppingItemDisplay display)
         {
             OnInputModeOn((display.Item.Clone() as ShoppingItem)!, ShoppingList.IndexOf(display));
         }
-
-        internal async void DeleteItem(ShoppingItemDisplay item)
+        private async void DeleteItem(ShoppingItemDisplay item)
         {
             bool result = await App.MainView!.ShowConfirmDialog("Are you sure you want to delete this item?");
 
@@ -98,10 +102,16 @@ namespace ShoppingList.ViewModels
             item.Editing -= OnEditing;
             ShoppingList.Remove(item);
         }
-        internal void Boughtitem(ShoppingItemDisplay item)
+        private void Boughtitem(ShoppingItemDisplay item)
         {
             item.Editing -= OnEditing;
             ShoppingList.Remove(item);
+        }
+        private async void AddComment(ShoppingItemDisplay display)
+        {
+            string comment = await App.MainView!.ShowTextInputDialog("Comment:", (input) => !string.IsNullOrWhiteSpace(input));
+            display.Item.Comments.Add(new Comment(App.CurrentUser!, comment));
+            ShoppingListLoader.SaveShoppingList(ShoppingList);
         }
     }
 }

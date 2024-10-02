@@ -15,6 +15,7 @@ public partial class TextInputView : UserControl
         Instruction.Text = instruction;
         _validateInput = validateInput;
         Input.Text = string.Empty;
+        Input.Focus();
     }
     public Task<string> ShowDialog()
     {
@@ -30,7 +31,12 @@ public partial class TextInputView : UserControl
         DialogOverlay.IsVisible = false;
         _tcs.SetResult(Input.Text!);
     }
-
+    private void Cancel_Click(object? sender, RoutedEventArgs e)
+    {
+        if (_tcs is null || !DialogOverlay.IsVisible) throw new Exception("This should not happen :(");
+        DialogOverlay.IsVisible = false;
+        _tcs.SetResult(string.Empty);
+    }
     private void OnTextChanged(object? sender, TextChangedEventArgs e)
     {
         SendInputBtn.IsEnabled = _validateInput(Input.Text!);

@@ -3,13 +3,18 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:ShoppingList.ViewModels"
+             xmlns:converters="clr-namespace:ShoppingList.Converters"
              mc:Ignorable="d" d:DesignWidth="405" d:DesignHeight="900"
              x:Class="ShoppingList.Views.GroceryListView"
              x:DataType="vm:GroceryListViewModel"
              Background="{StaticResource MainBG}">
+  <UserControl.Resources>
+    <converters:CommentConverter x:Key="CommentConverter"/>
+    <converters:DescriptionConverter x:Key="DescriptionConverter"/>
+  </UserControl.Resources>
 
   <Grid RowDefinitions="Auto, *">
-    
+
     <!--Form popup-->
     <Border ZIndex="1"
             Background="#80000000"
@@ -85,14 +90,24 @@
 
                   </StackPanel>
 
-                  <Grid Grid.Row="1" Grid.ColumnSpan="4" IsVisible="{Binding IsExpanded}" RowDefinitions="Auto, Auto">
+                  <Grid Grid.Row="1" Grid.ColumnSpan="4" IsVisible="{Binding IsExpanded}" RowDefinitions="Auto, Auto, Auto">
 
                     <!--Description-->
-                    <TextBlock Grid.Row="0" IsVisible="{Binding Item.Description, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
-                               Text="{Binding Item.Description}" Classes="mini" Margin="10" TextWrapping="Wrap"/>
+                    <TextBlock Text="{Binding Item.Description, Converter={StaticResource DescriptionConverter}}"
+                                     Classes="mini" TextWrapping="Wrap" Margin="10"/>
+
+                    <!--Comments-->
+                    <ItemsControl Grid.Row="1" ItemsSource="{Binding Item.Comments}">
+                      <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                          <TextBlock Text="{Binding, Converter={StaticResource CommentConverter}}"
+                                     Classes="mini" TextWrapping="Wrap" Margin="10"/>
+                        </DataTemplate>
+                      </ItemsControl.ItemTemplate>
+                    </ItemsControl>
 
                     <!--Action buttons-->
-                    <StackPanel Grid.Row="1" Orientation="Horizontal" Spacing="15" Margin="10 10 10 0" HorizontalAlignment="Center">
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="15" Margin="10 10 10 0" HorizontalAlignment="Center">
 
                       <!--Bought button-->
                       <Button Classes="green shopping_list_button" Command="{Binding $parent[UserControl].((vm:GroceryListViewModel)DataContext).BoughtItemCommand}" CommandParameter="{Binding}">
@@ -107,11 +122,11 @@
                       </Button>
 
                       <!--Add comment button-->
-                      <Button Classes="shopping_list_button">
+                      <Button Classes="shopping_list_button" Command="{Binding $parent[UserControl].((vm:GroceryListViewModel)DataContext).AddCommentCommand}"  CommandParameter="{Binding}">
                         <PathIcon Data="{StaticResource comment_add_regular}"
                                   Classes="white_foreground"/>
                       </Button>
-                      
+
                       <!--Delete button-->
                       <Button Classes="red shopping_list_button" Command="{Binding $parent[UserControl].((vm:GroceryListViewModel)DataContext).DeleteItemCommand}"  CommandParameter="{Binding}">
                         <PathIcon Data="{StaticResource delete_regular}"
@@ -126,38 +141,6 @@
             </DataTemplate>
           </ItemsControl.ItemTemplate>
         </ItemsControl>
-
-        <!--InputForm--><!--
-        <StackPanel Grid.Row="1" Spacing="10" IsVisible="{Binding InputMode}" Margin="20 0">
-          <Grid ColumnDefinitions="*, Auto, Auto" RowDefinitions="Auto, Auto">
-            <TextBox Grid.Row="0" Grid.Column="0" x:Name="ItemName" Text="{Binding CurrentlyEditedItem.Name}" Watermark="Your item's name" MaxLength="34" TextWrapping="Wrap"/>
-            <TextBox Grid.Row="0" Grid.Column="1" x:Name="ItemQuantity" Text="{Binding CurrentlyEditedItem.Quantity}" Watermark="123" MaxLength="3" TextChanged="OnTextChanged"/>
-            <ComboBox Grid.Row="0" Grid.Column="2" x:Name="ItemUnit" ItemsSource="{Binding Units}" SelectedItem="{Binding CurrentlyEditedItem.Unit}" VerticalAlignment="Stretch"/>
-            <TextBox Grid.Row="1" Grid.ColumnSpan="3" x:Name="ItemDescription" Text="{Binding CurrentlyEditedItem.Description}" Watermark="This is an optional description for your item" TextWrapping="Wrap"/>
-          </Grid>
-
-          --><!--ErrorMessage--><!--
-          <TextBlock Classes="error" x:Name="ErrorMessage"/>
-
-          --><!--Button panel--><!--
-          <StackPanel Orientation="Horizontal" Spacing="15" HorizontalAlignment="Center">
-
-            --><!--Confirm button--><!--
-            <Button Classes="shopping_list_button" Click="Save_Click">
-              <PathIcon Data="{StaticResource checkmark_regular}"
-                        Classes="white_foreground"/>
-            </Button>
-
-            --><!--Dismiss button--><!--
-            <Button Classes="shopping_list_button" Command="{Binding InputModeOffCommand}">
-              <PathIcon Data="{StaticResource dismiss_regular}"
-                        Classes="white_foreground"/>
-            </Button>
-
-          </StackPanel>
-          
-        </StackPanel>-->
-
 
         <!--Add Button-->
         <Button Grid.Row="2" IsVisible="{Binding !InputMode}" HorizontalAlignment="Center" Classes="shopping_list_button" Command="{Binding InputModeOnCommand}">

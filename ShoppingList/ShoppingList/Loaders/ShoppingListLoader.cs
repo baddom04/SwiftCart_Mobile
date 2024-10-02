@@ -1,6 +1,8 @@
 ﻿using ShoppingList.Models;
 using ShoppingList.Utils;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text.Json;
 
 namespace ShoppingList.Loaders
@@ -22,13 +24,15 @@ namespace ShoppingList.Loaders
             }
             catch
             {
-                return [];
+                throw;
+                //return [];
             }
         }
 
-        public static void SaveShoppingList(List<ShoppingItem> shoppingList)
+        public static void SaveShoppingList(ObservableCollection<ShoppingItemDisplay> shoppingList)
         {
-            string jsonContent = JsonSerializer.Serialize(shoppingList, options);
+            List<ShoppingItem> list = shoppingList.Select(display => display.Item).ToList();
+            string jsonContent = JsonSerializer.Serialize(list, options);
 
             IFileService fileService = ServiceProvider.Resolve<IFileService>();
             fileService.SaveFile(_shoppingListPath, jsonContent);
