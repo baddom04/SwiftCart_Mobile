@@ -18,11 +18,9 @@ public partial class GroceryListView : UserControl
 
     private void Save_Click(object? sender, RoutedEventArgs e)
     {
-        if (sender is not Button) return;
-        if (Validate())
-        {
-            viewModel.Save();
-        }
+        if (sender is not Button || !Validate()) return;
+
+        viewModel.Save();
     }
 
     private bool Validate()
@@ -40,26 +38,23 @@ public partial class GroceryListView : UserControl
 
         return true;
     }
-    private void Delete_Click(object? sender, RoutedEventArgs e)
+    private async void Delete_Click(object? sender, RoutedEventArgs e)
     {
         if (sender is not Button btn || btn.Tag is null || btn.Tag is not ShoppingItemDisplay item) return;
 
-        void action(bool b)
-        {
-            if (b)
-            {
-                // TODO: send notification to users
-                item.Editing -= viewModel.OnEditing;
-                viewModel.ShoppingList.Remove(item);
-            }
-        }
-        App.MainView.ShowConfirmDialog("Are you sure you want to delete this item?", action);
+        bool result = await App.MainView!.ShowConfirmDialog("Are you sure you want to delete this item?");
+
+        if (!result) return;
+
+        // TODO: send notification to users on this household
+        item.Editing -= viewModel.OnEditing;
+        viewModel.ShoppingList.Remove(item);
     }
     private void Bought_Click(object? sender, RoutedEventArgs e)
     {
         if (sender is not Button btn || btn.Tag is null || btn.Tag is not ShoppingItemDisplay item) return;
 
-        // TODO: send notification to users
+        // TODO: send notification to users on this household
         item.Editing -= viewModel.OnEditing;
         viewModel.ShoppingList.Remove(item);
     }
