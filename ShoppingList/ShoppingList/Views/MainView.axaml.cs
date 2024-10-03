@@ -1,8 +1,11 @@
+using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Interactivity;
 using Avalonia.LogicalTree;
+using Avalonia.Media;
 using ShoppingList.ViewModels;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ShoppingList.Views
@@ -13,6 +16,7 @@ namespace ShoppingList.Views
         {
             InitializeComponent();
             DataContext = new MainViewModel();
+            Loaded += (_, _) => SetMenuIconColors(MainMenu);
         }
         public Task<bool> ShowConfirmDialog(string question)
         {
@@ -27,17 +31,32 @@ namespace ShoppingList.Views
             return tiv.ShowDialog();
         }
 
-        private void ListBox_SelectionChanged(object? sender, Avalonia.Controls.SelectionChangedEventArgs e)
+        private void ListBox_SelectionChanged(object? sender, SelectionChangedEventArgs e)
         {
             if (sender is not ListBox listBox) return;
+
+            SetMenuIconColors(listBox);
+        }
+        private static void SetMenuIconColors(ListBox listBox)
+        {
             foreach (var item in listBox.GetLogicalChildren())
             {
-                var vmi2 = (item as ListBoxItem)!.Content;
-                if(vmi2 == listBox.SelectedItem)
+                if ((item as ListBoxItem)!.Content == listBox.SelectedItem)
                 {
-                    PathIcon vmi = (item.GetLogicalChildren() as PathIcon)!;
+                    SetColorToPathIcon(item, "MainBtnBG");
+                }
+                else
+                {
+                    SetColorToPathIcon(item, "MainFG");
                 }
             }
+        }
+        private static void SetColorToPathIcon(ILogical item, string resKey)
+        {
+            SolidColorBrush? brush = Application.Current!.FindResource(resKey) as SolidColorBrush;
+            if (brush is null) return;
+
+            (item.GetLogicalChildren().First() as PathIcon)!.Foreground = brush;
         }
     }
 }

@@ -12,6 +12,7 @@
 
       <!--Menu-->
       <ListBox ItemsSource="{Binding MenuItems}"
+               x:Name="MainMenu"
                DockPanel.Dock="Bottom"
                Background="{DynamicResource SecBG}"
                SelectedItem="{Binding SelectedMenuItem}"
