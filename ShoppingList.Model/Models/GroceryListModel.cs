@@ -93,7 +93,7 @@ namespace ShoppingList.Model.Models
         public GroceryListModel()
         {
             ShoppingList = [.. ShoppingListPersistor.LoadShoppingList()];
-            ShoppingList.CollectionChanged += (_, _) => ShoppingListPersistor.SaveShoppingList(ShoppingList);
+            ShoppingList.CollectionChanged += (_, _) => Save();
 
             UnitTypes = [.. (UnitType[])Enum.GetValues(typeof(UnitType))] ;
         }
@@ -108,6 +108,11 @@ namespace ShoppingList.Model.Models
         public void AddComment(ShoppingItem item, User user, string comment)
         {
             item.Comments.Add(new Comment(user, comment));
+            Save();
+        }
+        private void Save()
+        {
+            ShoppingListPersistor.SaveShoppingList(ShoppingList);
         }
         #endregion
     }

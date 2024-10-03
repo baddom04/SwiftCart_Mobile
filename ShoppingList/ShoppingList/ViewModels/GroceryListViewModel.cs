@@ -11,6 +11,7 @@ namespace ShoppingList.ViewModels
 {
     internal class GroceryListViewModel : ViewModelBase
     {
+        #region Properties
         public GroceryListModel Model { get; }
 
         private List<ShoppingItemDisplay> _shoppingList;
@@ -18,6 +19,13 @@ namespace ShoppingList.ViewModels
         {
             get { return _shoppingList; }
             set { this.RaiseAndSetIfChanged(ref _shoppingList, value); }
+        }
+
+        private ShoppingItemDisplay _selectedDisplay;
+        public ShoppingItemDisplay SelectedDisplay
+        {
+            get { return _selectedDisplay; }
+            set { this.RaiseAndSetIfChanged(ref _selectedDisplay, value); }
         }
 
         private bool _inputMode;
@@ -40,12 +48,16 @@ namespace ShoppingList.ViewModels
             get { return _currentlyEditedItem; }
             set { this.RaiseAndSetIfChanged(ref _currentlyEditedItem, value); }
         }
+        #endregion
+
+        #region Commands
         public ReactiveCommand<Unit, Unit> InputModeOnCommand { get; }
         public ReactiveCommand<Unit, Unit> SaveCommand { get; }
         public ReactiveCommand<Unit, Unit> InputModeOffCommand { get; }
         public ReactiveCommand<ShoppingItemDisplay, Unit> DeleteItemCommand { get; }
         public ReactiveCommand<ShoppingItemDisplay, Unit> BoughtItemCommand { get; }
         public ReactiveCommand<ShoppingItemDisplay, Unit> AddCommentCommand { get; }
+        #endregion
         public GroceryListViewModel()
         {
             Model = new();

@@ -64,7 +64,8 @@
     <ScrollViewer Grid.Row="1">
       <Grid RowDefinitions="Auto, Auto, Auto">
         <!--List-->
-        <ItemsControl Grid.Row="0" ItemsSource="{Binding ShoppingList}" Margin="20">
+        <ItemsControl Grid.Row="0" 
+                      ItemsSource="{Binding ShoppingList}" Margin="20">
           <ItemsControl.ItemTemplate>
             <DataTemplate>
               <!--ItemDisplay-->
