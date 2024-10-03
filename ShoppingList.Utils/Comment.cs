@@ -1,4 +1,4 @@
-﻿namespace ShoppingList.Models
+﻿namespace ShoppingList.Utils
 {
     public class Comment(User user, string text)
     {

@@ -3,15 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35303.130
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingList", "ShoppingList\ShoppingList\ShoppingList.csproj", "{118E3B90-D473-44BC-8DC2-38383B874ADF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoppingList", "ShoppingList\ShoppingList\ShoppingList.csproj", "{118E3B90-D473-44BC-8DC2-38383B874ADF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingList.Android", "ShoppingList\ShoppingList.Android\ShoppingList.Android.csproj", "{3F34A750-3BA6-4521-BE3C-210ED21F2233}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoppingList.Android", "ShoppingList\ShoppingList.Android\ShoppingList.Android.csproj", "{3F34A750-3BA6-4521-BE3C-210ED21F2233}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingList.Desktop", "ShoppingList\ShoppingList.Desktop\ShoppingList.Desktop.csproj", "{323F4A5F-B070-40DC-86FE-28BA6F34F409}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoppingList.Desktop", "ShoppingList\ShoppingList.Desktop\ShoppingList.Desktop.csproj", "{323F4A5F-B070-40DC-86FE-28BA6F34F409}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingList.iOS", "ShoppingList\ShoppingList.iOS\ShoppingList.iOS.csproj", "{5BC14A7B-0044-4682-8BF4-424C2FB299F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoppingList.iOS", "ShoppingList\ShoppingList.iOS\ShoppingList.iOS.csproj", "{5BC14A7B-0044-4682-8BF4-424C2FB299F6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingList.Browser", "ShoppingList\ShoppingList.Browser\ShoppingList.Browser.csproj", "{77398E86-9920-4979-AA89-DD2E1F73AF46}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoppingList.Browser", "ShoppingList\ShoppingList.Browser\ShoppingList.Browser.csproj", "{77398E86-9920-4979-AA89-DD2E1F73AF46}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingList.Model", "ShoppingList.Model\ShoppingList.Model.csproj", "{3CDC0228-950A-441E-97F0-B386AAF78DDF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingList.Persistor", "ShoppingList.Persistor\ShoppingList.Persistor.csproj", "{7D3FE2FA-DCF4-4851-A174-AA0FFACC5A18}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingList.Utils", "ShoppingList.Utils\ShoppingList.Utils.csproj", "{0DDCD251-6376-42C2-9993-F32BBE358D15}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +49,18 @@ Global
 		{77398E86-9920-4979-AA89-DD2E1F73AF46}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77398E86-9920-4979-AA89-DD2E1F73AF46}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77398E86-9920-4979-AA89-DD2E1F73AF46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CDC0228-950A-441E-97F0-B386AAF78DDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CDC0228-950A-441E-97F0-B386AAF78DDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CDC0228-950A-441E-97F0-B386AAF78DDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CDC0228-950A-441E-97F0-B386AAF78DDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D3FE2FA-DCF4-4851-A174-AA0FFACC5A18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D3FE2FA-DCF4-4851-A174-AA0FFACC5A18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D3FE2FA-DCF4-4851-A174-AA0FFACC5A18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D3FE2FA-DCF4-4851-A174-AA0FFACC5A18}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DDCD251-6376-42C2-9993-F32BBE358D15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DDCD251-6376-42C2-9993-F32BBE358D15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DDCD251-6376-42C2-9993-F32BBE358D15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DDCD251-6376-42C2-9993-F32BBE358D15}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

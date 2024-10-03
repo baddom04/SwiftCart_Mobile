@@ -41,7 +41,7 @@
           <StackPanel Orientation="Horizontal" Spacing="15" HorizontalAlignment="Center">
 
             <!--Confirm button-->
-            <Button Classes="shopping_list_button" Click="Save_Click" IsDefault="True">
+            <Button Classes="shopping_list_button" Command="{Binding SaveCommand}" IsDefault="True">
               <PathIcon Data="{StaticResource checkmark_regular}"
                         Classes="white_foreground mini"/>
             </Button>

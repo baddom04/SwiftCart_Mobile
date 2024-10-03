@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ShoppingList.Models
+﻿namespace ShoppingList.Utils
 {
     public class User(string userName, string nickName, string email) : ICloneable
     {
@@ -8,6 +6,7 @@ namespace ShoppingList.Models
         public string NickName { get; set; } = nickName;
         public string Email { get; set; } = email;
 
+        public static User Empty => new(string.Empty, string.Empty, string.Empty);
         public object Clone()
         {
             return new User(UserName, NickName, Email);

@@ -1,17 +1,13 @@
-﻿using ShoppingList.Models;
-using ShoppingList.Utils;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+﻿using ShoppingList.Utils;
 using System.Text.Json;
 
-namespace ShoppingList.Loaders
+namespace ShoppingList.Persistor
 {
-    internal static class ShoppingListLoader
+    public static class ShoppingListPersistor
     {
         private readonly static JsonSerializerOptions options = new() { WriteIndented = true, DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull };
         private readonly static string _shoppingListPath = "shopping_list.json";
-        public static List<ShoppingItem> LoadShoppingList()
+        public static IEnumerable<ShoppingItem> LoadShoppingList()
         {
             try
             {
@@ -19,7 +15,7 @@ namespace ShoppingList.Loaders
                 string? jsonString = fileService.ReadFile(_shoppingListPath);
                 if (jsonString is null) return [];
 
-                List<ShoppingItem>? shoppingList = JsonSerializer.Deserialize<List<ShoppingItem>>(jsonString);
+                IEnumerable<ShoppingItem>? shoppingList = JsonSerializer.Deserialize<List<ShoppingItem>>(jsonString);
                 return shoppingList ?? [];
             }
             catch
@@ -29,10 +25,9 @@ namespace ShoppingList.Loaders
             }
         }
 
-        public static void SaveShoppingList(ObservableCollection<ShoppingItemDisplay> shoppingList)
+        public static void SaveShoppingList(IEnumerable<ShoppingItem> shoppingList)
         {
-            List<ShoppingItem> list = shoppingList.Select(display => display.Item).ToList();
-            string jsonContent = JsonSerializer.Serialize(list, options);
+            string jsonContent = JsonSerializer.Serialize(shoppingList, options);
 
             IFileService fileService = ServiceProvider.Resolve<IFileService>();
             fileService.SaveFile(_shoppingListPath, jsonContent);

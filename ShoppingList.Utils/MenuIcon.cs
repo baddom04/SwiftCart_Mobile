@@ -2,7 +2,7 @@
 using Avalonia.Controls;
 using Avalonia.Media;
 
-namespace ShoppingList.Models
+namespace ShoppingList.Utils
 {
     public class MenuIcon
     {

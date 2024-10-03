@@ -1,6 +1,6 @@
-﻿namespace ShoppingList.Models
+﻿namespace ShoppingList.Utils
 {
-    internal enum UnitType
+    public enum UnitType
     {
         Pieces,
         Kilogram,

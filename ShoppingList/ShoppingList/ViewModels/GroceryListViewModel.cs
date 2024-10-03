@@ -1,16 +1,24 @@
 ﻿using ReactiveUI;
-using ShoppingList.Loaders;
-using ShoppingList.Models;
+using ShoppingList.Model.Models;
+using ShoppingList.Utils;
 using System;
-using System.Reactive;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Reactive;
 
 namespace ShoppingList.ViewModels
 {
     internal class GroceryListViewModel : ViewModelBase
     {
-        public ObservableCollection<ShoppingItemDisplay> ShoppingList { get; }
+        public GroceryListModel Model { get; }
+
+        private List<ShoppingItemDisplay> _shoppingList;
+        public List<ShoppingItemDisplay> ShoppingList
+        {
+            get { return _shoppingList; }
+            set { this.RaiseAndSetIfChanged(ref _shoppingList, value); }
+        }
 
         private bool _inputMode;
         public bool InputMode
@@ -19,75 +27,58 @@ namespace ShoppingList.ViewModels
             set { this.RaiseAndSetIfChanged(ref _inputMode, value); }
         }
 
-        private string _errorMessage;
-        public string ErrorMessage
+        private string? _errorMessage;
+        public string? ErrorMessage
         {
             get { return _errorMessage; }
             set { this.RaiseAndSetIfChanged(ref _errorMessage, value); }
         }
 
-        public ObservableCollection<UnitType> Units { get; }
-
-        private ShoppingItem _currentlyEditedItem;
-        public ShoppingItem CurrentlyEditedItem
+        private ShoppingItem? _currentlyEditedItem;
+        public ShoppingItem? CurrentlyEditedItem
         {
             get { return _currentlyEditedItem; }
             set { this.RaiseAndSetIfChanged(ref _currentlyEditedItem, value); }
         }
-        public int CurrentlyEditedItemIndex { get; set; }
-
         public ReactiveCommand<Unit, Unit> InputModeOnCommand { get; }
+        public ReactiveCommand<Unit, Unit> SaveCommand { get; }
         public ReactiveCommand<Unit, Unit> InputModeOffCommand { get; }
         public ReactiveCommand<ShoppingItemDisplay, Unit> DeleteItemCommand { get; }
         public ReactiveCommand<ShoppingItemDisplay, Unit> BoughtItemCommand { get; }
         public ReactiveCommand<ShoppingItemDisplay, Unit> AddCommentCommand { get; }
         public GroceryListViewModel()
         {
-            InputMode = false;
-            _currentlyEditedItem = ShoppingItem.Empty;
-            CurrentlyEditedItemIndex = -1;
+            Model = new();
+            Model.ErrorMessageChanged += (_, _) => ErrorMessage = Model.ErrorMessage;
+            Model.ShoppingList.CollectionChanged += ShoppingList_CollectionChanged; ;
+            Model.EditedItemChanged += (_, _) => CurrentlyEditedItem = Model.EditedItem?.Item;
 
-            _errorMessage = string.Empty;
-            Units = [.. (UnitType[])Enum.GetValues(typeof(UnitType))];
-
-            ShoppingList = [.. ShoppingListLoader.LoadShoppingList().Select(item => new ShoppingItemDisplay(item))];
-            ShoppingList.CollectionChanged += (_, _) => ShoppingListLoader.SaveShoppingList(ShoppingList);
+            _shoppingList = [.. Model.ShoppingList.Select(item => new ShoppingItemDisplay(item))];
             ShoppingList.ToList().ForEach(display => display.Editing += OnEditing);
 
             InputModeOnCommand = ReactiveCommand.Create(() => OnInputModeOn(ShoppingItem.Empty, -1));
+            SaveCommand = ReactiveCommand.Create(() => { Model.SaveEdit(); OnInputModeOff(); }); 
             InputModeOffCommand = ReactiveCommand.Create(OnInputModeOff);
             DeleteItemCommand = ReactiveCommand.Create<ShoppingItemDisplay>(DeleteItem);
             BoughtItemCommand = ReactiveCommand.Create<ShoppingItemDisplay>(Boughtitem);
             AddCommentCommand = ReactiveCommand.Create<ShoppingItemDisplay>(AddComment);
         }
 
+        private void ShoppingList_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            ShoppingList.ForEach(display => display.Editing -= OnEditing);
+            ShoppingList = [.. Model.ShoppingList.Select(item => new ShoppingItemDisplay(item))];
+            ShoppingList.ForEach(display => display.Editing += OnEditing);
+        }
+
         private void OnInputModeOn(ShoppingItem item, int index)
         {
-            CurrentlyEditedItem = item;
-            CurrentlyEditedItemIndex = index;
-            ErrorMessage = string.Empty;
+            Model.StartEdit(item, index);
             InputMode = true;
         }
         private void OnInputModeOff()
         {
             InputMode = false;
-        }
-        internal void Save()
-        {
-            ShoppingItemDisplay newDisplay = new(CurrentlyEditedItem);
-            newDisplay.Editing += OnEditing;
-
-            if (CurrentlyEditedItemIndex < 0)
-                ShoppingList.Add(newDisplay);
-            else
-            {
-                ShoppingList[CurrentlyEditedItemIndex].Editing -= OnEditing;
-                ShoppingList[CurrentlyEditedItemIndex] = newDisplay;
-            }
-
-            InputMode = false;
-
-            ShoppingListLoader.SaveShoppingList(ShoppingList);
         }
         internal void OnEditing(ShoppingItemDisplay display)
         {
@@ -99,20 +90,17 @@ namespace ShoppingList.ViewModels
 
             if (!result) return;
 
-            item.Editing -= OnEditing;
-            ShoppingList.Remove(item);
+            Model.DeleteItem(item.Item);
         }
         private void Boughtitem(ShoppingItemDisplay item)
         {
-            item.Editing -= OnEditing;
-            ShoppingList.Remove(item);
+            Model.DeleteItem(item.Item);
         }
         private async void AddComment(ShoppingItemDisplay display)
         {
             string? comment = await App.MainView!.ShowTextInputDialog("Comment:", (input) => !string.IsNullOrWhiteSpace(input));
             if (string.IsNullOrWhiteSpace(comment)) return;
-            display.Item.Comments.Add(new Comment(App.CurrentUser!, comment));
-            ShoppingListLoader.SaveShoppingList(ShoppingList);
+            Model.AddComment(display.Item, App.CurrentUser!, comment);
         }
     }
 }

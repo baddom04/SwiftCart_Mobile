@@ -1,8 +1,9 @@
 ﻿using ReactiveUI;
 using System;
 using System.Reactive;
+using ShoppingList.Utils;
 
-namespace ShoppingList.Models
+namespace ShoppingList.ViewModels
 {
     internal class ShoppingItemDisplay : ReactiveObject
     {
@@ -20,7 +21,7 @@ namespace ShoppingList.Models
             set { this.RaiseAndSetIfChanged(ref _isExpanded, value); }
         }
 
-        public bool IsOwner => App.CurrentUser.Equals(Item.Owner);
+        public bool IsOwner => App.CurrentUser!.Equals(Item.Owner);
         public string QuantityDisplay => Item.Quantity + " " + Item.Unit.ToString();
         public ReactiveCommand<Unit, bool> ToggleExpandedCommand { get; }
         public ReactiveCommand<Unit, Unit> EditCommand { get; }
@@ -29,7 +30,6 @@ namespace ShoppingList.Models
         public ShoppingItemDisplay(ShoppingItem item)
         {
             _item = item;
-            IsExpanded = false;
             ToggleExpandedCommand = ReactiveCommand.Create(() => IsExpanded = !IsExpanded);
             EditCommand = ReactiveCommand.Create(() => Editing?.Invoke(this));
         }

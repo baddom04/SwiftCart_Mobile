@@ -18,4 +18,9 @@
     <PackageReference Condition="'$(Configuration)' == 'Debug'" Include="Avalonia.Diagnostics" Version="$(AvaloniaVersion)" />
     <PackageReference Include="Avalonia.ReactiveUI" Version="$(AvaloniaVersion)" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\ShoppingList.Model\ShoppingList.Model.csproj" />
+    <ProjectReference Include="..\..\ShoppingList.Utils\ShoppingList.Utils.csproj" />
+  </ItemGroup>
 </Project>
