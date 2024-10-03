@@ -78,7 +78,7 @@ namespace ShoppingList.ViewModels
         }
         private void OnInputModeOff()
         {
-            InputMode = false;
+            InputMode = !Model.IsValidItem;
         }
         internal void OnEditing(ShoppingItemDisplay display)
         {

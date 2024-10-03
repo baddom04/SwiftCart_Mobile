@@ -30,7 +30,7 @@
           <Grid ColumnDefinitions="*, Auto, Auto" RowDefinitions="Auto, Auto">
             <TextBox Grid.Row="0" Grid.Column="0" Margin="2" x:Name="ItemName" Text="{Binding CurrentlyEditedItem.Name}" Watermark="Your item's name" MaxLength="34" TextWrapping="Wrap"/>
             <TextBox Grid.Row="0" Grid.Column="1" Margin="2" x:Name="ItemQuantity" Text="{Binding CurrentlyEditedItem.Quantity}" Watermark="123" MaxLength="3" TextChanged="OnTextChanged"/>
-            <ComboBox Grid.Row="0" Grid.Column="2" Margin="2" x:Name="ItemUnit" ItemsSource="{Binding Units}" SelectedItem="{Binding CurrentlyEditedItem.Unit}" VerticalAlignment="Stretch"/>
+            <ComboBox Grid.Row="0" Grid.Column="2" Margin="2" x:Name="ItemUnit" ItemsSource="{Binding Model.UnitTypes}" SelectedItem="{Binding CurrentlyEditedItem.Unit}" VerticalAlignment="Stretch"/>
             <TextBox Grid.Row="1" Grid.ColumnSpan="3" Margin="2" x:Name="ItemDescription" Text="{Binding CurrentlyEditedItem.Description}" Watermark="This is an optional description for your item" TextWrapping="Wrap"/>
           </Grid>
 
