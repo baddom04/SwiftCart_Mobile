@@ -16,7 +16,8 @@
                Background="{DynamicResource SecBG}"
                SelectedItem="{Binding SelectedMenuItem}"
                Margin="10"
-               CornerRadius="10">
+               CornerRadius="10"
+               SelectionChanged="ListBox_SelectionChanged">
         <ListBox.ItemsPanel>
           <ItemsPanelTemplate>
             <UniformGrid Rows="1"/>

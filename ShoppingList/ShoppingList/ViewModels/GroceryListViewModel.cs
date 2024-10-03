@@ -109,7 +109,8 @@ namespace ShoppingList.ViewModels
         }
         private async void AddComment(ShoppingItemDisplay display)
         {
-            string comment = await App.MainView!.ShowTextInputDialog("Comment:", (input) => !string.IsNullOrWhiteSpace(input));
+            string? comment = await App.MainView!.ShowTextInputDialog("Comment:", (input) => !string.IsNullOrWhiteSpace(input));
+            if (string.IsNullOrWhiteSpace(comment)) return;
             display.Item.Comments.Add(new Comment(App.CurrentUser!, comment));
             ShoppingListLoader.SaveShoppingList(ShoppingList);
         }

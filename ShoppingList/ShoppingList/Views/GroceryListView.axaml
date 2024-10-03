@@ -10,7 +10,6 @@
              Background="{StaticResource MainBG}">
   <UserControl.Resources>
     <converters:CommentConverter x:Key="CommentConverter"/>
-    <converters:DescriptionConverter x:Key="DescriptionConverter"/>
   </UserControl.Resources>
 
   <Grid RowDefinitions="Auto, *">
@@ -44,13 +43,13 @@
             <!--Confirm button-->
             <Button Classes="shopping_list_button" Click="Save_Click" IsDefault="True">
               <PathIcon Data="{StaticResource checkmark_regular}"
-                        Classes="white_foreground"/>
+                        Classes="white_foreground mini"/>
             </Button>
 
             <!--Dismiss button-->
             <Button Classes="shopping_list_button" Command="{Binding InputModeOffCommand}">
               <PathIcon Data="{StaticResource dismiss_regular}"
-                        Classes="white_foreground"/>
+                        Classes="white_foreground mini"/>
             </Button>
 
           </StackPanel>
@@ -85,7 +84,7 @@
                             Classes.animatedIn="{Binding IsExpanded}"
                             Classes.animatedOut="{Binding !IsExpanded}">
                       <PathIcon Data="{StaticResource chevron_down_regular}"
-                                Classes="white_foreground"/>
+                                Classes="white_foreground mini"/>
                     </Button>
 
                   </StackPanel>
@@ -93,7 +92,7 @@
                   <Grid Grid.Row="1" Grid.ColumnSpan="4" IsVisible="{Binding IsExpanded}" RowDefinitions="Auto, Auto, Auto">
 
                     <!--Description-->
-                    <TextBlock Text="{Binding Item.Description, Converter={StaticResource DescriptionConverter}}"
+                    <TextBlock Text="{Binding Item.Description}"
                                      Classes="mini" TextWrapping="Wrap" Margin="10"/>
 
                     <!--Comments-->
@@ -112,27 +111,26 @@
                       <!--Bought button-->
                       <Button Classes="green shopping_list_button" Command="{Binding $parent[UserControl].((vm:GroceryListViewModel)DataContext).BoughtItemCommand}" CommandParameter="{Binding}">
                         <PathIcon Data="{StaticResource money_regular}"
-                                  Classes="white_foreground"/>
+                                  Classes="white_foreground mini"/>
                       </Button>
 
                       <!--Edit button-->
                       <Button Classes="shopping_list_button" Command="{Binding EditCommand}" IsVisible="{Binding IsOwner}">
                         <PathIcon Data="{StaticResource edit_regular}"
-                                  Classes="white_foreground"/>
+                                  Classes="white_foreground mini"/>
                       </Button>
 
                       <!--Add comment button-->
                       <Button Classes="shopping_list_button" Command="{Binding $parent[UserControl].((vm:GroceryListViewModel)DataContext).AddCommentCommand}"  CommandParameter="{Binding}">
                         <PathIcon Data="{StaticResource comment_add_regular}"
-                                  Classes="white_foreground"/>
+                                  Classes="white_foreground mini"/>
                       </Button>
 
                       <!--Delete button-->
                       <Button Classes="red shopping_list_button" Command="{Binding $parent[UserControl].((vm:GroceryListViewModel)DataContext).DeleteItemCommand}"  CommandParameter="{Binding}">
                         <PathIcon Data="{StaticResource delete_regular}"
-                                  Classes="white_foreground"/>
+                                  Classes="white_foreground mini"/>
                       </Button>
-
 
                     </StackPanel>
                   </Grid>
@@ -145,7 +143,7 @@
         <!--Add Button-->
         <Button Grid.Row="2" IsVisible="{Binding !InputMode}" HorizontalAlignment="Center" Classes="shopping_list_button" Command="{Binding InputModeOnCommand}">
           <PathIcon Data="{StaticResource add_regular}"
-                    Classes="white_foreground"/>
+                    Classes="white_foreground mini"/>
         </Button>
 
       </Grid>

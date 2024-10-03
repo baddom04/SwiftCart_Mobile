@@ -8,7 +8,7 @@ namespace ShoppingList;
 public partial class TextInputView : UserControl
 {
     private readonly Func<string, bool> _validateInput;
-    private TaskCompletionSource<string>? _tcs;
+    private TaskCompletionSource<string?>? _tcs;
     public TextInputView(string instruction, Func<string, bool> validateInput)
     {
         InitializeComponent();
@@ -17,11 +17,11 @@ public partial class TextInputView : UserControl
         Input.Text = string.Empty;
         Input.Focus();
     }
-    public Task<string> ShowDialog()
+    public Task<string?> ShowDialog()
     {
         if (DialogOverlay.IsVisible) throw new Exception("A dialog overlay is already shown!");
 
-        _tcs = new TaskCompletionSource<string>();
+        _tcs = new TaskCompletionSource<string?>();
         DialogOverlay.IsVisible = true;
         return _tcs.Task;
     }
@@ -35,7 +35,7 @@ public partial class TextInputView : UserControl
     {
         if (_tcs is null || !DialogOverlay.IsVisible) throw new Exception("This should not happen :(");
         DialogOverlay.IsVisible = false;
-        _tcs.SetResult(string.Empty);
+        _tcs.SetResult(null);
     }
     private void OnTextChanged(object? sender, TextChangedEventArgs e)
     {
