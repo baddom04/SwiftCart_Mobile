@@ -25,7 +25,7 @@
               HorizontalAlignment="Center" VerticalAlignment="Center"
               Width="400" Height="250" ZIndex="2">
         <StackPanel Spacing="10" Margin="20">
-          <TextBlock Text="Add a new item!" Classes="h3" HorizontalAlignment="Center"/>
+          <TextBlock Text="{Binding ItemFormTitle}" Classes="h3" HorizontalAlignment="Center"/>
 
           <Grid ColumnDefinitions="*, Auto, Auto" RowDefinitions="Auto, Auto">
             <TextBox Grid.Row="0" Grid.Column="0" Margin="2" x:Name="ItemName" Text="{Binding CurrentlyEditedItem.Name}" Watermark="Your item's name" MaxLength="34" TextWrapping="Wrap"/>
@@ -41,7 +41,7 @@
           <StackPanel Orientation="Horizontal" Spacing="15" HorizontalAlignment="Center">
 
             <!--Confirm button-->
-            <Button Classes="shopping_list_button" Command="{Binding SaveCommand}" IsDefault="True">
+            <Button Classes="shopping_list_button" Command="{Binding SaveCommand}">
               <PathIcon Data="{StaticResource checkmark_regular}"
                         Classes="white_foreground mini"/>
             </Button>
@@ -69,7 +69,7 @@
           <ItemsControl.ItemTemplate>
             <DataTemplate>
               <!--ItemDisplay-->
-              <Border Classes="shopping_list_item">
+              <Border Classes="shopping_list_item" PointerPressed="Display_Click">
                 <Grid Margin="10" ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto">
 
                   <!--Name-->
@@ -110,7 +110,7 @@
                     <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="15" Margin="10 10 10 0" HorizontalAlignment="Center">
 
                       <!--Bought button-->
-                      <Button Classes="green shopping_list_button" Command="{Binding $parent[UserControl].((vm:GroceryListViewModel)DataContext).BoughtItemCommand}" CommandParameter="{Binding}">
+                      <Button Classes="shopping_list_button" Command="{Binding $parent[UserControl].((vm:GroceryListViewModel)DataContext).BoughtItemCommand}" CommandParameter="{Binding}">
                         <PathIcon Data="{StaticResource money_regular}"
                                   Classes="white_foreground mini"/>
                       </Button>
@@ -128,7 +128,7 @@
                       </Button>
 
                       <!--Delete button-->
-                      <Button Classes="red shopping_list_button" Command="{Binding $parent[UserControl].((vm:GroceryListViewModel)DataContext).DeleteItemCommand}"  CommandParameter="{Binding}">
+                      <Button Classes="shopping_list_button" Command="{Binding $parent[UserControl].((vm:GroceryListViewModel)DataContext).DeleteItemCommand}"  CommandParameter="{Binding}">
                         <PathIcon Data="{StaticResource delete_regular}"
                                   Classes="white_foreground mini"/>
                       </Button>

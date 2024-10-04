@@ -15,11 +15,11 @@ namespace ShoppingList.Model.Models
 
         #region Properties
         public bool IsValidItem { get; private set; }
-        public string? ErrorMessage { get; private set; }
+        public ItemFormErrorType? ErrorType { get; private set; }
         #endregion
 
         #region Events
-        public event EventHandler? ErrorMessageChanged;
+        public event EventHandler? ErrorTypeChanged;
         #endregion
 
         #region Methods
@@ -27,20 +27,20 @@ namespace ShoppingList.Model.Models
         {
             if (string.IsNullOrWhiteSpace(itemName))
             {
-                ErrorMessage = "The item's name cannot be empty!";
+                ErrorType = ItemFormErrorType.EmptyName;
                 IsValidItem = false;   
             }
             else if(string .IsNullOrWhiteSpace(itemCount))
             {
-                ErrorMessage = "The item's quantity cannot be empty!";
+                ErrorType = ItemFormErrorType.EmptyQuantity;
                 IsValidItem = false;
             }
             else
             {
-                ErrorMessage = null;
+                ErrorType = null;
                 IsValidItem = true;
             }
-            ErrorMessageChanged?.Invoke(this, new EventArgs());
+            ErrorTypeChanged?.Invoke(this, new EventArgs());
         }
         #endregion
 
