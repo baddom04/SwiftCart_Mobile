@@ -110,27 +110,27 @@
                     <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="15" Margin="10 10 10 0" HorizontalAlignment="Center">
 
                       <!--Bought button-->
-                      <Button Classes="shopping_list_button" Command="{Binding $parent[UserControl].((vm:GroceryListViewModel)DataContext).BoughtItemCommand}" CommandParameter="{Binding}">
+                      <Button Classes="item_action" Command="{Binding $parent[UserControl].((vm:GroceryListViewModel)DataContext).BoughtItemCommand}" CommandParameter="{Binding}">
                         <PathIcon Data="{StaticResource money_regular}"
-                                  Classes="white_foreground mini"/>
+                                  Classes="item_action"/>
                       </Button>
 
                       <!--Edit button-->
-                      <Button Classes="shopping_list_button" Command="{Binding EditCommand}" IsVisible="{Binding IsOwner}">
+                      <Button Classes="item_action" Command="{Binding EditCommand}" IsVisible="{Binding IsOwner}">
                         <PathIcon Data="{StaticResource edit_regular}"
-                                  Classes="white_foreground mini"/>
+                                  Classes="item_action"/>
                       </Button>
 
                       <!--Add comment button-->
-                      <Button Classes="shopping_list_button" Command="{Binding $parent[UserControl].((vm:GroceryListViewModel)DataContext).AddCommentCommand}"  CommandParameter="{Binding}">
+                      <Button Classes="item_action" Command="{Binding $parent[UserControl].((vm:GroceryListViewModel)DataContext).AddCommentCommand}"  CommandParameter="{Binding}">
                         <PathIcon Data="{StaticResource comment_add_regular}"
-                                  Classes="white_foreground mini"/>
+                                  Classes="item_action"/>
                       </Button>
 
                       <!--Delete button-->
-                      <Button Classes="shopping_list_button" Command="{Binding $parent[UserControl].((vm:GroceryListViewModel)DataContext).DeleteItemCommand}"  CommandParameter="{Binding}">
+                      <Button Classes="item_action" Command="{Binding $parent[UserControl].((vm:GroceryListViewModel)DataContext).DeleteItemCommand}"  CommandParameter="{Binding}">
                         <PathIcon Data="{StaticResource delete_regular}"
-                                  Classes="white_foreground mini"/>
+                                  Classes="item_action"/>
                       </Button>
 
                     </StackPanel>
