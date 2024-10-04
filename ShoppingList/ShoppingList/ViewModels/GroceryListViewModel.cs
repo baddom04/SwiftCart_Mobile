@@ -42,8 +42,8 @@ namespace ShoppingList.ViewModels
             set { this.RaiseAndSetIfChanged(ref _currentlyEditedItem, value); }
         }
 
-        private string _itemFormTitle;
-        public string ItemFormTitle
+        private string? _itemFormTitle;
+        public string? ItemFormTitle
         {
             get { return _itemFormTitle; }
             set { this.RaiseAndSetIfChanged(ref _itemFormTitle, value); }
@@ -65,11 +65,10 @@ namespace ShoppingList.ViewModels
         {
             Model = new();
             Model.ErrorTypeChanged += (_, _) => OnErrorTypeChanged();
-            Model.ShoppingList.CollectionChanged += ShoppingList_CollectionChanged; ;
+            Model.ShoppingList.CollectionChanged += ShoppingList_CollectionChanged;
             Model.EditedItemChanged += (_, _) => CurrentlyEditedItem = Model.EditedItem?.Item;
 
-            _shoppingList = [.. Model.ShoppingList.Select(item => new ShoppingItemDisplay(item))];
-            ShoppingList.ToList().ForEach(display => display.Editing += OnEditing);
+            _shoppingList = [.. Model.ShoppingList.Select(item => new ShoppingItemDisplay(item, () => OnInputModeOn((item.Clone() as ShoppingItem)!, Model.ShoppingList.IndexOf(item))))];
 
             InputModeOnCommand = ReactiveCommand.Create(() => OnInputModeOn(ShoppingItem.Empty, -1));
             SaveCommand = ReactiveCommand.Create(() => { Model.SaveEdit(); if(Model.IsValidItem) OnInputModeOff(); }); 
@@ -81,9 +80,7 @@ namespace ShoppingList.ViewModels
 
         private void ShoppingList_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            ShoppingList.ForEach(display => display.Editing -= OnEditing);
-            ShoppingList = [.. Model.ShoppingList.Select(item => new ShoppingItemDisplay(item))];
-            ShoppingList.ForEach(display => display.Editing += OnEditing);
+            ShoppingList = [.. Model.ShoppingList.Select(item => new ShoppingItemDisplay(item, () => OnInputModeOn((item.Clone() as ShoppingItem)!, Model.ShoppingList.IndexOf(item))))];
         }
         private void OnErrorTypeChanged()
         {
@@ -94,7 +91,6 @@ namespace ShoppingList.ViewModels
                 _ => null,
             };
         }
-
         private void OnInputModeOn(ShoppingItem item, int index)
         {
             if (index < 0)
@@ -113,10 +109,6 @@ namespace ShoppingList.ViewModels
         private void OnInputModeOff()
         {
             InputMode = false;
-        }
-        internal void OnEditing(ShoppingItemDisplay display)
-        {
-            OnInputModeOn((display.Item.Clone() as ShoppingItem)!, ShoppingList.IndexOf(display));
         }
         private async void DeleteItem(ShoppingItemDisplay item)
         {

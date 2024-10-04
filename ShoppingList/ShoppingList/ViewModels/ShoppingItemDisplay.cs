@@ -25,13 +25,14 @@ namespace ShoppingList.ViewModels
         public string QuantityDisplay => Item.Quantity + " " + Item.Unit.ToString();
         public ReactiveCommand<Unit, bool> ToggleExpandedCommand { get; }
         public ReactiveCommand<Unit, Unit> EditCommand { get; }
-
-        public event Action<ShoppingItemDisplay>? Editing;
-        public ShoppingItemDisplay(ShoppingItem item)
+        public Action Editing { get; }
+        public ShoppingItemDisplay(ShoppingItem item, Action editing)
         {
             _item = item;
             ToggleExpandedCommand = ReactiveCommand.Create(() => IsExpanded = !IsExpanded);
-            EditCommand = ReactiveCommand.Create(() => Editing?.Invoke(this));
+            Editing = editing;
+            EditCommand = ReactiveCommand.Create(() => editing());
+
         }
     }
 }
