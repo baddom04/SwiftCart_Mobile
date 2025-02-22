@@ -16,6 +16,16 @@
   <x:String x:Key="DeleteGroceryConfirmQuestion">Are you sure you want to delete this item?</x:String>
   <x:String x:Key="ItemNameWatermark">Your item's name</x:String>
   <x:String x:Key="ItemDescriptionWatermark">This is an optional description for your item</x:String>
+  <x:String x:Key="DontHaveAnAccount">Don't have an account?</x:String>
+  <x:String x:Key="RegisterHere">Register here.</x:String>
+  <x:String x:Key="Register">Register</x:String>
+  <x:String x:Key="Username">Username</x:String>
+  <x:String x:Key="AlreadyHaveAnAccount">Already have an account?</x:String>
+  <x:String x:Key="LoginHere">Login here.</x:String>
+  <x:String x:Key="UsernameWatermark">John Smith</x:String>
+  <x:String x:Key="EmailWatermark">john@example.com</x:String>
+  <x:String x:Key="PasswordWatermark">********</x:String>
+  
   
   <x:String x:Key="Pieces">Pieces</x:String>
   <x:String x:Key="Pair">Pair</x:String>

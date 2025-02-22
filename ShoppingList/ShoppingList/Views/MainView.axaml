@@ -9,7 +9,6 @@
              x:DataType="vm:MainViewModel">
   <Grid Margin="0 30 0 0" x:Name="MainGrid">
     <DockPanel>
-
       <!--Menu-->
       <ListBox ItemsSource="{Binding MenuItems}"
                x:Name="MainMenu"

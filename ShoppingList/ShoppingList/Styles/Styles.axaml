@@ -10,8 +10,8 @@
           <TextBlock Text="Mini text" Classes="error"/>
           <StackPanel Orientation="Horizontal" Spacing="10">
             <Button Content="Click me"/>
-            <Button Classes="green" Content="Click me"/>
-            <Button Classes="red" Content="Click me"/>
+            <Button Classes="big" Content="Click me"/>
+            <Button Classes="text" Content="Click me"/>
           </StackPanel>
           <Border HorizontalAlignment="Stretch" Height="30" Classes="shopping_list_item">
             <TextBlock Text="Normal text"/>
@@ -33,7 +33,7 @@
     </Style>
     <Style Selector="^.mini">
       <Setter Property="FontSize" Value="17"/>
-      <Setter Property="Opacity" Value="70"/>
+      <Setter Property="Opacity" Value="0.7"/>
     </Style>
     <Style Selector="^.error">
       <Setter Property="FontSize" Value="17"/>
@@ -62,6 +62,24 @@
     <Style Selector="^:pressed /template/ ContentPresenter" >
       <Setter Property="Background" Value="{StaticResource MainBtnPressedBG}"/>
     </Style>
+
+    <Style Selector="^.text">
+      <Setter Property="Background" Value="Transparent"/>
+      <Setter Property="FontSize" Value="17"/>
+      <Setter Property="Opacity" Value="1"/>
+      <Setter Property="Foreground" Value="{StaticResource MainBtnBG}"/>
+    </Style>
+
+    <Style Selector="^.text:pressed /template/ ContentPresenter">
+      <Setter Property="Background" Value="Transparent"/>
+      <Setter Property="Foreground" Value="{StaticResource MainBtnBG}"/>
+    </Style>
+
+    <Style Selector="^.text:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="Transparent"/>
+      <Setter Property="Foreground" Value="{StaticResource MainBtnBG}"/>
+    </Style>
+    
     
     <Style Selector="^.shopping_list_button">
       <Setter Property="Width" Value="50"/>
@@ -105,6 +123,15 @@
           </KeyFrame>
         </Animation>
       </Style.Animations>
+    </Style>
+
+    <Style Selector="^.big">
+      <Setter Property="Width" Value="100"/>
+      <Setter Property="Height" Value="40"/>
+      <Setter Property="HorizontalContentAlignment" Value="Center"/>
+      <Setter Property="VerticalContentAlignment" Value="Center"/>
+      <Setter Property="FontSize" Value="16"/>
+      <Setter Property="FontWeight" Value="Bold"/>
     </Style>
   </Style>
 

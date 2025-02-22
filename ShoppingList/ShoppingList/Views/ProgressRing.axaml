@@ -1,0 +1,25 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ShoppingList.ProgressRing"
+             xmlns:progRing="clr-namespace:AvaloniaProgressRing;assembly=AvaloniaProgressRing">
+  <Border x:Name="DialogOverlay" ZIndex="1"
+            Background="#80000000"
+            IsVisible="False"
+            VerticalAlignment="Stretch"
+            HorizontalAlignment="Stretch">
+    <Border CornerRadius="10" Background="{StaticResource MainBG}"
+            HorizontalAlignment="Center" VerticalAlignment="Center"
+            MaxWidth="300" ZIndex="2" Padding="30">
+      <progRing:ProgressRing Width="80"
+                            Height="80"
+                            IsActive="True"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Foreground="{StaticResource MainBtnBG}"
+                            Margin="10,20,0,0"/>
+    </Border>
+  </Border>
+</UserControl>
