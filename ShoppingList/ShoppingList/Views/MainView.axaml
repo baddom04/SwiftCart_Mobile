@@ -3,41 +3,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:ShoppingList.ViewModels"
-             xmlns:views="clr-namespace:ShoppingList.Views"
              mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="800"
              x:Class="ShoppingList.MainView"
              x:DataType="vm:MainViewModel">
-  <Grid Margin="0 30 0 0" x:Name="MainGrid">
-    <DockPanel>
-      <!--Menu-->
-      <ListBox ItemsSource="{Binding MenuItems}"
-               x:Name="MainMenu"
-               DockPanel.Dock="Bottom"
-               Background="{DynamicResource SecBG}"
-               SelectedItem="{Binding SelectedMenuItem}"
-               Margin="10"
-               CornerRadius="10"
-               SelectionChanged="ListBox_SelectionChanged">
-        <ListBox.ItemsPanel>
-          <ItemsPanelTemplate>
-            <UniformGrid Rows="1"/>
-          </ItemsPanelTemplate>
-        </ListBox.ItemsPanel>
-        <ListBox.ItemTemplate>
-          <DataTemplate>
-            <PathIcon Data="{Binding Icon}" Classes="menu_icon" VerticalAlignment="Center" Margin="0 5"/>
-          </DataTemplate>
-        </ListBox.ItemTemplate>
-      </ListBox>
-
-      <!--Content-->
-      <TransitioningContentControl Content="{Binding CurrentPage}">
-        <TransitioningContentControl.PageTransition>
-          <CrossFade Duration="0:00:00.100"/>
-        </TransitioningContentControl.PageTransition>
-      </TransitioningContentControl>
-
-    </DockPanel>
-    
+  <Grid x:Name="MainGrid">
+    <TransitioningContentControl>
+      
+    </TransitioningContentControl>
   </Grid>
 </UserControl>

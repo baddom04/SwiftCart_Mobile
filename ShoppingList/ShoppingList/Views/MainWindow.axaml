@@ -13,8 +13,5 @@
         ExtendClientAreaToDecorationsHint="True"
         WindowStartupLocation="CenterScreen"
         Background="{DynamicResource MainBG}">
-  <Grid>
-    <views:MainView x:Name="MainView" IsVisible="False"/>
-    <views:LoginView x:Name="LoginView" IsVisible="True"/>
-  </Grid>
+  <views:MainView x:Name="MainView" IsVisible="False"/>
 </Window>
