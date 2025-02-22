@@ -17,6 +17,8 @@ namespace ShoppingList
 
         public override void OnFrameworkInitializationCompleted()
         {
+            ServiceProvider.Register<IFileService>(new FileService());
+
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 desktop.MainWindow = new MainWindow();

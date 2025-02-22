@@ -21,7 +21,7 @@
           <Button x:Name="SendInputBtn" Content="Ok" Margin="5" Width="100" 
                   Click="SendInput_Click" HorizontalAlignment="Right" IsDefault="True"/>
           <Button Content="Cancel" Margin="5" Width="100" 
-                  Click="Cancel_Click" HorizontalAlignment="Right" IsDefault="True"/>
+                  Click="Cancel_Click" HorizontalAlignment="Right"/>
         </StackPanel>
       </Grid>
     </Border>

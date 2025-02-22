@@ -13,7 +13,7 @@ namespace ShoppingList.Desktop
         [STAThread]
         public static void Main(string[] args)
         {
-            ServiceProvider.Register<IFileService>(new DesktopFileService());
+            //ServiceProvider.Register<IFileService>(new DesktopFileService());
 
             BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
         }

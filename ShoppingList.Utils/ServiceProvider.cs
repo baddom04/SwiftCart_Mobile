@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace ShoppingList.Utils
+﻿namespace ShoppingList.Utils
 {
     public static class ServiceProvider
     {

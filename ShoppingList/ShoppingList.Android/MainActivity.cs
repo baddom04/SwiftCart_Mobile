@@ -20,7 +20,7 @@ namespace ShoppingList.Android
     {
         protected override AppBuilder CustomizeAppBuilder(AppBuilder builder)
         {
-            ServiceProvider.Register<IFileService>(new AndroidFileService(this));
+            //ServiceProvider.Register<IFileService>(new AndroidFileService(this));
 
             return base.CustomizeAppBuilder(builder)
                 .WithInterFont()

@@ -1,21 +1,17 @@
-﻿using ShoppingList.Utils;
-using System;
-using System.IO;
-
-namespace ShoppingList.Desktop
+﻿namespace ShoppingList.Utils
 {
-    public class DesktopFileService : IFileService
+    public class FileService : IFileService
     {
         private readonly string _folderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "ShoppingList");
 
-        public DesktopFileService()
+        public FileService()
         {
-            if(!Directory.Exists(_folderPath))
+            if (!Directory.Exists(_folderPath))
                 Directory.CreateDirectory(_folderPath);
         }
         public string? ReadFile(string filePath)
         {
-            if(string.IsNullOrWhiteSpace(filePath)) return null;
+            if (string.IsNullOrWhiteSpace(filePath)) return null;
 
             string path = Path.Combine(_folderPath, filePath);
             return File.Exists(path) ? File.ReadAllText(path) : null;

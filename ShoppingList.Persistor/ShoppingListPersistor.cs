@@ -6,7 +6,7 @@ namespace ShoppingList.Persistor
     public static class ShoppingListPersistor
     {
         private readonly static JsonSerializerOptions options = new() { WriteIndented = true, DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull };
-        private readonly static string _shoppingListPath = "shopping_list.json";
+        private readonly static string _shoppingListPath = "shopping_list.data";
         public static IEnumerable<ShoppingItem> LoadShoppingList()
         {
             try
