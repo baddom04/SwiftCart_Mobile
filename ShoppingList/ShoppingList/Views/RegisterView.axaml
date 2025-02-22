@@ -2,8 +2,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:ShoppingList.ViewModels"
              mc:Ignorable="d" d:DesignWidth="405" d:DesignHeight="800"
-             x:Class="ShoppingList.Views.RegisterView">
+             x:Class="ShoppingList.Views.RegisterView"
+             x:DataType="vm:RegisterViewModel">
   <Grid RowDefinitions="*, 5*, *, *"  HorizontalAlignment="Stretch" VerticalAlignment="Center">
     <TextBlock Grid.Row="0" Text="{DynamicResource Register}" Classes="h1" Margin="30" HorizontalAlignment="Center"/>
     <StackPanel Grid.Row="1" Margin="30 10" Spacing="10">
@@ -17,7 +19,7 @@
     <Button Grid.Row="2" Margin="15" Classes="big" Content="{DynamicResource Register}" HorizontalAlignment="Center"/>
     <StackPanel Grid.Row="3" HorizontalAlignment="Center" Margin="10" Orientation="Horizontal">
       <TextBlock VerticalAlignment="Center" Classes="mini" Text="{DynamicResource AlreadyHaveAnAccount}"/>
-      <Button Classes="text" Content="{DynamicResource LoginHere}"/>
+      <Button Classes="text" Content="{DynamicResource LoginHere}" Command="{Binding LoginCommand}"/>
     </StackPanel>
   </Grid>
 </UserControl>

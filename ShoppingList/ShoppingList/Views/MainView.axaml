@@ -9,7 +9,7 @@
   <Grid x:Name="MainGrid">
     <TransitioningContentControl Content="{Binding CurrentPage}">
       <TransitioningContentControl.PageTransition>
-        <PageSlide Orientation="Horizontal" Duration="0:00:00.500" />
+        <CrossFade Duration="0:00:00.200" />
       </TransitioningContentControl.PageTransition>
     </TransitioningContentControl>
   </Grid>

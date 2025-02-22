@@ -18,7 +18,7 @@
     <Button Grid.Row="2" Margin="15" Classes="big" Content="{DynamicResource Login}" HorizontalAlignment="Center"/>
     <StackPanel Grid.Row="3" HorizontalAlignment="Center" Margin="10" Orientation="Horizontal">
       <TextBlock VerticalAlignment="Center" Classes="mini" Text="{DynamicResource DontHaveAnAccount}"/>
-      <Button Classes="text" Content="{DynamicResource RegisterHere}"/>
+      <Button Classes="text" Content="{DynamicResource RegisterHere}" Command="{Binding RegisterCommand}"/>
     </StackPanel>
   </Grid>
 </UserControl>
