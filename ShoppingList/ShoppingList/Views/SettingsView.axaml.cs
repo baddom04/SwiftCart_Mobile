@@ -1,7 +1,7 @@
 using Avalonia.Controls;
 using ShoppingList.ViewModels;
 
-namespace ShoppingList.Views;
+namespace ShoppingList;
 
 public partial class SettingsView : UserControl
 {

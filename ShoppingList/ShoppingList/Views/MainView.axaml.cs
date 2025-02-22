@@ -7,7 +7,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ShoppingList.Views
+namespace ShoppingList
 {
     public partial class MainView : UserControl
     {

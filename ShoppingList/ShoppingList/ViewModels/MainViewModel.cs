@@ -1,7 +1,6 @@
 ﻿using Avalonia.Controls;
 using ReactiveUI;
 using ShoppingList.Utils;
-using ShoppingList.Views;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;

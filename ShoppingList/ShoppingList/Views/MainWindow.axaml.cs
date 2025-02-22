@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 
-namespace ShoppingList.Views
+namespace ShoppingList
 {
     public partial class MainWindow : Window
     {

@@ -5,7 +5,7 @@
              xmlns:vm="clr-namespace:ShoppingList.ViewModels"
              xmlns:views="clr-namespace:ShoppingList.Views"
              mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="800"
-             x:Class="ShoppingList.Views.MainView"
+             x:Class="ShoppingList.MainView"
              x:DataType="vm:MainViewModel">
   <Grid Margin="0 30 0 0" x:Name="MainGrid">
     <DockPanel>

@@ -2,7 +2,7 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using System.Threading.Tasks;
 
-namespace ShoppingList.Views;
+namespace ShoppingList;
 
 public partial class ConfirmationView : UserControl
 {
