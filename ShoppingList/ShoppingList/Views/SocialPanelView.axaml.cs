@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 using ShoppingList.ViewModels;
-namespace ShoppingList;
+namespace ShoppingList.Views;
 
 public partial class SocialPanelView : UserControl
 {

@@ -4,11 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:ShoppingList.ViewModels"
              mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="800"
-             x:Class="ShoppingList.MainView"
+             x:Class="ShoppingList.Views.MainView"
              x:DataType="vm:MainViewModel">
   <Grid x:Name="MainGrid">
-    <TransitioningContentControl>
-      
+    <TransitioningContentControl Content="{Binding CurrentPage}">
+      <TransitioningContentControl.PageTransition>
+        <PageSlide Orientation="Horizontal" Duration="0:00:00.500" />
+      </TransitioningContentControl.PageTransition>
     </TransitioningContentControl>
   </Grid>
 </UserControl>

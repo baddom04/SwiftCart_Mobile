@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:ShoppingList.ViewModels"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="ShoppingList.LoggedInView"
+             x:Class="ShoppingList.Views.LoggedInView"
              x:DataType="vm:LoggedInViewModel">
   <Grid Margin="0 30 0 0">
     <DockPanel>

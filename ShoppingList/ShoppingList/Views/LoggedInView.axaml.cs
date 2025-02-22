@@ -5,7 +5,7 @@ using Avalonia.Media;
 using ShoppingList.ViewModels;
 using System.Linq;
 
-namespace ShoppingList;
+namespace ShoppingList.Views;
 
 public partial class LoggedInView : UserControl
 {

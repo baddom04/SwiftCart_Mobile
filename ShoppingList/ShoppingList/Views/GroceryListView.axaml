@@ -5,7 +5,7 @@
              xmlns:vm="clr-namespace:ShoppingList.ViewModels"
              xmlns:converters="clr-namespace:ShoppingList.Converters"
              mc:Ignorable="d" d:DesignWidth="405" d:DesignHeight="900"
-             x:Class="ShoppingList.GroceryListView"
+             x:Class="ShoppingList.Views.GroceryListView"
              x:DataType="vm:GroceryListViewModel"
              Background="{StaticResource MainBG}">
   <UserControl.Resources>

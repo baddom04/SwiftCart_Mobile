@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ShoppingList;
+namespace ShoppingList.Views;
 
 public partial class TextInputView : UserControl
 {

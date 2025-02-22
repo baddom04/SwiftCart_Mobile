@@ -2,7 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace ShoppingList;
+namespace ShoppingList.Views;
 
 public partial class ProgressRing : UserControl
 {

@@ -1,14 +1,16 @@
 using Avalonia.Controls;
+using ShoppingList.ViewModels;
 using System;
 using System.Threading.Tasks;
 
-namespace ShoppingList
+namespace ShoppingList.Views
 {
     public partial class MainView : UserControl
     {
         public MainView()
         {
             InitializeComponent();
+            DataContext = new MainViewModel();
         }
         public Task<bool> ShowConfirmDialog(string questionKey)
         {

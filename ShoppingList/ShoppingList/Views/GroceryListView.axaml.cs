@@ -4,7 +4,7 @@ using Avalonia.Interactivity;
 using ShoppingList.ViewModels;
 using System.Linq;
 
-namespace ShoppingList;
+namespace ShoppingList.Views;
 
 public partial class GroceryListView : UserControl
 {

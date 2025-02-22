@@ -3,7 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="405" d:DesignHeight="800"
-             x:Class="ShoppingList.RegisterView">
+             x:Class="ShoppingList.Views.RegisterView">
   <Grid RowDefinitions="*, 5*, *, *"  HorizontalAlignment="Stretch" VerticalAlignment="Center">
     <TextBlock Grid.Row="0" Text="{DynamicResource Register}" Classes="h1" Margin="30" HorizontalAlignment="Center"/>
     <StackPanel Grid.Row="1" Margin="30 10" Spacing="10">
