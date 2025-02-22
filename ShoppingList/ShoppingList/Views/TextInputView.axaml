@@ -18,9 +18,9 @@
                    TextWrapping="Wrap" TextAlignment="Center" Margin="10"/>
         <TextBox Grid.Row="1" x:Name="Input" Watermark="Aa" TextChanged="OnTextChanged" Margin="10"/>
         <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="10">
-          <Button x:Name="SendInputBtn" Content="Ok" Margin="5" Width="100" 
+          <Button x:Name="SendInputBtn" Content="{DynamicResource Ok}" Margin="5" Width="100" 
                   Click="SendInput_Click" HorizontalAlignment="Right" IsDefault="True"/>
-          <Button Content="Cancel" Margin="5" Width="100" 
+          <Button Content="{DynamicResource Cancel}" Margin="5" Width="100" 
                   Click="Cancel_Click" HorizontalAlignment="Right"/>
         </StackPanel>
       </Grid>

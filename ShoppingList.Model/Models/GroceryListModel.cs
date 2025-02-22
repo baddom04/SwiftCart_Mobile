@@ -30,11 +30,6 @@ namespace ShoppingList.Model.Models
                 ErrorType = ItemFormErrorType.EmptyName;
                 IsValidItem = false;   
             }
-            else if(string .IsNullOrWhiteSpace(itemCount))
-            {
-                ErrorType = ItemFormErrorType.EmptyQuantity;
-                IsValidItem = false;
-            }
             else
             {
                 ErrorType = null;

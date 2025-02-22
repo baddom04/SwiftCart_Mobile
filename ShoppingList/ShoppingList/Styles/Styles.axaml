@@ -54,16 +54,12 @@
     <Setter Property="Background" Value="{StaticResource MainBtnBG}"/>
 
     <Style Selector="^.item_action">
-      <Setter Property="Background" Value="Transparent"/>
+      <Setter Property="Width" Value="50"/>
+      <Setter Property="Background" Value="{StaticResource MainBG}"/>
       <Setter Property="Padding" Value="5"/>
     </Style>
     
     <Style Selector="^:pressed /template/ ContentPresenter" >
-      <Setter Property="Background" Value="{StaticResource MainBtnPressedBG}"/>
-    </Style>
-    
-    
-    <Style Selector="^:pointerover /template/ ContentPresenter" >
       <Setter Property="Background" Value="{StaticResource MainBtnPressedBG}"/>
     </Style>
     
@@ -154,6 +150,12 @@
     </Style>
     <Style Selector="^.item_action">
       <Setter Property="Foreground" Value="{StaticResource MainBtnBG}"/>
+    </Style>
+    <Style Selector="^.item_action_green">
+      <Setter Property="Foreground" Value="{StaticResource GreenButtonBG}"/>
+    </Style>
+    <Style Selector="^.item_action_red">
+      <Setter Property="Foreground" Value="{StaticResource RedButtonBG}"/>
     </Style>
     <Style Selector="^.mini">
       <Setter Property="Width" Value="16"/>

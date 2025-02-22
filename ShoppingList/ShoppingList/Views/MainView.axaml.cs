@@ -17,17 +17,17 @@ namespace ShoppingList
             DataContext = new MainViewModel();
             Loaded += (_, _) => SetMenuIconColors(MainMenu);
         }
-        public Task<bool> ShowConfirmDialog(string question)
+        public Task<bool> ShowConfirmDialog(string questionKey)
         {
-            ConfirmationView cv = new(question);
-            MainGrid.Children.Add(cv);
-            return cv.ShowDialog();
+            ConfirmationView confirmationView = new(questionKey);
+            MainGrid.Children.Add(confirmationView);
+            return confirmationView.ShowDialog();
         }
-        public Task<string?> ShowTextInputDialog(string instruction, Func<string, bool> validateInput)
+        public Task<string?> ShowTextInputDialog(string instructionKey, Func<string, bool> validateInput)
         {
-            TextInputView tiv = new(instruction, validateInput);
-            MainGrid.Children.Add(tiv);
-            return tiv.ShowDialog();
+            TextInputView textInputView = new(instructionKey, validateInput);
+            MainGrid.Children.Add(textInputView);
+            return textInputView.ShowDialog();
         }
 
         private void ListBox_SelectionChanged(object? sender, SelectionChangedEventArgs e)

@@ -1,5 +1,7 @@
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ShoppingList;
@@ -7,10 +9,11 @@ namespace ShoppingList;
 public partial class ConfirmationView : UserControl
 {
     private TaskCompletionSource<bool>? _tcs;
-    public ConfirmationView(string question)
+    public ConfirmationView(string questionKey)
     {
         InitializeComponent();
-        DialogQuestion.Text = question;
+        Application.Current!.TryFindResource(questionKey, out var res);
+        DialogQuestion.Text = res as string ?? throw new KeyNotFoundException();
     }
     public Task<bool> ShowDialog()
     {

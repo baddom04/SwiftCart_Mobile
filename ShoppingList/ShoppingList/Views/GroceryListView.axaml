@@ -25,13 +25,13 @@
               HorizontalAlignment="Center" VerticalAlignment="Center"
               Width="400" Height="250" ZIndex="2">
         <StackPanel Spacing="10" Margin="20">
-          <TextBlock Text="{Binding ItemFormTitle}" Classes="h3" HorizontalAlignment="Center"/>
+          <TextBlock Text="{DynamicResource ItemDetails}" Classes="h3" HorizontalAlignment="Center"/>
 
           <Grid ColumnDefinitions="*, Auto, Auto" RowDefinitions="Auto, Auto">
             <TextBox Grid.Row="0" Grid.Column="0" Margin="2" x:Name="ItemName" Text="{Binding CurrentlyEditedItem.Name}" Watermark="Your item's name" MaxLength="34" TextWrapping="Wrap"/>
             <TextBox Grid.Row="0" Grid.Column="1" Margin="2" x:Name="ItemQuantity" Text="{Binding CurrentlyEditedItem.Quantity}" Watermark="123" MaxLength="3" TextChanged="OnTextChanged"/>
             <ComboBox Grid.Row="0" Grid.Column="2" Margin="2" x:Name="ItemUnit" ItemsSource="{Binding Model.UnitTypes}" SelectedItem="{Binding CurrentlyEditedItem.Unit}" VerticalAlignment="Stretch"/>
-            <TextBox Grid.Row="1" Grid.ColumnSpan="3" Margin="2" x:Name="ItemDescription" Text="{Binding CurrentlyEditedItem.Description}" Watermark="This is an optional description for your item" TextWrapping="Wrap"/>
+            <TextBox Grid.Row="1" Grid.ColumnSpan="3" Margin="2" x:Name="ItemDescription" Text="{Binding CurrentlyEditedItem.Description}" Watermark="ItemDescriptionWatermark" TextWrapping="Wrap"/>
           </Grid>
 
           <!--ErrorMessage-->
@@ -59,7 +59,7 @@
     </Border>
 
     <!--Title-->
-    <TextBlock Grid.Row="0" Text="Shopping list" HorizontalAlignment="Center" Margin="20" Classes="h1"/>
+    <TextBlock Grid.Row="0" Text="{DynamicResource ShoppingList}" HorizontalAlignment="Center" Margin="20" Classes="h1"/>
 
     <ScrollViewer Grid.Row="1">
       <Grid RowDefinitions="Auto, Auto, Auto">
@@ -112,7 +112,7 @@
                       <!--Bought button-->
                       <Button Classes="item_action" Command="{Binding $parent[UserControl].((vm:GroceryListViewModel)DataContext).BoughtItemCommand}" CommandParameter="{Binding}">
                         <PathIcon Data="{StaticResource money_regular}"
-                                  Classes="item_action"/>
+                                  Classes="item_action_green"/>
                       </Button>
 
                       <!--Edit button-->
@@ -130,7 +130,7 @@
                       <!--Delete button-->
                       <Button Classes="item_action" Command="{Binding $parent[UserControl].((vm:GroceryListViewModel)DataContext).DeleteItemCommand}"  CommandParameter="{Binding}">
                         <PathIcon Data="{StaticResource delete_regular}"
-                                  Classes="item_action"/>
+                                  Classes="item_action_red"/>
                       </Button>
 
                     </StackPanel>

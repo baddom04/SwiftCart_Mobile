@@ -1,9 +1,9 @@
-﻿using ReactiveUI;
+﻿using Avalonia;
+using Avalonia.Controls;
+using ReactiveUI;
 using ShoppingList.Model.Models;
 using ShoppingList.Utils;
-using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
 
@@ -40,13 +40,6 @@ namespace ShoppingList.ViewModels
         {
             get { return _currentlyEditedItem; }
             set { this.RaiseAndSetIfChanged(ref _currentlyEditedItem, value); }
-        }
-
-        private string? _itemFormTitle;
-        public string? ItemFormTitle
-        {
-            get { return _itemFormTitle; }
-            set { this.RaiseAndSetIfChanged(ref _itemFormTitle, value); }
         }
 
         #endregion
@@ -87,7 +80,6 @@ namespace ShoppingList.ViewModels
             ErrorMessage = Model.ErrorType switch
             {
                 ItemFormErrorType.EmptyName => "The item's name cannot be empty!",
-                ItemFormErrorType.EmptyQuantity => "The item's quantity cannot be empty!",
                 _ => null,
             };
         }
@@ -96,11 +88,6 @@ namespace ShoppingList.ViewModels
             if (index < 0)
             {
                 item.Owner = App.CurrentUser!;
-                ItemFormTitle = "Add a new item!";
-            }
-            else
-            {
-                ItemFormTitle = "Edit this item!";
             }
 
             Model.StartEdit(item, index);
@@ -112,7 +99,8 @@ namespace ShoppingList.ViewModels
         }
         private async void DeleteItem(ShoppingItemDisplay item)
         {
-            bool result = await App.MainView!.ShowConfirmDialog("Are you sure you want to delete this item?");
+            Application.Current!.TryFindResource("DeleteGroceryConfirmQuestion", out var res);
+            bool result = await App.MainView!.ShowConfirmDialog(res as string ?? throw new KeyNotFoundException());
 
             if (!result) return;
 
@@ -124,7 +112,7 @@ namespace ShoppingList.ViewModels
         }
         private async void AddComment(ShoppingItemDisplay display)
         {
-            string? comment = await App.MainView!.ShowTextInputDialog("Comment:", (input) => !string.IsNullOrWhiteSpace(input));
+            string? comment = await App.MainView!.ShowTextInputDialog("Comment", (input) => !string.IsNullOrWhiteSpace(input));
             if (string.IsNullOrWhiteSpace(comment)) return;
             Model.AddComment(display.Item, App.CurrentUser!, comment);
         }

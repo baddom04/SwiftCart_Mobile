@@ -4,5 +4,5 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="ShoppingList.MapView">
-  <TextBlock Classes="h1" Text="Map view" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+  <TextBlock Classes="h1" Text="{DynamicResource MapView}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 </UserControl>

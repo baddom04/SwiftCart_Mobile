@@ -1,0 +1,29 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:String x:Key="Login">Login</x:String>
+  <x:String x:Key="Email">Email</x:String>
+  <x:String x:Key="Password">Password</x:String>
+  <x:String x:Key="Confirm">Confirm</x:String>
+  <x:String x:Key="Cancel">Cancel</x:String>
+  <x:String x:Key="ItemDetails">Item details</x:String>
+  <x:String x:Key="ShoppingList">Shopping list</x:String>
+  <x:String x:Key="MapView">Map view</x:String>
+  <x:String x:Key="Settings">Settings</x:String>
+  <x:String x:Key="SocialPanel">Social panel</x:String>
+  <x:String x:Key="Ok">Ok</x:String>
+  <x:String x:Key="Comment">Comment</x:String>
+  <x:String x:Key="EmptyName">The item's name cannot be empty!</x:String>
+  <x:String x:Key="DeleteGroceryConfirmQuestion">Are you sure you want to delete this item?</x:String>
+  <x:String x:Key="ItemNameWatermark">Your item's name</x:String>
+  <x:String x:Key="ItemDescriptionWatermark">This is an optional description for your item</x:String>
+  
+  <x:String x:Key="Pieces">Pieces</x:String>
+  <x:String x:Key="Pair">Pair</x:String>
+  <x:String x:Key="Kilogram">Kilogram</x:String>
+  <x:String x:Key="Pound">Pound</x:String>
+  <x:String x:Key="Inch">Inch</x:String>
+  <x:String x:Key="Ounce">Ounce</x:String>
+  <x:String x:Key="Liter">Liter</x:String>
+  <x:String x:Key="Decagram">Decagram</x:String>
+  <x:String x:Key="Deciliter">Deciliter</x:String>
+</ResourceDictionary>
