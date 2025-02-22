@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using ShoppingList.ViewModels;
 using System.Linq;
@@ -23,5 +24,12 @@ public partial class GroceryListView : UserControl
             textBox.Text = newText;
             textBox.CaretIndex = newText.Length;
         }
+    }
+    private void Display_Click(object? sender, PointerPressedEventArgs e)
+    {
+        if (sender is not Border border) return;
+        ShoppingItemDisplay display = (border.DataContext as ShoppingItemDisplay)!;
+
+        display.IsExpanded = !display.IsExpanded;
     }
 }
