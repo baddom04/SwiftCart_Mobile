@@ -1,12 +1,11 @@
 ﻿using ReactiveUI;
-using System;
 using System.Collections.Generic;
 
 namespace ShoppingList.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        private readonly Dictionary<Type, ViewModelBase> _pages;
+        private readonly Dictionary<Page, ViewModelBase> _pages;
 
 		private ViewModelBase _currentPage;
 		public ViewModelBase CurrentPage
@@ -15,22 +14,40 @@ namespace ShoppingList.ViewModels
 			private set { this.RaiseAndSetIfChanged(ref _currentPage, value); }
 		}
 
+        private bool _isLoading = false;
+        public bool IsLoading
+        {
+            get { return _isLoading; }
+            set { this.RaiseAndSetIfChanged(ref _isLoading, value); }
+        }
+
         public MainViewModel()
         {
-            _pages = new Dictionary<Type, ViewModelBase>()
+            _pages = new Dictionary<Page, ViewModelBase>()
             {
-                { typeof(LoginViewModel), new LoginViewModel() },
-                { typeof(RegisterViewModel), new RegisterViewModel() },
-                { typeof(LoggedInViewModel), new LoggedInViewModel() },
+                { Page.Login, new LoginViewModel(ChangePage, ShowLoading) },
+                { Page.Register, new RegisterViewModel(ChangePage) },
+                { Page.Main, new LoggedInViewModel() },
             };
 
-            (_pages[typeof(LoginViewModel)] as LoginViewModel)!.RegisterCommand = 
-                ReactiveCommand.Create(() => CurrentPage = _pages[typeof(RegisterViewModel)]);
-
-            (_pages[typeof(RegisterViewModel)] as RegisterViewModel)!.LoginCommand =
-                ReactiveCommand.Create(() => CurrentPage = _pages[typeof(LoginViewModel)]);
-
-            _currentPage = _pages[typeof(LoginViewModel)];
+            _currentPage = _pages[Page.Login];
+            IsLoading = false;
         }
+
+        private void ChangePage(Page page)
+        {
+            CurrentPage = _pages[page];
+        }
+        private void ShowLoading(bool isLoading)
+        {
+            IsLoading = isLoading;
+        }
+    }
+
+    public enum Page
+    {
+        Login,
+        Register,
+        Main
     }
 }

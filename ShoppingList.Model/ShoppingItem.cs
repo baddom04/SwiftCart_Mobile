@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using ShoppingList.Core;
 
 namespace ShoppingList.Model
 {

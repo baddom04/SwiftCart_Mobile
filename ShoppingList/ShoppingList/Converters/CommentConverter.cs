@@ -1,5 +1,5 @@
 ﻿using Avalonia.Data.Converters;
-using ShoppingList.Model;
+using ShoppingList.Core;
 using System;
 using System.Globalization;
 

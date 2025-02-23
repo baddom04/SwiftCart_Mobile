@@ -5,8 +5,28 @@
              xmlns:vm="clr-namespace:ShoppingList.ViewModels"
              mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="800"
              x:Class="ShoppingList.Views.MainView"
-             x:DataType="vm:MainViewModel">
+             x:DataType="vm:MainViewModel"
+             xmlns:progRing="clr-namespace:AvaloniaProgressRing;assembly=AvaloniaProgressRing">
   <Grid x:Name="MainGrid">
+    
+    <Border x:Name="DialogOverlay" ZIndex="3"
+            Background="#80000000"
+            IsVisible="{Binding IsLoading}"
+            VerticalAlignment="Stretch"
+            HorizontalAlignment="Stretch">
+      <Border CornerRadius="10" Background="{StaticResource MainBG}"
+              HorizontalAlignment="Center" VerticalAlignment="Center"
+              MaxWidth="300" ZIndex="4" Padding="30">
+        <progRing:ProgressRing Width="80"
+                              Height="80"
+                              IsActive="{Binding IsLoading}"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              Foreground="{StaticResource MainBtnBG}"/>
+      </Border>
+    </Border>
+    
+    
     <TransitioningContentControl Content="{Binding CurrentPage}">
       <TransitioningContentControl.PageTransition>
         <CrossFade Duration="0:00:00.200" />

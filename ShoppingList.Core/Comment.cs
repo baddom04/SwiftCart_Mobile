@@ -1,4 +1,4 @@
-﻿namespace ShoppingList.Model
+﻿namespace ShoppingList.Core
 {
     public class Comment
     {

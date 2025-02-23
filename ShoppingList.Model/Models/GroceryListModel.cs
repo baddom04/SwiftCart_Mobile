@@ -1,4 +1,5 @@
-﻿using ShoppingList.Utils;
+﻿using ShoppingList.Core;
+using ShoppingList.Utils;
 using System.Collections.ObjectModel;
 
 namespace ShoppingList.Model.Models

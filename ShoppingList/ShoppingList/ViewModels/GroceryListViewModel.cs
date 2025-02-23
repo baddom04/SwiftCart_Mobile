@@ -1,12 +1,12 @@
-﻿using Avalonia;
-using Avalonia.Controls;
-using ReactiveUI;
+﻿using ReactiveUI;
 using ShoppingList.Model.Models;
 using ShoppingList.Model;
 using ShoppingList.Utils;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
+using Avalonia;
+using Avalonia.Controls;
 
 namespace ShoppingList.ViewModels
 {

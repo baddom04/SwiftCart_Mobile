@@ -12,17 +12,25 @@ namespace ShoppingList.Views
             InitializeComponent();
             DataContext = new MainViewModel();
         }
-        public Task<bool> ShowConfirmDialog(string questionKey)
+        public async Task<bool> ShowConfirmDialog(string questionKey)
         {
             ConfirmationView confirmationView = new(questionKey);
             MainGrid.Children.Add(confirmationView);
-            return confirmationView.ShowDialog();
+
+            bool result = await confirmationView.ShowDialog();
+            MainGrid.Children.Remove(confirmationView);
+
+            return result;
         }
-        public Task<string?> ShowTextInputDialog(string instructionKey, Func<string, bool> validateInput)
+        public async Task<string?> ShowTextInputDialog(string instructionKey, Func<string, bool> validateInput)
         {
             TextInputView textInputView = new(instructionKey, validateInput);
+
             MainGrid.Children.Add(textInputView);
-            return textInputView.ShowDialog();
+            string? result = await textInputView.ShowDialog();
+
+            MainGrid.Children.Remove(textInputView);
+            return result;
         }
     }
 }

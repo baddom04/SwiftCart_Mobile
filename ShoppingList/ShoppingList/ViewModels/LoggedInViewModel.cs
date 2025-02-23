@@ -1,17 +1,15 @@
-﻿using Avalonia.Controls;
-using ReactiveUI;
+﻿using ReactiveUI;
 using ShoppingList.Utils;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using ShoppingList.Views;
 
 namespace ShoppingList.ViewModels
 {
     public class LoggedInViewModel : ViewModelBase
     {
-        private UserControl _currentPage;
-        public UserControl CurrentPage
+        private ViewModelBase _currentPage;
+        public ViewModelBase CurrentPage
         {
             get { return _currentPage; }
             set { this.RaiseAndSetIfChanged(ref _currentPage, value); }
@@ -30,12 +28,12 @@ namespace ShoppingList.ViewModels
         }
         public ObservableCollection<MenuIcon> MenuItems { get; }
 
-        public Dictionary<MenuIcon, UserControl> Menus { get; } = new Dictionary<MenuIcon, UserControl>
+        public Dictionary<MenuIcon, ViewModelBase> Menus { get; } = new Dictionary<MenuIcon, ViewModelBase>
         {
-            { new MenuIcon("Map", "globe_regular"), new MapView() },
-            { new MenuIcon("Shopping list", "cart_regular"), new GroceryListView() },
-            { new MenuIcon("Social", "people_regular"), new SocialPanelView() },
-            { new MenuIcon("Settings", "settings_regular"), new SettingsView() },
+            { new MenuIcon("Map", "globe_regular"), new MapViewModel() },
+            { new MenuIcon("Shopping list", "cart_regular"), new GroceryListViewModel() },
+            { new MenuIcon("Social", "people_regular"), new SocialPanelViewModel() },
+            { new MenuIcon("Settings", "settings_regular"), new SettingsViewModel() },
         };
 
         public LoggedInViewModel()
