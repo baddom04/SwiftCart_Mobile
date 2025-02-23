@@ -9,7 +9,6 @@
   <ItemGroup>
     <ProjectReference Include="..\ShoppingList.Core\ShoppingList.Core.csproj" />
     <ProjectReference Include="..\ShoppingList.Persistor\ShoppingList.Persistor.csproj" />
-    <ProjectReference Include="..\ShoppingList.Utils\ShoppingList.Utils.csproj" />
   </ItemGroup>
 
 </Project>

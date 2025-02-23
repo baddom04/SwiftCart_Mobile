@@ -23,7 +23,7 @@ namespace ShoppingList.Persistor.Services
         {
             using var request = new HttpRequestMessage(HttpMethod.Get, "/user");
 
-            string? token = await _tokenService.GetTokenAsync();
+            string? token = await _tokenService.GetTokenAsync(cancellationToken);
             if (!string.IsNullOrEmpty(token))
             {
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
@@ -54,7 +54,7 @@ namespace ShoppingList.Persistor.Services
             if (tokenResponse == null)
                 throw new NullReferenceException(nameof(tokenResponse));
 
-            await _tokenService.SaveTokenAsync(tokenResponse.TokenText);
+            await _tokenService.SaveTokenAsync(tokenResponse.TokenText, cancellationToken);
         }
 
         public async Task LogoutAsync(CancellationToken cancellationToken = default)
@@ -82,7 +82,7 @@ namespace ShoppingList.Persistor.Services
             if (tokenResponse == null)
                 throw new NullReferenceException(nameof(tokenResponse));
 
-            await _tokenService.SaveTokenAsync(tokenResponse.TokenText);
+            await _tokenService.SaveTokenAsync(tokenResponse.TokenText, cancellationToken);
         }
 
         public async Task UpdateUserAsync(int id, string? username, string? email, string? password, CancellationToken cancellationToken = default)

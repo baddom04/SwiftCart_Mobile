@@ -1,9 +1,8 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using ShoppingList.Utils;
-using ShoppingList.Views;
 using ShoppingList.Core;
+using ShoppingList.Views;
 
 namespace ShoppingList
 {
@@ -18,8 +17,6 @@ namespace ShoppingList
 
         public override void OnFrameworkInitializationCompleted()
         {
-            ServiceProvider.Register<IFileService>(new FileService());
-
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 desktop.MainWindow = new MainWindow();
@@ -30,14 +27,6 @@ namespace ShoppingList
                 MainView = new MainView();
                 singleViewPlatform.MainView = MainView;
             }
-
-            CurrentUser = new User
-            {
-                Id = 11,
-                Email = "domonkosbatki98@gmail.com",
-                Name = "Domi",
-                Admin = true
-            };
 
             base.OnFrameworkInitializationCompleted();
         }

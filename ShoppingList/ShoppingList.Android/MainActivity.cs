@@ -1,13 +1,11 @@
 ﻿using Android.App;
-using Android.OS;
-using Android.Views;
-using Android.Graphics;
-using Avalonia.Android;
 using Android.Content.PM;
+using Android.OS;
 using Avalonia;
+using Avalonia.Android;
 using Avalonia.ReactiveUI;
-using ShoppingList.Utils;
 using ShoppingList.Persistor.Services.Interfaces;
+using ShoppingList.Persistor;
 
 namespace ShoppingList.Android
 {
@@ -21,7 +19,7 @@ namespace ShoppingList.Android
     {
         protected override AppBuilder CustomizeAppBuilder(AppBuilder builder)
         {
-            ServiceProvider.Register<ITokenService>(new AndroidTokenService());
+            PlatformServiceRegistry.Register<ITokenService, AndroidTokenService>();
 
             return base.CustomizeAppBuilder(builder)
                 .WithInterFont()

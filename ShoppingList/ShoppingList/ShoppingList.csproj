@@ -22,6 +22,5 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\ShoppingList.Model\ShoppingList.Model.csproj" />
-    <ProjectReference Include="..\..\ShoppingList.Utils\ShoppingList.Utils.csproj" />
   </ItemGroup>
 </Project>

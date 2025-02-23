@@ -17,8 +17,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingList.Model", "Shopp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingList.Persistor", "ShoppingList.Persistor\ShoppingList.Persistor.csproj", "{7D3FE2FA-DCF4-4851-A174-AA0FFACC5A18}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingList.Utils", "ShoppingList.Utils\ShoppingList.Utils.csproj", "{0DDCD251-6376-42C2-9993-F32BBE358D15}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingList.Core", "ShoppingList.Core\ShoppingList.Core.csproj", "{6948465F-47B0-48CC-983E-8E8CA7EB4E86}"
 EndProject
 Global
@@ -59,10 +57,6 @@ Global
 		{7D3FE2FA-DCF4-4851-A174-AA0FFACC5A18}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D3FE2FA-DCF4-4851-A174-AA0FFACC5A18}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D3FE2FA-DCF4-4851-A174-AA0FFACC5A18}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0DDCD251-6376-42C2-9993-F32BBE358D15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0DDCD251-6376-42C2-9993-F32BBE358D15}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0DDCD251-6376-42C2-9993-F32BBE358D15}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0DDCD251-6376-42C2-9993-F32BBE358D15}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6948465F-47B0-48CC-983E-8E8CA7EB4E86}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6948465F-47B0-48CC-983E-8E8CA7EB4E86}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6948465F-47B0-48CC-983E-8E8CA7EB4E86}.Release|Any CPU.ActiveCfg = Release|Any CPU

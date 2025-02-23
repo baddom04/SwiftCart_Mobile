@@ -1,4 +1,4 @@
-﻿namespace ShoppingList.Utils;
+﻿namespace ShoppingList.Persistor;
 
 public static class NetworkSettings
 {

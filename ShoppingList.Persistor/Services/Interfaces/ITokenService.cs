@@ -2,8 +2,8 @@
 {
     public interface ITokenService
     {
-        Task SaveTokenAsync(string token);
-        Task<string?> GetTokenAsync();
+        Task SaveTokenAsync(string token, CancellationToken cancellationToken);
+        Task<string?> GetTokenAsync(CancellationToken cancellationToken);
         Task ClearTokenAsync();
     }
 }

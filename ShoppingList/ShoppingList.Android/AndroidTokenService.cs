@@ -1,4 +1,5 @@
 ﻿using ShoppingList.Persistor.Services.Interfaces;
+using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 
@@ -13,7 +14,7 @@ namespace ShoppingList.Android
             return Task.CompletedTask;
         }
 
-        public async Task<string?> GetTokenAsync()
+        public async Task<string?> GetTokenAsync(CancellationToken cancellationToken)
         {
             try
             {
@@ -25,7 +26,7 @@ namespace ShoppingList.Android
             }
         }
 
-        public async Task SaveTokenAsync(string token)
+        public async Task SaveTokenAsync(string token, CancellationToken cancellationToken)
         {
             await SecureStorage.SetAsync(_tokenKey, token);
         }

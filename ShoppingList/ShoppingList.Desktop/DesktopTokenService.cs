@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace ShoppingList.Desktop
@@ -25,7 +26,7 @@ namespace ShoppingList.Desktop
             return Task.CompletedTask;
         }
 
-        public async Task<string?> GetTokenAsync()
+        public async Task<string?> GetTokenAsync(CancellationToken cancellationToken)
         {
             if (!OperatingSystem.IsWindows()) return null;
 
@@ -34,7 +35,7 @@ namespace ShoppingList.Desktop
                 if (!File.Exists(_filePath))
                     return null;
 
-                byte[] encryptedBytes = await File.ReadAllBytesAsync(_filePath);
+                byte[] encryptedBytes = await File.ReadAllBytesAsync(_filePath, cancellationToken);
                 byte[] decryptedBytes = ProtectedData.Unprotect(encryptedBytes, null, DataProtectionScope.CurrentUser);
                 return Encoding.UTF8.GetString(decryptedBytes);
             }
@@ -44,7 +45,7 @@ namespace ShoppingList.Desktop
             }
         }
 
-        public async Task SaveTokenAsync(string token)
+        public async Task SaveTokenAsync(string token, CancellationToken cancellationToken)
         {
             if (!OperatingSystem.IsWindows()) return;
 
@@ -55,7 +56,7 @@ namespace ShoppingList.Desktop
                 byte[] tokenBytes = Encoding.UTF8.GetBytes(token);
                 byte[] encryptedBytes = ProtectedData.Protect(tokenBytes, null, DataProtectionScope.CurrentUser);
 
-                await File.WriteAllBytesAsync(_filePath, encryptedBytes);
+                await File.WriteAllBytesAsync(_filePath, encryptedBytes, cancellationToken);
             }
             catch (Exception ex)
             {
