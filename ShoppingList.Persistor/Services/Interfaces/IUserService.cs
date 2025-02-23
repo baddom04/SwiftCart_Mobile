@@ -4,11 +4,11 @@ namespace ShoppingList.Persistor.Services.Interfaces
 {
     public interface IUserService
     {
-        Task LoginAsync(string email, string password, CancellationToken cancellationToken);
-        Task RegisterAsync(string username, string email, string password, CancellationToken cancellationToken);
-        Task LogoutAsync(CancellationToken cancellationToken);
-        Task<User?> GetUserAsync(CancellationToken cancellationToken);
-        Task DeleteUserAsync(int id, CancellationToken cancellationToken);
-        Task UpdateUserAsync(int id, string? username, string? email, string? password, CancellationToken cancellationToken);
+        Task LoginAsync(string email, string password, CancellationToken cancellationToken = default);
+        Task RegisterAsync(string username, string email, string password, CancellationToken cancellationToken = default);
+        Task LogoutAsync(CancellationToken cancellationToken = default);
+        Task<User?> GetUserAsync(CancellationToken cancellationToken = default);
+        Task DeleteUserAsync(int id, CancellationToken cancellationToken = default);
+        Task UpdateUserAsync(int id, string? username, string? email, string? password, CancellationToken cancellationToken = default);
     }
 }

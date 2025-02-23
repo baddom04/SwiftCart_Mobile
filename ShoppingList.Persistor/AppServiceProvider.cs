@@ -5,10 +5,10 @@ using System.Net.Http.Headers;
 
 namespace ShoppingList.Persistor
 {
-    public static class ServiceProvider
+    public static class AppServiceProvider
     {
         public static IServiceProvider Services { get; private set; }
-        static ServiceProvider()
+        static AppServiceProvider()
         {
             ServiceCollection services = new();
 

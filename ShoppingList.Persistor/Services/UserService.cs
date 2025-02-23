@@ -11,7 +11,7 @@ namespace ShoppingList.Persistor.Services
 
         public async Task DeleteUserAsync(int id, CancellationToken cancellationToken = default)
         {
-            HttpResponseMessage response = await _httpClient.DeleteAsync($"/users/{id}", cancellationToken);
+            HttpResponseMessage response = await _httpClient.DeleteAsync($"users/{id}", cancellationToken);
             if (!response.IsSuccessStatusCode)
             {
                 var errorContent = await response.Content.ReadAsStringAsync(cancellationToken);
@@ -21,7 +21,7 @@ namespace ShoppingList.Persistor.Services
 
         public async Task<User?> GetUserAsync(CancellationToken cancellationToken = default)
         {
-            using var request = new HttpRequestMessage(HttpMethod.Get, "/user");
+            using var request = new HttpRequestMessage(HttpMethod.Get, "user");
 
             string? token = await _tokenService.GetTokenAsync(cancellationToken);
             if (!string.IsNullOrEmpty(token))
@@ -43,23 +43,23 @@ namespace ShoppingList.Persistor.Services
         {
             var credentials = new { email, password };
 
-            HttpResponseMessage response = await _httpClient.PostAsJsonAsync("/login", credentials, cancellationToken);
+            HttpResponseMessage response = await _httpClient.PostAsJsonAsync("login", credentials, cancellationToken);
             if (!response.IsSuccessStatusCode)
             {
                 var errorContent = await response.Content.ReadAsStringAsync(cancellationToken);
                 throw new HttpRequestException($"LoginAsync failed: {response.StatusCode}, {errorContent}");
             }
 
-            Token? tokenResponse = await response.Content.ReadFromJsonAsync<Token>(cancellationToken: cancellationToken);
+            UserToken? tokenResponse = await response.Content.ReadFromJsonAsync<UserToken>(cancellationToken: cancellationToken);
             if (tokenResponse == null)
                 throw new NullReferenceException(nameof(tokenResponse));
 
-            await _tokenService.SaveTokenAsync(tokenResponse.TokenText, cancellationToken);
+            await _tokenService.SaveTokenAsync(tokenResponse.Token, cancellationToken);
         }
 
         public async Task LogoutAsync(CancellationToken cancellationToken = default)
         {
-            HttpResponseMessage response = await _httpClient.PostAsJsonAsync("/logout", new { }, cancellationToken);
+            HttpResponseMessage response = await _httpClient.PostAsJsonAsync("logout", new { }, cancellationToken);
             if (!response.IsSuccessStatusCode)
             {
                 var errorContent = await response.Content.ReadAsStringAsync(cancellationToken);
@@ -71,25 +71,25 @@ namespace ShoppingList.Persistor.Services
         {
             var payload = new { username, email, password };
 
-            HttpResponseMessage response = await _httpClient.PostAsJsonAsync("/register", payload, cancellationToken);
+            HttpResponseMessage response = await _httpClient.PostAsJsonAsync("register", payload, cancellationToken);
             if (!response.IsSuccessStatusCode)
             {
                 var errorContent = await response.Content.ReadAsStringAsync(cancellationToken);
                 throw new HttpRequestException($"RegisterAsync failed: {response.StatusCode}, {errorContent}");
             }
 
-            Token? tokenResponse = await response.Content.ReadFromJsonAsync<Token>(cancellationToken: cancellationToken);
+            UserToken? tokenResponse = await response.Content.ReadFromJsonAsync<UserToken>(cancellationToken: cancellationToken);
             if (tokenResponse == null)
                 throw new NullReferenceException(nameof(tokenResponse));
 
-            await _tokenService.SaveTokenAsync(tokenResponse.TokenText, cancellationToken);
+            await _tokenService.SaveTokenAsync(tokenResponse.Token, cancellationToken);
         }
 
         public async Task UpdateUserAsync(int id, string? username, string? email, string? password, CancellationToken cancellationToken = default)
         {
             var payload = new { username, email, password };
 
-            HttpResponseMessage response = await _httpClient.PutAsJsonAsync($"/users/{id}", payload, cancellationToken);
+            HttpResponseMessage response = await _httpClient.PutAsJsonAsync($"users/{id}", payload, cancellationToken);
             if (!response.IsSuccessStatusCode)
             {
                 var errorContent = await response.Content.ReadAsStringAsync(cancellationToken);
