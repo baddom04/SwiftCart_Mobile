@@ -10,4 +10,6 @@
   <SolidColorBrush x:Key="GreenButtonPressedBG" Color="#0fb500"/>
   <SolidColorBrush x:Key="RedButtonBG" Color="#e32929"/>
   <SolidColorBrush x:Key="RedButtonPressedBG" Color="#c72424"/>
+  <SolidColorBrush x:Key="ErrorPrimaryRed" Color="#a80d0d"/>
+  <SolidColorBrush x:Key="ErrorSecondaryRed" Color="#ff6969"/>
 </ResourceDictionary>

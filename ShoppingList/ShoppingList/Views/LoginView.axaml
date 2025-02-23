@@ -7,16 +7,32 @@
              x:Class="ShoppingList.Views.LoginView"
              x:DataType="vm:LoginViewModel"
              xmlns:progRing="clr-namespace:AvaloniaProgressRing;assembly=AvaloniaProgressRing">
-  <Grid RowDefinitions="*, 5*, *, *"  HorizontalAlignment="Stretch" VerticalAlignment="Center">
+  <Grid RowDefinitions="*, Auto, 5*, *, *"  HorizontalAlignment="Stretch" VerticalAlignment="Center">
     <TextBlock Grid.Row="0" Text="{DynamicResource Login}" Classes="h1" Margin="30" HorizontalAlignment="Center"/>
-    <StackPanel Grid.Row="1" Margin="30 10" Spacing="10">
+    
+    <Border Grid.Row="1" Classes="loginError"
+            Margin="30 10" IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+      <Grid ColumnDefinitions="Auto, *">
+        <PathIcon Grid.Column="0" Data="{StaticResource error_circle_regular}" 
+                  Classes="loginError" VerticalAlignment="Center" 
+                  Margin="0 0 10 0"/>
+        <TextBlock Grid.Column="1" Classes="loginError" 
+                   VerticalAlignment="Center" 
+                   TextAlignment="Left" 
+                   Text="{Binding ErrorMessage}"
+                   TextWrapping="Wrap"
+                   />
+      </Grid>
+    </Border>
+    
+    <StackPanel Grid.Row="2" Margin="30 10" Spacing="10">
       <TextBlock Text="{DynamicResource Email}" />
       <TextBox Watermark="{DynamicResource EmailWatermark}" Text="{Binding EmailInput}"/>
       <TextBlock Text="{DynamicResource Password}" Margin="0 10 0 0"/>
-      <TextBox Watermark="{DynamicResource PasswordWatermark}" Text="{Binding PasswordInput}"/>
+      <TextBox Watermark="{DynamicResource PasswordWatermark}" Text="{Binding PasswordInput}" PasswordChar="*"/>
     </StackPanel>
-    <Button Grid.Row="2" Margin="15" Classes="big" Content="{DynamicResource Login}" HorizontalAlignment="Center" Command="{Binding LoginCommand}"/>
-    <StackPanel Grid.Row="3" HorizontalAlignment="Center" Margin="10" Orientation="Horizontal">
+    <Button Grid.Row="3" Margin="15" Classes="big" Content="{DynamicResource Login}" HorizontalAlignment="Center" Command="{Binding LoginCommand}"/>
+    <StackPanel Grid.Row="4" HorizontalAlignment="Center" Margin="10" Orientation="Horizontal">
       <TextBlock VerticalAlignment="Center" Classes="mini" Text="{DynamicResource DontHaveAnAccount}"/>
       <Button Classes="text" Content="{DynamicResource RegisterHere}" Command="{Binding RegisterPageCommand}"/>
     </StackPanel>

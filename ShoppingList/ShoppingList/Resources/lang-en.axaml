@@ -36,4 +36,11 @@
   <x:String x:Key="Liter">Liter</x:String>
   <x:String x:Key="Decagram">Decagram</x:String>
   <x:String x:Key="Deciliter">Deciliter</x:String>
+  
+  <!--Error Messages-->
+  <x:String x:Key="EmailFormatError">The given email address is not valid.</x:String>
+  <x:String x:Key="EmailMissingError">Please enter your email address.</x:String>
+  <x:String x:Key="PasswordFormatError">Your password must be at least 8 characters long.</x:String>
+  <x:String x:Key="PasswordMissingError">Please enter your password.</x:String>
+  
 </ResourceDictionary>
