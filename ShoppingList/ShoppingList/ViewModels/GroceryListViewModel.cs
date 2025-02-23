@@ -2,6 +2,7 @@
 using Avalonia.Controls;
 using ReactiveUI;
 using ShoppingList.Model.Models;
+using ShoppingList.Model;
 using ShoppingList.Utils;
 using System.Collections.Generic;
 using System.Linq;
@@ -87,7 +88,7 @@ namespace ShoppingList.ViewModels
         {
             if (index < 0)
             {
-                item.Owner = App.CurrentUser!;
+                item.UserId = App.CurrentUser!.Id;
             }
 
             Model.StartEdit(item, index);

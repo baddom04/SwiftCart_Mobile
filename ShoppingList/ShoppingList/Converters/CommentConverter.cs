@@ -1,5 +1,5 @@
 ﻿using Avalonia.Data.Converters;
-using ShoppingList.Utils;
+using ShoppingList.Model;
 using System;
 using System.Globalization;
 
@@ -11,7 +11,7 @@ namespace ShoppingList.Converters
         {
             if (value is not Comment comment) return value;
 
-            return $"{comment.User.NickName}: {comment.Text}";
+            return $"{comment.Content}";
         }
 
         public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)

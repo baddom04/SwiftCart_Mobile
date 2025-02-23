@@ -3,6 +3,7 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using ShoppingList.Utils;
 using ShoppingList.Views;
+using ShoppingList.Model;
 
 namespace ShoppingList
 {
@@ -30,7 +31,13 @@ namespace ShoppingList
                 singleViewPlatform.MainView = MainView;
             }
 
-            CurrentUser = new("Batki Domonkos", "Domika", "domonkosbatki98@gmail.com");
+            CurrentUser = new User
+            {
+                Id = 11,
+                Email = "domonkosbatki98@gmail.com",
+                Name = "Domi",
+                Admin = true
+            };
 
             base.OnFrameworkInitializationCompleted();
         }

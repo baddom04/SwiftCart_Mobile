@@ -1,5 +1,4 @@
 ﻿using ShoppingList.Utils;
-using ShoppingList.Persistor;
 using System.Collections.ObjectModel;
 
 namespace ShoppingList.Model.Models
@@ -87,7 +86,8 @@ namespace ShoppingList.Model.Models
         #region Methods
         public GroceryListModel()
         {
-            ShoppingList = [.. ShoppingListPersistor.LoadShoppingList()];
+            //ShoppingList = [.. ShoppingListPersistor.LoadShoppingList()];
+            ShoppingList = [];
             ShoppingList.CollectionChanged += (_, _) => Save();
 
             UnitTypes = [.. (UnitType[])Enum.GetValues(typeof(UnitType))] ;
@@ -102,12 +102,12 @@ namespace ShoppingList.Model.Models
         }
         public void AddComment(ShoppingItem item, User user, string comment)
         {
-            item.Comments.Add(new Comment(user, comment));
+            item.Comments.Add(new Comment() { Content = comment });
             Save();
         }
         private void Save()
         {
-            ShoppingListPersistor.SaveShoppingList(ShoppingList);
+            //ShoppingListPersistor.SaveShoppingList(ShoppingList);
         }
         #endregion
     }

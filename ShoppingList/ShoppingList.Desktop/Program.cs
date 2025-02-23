@@ -1,5 +1,6 @@
 ﻿using Avalonia;
 using Avalonia.ReactiveUI;
+using ShoppingList.Persistor.Services.Interfaces;
 using ShoppingList.Utils;
 using System;
 
@@ -13,7 +14,7 @@ namespace ShoppingList.Desktop
         [STAThread]
         public static void Main(string[] args)
         {
-            //ServiceProvider.Register<IFileService>(new DesktopFileService());
+            ServiceProvider.Register<ITokenService>(new DesktopTokenService());
 
             BuildAvaloniaApp().StartWithClassicDesktopLifetime(args);
         }

@@ -1,7 +1,7 @@
 ﻿using ReactiveUI;
 using System;
 using System.Reactive;
-using ShoppingList.Utils;
+using ShoppingList.Model;
 
 namespace ShoppingList.ViewModels
 {
@@ -21,7 +21,7 @@ namespace ShoppingList.ViewModels
             set { this.RaiseAndSetIfChanged(ref _isExpanded, value); }
         }
 
-        public bool IsOwner => App.CurrentUser!.Equals(Item.Owner);
+        public bool IsOwner => App.CurrentUser!.Id.Equals(Item.UserId);
         public string QuantityDisplay => Item.Quantity + " " + Item.Unit.ToString();
         public ReactiveCommand<Unit, bool> ToggleExpandedCommand { get; }
         public ReactiveCommand<Unit, Unit> EditCommand { get; }
