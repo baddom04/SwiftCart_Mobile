@@ -1,4 +1,6 @@
-﻿namespace ShoppingList.Core
+﻿using ShoppingList.Core.Enums;
+
+namespace ShoppingList.Core
 {
     public class Grocery
     {

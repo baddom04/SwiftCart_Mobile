@@ -9,7 +9,7 @@ namespace ShoppingList
     public partial class App : Application
     {
         public static User? CurrentUser { get; private set; }
-        public static MainView? MainView { get; private set; }
+        public static MainView MainView { get; private set; } = null!;
         public override void Initialize()
         {
             AvaloniaXamlLoader.Load(this);

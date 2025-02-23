@@ -1,4 +1,4 @@
-﻿namespace ShoppingList.Utils
+﻿namespace ShoppingList.Core.Enums
 {
     public enum ItemFormErrorType
     {

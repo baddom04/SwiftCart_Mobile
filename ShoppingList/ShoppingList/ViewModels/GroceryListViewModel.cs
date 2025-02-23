@@ -1,16 +1,14 @@
 ﻿using ReactiveUI;
-using ShoppingList.Model.Models;
 using ShoppingList.Model;
-using ShoppingList.Utils;
+using ShoppingList.Model.Models;
+using ShoppingList.Core.Enums;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
-using Avalonia;
-using Avalonia.Controls;
 
 namespace ShoppingList.ViewModels
 {
-    internal class GroceryListViewModel : ViewModelBase
+    public class GroceryListViewModel : ViewModelBase
     {
         #region Properties
         public GroceryListModel Model { get; }
@@ -49,9 +47,7 @@ namespace ShoppingList.ViewModels
         public ReactiveCommand<Unit, Unit> InputModeOnCommand { get; }
         public ReactiveCommand<Unit, Unit> SaveCommand { get; }
         public ReactiveCommand<Unit, Unit> InputModeOffCommand { get; }
-        public ReactiveCommand<ShoppingItemDisplay, Unit> DeleteItemCommand { get; }
         public ReactiveCommand<ShoppingItemDisplay, Unit> BoughtItemCommand { get; }
-        public ReactiveCommand<ShoppingItemDisplay, Unit> AddCommentCommand { get; }
         #endregion
 
         #region Methods
@@ -67,9 +63,7 @@ namespace ShoppingList.ViewModels
             InputModeOnCommand = ReactiveCommand.Create(() => OnInputModeOn(ShoppingItem.Empty, -1));
             SaveCommand = ReactiveCommand.Create(() => { Model.SaveEdit(); if(Model.IsValidItem) OnInputModeOff(); }); 
             InputModeOffCommand = ReactiveCommand.Create(OnInputModeOff);
-            DeleteItemCommand = ReactiveCommand.Create<ShoppingItemDisplay>(DeleteItem);
             BoughtItemCommand = ReactiveCommand.Create<ShoppingItemDisplay>(Boughtitem);
-            AddCommentCommand = ReactiveCommand.Create<ShoppingItemDisplay>(AddComment);
         }
 
         private void ShoppingList_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
@@ -98,24 +92,9 @@ namespace ShoppingList.ViewModels
         {
             InputMode = false;
         }
-        private async void DeleteItem(ShoppingItemDisplay item)
-        {
-            Application.Current!.TryFindResource("DeleteGroceryConfirmQuestion", out var res);
-            bool result = await App.MainView!.ShowConfirmDialog(res as string ?? throw new KeyNotFoundException());
-
-            if (!result) return;
-
-            Model.DeleteItem(item.Item);
-        }
         private void Boughtitem(ShoppingItemDisplay item)
         {
             Model.DeleteItem(item.Item);
-        }
-        private async void AddComment(ShoppingItemDisplay display)
-        {
-            string? comment = await App.MainView!.ShowTextInputDialog("Comment", (input) => !string.IsNullOrWhiteSpace(input));
-            if (string.IsNullOrWhiteSpace(comment)) return;
-            Model.AddComment(display.Item, App.CurrentUser!, comment);
         }
         #endregion
     }

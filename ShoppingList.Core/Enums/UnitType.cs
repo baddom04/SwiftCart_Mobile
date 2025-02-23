@@ -1,4 +1,4 @@
-﻿namespace ShoppingList.Core
+﻿namespace ShoppingList.Core.Enums
 {
     public enum UnitType
     {

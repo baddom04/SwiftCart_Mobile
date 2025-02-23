@@ -122,13 +122,13 @@
                       </Button>
 
                       <!--Add comment button-->
-                      <Button Classes="item_action" Command="{Binding $parent[UserControl].((vm:GroceryListViewModel)DataContext).AddCommentCommand}"  CommandParameter="{Binding}">
+                      <Button Classes="item_action" Click="Comment_Click" Tag="{Binding}">
                         <PathIcon Data="{StaticResource comment_add_regular}"
                                   Classes="item_action"/>
                       </Button>
 
                       <!--Delete button-->
-                      <Button Classes="item_action" Command="{Binding $parent[UserControl].((vm:GroceryListViewModel)DataContext).DeleteItemCommand}"  CommandParameter="{Binding}">
+                      <Button Classes="item_action" Click="DeleteItem_Click" Tag="{Binding}">
                         <PathIcon Data="{StaticResource delete_regular}"
                                   Classes="item_action_red"/>
                       </Button>

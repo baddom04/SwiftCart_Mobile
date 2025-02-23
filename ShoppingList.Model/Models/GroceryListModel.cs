@@ -1,5 +1,5 @@
 ﻿using ShoppingList.Core;
-using ShoppingList.Utils;
+using ShoppingList.Core.Enums;
 using System.Collections.ObjectModel;
 
 namespace ShoppingList.Model.Models
