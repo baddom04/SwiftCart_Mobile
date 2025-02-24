@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ShoppingList.Utils
 {
-    public static class StringResolver
+    public static class StringProvider
     {
         public static string GetString(string key)
         {

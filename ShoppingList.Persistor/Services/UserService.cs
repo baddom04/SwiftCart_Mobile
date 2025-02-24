@@ -1,4 +1,5 @@
 ﻿using ShoppingList.Core;
+using ShoppingList.Persistor.ServerResponseHandling;
 using ShoppingList.Persistor.Services.Interfaces;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
@@ -46,8 +47,11 @@ namespace ShoppingList.Persistor.Services
             HttpResponseMessage response = await _httpClient.PostAsJsonAsync("login", credentials, cancellationToken);
             if (!response.IsSuccessStatusCode)
             {
-                var errorContent = await response.Content.ReadAsStringAsync(cancellationToken);
-                throw new HttpRequestException($"LoginAsync failed: {response.StatusCode}, {errorContent}");
+                ErrorResponse? errorResponse = await response.Content.ReadFromJsonAsync<ErrorResponse>(cancellationToken);
+                if (errorResponse == null)
+                    throw new NullReferenceException(nameof(errorResponse));
+
+                throw new HttpRequestException($"{errorResponse.Error?.ToString()}");
             }
 
             UserToken? tokenResponse = await response.Content.ReadFromJsonAsync<UserToken>(cancellationToken: cancellationToken);

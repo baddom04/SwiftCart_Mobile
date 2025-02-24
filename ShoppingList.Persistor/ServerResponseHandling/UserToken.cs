@@ -1,4 +1,4 @@
-﻿namespace ShoppingList.Persistor
+﻿namespace ShoppingList.Persistor.ServerResponseHandling
 {
     internal class UserToken
     {

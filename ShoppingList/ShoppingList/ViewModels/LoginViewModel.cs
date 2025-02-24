@@ -6,6 +6,7 @@ using ShoppingList.Utils;
 using System;
 using System.Reactive;
 using System.Threading.Tasks;
+using System.Xml.Schema;
 
 namespace ShoppingList.ViewModels
 {
@@ -40,15 +41,25 @@ namespace ShoppingList.ViewModels
 
             ShowLoading(true);
 
-            IUserService userService = AppServiceProvider.Services.GetRequiredService<IUserService>();
-            await userService.LoginAsync(EmailInput, PasswordInput);
+            try
+            {
+                IUserService userService = AppServiceProvider.Services.GetRequiredService<IUserService>();
+                await userService.LoginAsync(EmailInput, PasswordInput);
 
-            ShowLoading(false);
-            ChangePage(Page.Main);
+                ChangePage(Page.Main);
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = $"{StringProvider.GetString("LoginError")}{ex.Message}";
+            }
+            finally
+            {
+                ShowLoading(false);
+            }
         }
         private bool Validate()
         {
-            if(ValidateEmail() && ValidatePassword())
+            if (ValidateEmail() && ValidatePassword())
             {
                 ErrorMessage = null;
                 return true;
@@ -61,13 +72,13 @@ namespace ShoppingList.ViewModels
 
             if (string.IsNullOrWhiteSpace(trimmedEmail))
             {
-                ErrorMessage = StringResolver.GetString("EmailMissingError");
+                ErrorMessage = StringProvider.GetString("EmailMissingError");
                 return false;
             }
 
             if (trimmedEmail.EndsWith('.'))
             {
-                ErrorMessage = StringResolver.GetString("EmailFormatError");
+                ErrorMessage = StringProvider.GetString("EmailFormatError");
                 return false;
             }
             try
@@ -77,7 +88,7 @@ namespace ShoppingList.ViewModels
             }
             catch
             {
-                ErrorMessage = StringResolver.GetString("EmailFormatError");
+                ErrorMessage = StringProvider.GetString("EmailFormatError");
                 return false;
             }
         }
@@ -87,13 +98,13 @@ namespace ShoppingList.ViewModels
 
             if (string.IsNullOrWhiteSpace(trimmedPassword))
             {
-                ErrorMessage = StringResolver.GetString("PasswordMissingError");
+                ErrorMessage = StringProvider.GetString("PasswordMissingError");
                 return false;
             }
 
-            if(trimmedPassword.Length < 8)
+            if (trimmedPassword.Length < 8)
             {
-                ErrorMessage = StringResolver.GetString("PasswordFormatError");
+                ErrorMessage = StringProvider.GetString("PasswordFormatError");
                 return false;
             }
 
