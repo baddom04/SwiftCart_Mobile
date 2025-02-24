@@ -73,13 +73,16 @@ namespace ShoppingList.Persistor.Services
 
         public async Task RegisterAsync(string username, string email, string password, CancellationToken cancellationToken = default)
         {
-            var payload = new { username, email, password };
+            var payload = new { name = username, email, password };
 
             HttpResponseMessage response = await _httpClient.PostAsJsonAsync("register", payload, cancellationToken);
             if (!response.IsSuccessStatusCode)
             {
-                var errorContent = await response.Content.ReadAsStringAsync(cancellationToken);
-                throw new HttpRequestException($"RegisterAsync failed: {response.StatusCode}, {errorContent}");
+                ErrorResponse? errorResponse = await response.Content.ReadFromJsonAsync<ErrorResponse>(cancellationToken);
+                if (errorResponse == null)
+                    throw new NullReferenceException(nameof(errorResponse));
+
+                throw new HttpRequestException($"{errorResponse.Error?.ToString()}");
             }
 
             UserToken? tokenResponse = await response.Content.ReadFromJsonAsync<UserToken>(cancellationToken: cancellationToken);

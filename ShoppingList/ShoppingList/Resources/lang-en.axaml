@@ -42,6 +42,8 @@
   <x:String x:Key="EmailMissingError">Please enter your email address.</x:String>
   <x:String x:Key="PasswordFormatError">Your password must be at least 8 characters long.</x:String>
   <x:String x:Key="PasswordMissingError">Please enter your password.</x:String>
+  <x:String x:Key="UsernameMissingError">Please enter your username.</x:String>
   <x:String x:Key="LoginError">Login error:&#x0a;</x:String>
+  <x:String x:Key="RegisterError">Register error:&#x0a;</x:String>
   
 </ResourceDictionary>

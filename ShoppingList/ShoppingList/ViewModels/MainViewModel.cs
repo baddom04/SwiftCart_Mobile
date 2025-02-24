@@ -18,7 +18,7 @@ namespace ShoppingList.ViewModels
         public bool IsLoading
         {
             get { return _isLoading; }
-            set { this.RaiseAndSetIfChanged(ref _isLoading, value); }
+            private set { this.RaiseAndSetIfChanged(ref _isLoading, value); }
         }
 
         public MainViewModel()
@@ -26,12 +26,11 @@ namespace ShoppingList.ViewModels
             _pages = new Dictionary<Page, ViewModelBase>()
             {
                 { Page.Login, new LoginViewModel(ChangePage, ShowLoading) },
-                { Page.Register, new RegisterViewModel(ChangePage) },
+                { Page.Register, new RegisterViewModel(ChangePage, ShowLoading) },
                 { Page.Main, new LoggedInViewModel() },
             };
 
             _currentPage = _pages[Page.Login];
-            IsLoading = false;
         }
 
         private void ChangePage(Page page)

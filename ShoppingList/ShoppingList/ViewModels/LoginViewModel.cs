@@ -23,14 +23,14 @@ namespace ShoppingList.ViewModels
             set { this.RaiseAndSetIfChanged(ref _errorMessage, value); }
         }
 
-        private Action<bool> ShowLoading { get; }
-        private Action<Page> ChangePage { get; }
+        private readonly Action<bool> _showLoading;
+        private readonly Action<Page> _changePage;
         public LoginViewModel(Action<Page> changePage, Action<bool> showLoading)
         {
-            ChangePage = changePage;
-            ShowLoading = showLoading;
+            _changePage = changePage;
+            _showLoading = showLoading;
 
-            RegisterPageCommand = ReactiveCommand.Create(() => ChangePage(Page.Register));
+            RegisterPageCommand = ReactiveCommand.Create(() => _changePage(Page.Register));
             LoginCommand = ReactiveCommand.Create(Login);
         }
 
@@ -38,14 +38,14 @@ namespace ShoppingList.ViewModels
         {
             if (!Validate()) return;
 
-            ShowLoading(true);
+            _showLoading(true);
 
             try
             {
                 IUserService userService = AppServiceProvider.Services.GetRequiredService<IUserService>();
                 await userService.LoginAsync(EmailInput, PasswordInput);
 
-                ChangePage(Page.Main);
+                _changePage(Page.Main);
             }
             catch (Exception ex)
             {
@@ -53,7 +53,7 @@ namespace ShoppingList.ViewModels
             }
             finally
             {
-                ShowLoading(false);
+                _showLoading(false);
             }
         }
         private bool Validate()
