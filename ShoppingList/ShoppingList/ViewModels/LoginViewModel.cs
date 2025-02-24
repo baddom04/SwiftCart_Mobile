@@ -6,7 +6,6 @@ using ShoppingList.Utils;
 using System;
 using System.Reactive;
 using System.Threading.Tasks;
-using System.Xml.Schema;
 
 namespace ShoppingList.ViewModels
 {

@@ -6,24 +6,12 @@
              mc:Ignorable="d" d:DesignWidth="405" d:DesignHeight="800"
              x:Class="ShoppingList.Views.LoginView"
              x:DataType="vm:LoginViewModel"
-             xmlns:progRing="clr-namespace:AvaloniaProgressRing;assembly=AvaloniaProgressRing">
+             xmlns:progRing="clr-namespace:AvaloniaProgressRing;assembly=AvaloniaProgressRing"
+             xmlns:controls="clr-namespace:ShoppingList.Views.CustomControls">
   <Grid RowDefinitions="*, Auto, 5*, *, *"  HorizontalAlignment="Stretch" VerticalAlignment="Center">
     <TextBlock Grid.Row="0" Text="{DynamicResource Login}" Classes="h1" Margin="30" HorizontalAlignment="Center"/>
     
-    <Border Grid.Row="1" Classes="loginError"
-            Margin="30 10" IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
-      <Grid ColumnDefinitions="Auto, *">
-        <PathIcon Grid.Column="0" Data="{StaticResource error_circle_regular}" 
-                  Classes="loginError" VerticalAlignment="Center" 
-                  Margin="0 0 10 0"/>
-        <TextBlock Grid.Column="1" Classes="loginError" 
-                   VerticalAlignment="Center" 
-                   TextAlignment="Left" 
-                   Text="{Binding ErrorMessage}"
-                   TextWrapping="Wrap"
-                   />
-      </Grid>
-    </Border>
+    <controls:ErrorDisplay ErrorMessage="{Binding ErrorMessage}" Grid.Row="1"/>
     
     <StackPanel Grid.Row="2" Margin="30 10" Spacing="10">
       <TextBlock Text="{DynamicResource Email}" />
