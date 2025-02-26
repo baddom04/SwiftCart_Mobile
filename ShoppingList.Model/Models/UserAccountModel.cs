@@ -7,14 +7,21 @@ namespace ShoppingList.Model.Models
 {
     public class UserAccountModel
     {
+        private readonly IUserService _service;
         public User? User { get; private set; }
 
+        public UserAccountModel()
+        {
+            _service = AppServiceProvider.Services.GetRequiredService<IUserService>();
+        }
         public async Task LoginAsync(string email, string password)
         {
-            IUserService userService = AppServiceProvider.Services.GetRequiredService<IUserService>();
-            await userService.LoginAsync(email, password);
+            await _service.LoginAsync(email, password);
         }
 
-
+        public async Task RegisterAsync(string username, string email, string password)
+        {
+            await _service.RegisterAsync(username, email, password);
+        }
     }
 }

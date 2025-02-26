@@ -1,8 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using ReactiveUI;
+﻿using ReactiveUI;
 using ShoppingList.Model.Models;
-using ShoppingList.Persistor;
-using ShoppingList.Persistor.Services.Interfaces;
 using ShoppingList.Utils;
 using System;
 using System.Reactive;
@@ -48,8 +45,7 @@ namespace ShoppingList.ViewModels
 
             try
             {
-                IUserService userService = AppServiceProvider.Services.GetRequiredService<IUserService>();
-                await userService.RegisterAsync(UsernameInput, EmailInput, PasswordInput);
+                await _model.RegisterAsync(UsernameInput, EmailInput, PasswordInput);
 
                 _changePage(Page.Main);
             }
