@@ -8,10 +8,10 @@
         Width="405" Height="800"
         MinWidth="405" MinHeight="800"
         x:Class="ShoppingList.Views.MainWindow"
+        x:Name="MyWindow"
         Icon="/Assets/avalonia-logo.ico"
         Title="ShoppingList"
         ExtendClientAreaToDecorationsHint="True"
         WindowStartupLocation="CenterScreen"
         Background="{DynamicResource MainBG}">
-  <views:MainView x:Name="MainView"/>
 </Window>

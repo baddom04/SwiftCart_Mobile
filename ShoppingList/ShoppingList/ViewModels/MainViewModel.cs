@@ -1,4 +1,5 @@
 ﻿using ReactiveUI;
+using ShoppingList.Model.Models;
 using System.Collections.Generic;
 
 namespace ShoppingList.ViewModels
@@ -21,13 +22,13 @@ namespace ShoppingList.ViewModels
             private set { this.RaiseAndSetIfChanged(ref _isLoading, value); }
         }
 
-        public MainViewModel()
+        public MainViewModel(UserAccountModel accountModel)
         {
             _pages = new Dictionary<Page, ViewModelBase>()
             {
-                { Page.Login, new LoginViewModel(ChangePage, ShowLoading) },
-                { Page.Register, new RegisterViewModel(ChangePage, ShowLoading) },
-                { Page.Main, new LoggedInViewModel() },
+                { Page.Login, new LoginViewModel(accountModel, ChangePage, ShowLoading) },
+                { Page.Register, new RegisterViewModel(accountModel, ChangePage, ShowLoading) },
+                { Page.Main, new LoggedInViewModel(accountModel) },
             };
 
             _currentPage = _pages[Page.Login];

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using ReactiveUI;
+using ShoppingList.Model.Models;
 using ShoppingList.Persistor;
 using ShoppingList.Persistor.Services.Interfaces;
 using ShoppingList.Utils;
@@ -25,10 +26,12 @@ namespace ShoppingList.ViewModels
 
         private readonly Action<bool> _showLoading;
         private readonly Action<Page> _changePage;
-        public LoginViewModel(Action<Page> changePage, Action<bool> showLoading)
+        private readonly UserAccountModel _model;
+        public LoginViewModel(UserAccountModel model, Action<Page> changePage, Action<bool> showLoading)
         {
             _changePage = changePage;
             _showLoading = showLoading;
+            _model = model;
 
             RegisterPageCommand = ReactiveCommand.Create(() => _changePage(Page.Register));
             LoginCommand = ReactiveCommand.Create(Login);

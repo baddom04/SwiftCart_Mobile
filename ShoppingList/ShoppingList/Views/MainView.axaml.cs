@@ -7,10 +7,10 @@ namespace ShoppingList.Views
 {
     public partial class MainView : UserControl
     {
-        public MainView()
+        public MainView(MainViewModel viewModel)
         {
             InitializeComponent();
-            DataContext = new MainViewModel();
+            DataContext = viewModel;
         }
         public async Task<bool> ShowConfirmDialog(string questionKey)
         {

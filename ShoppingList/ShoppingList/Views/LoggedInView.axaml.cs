@@ -12,7 +12,6 @@ public partial class LoggedInView : UserControl
     public LoggedInView()
     {
         InitializeComponent();
-        DataContext = new LoggedInViewModel();
         Loaded += (_, _) => SetMenuIconColors(MainMenu);
     }
     private void ListBox_SelectionChanged(object? sender, SelectionChangedEventArgs e)

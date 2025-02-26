@@ -1,4 +1,5 @@
 ﻿using ReactiveUI;
+using ShoppingList.Model.Models;
 using ShoppingList.Utils;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -36,11 +37,13 @@ namespace ShoppingList.ViewModels
             { new MenuIcon("Settings", "settings_regular"), new SettingsViewModel() },
         };
 
-        public LoggedInViewModel()
+        private readonly UserAccountModel _accountModel;
+        public LoggedInViewModel(UserAccountModel accountModel)
         {
             MenuItems = [.. Menus.Select(item => item.Key)];
             _selectedMenuItem = MenuItems[0];
             _currentPage = Menus[_selectedMenuItem];
+            _accountModel = accountModel;
 
             //this.WhenAnyValue(x => x.SelectedMenuItem)
             //    .Where(selectedItem => selectedItem is not null)
