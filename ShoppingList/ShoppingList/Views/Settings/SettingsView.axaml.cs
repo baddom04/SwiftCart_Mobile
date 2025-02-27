@@ -8,6 +8,12 @@ public partial class SettingsView : UserControl
     public SettingsView()
     {
         InitializeComponent();
+        Loaded += SettingsView_Loaded;
+    }
+
+    private async void SettingsView_Loaded(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        await (DataContext as SettingsViewModel)!.LoadUser();
     }
 
     private async void Logout_PointerPressed(object? sender, Avalonia.Input.PointerPressedEventArgs e)

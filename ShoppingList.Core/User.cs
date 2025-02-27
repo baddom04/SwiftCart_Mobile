@@ -1,4 +1,6 @@
-﻿namespace ShoppingList.Core
+﻿using ShoppingList.Core.Enums;
+
+namespace ShoppingList.Core
 {
     public class User() : ICloneable
     {
@@ -8,7 +10,7 @@
         public DateTime? EmailVerifiedAt { get; init; }
         public DateTime CreatedAt { get; init; }
         public DateTime UpdatedAt { get; init; }
-        public int Admin { get; init; }
+        public UserRole Admin { get; init; }
 
         public object Clone()
         {

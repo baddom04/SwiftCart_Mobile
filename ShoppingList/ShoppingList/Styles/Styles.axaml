@@ -31,6 +31,9 @@
       <Setter Property="FontSize" Value="22"/>
       <Setter Property="FontWeight" Value="Bold"/>
     </Style>
+    <Style Selector="^.confirm_question">
+      <Setter Property="FontSize" Value="22"/>
+    </Style>
     <Style Selector="^.mini">
       <Setter Property="FontSize" Value="17"/>
       <Setter Property="Opacity" Value="0.7"/>
@@ -80,6 +83,10 @@
     
     <Style Selector="^:pressed /template/ ContentPresenter" >
       <Setter Property="Background" Value="{StaticResource MainBtnPressedBG}"/>
+    </Style>
+
+    <Style Selector="^.confirm_answer">
+      <Setter Property="FontSize" Value="18"/>
     </Style>
 
     <Style Selector="^.text">
