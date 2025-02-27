@@ -1,6 +1,5 @@
 ﻿using ShoppingList.Persistor.ServerResponseHandling;
 using System.Net.Http.Json;
-using System.Threading;
 
 namespace ShoppingList.Persistor.Services
 {

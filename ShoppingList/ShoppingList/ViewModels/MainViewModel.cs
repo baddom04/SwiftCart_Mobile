@@ -22,13 +22,13 @@ namespace ShoppingList.ViewModels
             private set { this.RaiseAndSetIfChanged(ref _isLoading, value); }
         }
 
-        public MainViewModel(UserAccountModel accountModel)
+        public MainViewModel(UserAccountModel userAccount)
         {
             _pages = new Dictionary<Page, ViewModelBase>()
             {
-                { Page.Login, new LoginViewModel(accountModel, ChangePage, ShowLoading) },
-                { Page.Register, new RegisterViewModel(accountModel, ChangePage, ShowLoading) },
-                { Page.Main, new LoggedInViewModel(accountModel) },
+                { Page.Login, new LoginViewModel(userAccount, ChangePage, ShowLoading) },
+                { Page.Register, new RegisterViewModel(userAccount, ChangePage, ShowLoading) },
+                { Page.Main, new LoggedInViewModel(userAccount, ChangePage, ShowLoading) },
             };
 
             _currentPage = _pages[Page.Login];

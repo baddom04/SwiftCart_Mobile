@@ -26,7 +26,7 @@
   <x:String x:Key="EmailWatermark">john@example.com</x:String>
   <x:String x:Key="PasswordWatermark">********</x:String>
   
-  
+  <!--UnitTypes-->
   <x:String x:Key="Pieces">Pieces</x:String>
   <x:String x:Key="Pair">Pair</x:String>
   <x:String x:Key="Kilogram">Kilogram</x:String>
@@ -36,6 +36,10 @@
   <x:String x:Key="Liter">Liter</x:String>
   <x:String x:Key="Decagram">Decagram</x:String>
   <x:String x:Key="Deciliter">Deciliter</x:String>
+  
+  <!--Settings Page-->
+  <x:String x:Key="Logout">Log out</x:String>
+  
   
   <!--Error Messages-->
   <x:String x:Key="EmailFormatError">The given email address is not valid.</x:String>

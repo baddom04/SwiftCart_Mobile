@@ -3,6 +3,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="ShoppingList.Views.SettingsView">
-  <TextBlock Classes="h1" Text="{DynamicResource Settings}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+             xmlns:vm="clr-namespace:ShoppingList.ViewModels"
+             x:Class="ShoppingList.Views.SettingsView"
+             x:DataType="vm:SettingsViewModel">
+  <StackPanel>
+    <TextBlock Classes="h1" Text="{DynamicResource Settings}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="30"/>
+    <Button Content="{DynamicResource Logout}" Command="{Binding LogoutCommand}"/>
+  </StackPanel>
 </UserControl>
