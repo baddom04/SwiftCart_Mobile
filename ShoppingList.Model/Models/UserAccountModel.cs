@@ -52,5 +52,12 @@ namespace ShoppingList.Model.Models
 
             await _service.UpdateUserAsync(User.Id, username, email, password);
         }
+        public async Task UpdatePassword(string currentPassword, string newPassword)
+        {
+            if (User is null)
+                throw new NullReferenceException(nameof(User));
+
+            await _service.UpdatePasswordAsync(User.Id, currentPassword, newPassword);
+        }
     }
 }

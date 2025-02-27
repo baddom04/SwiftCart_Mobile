@@ -10,7 +10,7 @@ namespace ShoppingList.ViewModels
 {
     public class MainViewModel : ViewModelBase
     {
-        private readonly Dictionary<Page, ViewModelBase> _pages;
+        private readonly Dictionary<MainPage, ViewModelBase> _pages;
 
 		private ViewModelBase _currentPage;
 		public ViewModelBase CurrentPage
@@ -51,14 +51,14 @@ namespace ShoppingList.ViewModels
 
         public MainViewModel(UserAccountModel userAccount)
         {
-            _pages = new Dictionary<Page, ViewModelBase>()
+            _pages = new Dictionary<MainPage, ViewModelBase>()
             {
-                { Page.Login, new LoginViewModel(userAccount, ChangePage, ShowLoading) },
-                { Page.Register, new RegisterViewModel(userAccount, ChangePage, ShowLoading) },
-                { Page.Main, new LoggedInViewModel(userAccount, ChangePage, ShowLoading, ShowNotificationDialog) },
+                { MainPage.Login, new LoginViewModel(userAccount, ChangePage, ShowLoading) },
+                { MainPage.Register, new RegisterViewModel(userAccount, ChangePage, ShowLoading) },
+                { MainPage.Main, new LoggedInViewModel(userAccount, ChangePage, ShowLoading, ShowNotificationDialog) },
             };
 
-            _currentPage = _pages[Page.Login];
+            _currentPage = _pages[MainPage.Login];
 
             HideNotificationCommand = ReactiveCommand.Create(HideNotificationDialog);
         }
@@ -70,7 +70,7 @@ namespace ShoppingList.ViewModels
             NotificationType = null;
         }
 
-        private void ChangePage(Page page)
+        private void ChangePage(MainPage page)
         {
             CurrentPage = _pages[page];
         }
@@ -84,12 +84,5 @@ namespace ShoppingList.ViewModels
             NotificationMessage = message;
             NotificationType = type;
         }
-    }
-
-    public enum Page
-    {
-        Login,
-        Register,
-        Main
     }
 }

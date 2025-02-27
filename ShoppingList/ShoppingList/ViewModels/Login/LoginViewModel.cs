@@ -22,16 +22,16 @@ namespace ShoppingList.ViewModels.Login
         }
 
         private readonly Action<bool> _showLoading;
-        private readonly Action<Page> _changePage;
+        private readonly Action<MainPage> _changePage;
         private readonly UserAccountModel _model;
         private bool _firstTimeLoginAttempt = true;
-        public LoginViewModel(UserAccountModel model, Action<Page> changePage, Action<bool> showLoading)
+        public LoginViewModel(UserAccountModel model, Action<MainPage> changePage, Action<bool> showLoading)
         {
             _changePage = changePage;
             _showLoading = showLoading;
             _model = model;
 
-            RegisterPageCommand = ReactiveCommand.Create(() => _changePage(Page.Register));
+            RegisterPageCommand = ReactiveCommand.Create(() => _changePage(MainPage.Register));
             LoginCommand = ReactiveCommand.Create(Login);
         }
 
@@ -45,7 +45,8 @@ namespace ShoppingList.ViewModels.Login
             {
                 await _model.LoginAsync(EmailInput, PasswordInput);
 
-                _changePage(Page.Main);
+                _changePage(MainPage.Main);
+                ErrorMessage = null;
             }
             catch (Exception ex)
             {
@@ -119,7 +120,7 @@ namespace ShoppingList.ViewModels.Login
             {
                 await _model.GetUserAsync();
 
-                _changePage(Page.Main);
+                _changePage(MainPage.Main);
             }
             catch
             {

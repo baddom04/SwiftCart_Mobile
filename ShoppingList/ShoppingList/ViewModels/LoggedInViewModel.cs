@@ -39,7 +39,7 @@ namespace ShoppingList.ViewModels
         private readonly UserAccountModel _userAccount;
         private readonly Action<NotificationType, string> _showNotification;
         private readonly Action<bool> _showLoading;
-        public LoggedInViewModel(UserAccountModel userAccount, Action<Page> changePage, Action<bool> showLoading, Action<NotificationType, string> showNotification)
+        public LoggedInViewModel(UserAccountModel userAccount, Action<MainPage> changePage, Action<bool> showLoading, Action<NotificationType, string> showNotification)
         {
 
             Menus = new Dictionary<MenuIcon, ViewModelBase>
@@ -47,7 +47,7 @@ namespace ShoppingList.ViewModels
                 { new MenuIcon("Map", "globe_regular"), new MapViewModel() },
                 { new MenuIcon("Shopping list", "cart_regular"), new GroceryListViewModel() },
                 { new MenuIcon("Social", "people_regular"), new SocialPanelViewModel() },
-                { new MenuIcon("Settings", "settings_regular"), new SettingsViewModel(userAccount, changePage, showLoading, showNotification) },
+                { new MenuIcon("Settings", "settings_regular"), new MainSettingsViewModel(userAccount, showLoading, showNotification, changePage) },
             };
 
             MenuItems = [.. Menus.Select(item => item.Key)];

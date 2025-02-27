@@ -4,16 +4,17 @@ using System;
 using System.Threading.Tasks;
 using ShoppingList.Core;
 using ReactiveUI;
+using System.Reactive;
 
 namespace ShoppingList.ViewModels.Settings;
 
-internal class SettingsViewModel(UserAccountModel userAccount, Action<Page> changePage, Action<bool> showLoading, Action<NotificationType, string> showNotification) : ViewModelBase
+internal class SettingsViewModel(UserAccountModel userAccount, Action<MainPage> changePage, Action<bool> showLoading, Action<NotificationType, string> showNotification, Action<SettingsPage> changeSettingsPage) : ViewModelBase
 {
-
     private readonly UserAccountModel _userAccount = userAccount;
     private readonly Action<bool> _showLoading = showLoading;
-    private readonly Action<Page> _changePage = changePage;
+    private readonly Action<MainPage> _changePage = changePage;
     private readonly Action<NotificationType, string> _showNotification = showNotification;
+    public ReactiveCommand<Unit, Unit> UpdatePasswordPageCommand { get; } = ReactiveCommand.Create(() => changeSettingsPage(SettingsPage.UpdatePassword));
 
     private User? _user;
     public User? User
@@ -31,7 +32,7 @@ internal class SettingsViewModel(UserAccountModel userAccount, Action<Page> chan
         {
             await _userAccount.DeleteUserAsync();
 
-            _changePage(Page.Login);
+            _changePage(MainPage.Login);
         }
         catch (Exception ex)
         {
@@ -52,7 +53,7 @@ internal class SettingsViewModel(UserAccountModel userAccount, Action<Page> chan
         {
             await _userAccount.LogoutAsync();
 
-            _changePage(Page.Login);
+            _changePage(MainPage.Login);
         }
         catch (Exception ex)
         {

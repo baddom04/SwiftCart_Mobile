@@ -46,12 +46,22 @@
   <x:String x:Key="User">User</x:String>
   <x:String x:Key="NewUsername">New username:</x:String>
   
+  <!--ChangePassword Page-->
+  <x:String x:Key="ChangePassword">Change password</x:String>
+  <x:String x:Key="CurrentPassword">Current password</x:String>
+  <x:String x:Key="NewPassword">New password</x:String>
+  <x:String x:Key="NewPasswordAgain">New password again</x:String>
+  <x:String x:Key="Change">Change</x:String>
+  
   
   <!--Error Messages-->
   <x:String x:Key="EmailFormatError">The given email address is not valid.</x:String>
   <x:String x:Key="EmailMissingError">Please enter your email address.</x:String>
   <x:String x:Key="PasswordFormatError">Your password must be at least 8 characters long.</x:String>
   <x:String x:Key="PasswordMissingError">Please enter your password.</x:String>
+  <x:String x:Key="CurrentPasswordMissingError">Please enter your current password.</x:String>
+  <x:String x:Key="NewPasswordMissingError">Please enter your new password.</x:String>
+  <x:String x:Key="NewPasswordAgainMissingError">Please enter your new password again.</x:String>
   <x:String x:Key="UsernameMissingError">Please enter your username.</x:String>
   <x:String x:Key="LoginError">Login error:&#x0a;</x:String>
   <x:String x:Key="RegisterError">Register error:&#x0a;</x:String>
@@ -59,5 +69,7 @@
   <x:String x:Key="DeleteUserError">Delete user error:&#x0a;</x:String>
   <x:String x:Key="UserQueryError">User query error:&#x0a;</x:String>
   <x:String x:Key="UpdateUsernameError">Username update error:&#x0a;</x:String>
+  <x:String x:Key="UpdatePasswordError">Password update error:&#x0a;</x:String>
+  <x:String x:Key="PasswordsDontMatchError">The given passwords do not match</x:String>
   
 </ResourceDictionary>

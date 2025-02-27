@@ -23,17 +23,17 @@ namespace ShoppingList.ViewModels.Register
         }
 
         private readonly Action<bool> _showLoading;
-        private readonly Action<Page> _changePage;
+        private readonly Action<MainPage> _changePage;
 
         private readonly UserAccountModel _model;
 
-        public RegisterViewModel(UserAccountModel model, Action<Page> changePage, Action<bool> showLoading)
+        public RegisterViewModel(UserAccountModel model, Action<MainPage> changePage, Action<bool> showLoading)
         {
             _changePage = changePage;
             _showLoading = showLoading;
             _model = model;
 
-            LoginPageCommand = ReactiveCommand.Create(() => _changePage(Page.Login));
+            LoginPageCommand = ReactiveCommand.Create(() => _changePage(MainPage.Login));
             RegisterCommand = ReactiveCommand.CreateFromTask(Register);
         }
 
@@ -47,7 +47,8 @@ namespace ShoppingList.ViewModels.Register
             {
                 await _model.RegisterAsync(UsernameInput, EmailInput, PasswordInput);
 
-                _changePage(Page.Main);
+                _changePage(MainPage.Main);
+                ErrorMessage = null;
             }
             catch (Exception ex)
             {

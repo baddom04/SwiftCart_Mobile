@@ -73,5 +73,14 @@ namespace ShoppingList.Persistor.Services
 
             await ValidateResponse(response, cancellationToken);
         }
+
+        public async Task UpdatePasswordAsync(int id, string currentPassword, string newPassword, CancellationToken cancellationToken = default)
+        {
+            var payload = new { new_password = newPassword, current_password = currentPassword };
+
+            HttpResponseMessage response = await _httpClient.PutAsJsonAsync($"users/{id}/password", payload, cancellationToken);
+
+            await ValidateResponse(response, cancellationToken);
+        }
     }
 }
