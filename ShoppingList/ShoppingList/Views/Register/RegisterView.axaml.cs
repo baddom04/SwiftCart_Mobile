@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 
-namespace ShoppingList.Views;
+namespace ShoppingList.Views.Register;
 
 public partial class RegisterView : UserControl
 {

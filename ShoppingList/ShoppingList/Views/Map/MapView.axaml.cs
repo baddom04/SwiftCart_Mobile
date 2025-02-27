@@ -1,13 +1,11 @@
 using Avalonia.Controls;
-using ShoppingList.ViewModels;
 
-namespace ShoppingList.Views;
+namespace ShoppingList.Views.Map;
 
 public partial class MapView : UserControl
 {
     public MapView()
     {
         InitializeComponent();
-        DataContext = new MapViewModel();
     }
 }

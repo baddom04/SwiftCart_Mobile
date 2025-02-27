@@ -6,15 +6,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
 
-namespace ShoppingList.ViewModels
+namespace ShoppingList.ViewModels.GroceryList
 {
     internal class GroceryListViewModel : ViewModelBase
     {
         #region Properties
         public GroceryListModel Model { get; }
 
-        private List<ShoppingItemDisplay> _shoppingList;
-        public List<ShoppingItemDisplay> ShoppingList
+        private List<ShoppingItemViewModel> _shoppingList;
+        public List<ShoppingItemViewModel> ShoppingList
         {
             get { return _shoppingList; }
             set { this.RaiseAndSetIfChanged(ref _shoppingList, value); }
@@ -47,7 +47,7 @@ namespace ShoppingList.ViewModels
         public ReactiveCommand<Unit, Unit> InputModeOnCommand { get; }
         public ReactiveCommand<Unit, Unit> SaveCommand { get; }
         public ReactiveCommand<Unit, Unit> InputModeOffCommand { get; }
-        public ReactiveCommand<ShoppingItemDisplay, Unit> BoughtItemCommand { get; }
+        public ReactiveCommand<ShoppingItemViewModel, Unit> BoughtItemCommand { get; }
         #endregion
 
         #region Methods
@@ -58,17 +58,17 @@ namespace ShoppingList.ViewModels
             Model.ShoppingList.CollectionChanged += ShoppingList_CollectionChanged;
             Model.EditedItemChanged += (_, _) => CurrentlyEditedItem = Model.EditedItem?.Item;
 
-            _shoppingList = [.. Model.ShoppingList.Select(item => new ShoppingItemDisplay(item, () => OnInputModeOn((item.Clone() as ShoppingItem)!, Model.ShoppingList.IndexOf(item))))];
+            _shoppingList = [.. Model.ShoppingList.Select(item => new ShoppingItemViewModel(item, () => OnInputModeOn((item.Clone() as ShoppingItem)!, Model.ShoppingList.IndexOf(item))))];
 
             InputModeOnCommand = ReactiveCommand.Create(() => OnInputModeOn(ShoppingItem.Empty, -1));
-            SaveCommand = ReactiveCommand.Create(() => { Model.SaveEdit(); if(Model.IsValidItem) OnInputModeOff(); }); 
+            SaveCommand = ReactiveCommand.Create(() => { Model.SaveEdit(); if (Model.IsValidItem) OnInputModeOff(); });
             InputModeOffCommand = ReactiveCommand.Create(OnInputModeOff);
-            BoughtItemCommand = ReactiveCommand.Create<ShoppingItemDisplay>(Boughtitem);
+            BoughtItemCommand = ReactiveCommand.Create<ShoppingItemViewModel>(Boughtitem);
         }
 
         private void ShoppingList_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
         {
-            ShoppingList = [.. Model.ShoppingList.Select(item => new ShoppingItemDisplay(item, () => OnInputModeOn((item.Clone() as ShoppingItem)!, Model.ShoppingList.IndexOf(item))))];
+            ShoppingList = [.. Model.ShoppingList.Select(item => new ShoppingItemViewModel(item, () => OnInputModeOn((item.Clone() as ShoppingItem)!, Model.ShoppingList.IndexOf(item))))];
         }
         private void OnErrorTypeChanged()
         {
@@ -92,7 +92,7 @@ namespace ShoppingList.ViewModels
         {
             InputMode = false;
         }
-        private void Boughtitem(ShoppingItemDisplay item)
+        private void Boughtitem(ShoppingItemViewModel item)
         {
             Model.DeleteItem(item.Item);
         }

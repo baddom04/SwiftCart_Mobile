@@ -2,9 +2,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:vm="clr-namespace:ShoppingList.ViewModels"
+             xmlns:vm="clr-namespace:ShoppingList.ViewModels.Login"
              mc:Ignorable="d" d:DesignWidth="405" d:DesignHeight="800"
-             x:Class="ShoppingList.Views.LoginView"
+             x:Class="ShoppingList.Views.Login.LoginView"
              x:DataType="vm:LoginViewModel"
              xmlns:progRing="clr-namespace:AvaloniaProgressRing;assembly=AvaloniaProgressRing"
              xmlns:controls="clr-namespace:ShoppingList.Views.CustomControls">

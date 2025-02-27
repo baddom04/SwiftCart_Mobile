@@ -1,4 +1,4 @@
-﻿namespace ShoppingList.ViewModels
+﻿namespace ShoppingList.ViewModels.Map
 {
     internal class MapViewModel : ViewModelBase
     {

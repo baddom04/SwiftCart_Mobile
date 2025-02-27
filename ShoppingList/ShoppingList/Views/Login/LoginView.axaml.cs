@@ -1,7 +1,7 @@
 using Avalonia.Controls;
-using ShoppingList.ViewModels;
+using ShoppingList.ViewModels.Login;
 
-namespace ShoppingList.Views;
+namespace ShoppingList.Views.Login;
 
 public partial class LoginView : UserControl
 {

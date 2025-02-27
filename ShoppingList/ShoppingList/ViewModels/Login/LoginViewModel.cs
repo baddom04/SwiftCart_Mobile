@@ -5,7 +5,7 @@ using System;
 using System.Reactive;
 using System.Threading.Tasks;
 
-namespace ShoppingList.ViewModels
+namespace ShoppingList.ViewModels.Login
 {
     internal class LoginViewModel : ViewModelBase
     {

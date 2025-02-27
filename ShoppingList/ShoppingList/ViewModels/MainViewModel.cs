@@ -3,6 +3,8 @@ using ReactiveUI;
 using ShoppingList.Model.Models;
 using System.Collections.Generic;
 using System.Reactive;
+using ShoppingList.ViewModels.Login;
+using ShoppingList.ViewModels.Register;
 
 namespace ShoppingList.ViewModels
 {

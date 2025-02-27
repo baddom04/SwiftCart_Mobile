@@ -1,6 +1,10 @@
 ﻿using ReactiveUI;
 using ShoppingList.Model.Models;
 using ShoppingList.Utils;
+using ShoppingList.ViewModels.GroceryList;
+using ShoppingList.ViewModels.Map;
+using ShoppingList.ViewModels.Settings;
+using ShoppingList.ViewModels.Social;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -45,7 +49,7 @@ namespace ShoppingList.ViewModels
             };
 
             MenuItems = [.. Menus.Select(item => item.Key)];
-            _selectedMenuItem = MenuItems[0];
+            _selectedMenuItem = MenuItems[3];
             _currentPage = Menus[_selectedMenuItem];
             _userAccount = userAccount;
 

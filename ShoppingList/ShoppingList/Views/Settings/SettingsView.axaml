@@ -1,0 +1,48 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:svm="clr-namespace:ShoppingList.ViewModels.Settings"
+             x:Class="ShoppingList.Views.Settings.SettingsView"
+             x:DataType="svm:SettingsViewModel">
+  <Grid RowDefinitions="Auto, *">
+    <TextBlock Grid.Row="0" Classes="h1" Text="{DynamicResource Settings}" HorizontalAlignment="Left" 
+               VerticalAlignment="Center" Margin="30 30 30 10"/>
+
+    <ItemsControl Grid.Row="1" ItemsSource="{Binding SettingGroups}">
+      <ItemsControl.ItemTemplate>
+        <DataTemplate>
+          <Grid RowDefinitions="Auto, *">
+            <Border Grid.Row="0" HorizontalAlignment="Stretch" Classes="settingGroup" Margin="0 10">
+              <Grid ColumnDefinitions="*, Auto">
+                <TextBlock Grid.Column="0" Text="{DynamicResource AccountSettings}"
+                           VerticalAlignment="Center" Margin="10" Classes="settingGroup"/>
+                <Button Grid.Column="1" Classes="settingGroup" Margin="10"
+                        Classes.halfAnimatedIn="{Binding IsOpen}"
+                        Classes.halfAnimatedOut="{Binding !IsOpen}"
+                        Command="{Binding OpenCommand}">
+                  <PathIcon Data="{StaticResource chevron_right_regular}" HorizontalAlignment="Right"
+                            Classes="settingGroup"/>
+                </Button>
+              </Grid>
+            </Border>
+
+            <ItemsControl Grid.Row="1" ItemsSource="{Binding Settings}" IsVisible="{Binding IsOpen}">
+              <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                  <Button Content="{Binding Title}" Classes="setting"
+                          Command="{Binding SettingCommand}"
+                          HorizontalAlignment="Stretch" />
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+          </Grid>
+        </DataTemplate>
+      </ItemsControl.ItemTemplate>
+    </ItemsControl>
+    <!--<Button Grid.Row="1" Content="{DynamicResource Logout}" Command="{Binding LogoutCommand}" 
+            HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>-->
+
+  </Grid>
+</UserControl>

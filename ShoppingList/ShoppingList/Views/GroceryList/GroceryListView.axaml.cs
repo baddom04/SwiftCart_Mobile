@@ -2,12 +2,12 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
-using ShoppingList.ViewModels;
+using ShoppingList.ViewModels.GroceryList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ShoppingList.Views;
+namespace ShoppingList.Views.GroceryList;
 
 public partial class GroceryListView : UserControl
 {
@@ -36,14 +36,14 @@ public partial class GroceryListView : UserControl
     private void Display_Click(object? sender, PointerPressedEventArgs e)
     {
         if (sender is not Border border) return;
-        ShoppingItemDisplay display = (border.DataContext as ShoppingItemDisplay)!;
+        ShoppingItemViewModel display = (border.DataContext as ShoppingItemViewModel)!;
 
         display.IsExpanded = !display.IsExpanded;
     }
 
     private async void DeleteItem_Click(object? sender, RoutedEventArgs e)
     {
-        if (sender is not Button btn || btn.Tag is not ShoppingItemDisplay itemDisplay)
+        if (sender is not Button btn || btn.Tag is not ShoppingItemViewModel itemDisplay)
             throw new ArgumentException("Invalid argument", nameof(sender));
 
         Application.Current!.TryFindResource("DeleteGroceryConfirmQuestion", out var res);
@@ -56,7 +56,7 @@ public partial class GroceryListView : UserControl
 
     private async void Comment_Click(object? sender, RoutedEventArgs e)
     {
-        if (sender is not Button btn || btn.Tag is not ShoppingItemDisplay itemDisplay)
+        if (sender is not Button btn || btn.Tag is not ShoppingItemViewModel itemDisplay)
             throw new ArgumentException("Invalid argument", nameof(sender));
 
         string? comment = await App.MainView.ShowTextInputDialog("Comment", (input) => !string.IsNullOrWhiteSpace(input));

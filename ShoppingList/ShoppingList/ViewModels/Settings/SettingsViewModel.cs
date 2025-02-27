@@ -2,13 +2,16 @@
 using ShoppingList.Model.Models;
 using ShoppingList.Utils;
 using System;
+using System.Collections.ObjectModel;
 using System.Reactive;
 using System.Threading.Tasks;
 
-namespace ShoppingList.ViewModels;
+namespace ShoppingList.ViewModels.Settings;
 
 internal class SettingsViewModel : ViewModelBase
 {
+    public ObservableCollection<SettingGroupViewModel> SettingGroups { get; }
+
     private readonly UserAccountModel _userAccount;
     public ReactiveCommand<Unit, Unit> LogoutCommand { get; }
     public ReactiveCommand<Unit, Unit> DeleteUserCommand { get; }
@@ -26,6 +29,9 @@ internal class SettingsViewModel : ViewModelBase
 
         LogoutCommand = ReactiveCommand.CreateFromTask(Logout);
         DeleteUserCommand = ReactiveCommand.CreateFromTask(DeleteUser);
+        SettingGroups = [new SettingGroupViewModel("AccountSettings", [
+            new SingleSettingViewModel("Logout", ReactiveCommand.CreateFromTask(Logout))
+        ])];
     }
 
     private async Task DeleteUser()

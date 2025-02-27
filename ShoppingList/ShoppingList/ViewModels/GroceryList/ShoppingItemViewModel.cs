@@ -3,9 +3,9 @@ using System;
 using System.Reactive;
 using ShoppingList.Model;
 
-namespace ShoppingList.ViewModels
+namespace ShoppingList.ViewModels.GroceryList
 {
-    internal class ShoppingItemDisplay : ReactiveObject
+    internal class ShoppingItemViewModel : ReactiveObject
     {
         private ShoppingItem _item;
         public ShoppingItem Item
@@ -26,7 +26,7 @@ namespace ShoppingList.ViewModels
         public ReactiveCommand<Unit, bool> ToggleExpandedCommand { get; }
         public ReactiveCommand<Unit, Unit> EditCommand { get; }
         public Action Editing { get; }
-        public ShoppingItemDisplay(ShoppingItem item, Action editing)
+        public ShoppingItemViewModel(ShoppingItem item, Action editing)
         {
             _item = item;
             ToggleExpandedCommand = ReactiveCommand.Create(() => IsExpanded = !IsExpanded);

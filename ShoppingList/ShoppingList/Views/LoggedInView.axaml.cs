@@ -2,7 +2,6 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.LogicalTree;
 using Avalonia.Media;
-using ShoppingList.ViewModels;
 using System.Linq;
 
 namespace ShoppingList.Views;
