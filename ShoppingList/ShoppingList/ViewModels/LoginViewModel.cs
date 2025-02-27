@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ShoppingList.ViewModels
 {
-    public class LoginViewModel : ViewModelBase
+    internal class LoginViewModel : ViewModelBase
     {
         public ReactiveCommand<Unit, Unit> RegisterPageCommand { get; }
         public string EmailInput { get; set; } = string.Empty;
@@ -36,7 +36,7 @@ namespace ShoppingList.ViewModels
 
         private async Task Login()
         {
-            if (!Validate()) return;
+            //if (!Validate()) return;
 
             _showLoading(true);
 

@@ -27,13 +27,17 @@ namespace ShoppingList.Persistor.Services
             await ValidateResponse(response, cancellationToken);
         }
 
-        public async Task<User?> GetUserAsync(CancellationToken cancellationToken = default)
+        public async Task<User> GetUserAsync(CancellationToken cancellationToken = default)
         {
             HttpResponseMessage response = await _httpClient.GetAsync("user", cancellationToken);
 
             await ValidateResponse(response, cancellationToken);
 
-            return await response.Content.ReadFromJsonAsync<User>(cancellationToken: cancellationToken);
+            User? user = await response.Content.ReadFromJsonAsync<User>(cancellationToken: cancellationToken);
+            if (user is null)
+                throw new NullReferenceException(nameof(user));
+
+            return user;
         }
 
         public async Task LoginAsync(string email, string password, CancellationToken cancellationToken = default)

@@ -8,7 +8,7 @@ using System.Reactive;
 
 namespace ShoppingList.ViewModels
 {
-    public class GroceryListViewModel : ViewModelBase
+    internal class GroceryListViewModel : ViewModelBase
     {
         #region Properties
         public GroceryListModel Model { get; }

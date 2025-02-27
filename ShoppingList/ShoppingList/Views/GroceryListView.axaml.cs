@@ -11,14 +11,14 @@ namespace ShoppingList.Views;
 
 public partial class GroceryListView : UserControl
 {
-    public GroceryListViewModel ViewModel { get; set; } = null!;
+    private GroceryListViewModel _viewModel = null!;
     public GroceryListView()
     {
         InitializeComponent();
 
         Loaded += (s, e) =>
         {
-            ViewModel = (DataContext as GroceryListViewModel)!;
+            _viewModel = (DataContext as GroceryListViewModel)!;
         };
     }
     private void OnTextChanged(object? sender, TextChangedEventArgs e)
@@ -51,7 +51,7 @@ public partial class GroceryListView : UserControl
 
         if (!result) return;
 
-        ViewModel.Model.DeleteItem(itemDisplay.Item);
+        _viewModel.Model.DeleteItem(itemDisplay.Item);
     }
 
     private async void Comment_Click(object? sender, RoutedEventArgs e)
@@ -61,6 +61,6 @@ public partial class GroceryListView : UserControl
 
         string? comment = await App.MainView.ShowTextInputDialog("Comment", (input) => !string.IsNullOrWhiteSpace(input));
         if (string.IsNullOrWhiteSpace(comment)) return;
-        ViewModel.Model.AddComment(itemDisplay.Item, App.CurrentUser!, comment);
+        _viewModel.Model.AddComment(itemDisplay.Item, App.CurrentUser!, comment);
     }
 }

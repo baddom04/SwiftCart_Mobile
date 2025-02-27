@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace ShoppingList.ViewModels
 {
-    public class LoggedInViewModel : ViewModelBase
+    internal class LoggedInViewModel : ViewModelBase
     {
         private ViewModelBase _currentPage;
         public ViewModelBase CurrentPage
