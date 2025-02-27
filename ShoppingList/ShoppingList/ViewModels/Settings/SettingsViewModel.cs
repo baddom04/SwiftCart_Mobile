@@ -1,43 +1,19 @@
-﻿using ReactiveUI;
-using ShoppingList.Model.Models;
+﻿using ShoppingList.Model.Models;
 using ShoppingList.Utils;
 using System;
-using System.Collections.ObjectModel;
-using System.Reactive;
 using System.Threading.Tasks;
 
 namespace ShoppingList.ViewModels.Settings;
 
-internal class SettingsViewModel : ViewModelBase
+internal class SettingsViewModel(UserAccountModel userAccount, Action<Page> changePage, Action<bool> showLoading, Action<NotificationType, string> showNotification) : ViewModelBase
 {
-    public ObservableCollection<SettingGroupViewModel> SettingGroups { get; }
 
-    private readonly UserAccountModel _userAccount;
-    public ReactiveCommand<Unit, Unit> LogoutCommand { get; }
-    public ReactiveCommand<Unit, Unit> DeleteUserCommand { get; }
+    private readonly UserAccountModel _userAccount = userAccount;
+    private readonly Action<bool> _showLoading = showLoading;
+    private readonly Action<Page> _changePage = changePage;
+    private readonly Action<NotificationType, string> _showNotification = showNotification;
 
-    private readonly Action<bool> _showLoading;
-    private readonly Action<Page> _changePage;
-    private readonly Action<NotificationType, string> _showNotification;
-
-    public SettingsViewModel(UserAccountModel userAccount, Action<Page> changePage, Action<bool> showLoading, Action<NotificationType, string> showNotification)
-    {
-        _userAccount = userAccount;
-        _changePage = changePage;
-        _showLoading = showLoading;
-        _showNotification = showNotification;
-
-        LogoutCommand = ReactiveCommand.CreateFromTask(Logout);
-        DeleteUserCommand = ReactiveCommand.CreateFromTask(DeleteUser);
-        SettingGroups = [
-            new SettingGroupViewModel("AccountSettings", [
-                new SingleSettingViewModel("Logout", ReactiveCommand.CreateFromTask(Logout)),
-                new SingleSettingViewModel("DeleteUser", ReactiveCommand.CreateFromTask(DeleteUser))
-            ]),
-        ];
-    }
-
-    private async Task DeleteUser()
+    public async Task DeleteUser()
     {
         _showLoading(true);
 
@@ -58,7 +34,7 @@ internal class SettingsViewModel : ViewModelBase
         }
     }
 
-    private async Task Logout()
+    public async Task Logout()
     {
         _showLoading(true);
 

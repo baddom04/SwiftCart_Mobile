@@ -41,6 +41,7 @@
   <x:String x:Key="Logout">Log out</x:String>
   <x:String x:Key="DeleteUser">Delete user</x:String>
   <x:String x:Key="AccountSettings">Account settings</x:String>
+  <x:String x:Key="ConfirmQuestion">Are you sure?</x:String>
   
   
   <!--Error Messages-->

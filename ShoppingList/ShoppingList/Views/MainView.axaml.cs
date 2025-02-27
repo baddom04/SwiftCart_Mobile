@@ -12,7 +12,7 @@ namespace ShoppingList.Views
             InitializeComponent();
             DataContext = viewModel;
         }
-        public async Task<bool> ShowConfirmDialog(string questionKey)
+        public async Task<bool> ShowConfirmDialog(string questionKey = "ConfirmQuestion")
         {
             ConfirmationView confirmationView = new(questionKey);
             MainGrid.Children.Add(confirmationView);

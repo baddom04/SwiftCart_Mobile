@@ -6,10 +6,10 @@
   <SolidColorBrush x:Key="TerBG" Color="#dedede"/>
   <SolidColorBrush x:Key="MainBtnBG" Color="#4fc0ff"/>
   <SolidColorBrush x:Key="MainBtnPressedBG" Color="#42a4db"/>
-  <SolidColorBrush x:Key="GreenButtonBG" Color="#11cc00"/>
-  <SolidColorBrush x:Key="GreenButtonPressedBG" Color="#0fb500"/>
-  <SolidColorBrush x:Key="RedButtonBG" Color="#e32929"/>
-  <SolidColorBrush x:Key="RedButtonPressedBG" Color="#c72424"/>
+  <SolidColorBrush x:Key="MainBtnBGStart" Color="#007BFF"/>
+  <SolidColorBrush x:Key="MainBtnBGEnd" Color="#0056b3"/>
+  <SolidColorBrush x:Key="RedButtonBGStart" Color="#FF4C4C"/>
+  <SolidColorBrush x:Key="RedButtonBGEnd" Color="#B30000"/>
   <SolidColorBrush x:Key="ErrorPrimaryRed" Color="#a80d0d"/>
   <SolidColorBrush x:Key="ErrorSecondaryRed" Color="#ff6969"/>
   <SolidColorBrush x:Key="WarningYellow" Color="#f5b914"/>

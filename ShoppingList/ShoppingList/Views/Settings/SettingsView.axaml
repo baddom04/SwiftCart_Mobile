@@ -6,43 +6,44 @@
              xmlns:svm="clr-namespace:ShoppingList.ViewModels.Settings"
              x:Class="ShoppingList.Views.Settings.SettingsView"
              x:DataType="svm:SettingsViewModel">
+
   <Grid RowDefinitions="Auto, *">
-    <TextBlock Grid.Row="0" Classes="h1" Text="{DynamicResource Settings}" HorizontalAlignment="Left" 
+    <TextBlock Grid.Row="0" Classes="h1" Text="{DynamicResource Settings}" HorizontalAlignment="Left"
                VerticalAlignment="Center" Margin="30 30 30 10"/>
 
-    <ItemsControl Grid.Row="1" ItemsSource="{Binding SettingGroups}">
-      <ItemsControl.ItemTemplate>
-        <DataTemplate>
-          <Grid RowDefinitions="Auto, *">
-            <Border Grid.Row="0" HorizontalAlignment="Stretch" Classes="settingGroup" Margin="0 10">
-              <Grid ColumnDefinitions="*, Auto">
-                <TextBlock Grid.Column="0" Text="{DynamicResource AccountSettings}"
-                           VerticalAlignment="Center" Margin="10" Classes="settingGroup"/>
-                <Button Grid.Column="1" Classes="settingGroup" Margin="10"
-                        Classes.halfAnimatedIn="{Binding IsOpen}"
-                        Classes.halfAnimatedOut="{Binding !IsOpen}"
-                        Command="{Binding OpenCommand}">
-                  <PathIcon Data="{StaticResource chevron_right_regular}" HorizontalAlignment="Right"
-                            Classes="settingGroup"/>
-                </Button>
-              </Grid>
-            </Border>
+    <Grid Grid.Row="1" RowDefinitions="Auto, Auto, Auto">
+      <Border Grid.Row="0" HorizontalAlignment="Stretch" Classes="settingGroup" Margin="0 10" Padding="10">
+        <TextBlock Grid.Column="0" Text="{DynamicResource AccountSettings}"
+                   VerticalAlignment="Center" Margin="10" Classes="settingGroup"/>
+      </Border>
 
-            <ItemsControl Grid.Row="1" ItemsSource="{Binding Settings}" IsVisible="{Binding IsOpen}">
-              <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                  <Button Content="{Binding Title}" Classes="setting"
-                          Command="{Binding SettingCommand}" Padding="10"
-                          HorizontalAlignment="Stretch" Margin="10" CornerRadius="10"/>
-                </DataTemplate>
-              </ItemsControl.ItemTemplate>
-            </ItemsControl>
-          </Grid>
-        </DataTemplate>
-      </ItemsControl.ItemTemplate>
-    </ItemsControl>
-    <!--<Button Grid.Row="1" Content="{DynamicResource Logout}" Command="{Binding LogoutCommand}" 
-            HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>-->
+      <Border Grid.Row="1" Classes="setting" Padding="10"
+              HorizontalAlignment="Stretch" Margin="10" PointerPressed="Logout_PointerPressed">
+        <Border.Background>
+          <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,0%">
+            <GradientStop Color="#4fc0ff" Offset="0.0"/>
+            <GradientStop Color="#42a4db" Offset="1.0"/>
+          </LinearGradientBrush>
+        </Border.Background>
+        <StackPanel Orientation="Horizontal" Spacing="10">
+          <PathIcon Data="{StaticResource sign_out_regular}" Classes="white_foreground"/>
+          <TextBlock Text="{DynamicResource Logout}" Classes="setting"/>
+        </StackPanel>
+      </Border>
 
+      <Border Grid.Row="2" Classes="settingDanger" Padding="10"
+              HorizontalAlignment="Stretch" Margin="10" PointerPressed="DeleteUser_PointerPressed">
+        <Border.Background>
+          <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="#FF4C4C" Offset="0"/>
+            <GradientStop Color="#B30000" Offset="1"/>
+          </LinearGradientBrush>
+        </Border.Background>
+        <StackPanel Orientation="Horizontal" Spacing="10">
+          <PathIcon Data="{StaticResource person_delete_regular}" Classes="white_foreground"/>
+          <TextBlock Text="{DynamicResource DeleteUser}" Classes="setting"/>
+        </StackPanel>
+      </Border>
+    </Grid>
   </Grid>
 </UserControl>

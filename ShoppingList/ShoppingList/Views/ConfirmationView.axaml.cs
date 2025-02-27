@@ -9,7 +9,7 @@ namespace ShoppingList.Views;
 public partial class ConfirmationView : UserControl
 {
     private TaskCompletionSource<bool>? _tcs;
-    public ConfirmationView(string questionKey)
+    public ConfirmationView(string questionKey = "ConfirmQuestion")
     {
         InitializeComponent();
         Application.Current!.TryFindResource(questionKey, out var res);

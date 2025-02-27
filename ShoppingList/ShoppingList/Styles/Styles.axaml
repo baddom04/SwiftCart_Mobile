@@ -51,6 +51,10 @@
       <Setter Property="FontSize" Value="22"/>
       <Setter Property="Foreground" Value="{StaticResource MainBG}"/>
     </Style>
+    <Style Selector="^.setting">
+      <Setter Property="Foreground" Value="{StaticResource MainBG}"/>
+      <Setter Property="FontWeight" Value="DemiBold"/>
+    </Style>
   </Style>
 
   <Style Selector="UserControl">
@@ -61,7 +65,8 @@
     <Setter Property="CornerRadius" Value="10"/>
     <Setter Property="Padding" Value="7"/>
     <Setter Property="Background" Value="{StaticResource MainBtnBG}"/>
-
+    <Setter Property="Foreground" Value="{StaticResource MainBG}"/>
+    
     <Style Selector="^.item_action">
       <Setter Property="Width" Value="50"/>
       <Setter Property="Background" Value="{StaticResource MainBG}"/>
@@ -69,9 +74,7 @@
     </Style>
 
     <Style Selector="^.setting">
-      <Setter Property="Background" Value="{StaticResource TerBG}"/>
-      <Setter Property="Foreground" Value="{StaticResource MainFG}"/>
-      <Setter Property="CornerRadius" Value="0"/>
+      <Setter Property="CornerRadius" Value="10"/>
       <Setter Property="FontSize" Value="20"/>
     </Style>
     
@@ -99,22 +102,6 @@
     
     <Style Selector="^.shopping_list_button">
       <Setter Property="Width" Value="50"/>
-    </Style>
-    
-    <Style Selector="^.green /template/ ContentPresenter">
-      <Setter Property="Background" Value="{StaticResource GreenButtonBG}"/>
-    </Style>
-    
-    <Style Selector="^.green:pressed /template/ ContentPresenter">
-      <Setter Property="Background" Value="{StaticResource GreenButtonPressedBG}"/>
-    </Style>
-    
-    <Style Selector="^.red /template/ ContentPresenter">
-      <Setter Property="Background" Value="{StaticResource RedButtonBG}"/>
-    </Style>
-    
-    <Style Selector="^.red:pressed /template/ ContentPresenter">
-      <Setter Property="Background" Value="{StaticResource RedButtonPressedBG}"/>
     </Style>
     
     <Style Selector="^.animatedOut">
@@ -192,6 +179,14 @@
     <Style Selector="^.settingGroup">
       <Setter Property="Background" Value="{StaticResource MainBtnBG}"/>
     </Style>
+    <Style Selector="^.settingDanger">
+      <Setter Property="CornerRadius" Value="10"/>
+      <Setter Property="BoxShadow" Value="2 2 10 0 Gray"/>
+    </Style>
+    <Style Selector="^.setting">
+      <Setter Property="CornerRadius" Value="10"/>
+      <Setter Property="BoxShadow" Value="2 2 10 0 Gray"/>
+    </Style>
   </Style>
 
   <Style Selector="TextBox">
@@ -224,16 +219,13 @@
       <Setter Property="Foreground" Value="{StaticResource MainBtnBG}"/>
     </Style>
     <Style Selector="^.white_foreground">
-      <Setter Property="Foreground" Value="White"/>
+      <Setter Property="Foreground" Value="{StaticResource MainBG}"/>
+    </Style>
+    <Style Selector="^.red_foreground">
+      <Setter Property="Foreground" Value="{StaticResource ErrorSecondaryRed}"/>
     </Style>
     <Style Selector="^.item_action">
       <Setter Property="Foreground" Value="{StaticResource MainBtnBG}"/>
-    </Style>
-    <Style Selector="^.item_action_green">
-      <Setter Property="Foreground" Value="{StaticResource GreenButtonBG}"/>
-    </Style>
-    <Style Selector="^.item_action_red">
-      <Setter Property="Foreground" Value="{StaticResource RedButtonBG}"/>
     </Style>
     <Style Selector="^.mini">
       <Setter Property="Width" Value="16"/>
