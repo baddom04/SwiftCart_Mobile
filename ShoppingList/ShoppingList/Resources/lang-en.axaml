@@ -49,5 +49,6 @@
   <x:String x:Key="UsernameMissingError">Please enter your username.</x:String>
   <x:String x:Key="LoginError">Login error:&#x0a;</x:String>
   <x:String x:Key="RegisterError">Register error:&#x0a;</x:String>
+  <x:String x:Key="LogoutError">Logout error:&#x0a;</x:String>
   
 </ResourceDictionary>

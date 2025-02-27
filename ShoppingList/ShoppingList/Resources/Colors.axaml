@@ -12,4 +12,6 @@
   <SolidColorBrush x:Key="RedButtonPressedBG" Color="#c72424"/>
   <SolidColorBrush x:Key="ErrorPrimaryRed" Color="#a80d0d"/>
   <SolidColorBrush x:Key="ErrorSecondaryRed" Color="#ff6969"/>
+  <SolidColorBrush x:Key="WarningYellow" Color="#f5b914"/>
+  <SolidColorBrush x:Key="InfoBlue" Color="#4fc0ff"/>
 </ResourceDictionary>

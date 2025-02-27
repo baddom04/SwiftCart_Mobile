@@ -3,13 +3,18 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:ShoppingList.ViewModels"
+             xmlns:converters="clr-namespace:ShoppingList.Converters"
              mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="800"
              x:Class="ShoppingList.Views.MainView"
              x:DataType="vm:MainViewModel"
              xmlns:progRing="clr-namespace:AvaloniaProgressRing;assembly=AvaloniaProgressRing">
+  <UserControl.Resources>
+    <converters:TypeToIconConverter x:Key="TypeToIconConverter"/>
+    <converters:TypeToForegroundConverter x:Key="TypeToForegroundConverter"/>
+  </UserControl.Resources>
   <Grid x:Name="MainGrid">
     
-    <Border x:Name="DialogOverlay" ZIndex="3"
+    <Border ZIndex="3"
             Background="#80000000"
             IsVisible="{Binding IsLoading}"
             VerticalAlignment="Stretch"
@@ -23,6 +28,30 @@
                               HorizontalAlignment="Center"
                               VerticalAlignment="Center"
                               Foreground="{StaticResource MainBtnBG}"/>
+      </Border>
+    </Border>
+
+    <Border ZIndex="3"
+            Background="#80000000"
+            IsVisible="{Binding ShowNotification}"
+            VerticalAlignment="Stretch"
+            HorizontalAlignment="Stretch">
+      <Border CornerRadius="10" Background="{StaticResource MainBG}"
+              HorizontalAlignment="Center" VerticalAlignment="Center"
+              MaxWidth="300" ZIndex="4" Padding="30">
+        <Grid RowDefinitions="Auto, Auto, *, Auto">
+          <PathIcon Grid.Row="0" Data="{Binding NotificationType, Converter={StaticResource TypeToIconConverter}}"
+                    Foreground="{Binding NotificationType, Converter={StaticResource TypeToForegroundConverter}}"
+                    Classes="notification"/>
+          <TextBlock Grid.Row="1" Classes="h3" Text="{Binding NotificationType}" 
+                     Margin="10"
+                     HorizontalAlignment="Center" TextAlignment="Center"/>
+          <TextBlock Grid.Row="2" TextAlignment="Justify" Margin="10"
+                     Text="{Binding NotificationMessage}" TextWrapping="Wrap"/>
+          <Button Grid.Row="3" Content="{DynamicResource Ok}"
+                  Command="{Binding HideNotificationCommand}" HorizontalContentAlignment="Center"
+                  HorizontalAlignment="Center" Classes="shopping_list_button"/>
+        </Grid>
       </Border>
     </Border>
     
