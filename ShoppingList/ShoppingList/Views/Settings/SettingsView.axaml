@@ -32,8 +32,8 @@
               <ItemsControl.ItemTemplate>
                 <DataTemplate>
                   <Button Content="{Binding Title}" Classes="setting"
-                          Command="{Binding SettingCommand}"
-                          HorizontalAlignment="Stretch" />
+                          Command="{Binding SettingCommand}" Padding="10"
+                          HorizontalAlignment="Stretch" Margin="10" CornerRadius="10"/>
                 </DataTemplate>
               </ItemsControl.ItemTemplate>
             </ItemsControl>

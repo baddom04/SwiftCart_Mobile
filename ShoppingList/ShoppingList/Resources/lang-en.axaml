@@ -39,6 +39,7 @@
   
   <!--Settings Page-->
   <x:String x:Key="Logout">Log out</x:String>
+  <x:String x:Key="DeleteUser">Delete user</x:String>
   <x:String x:Key="AccountSettings">Account settings</x:String>
   
   

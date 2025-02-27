@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.LogicalTree;
 using Avalonia.Media;
+using ShoppingList.ViewModels;
 using System.Linq;
 
 namespace ShoppingList.Views;
@@ -11,8 +12,15 @@ public partial class LoggedInView : UserControl
     public LoggedInView()
     {
         InitializeComponent();
-        Loaded += (_, _) => SetMenuIconColors(MainMenu);
+        Loaded += LoggedInView_Loaded;
     }
+
+    private async void LoggedInView_Loaded(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    {
+        SetMenuIconColors(MainMenu);
+        await (DataContext as LoggedInViewModel)!.GetUser();
+    }
+
     private void ListBox_SelectionChanged(object? sender, SelectionChangedEventArgs e)
     {
         if (sender is not ListBox listBox) return;

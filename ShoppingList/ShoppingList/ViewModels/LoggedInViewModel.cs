@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ShoppingList.ViewModels
 {
@@ -28,7 +29,6 @@ namespace ShoppingList.ViewModels
             set
             {
                 this.RaiseAndSetIfChanged(ref _selectedMenuItem, value);
-                // TODO: Refactor (fucking delegate type error)
                 CurrentPage = Menus[value];
             }
         }
@@ -37,6 +37,8 @@ namespace ShoppingList.ViewModels
         public Dictionary<MenuIcon, ViewModelBase> Menus { get; }
 
         private readonly UserAccountModel _userAccount;
+        private readonly Action<NotificationType, string> _showNotification;
+        private readonly Action<bool> _showLoading;
         public LoggedInViewModel(UserAccountModel userAccount, Action<Page> changePage, Action<bool> showLoading, Action<NotificationType, string> showNotification)
         {
 
@@ -52,10 +54,27 @@ namespace ShoppingList.ViewModels
             _selectedMenuItem = MenuItems[3];
             _currentPage = Menus[_selectedMenuItem];
             _userAccount = userAccount;
+            _showLoading = showLoading;
+            _showNotification = showNotification;
+        }
 
-            //this.WhenAnyValue(x => x.SelectedMenuItem)
-            //    .Where(selectedItem => selectedItem is not null)
-            //    .Subscribe(selectedItem => CurrentPage = Menus[selectedItem]);
+        public async Task GetUser()
+        {
+            _showLoading(true);
+
+            try
+            {
+                await _userAccount.GetUserAsync();
+            }
+            catch (Exception ex)
+            {
+                string message = $"{StringProvider.GetString("DeleteUserError")}{ex.Message}";
+                _showNotification(NotificationType.Error, message);
+            }
+            finally
+            {
+                _showLoading(false);
+            }
         }
     }
 }

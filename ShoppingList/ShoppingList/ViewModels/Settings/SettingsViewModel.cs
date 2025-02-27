@@ -29,9 +29,12 @@ internal class SettingsViewModel : ViewModelBase
 
         LogoutCommand = ReactiveCommand.CreateFromTask(Logout);
         DeleteUserCommand = ReactiveCommand.CreateFromTask(DeleteUser);
-        SettingGroups = [new SettingGroupViewModel("AccountSettings", [
-            new SingleSettingViewModel("Logout", ReactiveCommand.CreateFromTask(Logout))
-        ])];
+        SettingGroups = [
+            new SettingGroupViewModel("AccountSettings", [
+                new SingleSettingViewModel("Logout", ReactiveCommand.CreateFromTask(Logout)),
+                new SingleSettingViewModel("DeleteUser", ReactiveCommand.CreateFromTask(DeleteUser))
+            ]),
+        ];
     }
 
     private async Task DeleteUser()
