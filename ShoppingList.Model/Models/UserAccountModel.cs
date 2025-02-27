@@ -22,9 +22,14 @@ namespace ShoppingList.Model.Models
         {
             await _service.RegisterAsync(username, email, password);
         }
-        public async Task<User> GetUserAsync()
+        public async Task<User> GetUserAsync(bool forceQuery = false)
         {
-            return User ??= await _service.GetUserAsync();
+            if(!forceQuery)
+                return User ??= await _service.GetUserAsync();
+            else
+                User = await _service.GetUserAsync();
+
+            return User;
         }
         public async Task LogoutAsync()
         {

@@ -44,6 +44,7 @@
   <x:String x:Key="ConfirmQuestion">Are you sure?</x:String>
   <x:String x:Key="Admin">Admin</x:String>
   <x:String x:Key="User">User</x:String>
+  <x:String x:Key="NewUsername">New username:</x:String>
   
   
   <!--Error Messages-->
@@ -57,5 +58,6 @@
   <x:String x:Key="LogoutError">Logout error:&#x0a;</x:String>
   <x:String x:Key="DeleteUserError">Delete user error:&#x0a;</x:String>
   <x:String x:Key="UserQueryError">User query error:&#x0a;</x:String>
+  <x:String x:Key="UpdateUsernameError">Username update error:&#x0a;</x:String>
   
 </ResourceDictionary>

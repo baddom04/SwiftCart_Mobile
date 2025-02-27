@@ -67,7 +67,7 @@ namespace ShoppingList.Persistor.Services
 
         public async Task UpdateUserAsync(int id, string? username, string? email, string? password, CancellationToken cancellationToken = default)
         {
-            var payload = new { username, email, password };
+            var payload = new { name = username, email, password };
 
             HttpResponseMessage response = await _httpClient.PutAsJsonAsync($"users/{id}", payload, cancellationToken);
 

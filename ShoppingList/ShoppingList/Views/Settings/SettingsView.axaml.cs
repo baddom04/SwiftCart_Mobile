@@ -1,4 +1,5 @@
 using Avalonia.Controls;
+using Avalonia.Interactivity;
 using ShoppingList.ViewModels.Settings;
 
 namespace ShoppingList.Views.Settings;
@@ -30,5 +31,13 @@ public partial class SettingsView : UserControl
         if (!result) return;
 
         await (DataContext as SettingsViewModel)!.DeleteUser();
+    }
+
+    private async void ChangeUserName_Click(object? sender, RoutedEventArgs e)
+    {
+        string? result = await App.MainView.ShowTextInputDialog("NewUsername", (str) => !string.IsNullOrWhiteSpace(str));
+        if(result is null) return;
+
+        await (DataContext as SettingsViewModel)!.UpdateUsername(result);
     }
 }

@@ -82,4 +82,25 @@ internal class SettingsViewModel(UserAccountModel userAccount, Action<Page> chan
             _showLoading(false);
         }
     }
+
+    public async Task UpdateUsername(string newUsername)
+    {
+        _showLoading(true);
+
+        try
+        {
+            await _userAccount.UpdateUser(newUsername, null, null);
+
+            User = await _userAccount.GetUserAsync(true);
+        }
+        catch (Exception ex)
+        {
+            string message = $"{StringProvider.GetString("UpdateUsernameError")}{ex.Message}";
+            _showNotification(NotificationType.Error, message);
+        }
+        finally
+        {
+            _showLoading(false);
+        }
+    }
 }
