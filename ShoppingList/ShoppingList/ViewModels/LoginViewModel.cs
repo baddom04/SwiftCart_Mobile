@@ -1,7 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using ReactiveUI;
-using ShoppingList.Persistor;
-using ShoppingList.Persistor.Services.Interfaces;
+﻿using ReactiveUI;
+using ShoppingList.Model.Models;
 using ShoppingList.Utils;
 using System;
 using System.Reactive;
@@ -9,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ShoppingList.ViewModels
 {
-    public class LoginViewModel : ViewModelBase
+    internal class LoginViewModel : ViewModelBase
     {
         public ReactiveCommand<Unit, Unit> RegisterPageCommand { get; }
         public string EmailInput { get; set; } = string.Empty;
@@ -25,10 +23,12 @@ namespace ShoppingList.ViewModels
 
         private readonly Action<bool> _showLoading;
         private readonly Action<Page> _changePage;
-        public LoginViewModel(Action<Page> changePage, Action<bool> showLoading)
+        private readonly UserAccountModel _model;
+        public LoginViewModel(UserAccountModel model, Action<Page> changePage, Action<bool> showLoading)
         {
             _changePage = changePage;
             _showLoading = showLoading;
+            _model = model;
 
             RegisterPageCommand = ReactiveCommand.Create(() => _changePage(Page.Register));
             LoginCommand = ReactiveCommand.Create(Login);
@@ -36,14 +36,13 @@ namespace ShoppingList.ViewModels
 
         private async Task Login()
         {
-            if (!Validate()) return;
+            //if (!Validate()) return;
 
             _showLoading(true);
 
             try
             {
-                IUserService userService = AppServiceProvider.Services.GetRequiredService<IUserService>();
-                await userService.LoginAsync(EmailInput, PasswordInput);
+                await _model.LoginAsync(EmailInput, PasswordInput);
 
                 _changePage(Page.Main);
             }

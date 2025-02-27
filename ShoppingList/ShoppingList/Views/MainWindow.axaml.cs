@@ -4,9 +4,10 @@ namespace ShoppingList.Views
 {
     public partial class MainWindow : Window
     {
-        public MainWindow()
+        public MainWindow(MainView mainView)
         {
             InitializeComponent();
+            MyWindow.Content = mainView;
         }
     }
 }

@@ -5,7 +5,7 @@ using ShoppingList.Model;
 
 namespace ShoppingList.ViewModels
 {
-    public class ShoppingItemDisplay : ReactiveObject
+    internal class ShoppingItemDisplay : ReactiveObject
     {
         private ShoppingItem _item;
         public ShoppingItem Item

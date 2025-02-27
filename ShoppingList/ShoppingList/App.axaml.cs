@@ -3,6 +3,9 @@ using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
 using ShoppingList.Core;
 using ShoppingList.Views;
+using ShoppingList.ViewModels;
+using ShoppingList.Model.Models;
+using System.Runtime.InteropServices;
 
 namespace ShoppingList
 {
@@ -17,14 +20,18 @@ namespace ShoppingList
 
         public override void OnFrameworkInitializationCompleted()
         {
+            var accountModel = new UserAccountModel();
+            var mainViewModel = new MainViewModel(accountModel);
+            var mainView = new MainView(mainViewModel);
+
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                desktop.MainWindow = new MainWindow();
-                MainView = (desktop.MainWindow as MainWindow)!.MainView;
+                desktop.MainWindow = new MainWindow(mainView);
+                MainView = mainView;
             }
             else if (ApplicationLifetime is ISingleViewApplicationLifetime singleViewPlatform)
             {
-                MainView = new MainView();
+                MainView = mainView;
                 singleViewPlatform.MainView = MainView;
             }
 
