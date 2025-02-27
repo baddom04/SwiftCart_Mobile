@@ -8,7 +8,7 @@
         public DateTime? EmailVerifiedAt { get; init; }
         public DateTime CreatedAt { get; init; }
         public DateTime UpdatedAt { get; init; }
-        public bool Admin { get; init; }
+        public int Admin { get; init; }
 
         public object Clone()
         {

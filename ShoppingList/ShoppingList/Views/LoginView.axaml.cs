@@ -12,10 +12,9 @@ public partial class LoginView : UserControl
         Loaded += LoginView_Loaded;
     }
 
-    private void LoginView_Loaded(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
+    private async void LoginView_Loaded(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         LoginViewModel viewModel = (DataContext as LoginViewModel)!;
-
-
+        await viewModel.TryLogin();
     }
 }

@@ -24,6 +24,7 @@ namespace ShoppingList.ViewModels
         private readonly Action<bool> _showLoading;
         private readonly Action<Page> _changePage;
         private readonly UserAccountModel _model;
+        private bool _firstTimeLoginAttempt = true;
         public LoginViewModel(UserAccountModel model, Action<Page> changePage, Action<bool> showLoading)
         {
             _changePage = changePage;
@@ -107,6 +108,29 @@ namespace ShoppingList.ViewModels
             }
 
             return true;
+        }
+
+        public async Task TryLogin()
+        {
+            if (!_firstTimeLoginAttempt) return;
+
+            _showLoading(true);
+            try
+            {
+                await _model.GetUserAsync();
+
+                _changePage(Page.Main);
+            }
+            catch
+            {
+                _showLoading(false);
+            }
+            finally
+            {
+                _showLoading(false);
+            }
+
+            _firstTimeLoginAttempt = false;
         }
     }
 }
