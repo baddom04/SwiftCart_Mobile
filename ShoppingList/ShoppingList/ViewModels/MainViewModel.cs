@@ -49,13 +49,13 @@ namespace ShoppingList.ViewModels
 
         public ReactiveCommand<Unit, Unit> HideNotificationCommand { get; }
 
-        public MainViewModel(UserAccountModel userAccount)
+        public MainViewModel(UserAccountModel userAccount, MainSocialPanelModel households)
         {
             _pages = new Dictionary<MainPage, ViewModelBase>()
             {
                 { MainPage.Login, new LoginViewModel(userAccount, ChangePage, ShowLoading) },
                 { MainPage.Register, new RegisterViewModel(userAccount, ChangePage, ShowLoading) },
-                { MainPage.Main, new LoggedInViewModel(userAccount, ChangePage, ShowLoading, ShowNotificationDialog) },
+                { MainPage.Main, new LoggedInViewModel(userAccount, households, ChangePage, ShowLoading, ShowNotificationDialog) },
             };
 
             _currentPage = _pages[MainPage.Login];

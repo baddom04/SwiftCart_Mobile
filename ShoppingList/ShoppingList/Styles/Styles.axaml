@@ -58,6 +58,9 @@
       <Setter Property="Foreground" Value="{StaticResource MainBG}"/>
       <Setter Property="FontWeight" Value="DemiBold"/>
     </Style>
+    <Style Selector="^.inverted_colors">
+      <Setter Property="Foreground" Value="{StaticResource MainBG}"/>
+    </Style>
   </Style>
 
   <Style Selector="UserControl">
@@ -86,6 +89,24 @@
       <Setter Property="Width" Value="50"/>
       <Setter Property="Background" Value="{StaticResource MainBG}"/>
       <Setter Property="Padding" Value="5"/>
+    </Style>
+
+    <Style Selector="^.wide">
+      <Setter Property="Width" Value="50"/>
+    </Style>
+    
+    <Style Selector="^.inverted_colors">
+      <Setter Property="Background" Value="{StaticResource MainBG}"/>
+      <Setter Property="Foreground" Value="{StaticResource MainFG}"/>
+    </Style>
+
+    <Style Selector="^.inverted_colors:pressed /template/ ContentPresenter">
+      <Setter Property="Background" Value="{StaticResource SecBG}"/>
+      <Setter Property="Foreground" Value="{StaticResource MainFG}"/>
+    </Style>
+    
+    <Style Selector="^.bigger_text">
+      <Setter Property="FontSize" Value="16"/>
     </Style>
 
     <Style Selector="^.setting">
@@ -191,8 +212,8 @@
         <ControlTemplate TargetType="Button">
           <Border Padding="10"
                   HorizontalAlignment="Stretch"
-                  Margin="10"
                   CornerRadius="10"
+                  Margin="20 10"
                   BoxShadow="0 0 10 0 Gray">
             <Border.Background>
               <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,0%">
@@ -200,11 +221,11 @@
                 <GradientStop Color="#42a4db" Offset="1.0"/>
               </LinearGradientBrush>
             </Border.Background>
-            <StackPanel Orientation="Horizontal" Spacing="10">
-              <PathIcon Data="{StaticResource wrench_regular}" Classes="white_foreground"/>
-              <ContentPresenter Classes="setting"
+            <Grid ColumnDefinitions="*, Auto">
+              <ContentPresenter Grid.Column="0" Classes="setting"
                                 Content="{TemplateBinding Content}" />
-            </StackPanel>
+              <PathIcon Grid.Column="1" Data="{StaticResource chevron_right_regular}" Classes="white_foreground"/>
+            </Grid>
           </Border>
         </ControlTemplate>
       </Setter>
@@ -240,15 +261,22 @@
       <Setter Property="CornerRadius" Value="10"/>
       <Setter Property="BoxShadow" Value="2 2 10 0 Gray"/>
     </Style>
+    <Style Selector="^.button_bg">
+      <Setter Property="Background" Value="{StaticResource MainBtnBG}"/>
+    </Style>
     <Style Selector="^.badge">
       <Setter Property="CornerRadius" Value="10"/>
       <Setter Property="BoxShadow" Value="0 0 10 0 Gray"/>
+    </Style>
+    <Style Selector="^.household_item">
+      <Setter Property="Background" Value="{StaticResource MainBtnBG}"/>
+      <Setter Property="CornerRadius" Value="10"/>
     </Style>
   </Style>
 
   <Style Selector="TextBox">
     <Setter Property="FontSize" Value="19"/>
-    <Setter Property="CornerRadius" Value="5"/>
+    <Setter Property="CornerRadius" Value="10"/>
     <Setter Property="BorderBrush" Value="{StaticResource MainBtnBG}"/>
     <Setter Property="BorderThickness" Value="2"/>
   </Style>

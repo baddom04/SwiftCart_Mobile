@@ -16,8 +16,9 @@ namespace ShoppingList
 
         public override void OnFrameworkInitializationCompleted()
         {
+            var households = new MainSocialPanelModel();
             var accountModel = new UserAccountModel();
-            var mainViewModel = new MainViewModel(accountModel);
+            var mainViewModel = new MainViewModel(accountModel, households);
             MainView = new MainView(mainViewModel);
 
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)

@@ -4,9 +4,87 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:vm="clr-namespace:ShoppingList.ViewModels.Social"
+             xmlns:converters="clr-namespace:ShoppingList.Converters"
              x:Class="ShoppingList.Views.Social.SocialPanelView"
-             x:DataType="vm:SocialPanelViewModel">
+             x:DataType="vm:SocialPanelViewModel"
+             xmlns:progRing="clr-namespace:AvaloniaProgressRing;assembly=AvaloniaProgressRing">
+  <UserControl.Resources>
+    <converters:AppendAtConverter x:Key="AppendAtConverter"/>
+    <converters:RandomHouseIconConverter x:Key="RandomHouseIconConverter"/>
+  </UserControl.Resources>
   <Grid RowDefinitions="Auto, *">
-    <TextBlock Text="{DynamicResource SocialPanel}" Classes="h1" HorizontalAlignment="Center" Margin="30"/>
+
+    <TextBlock Grid.Row="0" Text="{DynamicResource SocialPanel}" Classes="h1" HorizontalAlignment="Center" Margin="30"/>
+
+    <Grid Grid.Row="1" RowDefinitions="Auto, *, Auto, *, Auto, Auto">
+
+      <Grid Grid.Row="0"  ColumnDefinitions="*, Auto" Margin="20 20 20 30">
+        <TextBox Grid.Column="0" Text="{Binding SearchInput}" MaxLength="20"
+                 Watermark="{DynamicResource SearchHereWatermark}"/>
+        <Button Grid.Column="1" Command="{Binding SearchCommand}" Margin="10 0 0 0">
+          <PathIcon Data="{StaticResource search_regular}" Classes="white_foreground maxi"/>
+        </Button>
+      </Grid>
+
+      <Grid Grid.Row="1" IsVisible="{Binding !IsLoading}" RowDefinitions="*, Auto">
+        <ItemsControl Grid.Row="0" IsVisible="{Binding !EmptyHouseholds}" ItemsSource="{Binding Households}" Margin="20 5">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <Border Classes="household_item" Margin="2" Padding="8">
+                <Border.Background>
+                  <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,0%">
+                    <GradientStop Color="#4fc0ff" Offset="0.0"/>
+                    <GradientStop Color="#42a4db" Offset="1.0"/>
+                  </LinearGradientBrush>
+                </Border.Background>
+                <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="Auto, *, Auto">
+                  <PathIcon Grid.Column="0" Grid.RowSpan="2" Data="{Binding, Converter={StaticResource RandomHouseIconConverter}}" Classes="maxi white_foreground" Margin="0 0 8 0"/>
+                  <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Name}" Classes="inverted_colors"/>
+                  <TextBlock Grid.Column="1" Grid.Row="1" Classes="mini inverted_colors" Text="{Binding Identifier, Converter={StaticResource AppendAtConverter}}"/>
+
+                  <Button Grid.Column="2" Grid.RowSpan="2" Content="{DynamicResource Apply}"
+                          VerticalAlignment="Center" Classes="inverted_colors bigger_text"/>
+                </Grid>
+              </Border>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <Grid Grid.Row="1" Margin="20 10" IsVisible="{Binding !EmptyHouseholds}" ColumnDefinitions="*, *">
+          <Button Grid.Column="0" HorizontalAlignment="Center" Classes="wide">
+            <PathIcon Data="{StaticResource chevron_left_regular}" Classes="white_foreground"/>
+          </Button>
+          <Button Grid.Column="1" HorizontalAlignment="Center" Classes="wide">
+            <PathIcon Data="{StaticResource chevron_right_regular}" Classes="white_foreground"/>
+          </Button>
+        </Grid>
+
+        <Border Grid.RowSpan="2" IsVisible="{Binding EmptyHouseholds}" Classes="setting button_bg" 
+                Margin="20" VerticalAlignment="Stretch">
+          <TextBlock Text="{DynamicResource NoMatchFound}" Classes="inverted_colors"
+                     HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Border>
+      </Grid>
+
+      <progRing:ProgressRing  Grid.Row="1"
+                              Width="80"
+                              Height="80"
+                              IsVisible="{Binding IsLoading}"
+                              IsActive="{Binding IsLoading}"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              Foreground="{StaticResource MainBtnBG}"/>
+
+      <Button Grid.Row="4" Classes="customButton" HorizontalAlignment="Stretch"
+              Command="">
+        <TextBlock Text="{DynamicResource ManageApplications}" Classes="setting"/>
+      </Button>
+
+      <Button Grid.Row="5" Classes="customButton" HorizontalAlignment="Stretch"
+              Command="">
+        <TextBlock Text="{DynamicResource ManageOwnedHousehold}" Classes="setting"/>
+      </Button>
+
+    </Grid>
   </Grid>
 </UserControl>

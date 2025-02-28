@@ -14,6 +14,7 @@ namespace ShoppingList.Persistor
 
             services.AddTransient<AuthDelegatingHandler>();
             services.AddTransient<IFileService, FileService>();
+            services.AddTransient<IHouseholdService, HouseholdService>();
 
             services.AddTransient(typeof(ITokenService), PlatformServiceRegistry.Resolve<ITokenService>());
 

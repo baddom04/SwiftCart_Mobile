@@ -53,6 +53,12 @@
   <x:String x:Key="NewPasswordAgain">New password again</x:String>
   <x:String x:Key="Change">Change</x:String>
   
+  <!--Social Panel-->
+  <x:String x:Key="SearchHereWatermark">Search households here...</x:String>
+  <x:String x:Key="Apply">Apply</x:String>
+  <x:String x:Key="NoMatchFound">- No match found -</x:String>
+  <x:String x:Key="ManageApplications">Manage applications</x:String>
+  <x:String x:Key="ManageOwnedHousehold">Manage owned households</x:String>
   
   <!--Error Messages-->
   <x:String x:Key="EmailFormatError">The given email address is not valid.</x:String>
@@ -71,5 +77,6 @@
   <x:String x:Key="UpdateUsernameError">Username update error&#x0a;</x:String>
   <x:String x:Key="UpdatePasswordError">Password update error&#x0a;</x:String>
   <x:String x:Key="PasswordsDontMatchError">The given passwords do not match.</x:String>
+  <x:String x:Key="HouseholdQueryError">Household query error&#x0a;</x:String>
   
 </ResourceDictionary>
