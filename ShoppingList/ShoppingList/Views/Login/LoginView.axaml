@@ -8,7 +8,7 @@
              x:DataType="vm:LoginViewModel"
              xmlns:progRing="clr-namespace:AvaloniaProgressRing;assembly=AvaloniaProgressRing"
              xmlns:controls="clr-namespace:ShoppingList.Views.CustomControls">
-  <Grid RowDefinitions="*, Auto, 5*, *, *"  HorizontalAlignment="Stretch" VerticalAlignment="Center">
+  <Grid RowDefinitions="*, Auto, 5*, *, *"  HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0 50 0 0">
     <TextBlock Grid.Row="0" Text="{DynamicResource Login}" Classes="h1" Margin="30" HorizontalAlignment="Center"/>
     
     <controls:ErrorDisplay ErrorMessage="{Binding ErrorMessage}" Grid.Row="1"/>

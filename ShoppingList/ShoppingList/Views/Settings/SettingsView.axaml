@@ -54,8 +54,10 @@
         </Grid>
       </Border>
 
-      <Button Grid.Row="2" Classes="customButton" HorizontalAlignment="Stretch" Content="{DynamicResource ChangePassword}" 
-              Command="{Binding UpdatePasswordPageCommand}"/>
+      <Button Grid.Row="2" Classes="customButton" HorizontalAlignment="Stretch"
+              Command="{Binding UpdatePasswordPageCommand}">
+        <TextBlock Text="{DynamicResource ChangePassword}" Classes="setting"/>
+      </Button>
 
       <Border Grid.Row="3" Classes="setting" Padding="10"
               HorizontalAlignment="Stretch" Margin="10" PointerPressed="Logout_PointerPressed">

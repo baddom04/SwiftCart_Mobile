@@ -14,6 +14,7 @@ namespace ShoppingList.ViewModels.Settings
         public string NewPasswordAgainInput { get; set; } = string.Empty;
 
         public ReactiveCommand<Unit, Unit> ChangePasswordCommand { get; }
+        public ReactiveCommand<Unit, Unit> GoBackCommand { get; }
 
         private string? _errorMessage;
         public string? ErrorMessage
@@ -29,11 +30,11 @@ namespace ShoppingList.ViewModels.Settings
         public UpdatePasswordViewModel(UserAccountModel userAccount, Action<bool> showLoading, Action<SettingsPage> changePage)
         {
             ChangePasswordCommand = ReactiveCommand.CreateFromTask(ChangePassword);
+            GoBackCommand = ReactiveCommand.Create(() => changePage(SettingsPage.Main));
             _showLoading = showLoading;
             _changePage = changePage;
             _userAccount = userAccount;
         }
-
         private async Task ChangePassword()
         {
             if (!Validate()) return;

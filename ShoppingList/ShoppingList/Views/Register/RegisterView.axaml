@@ -8,7 +8,7 @@
              x:Class="ShoppingList.Views.Register.RegisterView"
              x:DataType="vm:RegisterViewModel">
   
-  <Grid RowDefinitions="*, Auto, 5*, *, *"  HorizontalAlignment="Stretch" VerticalAlignment="Center">
+  <Grid RowDefinitions="*, Auto, 5*, *, *"  HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="0 50 0 0">
     <TextBlock Grid.Row="0" Text="{DynamicResource Register}" Classes="h1" Margin="30" HorizontalAlignment="Center"/>
     
     <controls:ErrorDisplay Grid.Row="1" ErrorMessage="{Binding ErrorMessage}"/>

@@ -69,6 +69,18 @@
     <Setter Property="Padding" Value="7"/>
     <Setter Property="Background" Value="{StaticResource MainBtnBG}"/>
     <Setter Property="Foreground" Value="{StaticResource MainBG}"/>
+
+    <Style Selector="^:pressed /template/ ContentPresenter" >
+      <Setter Property="Background" Value="{StaticResource MainBtnPressedBG}"/>
+    </Style>
+
+    <Style Selector="^.trans_bg">
+      <Setter Property="Background" Value="Transparent"/>  
+    </Style>
+
+    <Style Selector="^.trans_bg:pressed /template/ ContentPresenter">
+      <Setter Property="Background" Value="{StaticResource SecBG}"/>
+    </Style>
     
     <Style Selector="^.item_action">
       <Setter Property="Width" Value="50"/>
@@ -79,14 +91,11 @@
     <Style Selector="^.setting">
       <Setter Property="CornerRadius" Value="10"/>
       <Setter Property="FontSize" Value="20"/>
+      <Setter Property="FontWeight" Value="Bold"/>
     </Style>
 
     <Style Selector="^.show_password">
       <Setter Property="CornerRadius" Value="5"/>
-    </Style>
-    
-    <Style Selector="^:pressed /template/ ContentPresenter" >
-      <Setter Property="Background" Value="{StaticResource MainBtnPressedBG}"/>
     </Style>
 
     <Style Selector="^.confirm_answer">
@@ -273,6 +282,10 @@
     <Style Selector="^.mini">
       <Setter Property="Width" Value="16"/>
       <Setter Property="Height" Value="16"/>
+    </Style>
+    <Style Selector="^.maxi">
+      <Setter Property="Width" Value="25"/>
+      <Setter Property="Height" Value="25"/>
     </Style>
     <Style Selector="^.loginError">
       <Setter Property="Foreground" Value="{StaticResource ErrorPrimaryRed}"/>
