@@ -1,9 +1,8 @@
-﻿namespace ShoppingList.Utils
+﻿namespace ShoppingList.Utils;
+
+internal enum MainPage
 {
-    internal enum MainPage
-    {
-        Login,
-        Register,
-        Main
-    }
+    Login,
+    Register,
+    Main
 }

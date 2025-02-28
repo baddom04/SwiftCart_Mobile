@@ -19,7 +19,7 @@
       <TextBlock Text="{DynamicResource Email}" Margin="0 10 0 0"/>
       <TextBox Watermark="{DynamicResource EmailWatermark}" Margin="0 0 0 10" Text="{Binding EmailInput}"/>
       <TextBlock Text="{DynamicResource Password}"/>
-      <TextBox Watermark="{DynamicResource PasswordWatermark}" Text="{Binding PasswordInput}" PasswordChar="*"/>
+      <controls:PasswordBox Password="{Binding PasswordInput, Mode=TwoWay}"/>
     </StackPanel>
     <Button Grid.Row="3" Margin="15" Classes="big" Content="{DynamicResource Register}" HorizontalAlignment="Center" Command="{Binding RegisterCommand}"/>
     <StackPanel Grid.Row="4" HorizontalAlignment="Center" Margin="10" Orientation="Horizontal">

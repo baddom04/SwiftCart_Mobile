@@ -80,6 +80,10 @@
       <Setter Property="CornerRadius" Value="10"/>
       <Setter Property="FontSize" Value="20"/>
     </Style>
+
+    <Style Selector="^.show_password">
+      <Setter Property="CornerRadius" Value="5"/>
+    </Style>
     
     <Style Selector="^:pressed /template/ ContentPresenter" >
       <Setter Property="Background" Value="{StaticResource MainBtnPressedBG}"/>
