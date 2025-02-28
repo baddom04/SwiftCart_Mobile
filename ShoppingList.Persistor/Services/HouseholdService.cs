@@ -29,10 +29,8 @@ namespace ShoppingList.Persistor.Services
             await ValidateResponse(response, cancellationToken);
 
             IEnumerable<Household>? households = await response.Content.ReadFromJsonAsync<IEnumerable<Household>>(cancellationToken);
-            if (households == null)
-                throw new NullReferenceException(nameof(households));
 
-            return households;
+            return households ?? throw new NullReferenceException(nameof(households));
         }
 
         public async Task<Household> GetHouseholdByIdAsync(int household_id, CancellationToken cancellationToken = default)
@@ -42,10 +40,8 @@ namespace ShoppingList.Persistor.Services
             await ValidateResponse(response, cancellationToken);
 
             Household? household = await response.Content.ReadFromJsonAsync<Household>(cancellationToken);
-            if (household == null)
-                throw new NullReferenceException(nameof(household));
 
-            return household;
+            return household ?? throw new NullReferenceException(nameof(household));
         }
 
         public async Task<IEnumerable<Household>> GetOwnedHouseholdsAsync(int user_id, CancellationToken cancellationToken = default)
@@ -55,10 +51,8 @@ namespace ShoppingList.Persistor.Services
             await ValidateResponse(response, cancellationToken);
 
             IEnumerable<Household>? households = await response.Content.ReadFromJsonAsync<IEnumerable<Household>>(cancellationToken);
-            if (households == null)
-                throw new NullReferenceException(nameof(households));
 
-            return households;
+            return households ?? throw new NullReferenceException(nameof(households));
         }
 
         public async Task<IEnumerable<User>> GetUsersOfHouseholdAsync(int household_id, CancellationToken cancellationToken = default)
@@ -67,11 +61,9 @@ namespace ShoppingList.Persistor.Services
 
             await ValidateResponse(response, cancellationToken);
 
-            IEnumerable<User>? households = await response.Content.ReadFromJsonAsync<IEnumerable<User>>(cancellationToken);
-            if (households == null)
-                throw new NullReferenceException(nameof(households));
+            IEnumerable<User>? users = await response.Content.ReadFromJsonAsync<IEnumerable<User>>(cancellationToken);
 
-            return households;
+            return users ?? throw new NullReferenceException(nameof(users));
         }
 
         public async Task UpdateHouseholdAsync(int household_id, string? name, string? identifier, CancellationToken cancellationToken = default)

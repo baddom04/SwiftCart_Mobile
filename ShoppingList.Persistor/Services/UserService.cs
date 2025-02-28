@@ -13,9 +13,8 @@ namespace ShoppingList.Persistor.Services
         {
             await ValidateResponse(response, cancellationToken);
 
-            UserToken? tokenResponse = await response.Content.ReadFromJsonAsync<UserToken>(cancellationToken: cancellationToken);
-            if (tokenResponse == null)
-                throw new NullReferenceException(nameof(tokenResponse));
+            UserToken tokenResponse = await response.Content.ReadFromJsonAsync<UserToken>(cancellationToken) 
+                ?? throw new NullReferenceException(nameof(tokenResponse)); ;
 
             await _tokenService.SaveTokenAsync(tokenResponse.Token, cancellationToken);
         }
@@ -34,10 +33,8 @@ namespace ShoppingList.Persistor.Services
             await ValidateResponse(response, cancellationToken);
 
             User? user = await response.Content.ReadFromJsonAsync<User>(cancellationToken: cancellationToken);
-            if (user is null)
-                throw new NullReferenceException(nameof(user));
 
-            return user;
+            return user ?? throw new NullReferenceException(nameof(user));
         }
 
         public async Task LoginAsync(string email, string password, CancellationToken cancellationToken = default)
