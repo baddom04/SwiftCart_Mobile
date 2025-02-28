@@ -63,13 +63,13 @@
   <x:String x:Key="NewPasswordMissingError">Please enter your new password.</x:String>
   <x:String x:Key="NewPasswordAgainMissingError">Please enter your new password again.</x:String>
   <x:String x:Key="UsernameMissingError">Please enter your username.</x:String>
-  <x:String x:Key="LoginError">Login error:&#x0a;</x:String>
-  <x:String x:Key="RegisterError">Register error:&#x0a;</x:String>
-  <x:String x:Key="LogoutError">Logout error:&#x0a;</x:String>
-  <x:String x:Key="DeleteUserError">Delete user error:&#x0a;</x:String>
-  <x:String x:Key="UserQueryError">User query error:&#x0a;</x:String>
-  <x:String x:Key="UpdateUsernameError">Username update error:&#x0a;</x:String>
-  <x:String x:Key="UpdatePasswordError">Password update error:&#x0a;</x:String>
+  <x:String x:Key="LoginError">Login error&#x0a;&#x0a;</x:String>
+  <x:String x:Key="RegisterError">Register error&#x0a;&#x0a;</x:String>
+  <x:String x:Key="LogoutError">Logout error&#x0a;&#x0a;</x:String>
+  <x:String x:Key="DeleteUserError">Delete user error&#x0a;&#x0a;</x:String>
+  <x:String x:Key="UserQueryError">User query error&#x0a;&#x0a;</x:String>
+  <x:String x:Key="UpdateUsernameError">Username update error&#x0a;&#x0a;</x:String>
+  <x:String x:Key="UpdatePasswordError">Password update error&#x0a;&#x0a;</x:String>
   <x:String x:Key="PasswordsDontMatchError">The given passwords do not match</x:String>
   
 </ResourceDictionary>
