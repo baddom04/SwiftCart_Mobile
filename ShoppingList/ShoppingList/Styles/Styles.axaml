@@ -96,6 +96,11 @@
 
     <Style Selector="^.show_password">
       <Setter Property="CornerRadius" Value="5"/>
+      <Setter Property="Background" Value="{StaticResource MainBG}"/>
+    </Style>
+
+    <Style Selector="^.show_password:pressed /template/ ContentPresenter" >
+      <Setter Property="Background" Value="{StaticResource MainBG}"/>
     </Style>
 
     <Style Selector="^.confirm_answer">
