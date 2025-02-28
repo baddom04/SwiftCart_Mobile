@@ -85,4 +85,11 @@ namespace ShoppingList.ViewModels
             NotificationType = type;
         }
     }
+
+    internal enum MainPage
+    {
+        Login,
+        Register,
+        Main
+    }
 }

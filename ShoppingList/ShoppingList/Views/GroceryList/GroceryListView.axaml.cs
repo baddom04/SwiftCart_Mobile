@@ -61,6 +61,6 @@ public partial class GroceryListView : UserControl
 
         string? comment = await App.MainView.ShowTextInputDialog("Comment", (input) => !string.IsNullOrWhiteSpace(input));
         if (string.IsNullOrWhiteSpace(comment)) return;
-        _viewModel.Model.AddComment(itemDisplay.Item, App.CurrentUser!, comment);
+        //_viewModel.Model.AddComment(itemDisplay.Item, App.CurrentUser!, comment);
     }
 }

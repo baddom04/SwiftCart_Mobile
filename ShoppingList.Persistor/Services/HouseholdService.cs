@@ -22,9 +22,9 @@ namespace ShoppingList.Persistor.Services
             await ValidateResponse(response, cancellationToken);
         }
 
-        public async Task<IEnumerable<Household>> GetAllHouseholdsAsync(CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<Household>> GetAllHouseholdsAsync(string search, int page, CancellationToken cancellationToken = default)
         {
-            HttpResponseMessage response = await _httpClient.GetAsync("households", cancellationToken);
+            HttpResponseMessage response = await _httpClient.GetAsync($"households/{search}?per_page={NetworkSettings.HouseholdPerPage}&page={page}", cancellationToken);
 
             await ValidateResponse(response, cancellationToken);
 

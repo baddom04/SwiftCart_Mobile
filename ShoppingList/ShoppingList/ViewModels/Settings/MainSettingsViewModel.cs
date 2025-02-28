@@ -32,4 +32,10 @@ namespace ShoppingList.ViewModels.Settings
             CurrentPage = _pages[changeSettingsPage];
         }
     }
+
+    internal enum SettingsPage
+    {
+        Main,
+        UpdatePassword
+    }
 }

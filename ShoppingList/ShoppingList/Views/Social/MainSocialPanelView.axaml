@@ -4,9 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:vm="clr-namespace:ShoppingList.ViewModels.Social"
-             x:Class="ShoppingList.Views.Social.SocialPanelView"
-             x:DataType="vm:SocialPanelViewModel">
-  <Grid RowDefinitions="Auto, *">
-    <TextBlock Text="{DynamicResource SocialPanel}" Classes="h1" HorizontalAlignment="Center" Margin="30"/>
-  </Grid>
+             x:Class="ShoppingList.Views.Social.MainSocialPanelView"
+             x:DataType="vm:MainSocialPanelViewModel">
+  <TransitioningContentControl Content="{Binding CurrentPage}">
+    <TransitioningContentControl.PageTransition>
+      <PageSlide Duration="0:00:00.200" />
+    </TransitioningContentControl.PageTransition>
+  </TransitioningContentControl>
 </UserControl>

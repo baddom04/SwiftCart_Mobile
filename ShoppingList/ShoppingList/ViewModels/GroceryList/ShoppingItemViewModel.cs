@@ -21,7 +21,7 @@ namespace ShoppingList.ViewModels.GroceryList
             set { this.RaiseAndSetIfChanged(ref _isExpanded, value); }
         }
 
-        public bool IsOwner => App.CurrentUser!.Id.Equals(Item.UserId);
+        public bool IsOwner => true;
         public string QuantityDisplay => Item.Quantity + " " + Item.Unit.ToString();
         public ReactiveCommand<Unit, bool> ToggleExpandedCommand { get; }
         public ReactiveCommand<Unit, Unit> EditCommand { get; }

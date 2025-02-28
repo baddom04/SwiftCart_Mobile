@@ -82,7 +82,7 @@ namespace ShoppingList.ViewModels.GroceryList
         {
             if (index < 0)
             {
-                item.UserId = App.CurrentUser!.Id;
+                //item.UserId = App.CurrentUser!.Id;
             }
 
             Model.StartEdit(item, index);
