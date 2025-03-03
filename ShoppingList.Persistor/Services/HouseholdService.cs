@@ -1,4 +1,5 @@
 ﻿using ShoppingList.Core;
+using ShoppingList.Persistor.DTO;
 using ShoppingList.Persistor.Services.Interfaces;
 using System.Net.Http.Json;
 
@@ -22,13 +23,15 @@ namespace ShoppingList.Persistor.Services
             await ValidateResponse(response, cancellationToken);
         }
 
-        public async Task<IEnumerable<Household>> GetAllHouseholdsAsync(string search, int page, CancellationToken cancellationToken = default)
+        public async Task<HouseholdsResponse> GetAllHouseholdsAsync(string search, int page, CancellationToken cancellationToken = default)
         {
-            HttpResponseMessage response = await _httpClient.GetAsync($"households/{search}?per_page={NetworkSettings.HouseholdPerPage}&page={page}", cancellationToken);
+            string endpoint = "households" + (!string.IsNullOrWhiteSpace(search) ? "/" + Uri.EscapeDataString(search) : "");
+
+            HttpResponseMessage response = await _httpClient.GetAsync($"{endpoint}?per_page={NetworkSettings.HouseholdPerPage}&page={page}", cancellationToken);
 
             await ValidateResponse(response, cancellationToken);
 
-            IEnumerable<Household>? households = await response.Content.ReadFromJsonAsync<IEnumerable<Household>>(cancellationToken);
+            HouseholdsResponse? households = await response.Content.ReadFromJsonAsync<HouseholdsResponse>(cancellationToken);
 
             return households ?? throw new NullReferenceException(nameof(households));
         }

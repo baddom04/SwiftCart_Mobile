@@ -14,8 +14,8 @@ namespace ShoppingList.ViewModels.Social
     {
         public string SearchInput { get; set; } = string.Empty;
         public ReactiveCommand<Unit, Unit> SearchCommand { get; }
-        public ReactiveCommand<Unit, Unit> TurnPageForward { get; }
-        public ReactiveCommand<Unit, Unit> TurnPageBackward { get; }
+        public ReactiveCommand<Unit, Unit> TurnPageForwardCommand { get; }
+        public ReactiveCommand<Unit, Unit> TurnPageBackwardCommand { get; }
         public ObservableCollection<Household> Households { get; } = [];
 
         private bool _showLoading;
@@ -32,24 +32,37 @@ namespace ShoppingList.ViewModels.Social
             set { this.RaiseAndSetIfChanged(ref _page, value); }
         }
 
+        private int _maxPage;
+        public int MaxPage
+        {
+            get { return _maxPage; }
+            private set { this.RaiseAndSetIfChanged(ref _maxPage, value); }
+        }
+
+
         public bool EmptyHouseholds => Households.Count == 0;
 
-        private readonly MainSocialPanelModel _households;
+        private readonly MainSocialPanelModel _model;
         private readonly Action<NotificationType, string> _showNotification;
 
-        public SocialPanelViewModel(MainSocialPanelModel households, Action<NotificationType, string> showNotification)
+        public SocialPanelViewModel(MainSocialPanelModel householdsModel, Action<NotificationType, string> showNotification)
         {
-            _households = households;
+            _model = householdsModel;
             _showNotification = showNotification;
 
             Households.CollectionChanged += (s, e) => this.RaisePropertyChanged(nameof(EmptyHouseholds));
 
             SearchCommand = ReactiveCommand.CreateFromTask(() => Search(1));
-            TurnPageForward = ReactiveCommand.CreateFromTask(() => Search(Page + 1));
-            TurnPageBackward = ReactiveCommand.CreateFromTask(() => Search(Page - 1));
+
+            TurnPageForwardCommand = ReactiveCommand.CreateFromTask(() => Search(Page + 1), 
+                this.WhenAnyValue(x => x.Page, x => x.MaxPage,
+            (page, maxPage) => page != maxPage));
+
+            TurnPageBackwardCommand = ReactiveCommand.CreateFromTask(() => Search(Page - 1), 
+                this.WhenAnyValue(x => x.Page, page => page != 1));
         }
 
-        private async Task Search(int page)
+        public async Task Search(int page = 1)
         {
             IsLoading = true;
             Page = page;
@@ -57,7 +70,9 @@ namespace ShoppingList.ViewModels.Social
             try
             {
                 Households.Clear();
-                Households.AddRange(await _households.GetHouseholdsAsync(SearchInput, Page));
+                Households.AddRange(await _model.SearchHouseholdsAsync(SearchInput, Page));
+
+                MaxPage = _model.MaxPage;
             }
             catch(Exception ex)
             {

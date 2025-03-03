@@ -16,7 +16,7 @@
 
     <TextBlock Grid.Row="0" Text="{DynamicResource SocialPanel}" Classes="h1" HorizontalAlignment="Center" Margin="30"/>
 
-    <Grid Grid.Row="1" RowDefinitions="Auto, *, Auto, *, Auto, Auto">
+    <Grid Grid.Row="1" RowDefinitions="Auto, *, Auto, Auto, Auto">
 
       <Grid Grid.Row="0"  ColumnDefinitions="*, Auto" Margin="20 20 20 30">
         <TextBox Grid.Column="0" Text="{Binding SearchInput}" MaxLength="20"
@@ -27,7 +27,7 @@
       </Grid>
 
       <Grid Grid.Row="1" IsVisible="{Binding !IsLoading}" RowDefinitions="*, Auto">
-        <ItemsControl Grid.Row="0" IsVisible="{Binding !EmptyHouseholds}" ItemsSource="{Binding Households}" Margin="20 5">
+        <ItemsControl Grid.Row="0" IsVisible="{Binding !EmptyHouseholds}" ItemsSource="{Binding Households}" Margin="20 5 20 0">
           <ItemsControl.ItemTemplate>
             <DataTemplate>
               <Border Classes="household_item" Margin="2" Padding="8">
@@ -50,11 +50,16 @@
           </ItemsControl.ItemTemplate>
         </ItemsControl>
 
-        <Grid Grid.Row="1" Margin="20 10" IsVisible="{Binding !EmptyHouseholds}" ColumnDefinitions="*, *">
-          <Button Grid.Column="0" HorizontalAlignment="Center" Classes="wide">
+        <Grid Grid.Row="1" Margin="20 10" IsVisible="{Binding !EmptyHouseholds}" ColumnDefinitions="*, Auto, *">
+          <Button Grid.Column="0" HorizontalAlignment="Center" Classes="wide" Command="{Binding TurnPageBackwardCommand}">
             <PathIcon Data="{StaticResource chevron_left_regular}" Classes="white_foreground"/>
           </Button>
-          <Button Grid.Column="1" HorizontalAlignment="Center" Classes="wide">
+          <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Center">
+            <TextBlock Text="{Binding Page}"/>
+            <TextBlock Text=" / "/>
+            <TextBlock Text="{Binding MaxPage}"/>
+          </StackPanel>
+          <Button Grid.Column="2" HorizontalAlignment="Center" Classes="wide" Command="{Binding TurnPageForwardCommand}">
             <PathIcon Data="{StaticResource chevron_right_regular}" Classes="white_foreground"/>
           </Button>
         </Grid>
@@ -75,12 +80,12 @@
                               VerticalAlignment="Center"
                               Foreground="{StaticResource MainBtnBG}"/>
 
-      <Button Grid.Row="4" Classes="customButton" HorizontalAlignment="Stretch"
+      <Button Grid.Row="3" Classes="customButton" HorizontalAlignment="Stretch"
               Command="">
         <TextBlock Text="{DynamicResource ManageApplications}" Classes="setting"/>
       </Button>
 
-      <Button Grid.Row="5" Classes="customButton" HorizontalAlignment="Stretch"
+      <Button Grid.Row="4" Classes="customButton" HorizontalAlignment="Stretch"
               Command="">
         <TextBlock Text="{DynamicResource ManageOwnedHousehold}" Classes="setting"/>
       </Button>

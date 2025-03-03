@@ -18,12 +18,15 @@ namespace ShoppingList.Persistor
 
             services.AddTransient(typeof(ITokenService), PlatformServiceRegistry.Resolve<ITokenService>());
 
-            services.AddHttpClient<IUserService, UserService>(client =>
+            static void configureClient(HttpClient client)
             {
                 client.BaseAddress = NetworkSettings.BaseAddress;
-                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            })
-            .AddHttpMessageHandler<AuthDelegatingHandler>();
+                client.DefaultRequestHeaders.Accept.Add(
+                    new MediaTypeWithQualityHeaderValue("application/json"));
+            }
+
+            services.AddHttpClient<IUserService, UserService>(configureClient).AddHttpMessageHandler<AuthDelegatingHandler>();
+            services.AddHttpClient<IHouseholdService, HouseholdService>(configureClient).AddHttpMessageHandler<AuthDelegatingHandler>();
 
             Services = services.BuildServiceProvider();
         }

@@ -77,6 +77,11 @@
       <Setter Property="Background" Value="{StaticResource MainBtnPressedBG}"/>
     </Style>
 
+    <Style Selector="^:disabled /template/ ContentPresenter" >
+      <Setter Property="Background" Value="{StaticResource MainBtnBG}"/>
+      <Setter Property="Opacity" Value="0.5"/>
+    </Style>
+
     <Style Selector="^.trans_bg">
       <Setter Property="Background" Value="Transparent"/>  
     </Style>

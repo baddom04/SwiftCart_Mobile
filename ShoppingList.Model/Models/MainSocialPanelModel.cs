@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using ShoppingList.Core;
 using ShoppingList.Persistor;
+using ShoppingList.Persistor.DTO;
 using ShoppingList.Persistor.Services.Interfaces;
 
 namespace ShoppingList.Model.Models
@@ -8,17 +9,24 @@ namespace ShoppingList.Model.Models
     public class MainSocialPanelModel
     {
         private readonly IHouseholdService _householdService;
-        IEnumerable<Household>? _loadedHouseholds;
+
+        public IEnumerable<Household>? LoadedHouseholds { get; private set; }
+        public int MaxPage { get; private set; } = 1;
+
         public MainSocialPanelModel()
         {
             _householdService = AppServiceProvider.Services.GetRequiredService<IHouseholdService>();
         }
 
-        public async Task<IEnumerable<Household>> GetHouseholdsAsync(string search, int page)
+        public async Task<IEnumerable<Household>> SearchHouseholdsAsync(string search, int page)
         {
-            _loadedHouseholds = await _householdService.GetAllHouseholdsAsync(search, page);
+            HouseholdsResponse response = await _householdService.GetAllHouseholdsAsync(search, page);
 
-            return _loadedHouseholds;
+            LoadedHouseholds = response.QueryResult;
+
+            MaxPage = response.MaxPages;
+
+            return LoadedHouseholds;
         }
     }
 }
