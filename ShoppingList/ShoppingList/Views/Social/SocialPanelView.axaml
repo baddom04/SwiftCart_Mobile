@@ -39,11 +39,21 @@
                 </Border.Background>
                 <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="Auto, *, Auto">
                   <PathIcon Grid.Column="0" Grid.RowSpan="2" Data="{Binding, Converter={StaticResource RandomHouseIconConverter}}" Classes="maxi white_foreground" Margin="0 0 8 0"/>
-                  <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Name}" Classes="inverted_colors"/>
-                  <TextBlock Grid.Column="1" Grid.Row="1" Classes="mini inverted_colors" Text="{Binding Identifier, Converter={StaticResource AppendAtConverter}}"/>
+                  <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Household.Name}" Classes="inverted_colors"/>
+                  <TextBlock Grid.Column="1" Grid.Row="1" Classes="mini inverted_colors" Text="{Binding Household.Identifier, Converter={StaticResource AppendAtConverter}}"/>
 
-                  <Button Grid.Column="2" Grid.RowSpan="2" Content="{DynamicResource Apply}"
+                  <Button Grid.Column="2" Grid.RowSpan="2" IsVisible="{Binding !IsLoading}" Content="{DynamicResource Apply}" Command="{Binding ApplyCommand}"
                           VerticalAlignment="Center" Classes="inverted_colors bigger_text"/>
+
+                  <progRing:ProgressRing Grid.Column="2" Grid.RowSpan="2"
+                              Width="30"
+                              Height="30"
+                              Margin="0 0 15 0"
+                              IsVisible="{Binding IsLoading}"
+                              IsActive="{Binding IsLoading}"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              Foreground="{StaticResource MainBG}"/>
                 </Grid>
               </Border>
             </DataTemplate>
@@ -66,7 +76,7 @@
 
         <Border Grid.RowSpan="2" IsVisible="{Binding EmptyHouseholds}" Classes="setting button_bg" 
                 Margin="20" VerticalAlignment="Stretch">
-          <TextBlock Text="{DynamicResource NoMatchFound}" Classes="inverted_colors"
+          <TextBlock Text="{DynamicResource NoMatchFound}" Classes="inverted_colors h1"
                      HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Border>
       </Grid>
