@@ -59,6 +59,9 @@
   <x:String x:Key="NoMatchFound">- No match found -</x:String>
   <x:String x:Key="ManageApplications">Manage applications</x:String>
   <x:String x:Key="ManageOwnedHousehold">Manage owned households</x:String>
+  <x:String x:Key="Owner">Owner</x:String>
+  <x:String x:Key="Member">Member</x:String>
+  <x:String x:Key="Applied">Applied</x:String>
   
   <!--Error Messages-->
   <x:String x:Key="EmailFormatError">The given email address is not valid.</x:String>

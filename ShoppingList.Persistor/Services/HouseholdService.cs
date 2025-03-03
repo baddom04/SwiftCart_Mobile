@@ -1,4 +1,5 @@
 ﻿using ShoppingList.Core;
+using ShoppingList.Core.Enums;
 using ShoppingList.Persistor.DTO;
 using ShoppingList.Persistor.Services.Interfaces;
 using System.Net.Http.Json;
@@ -14,6 +15,17 @@ namespace ShoppingList.Persistor.Services
             HttpResponseMessage response = await _httpClient.PostAsJsonAsync("households", payload, cancellationToken);
 
             await ValidateResponse(response, cancellationToken);
+        }
+
+        public async Task<HouseholdRelationship> GetUserRelationShipAsync(int household_id, CancellationToken cancellationToken = default)
+        {
+            HttpResponseMessage response = await _httpClient.GetAsync($"households/{household_id}/relationship", cancellationToken);
+
+            await ValidateResponse(response, cancellationToken);
+
+            HouseholdRelationship? relationship = await response.Content.ReadFromJsonAsync<HouseholdRelationship>(cancellationToken);
+
+            return relationship ?? throw new NullReferenceException();
         }
 
         public async Task DeleteHouseholdAsync(int household_id, CancellationToken cancellationToken = default)

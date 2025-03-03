@@ -1,4 +1,5 @@
 ﻿using ShoppingList.Core;
+using ShoppingList.Core.Enums;
 using ShoppingList.Persistor.DTO;
 
 namespace ShoppingList.Persistor.Services.Interfaces;
@@ -6,6 +7,7 @@ namespace ShoppingList.Persistor.Services.Interfaces;
 public interface IHouseholdService
 {
     Task CreateNewHouseholdAsync(string name, string identifier, CancellationToken cancellationToken = default);
+    Task<HouseholdRelationship> GetUserRelationShipAsync(int household_id, CancellationToken cancellationToken = default);
     Task<HouseholdsResponse> GetAllHouseholdsAsync(string search, int page, CancellationToken cancellationToken = default);
     Task<IEnumerable<User>> GetUsersOfHouseholdAsync(int household_id, CancellationToken cancellationToken = default);
     Task<Household> GetHouseholdByIdAsync(int household_id, CancellationToken cancellationToken = default);

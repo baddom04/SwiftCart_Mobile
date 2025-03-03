@@ -14,7 +14,6 @@ namespace ShoppingList.Persistor
 
             services.AddTransient<AuthDelegatingHandler>();
             services.AddTransient<IFileService, FileService>();
-            services.AddTransient<IHouseholdService, HouseholdService>();
 
             services.AddTransient(typeof(ITokenService), PlatformServiceRegistry.Resolve<ITokenService>());
 
@@ -27,6 +26,7 @@ namespace ShoppingList.Persistor
 
             services.AddHttpClient<IUserService, UserService>(configureClient).AddHttpMessageHandler<AuthDelegatingHandler>();
             services.AddHttpClient<IHouseholdService, HouseholdService>(configureClient).AddHttpMessageHandler<AuthDelegatingHandler>();
+            services.AddHttpClient<IApplicationService, ApplicationService>(configureClient).AddHttpMessageHandler<AuthDelegatingHandler>();
 
             Services = services.BuildServiceProvider();
         }
