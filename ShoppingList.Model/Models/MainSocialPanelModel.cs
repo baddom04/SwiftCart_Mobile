@@ -24,7 +24,7 @@ namespace ShoppingList.Model.Models
 
             LoadedHouseholds = response.QueryResult;
 
-            MaxPage = response.MaxPages;
+            MaxPage = response.Meta.MaxPages;
 
             return LoadedHouseholds;
         }

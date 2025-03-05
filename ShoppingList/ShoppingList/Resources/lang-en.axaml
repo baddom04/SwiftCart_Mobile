@@ -81,5 +81,6 @@
   <x:String x:Key="UpdatePasswordError">Password update error&#x0a;</x:String>
   <x:String x:Key="PasswordsDontMatchError">The given passwords do not match.</x:String>
   <x:String x:Key="HouseholdQueryError">Household query error&#x0a;</x:String>
+  <x:String x:Key="ApplyError">Apply error&#x0a;</x:String>
   
 </ResourceDictionary>

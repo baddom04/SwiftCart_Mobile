@@ -46,7 +46,7 @@
           <TextBlock Grid.Row="1" Classes="h3" Text="{Binding NotificationType}" 
                      Margin="10"
                      HorizontalAlignment="Center" TextAlignment="Center"/>
-          <TextBlock Grid.Row="2" TextAlignment="Justify" Margin="10"
+          <TextBlock Grid.Row="2" TextAlignment="Center" Margin="10"
                      Text="{Binding NotificationMessage}" TextWrapping="Wrap"/>
           <Button Grid.Row="3" Content="{DynamicResource Ok}"
                   Command="{Binding HideNotificationCommand}" HorizontalContentAlignment="Center"

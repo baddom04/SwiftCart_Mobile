@@ -40,7 +40,6 @@ internal class SocialPanelViewModel : ViewModelBase
         private set { this.RaiseAndSetIfChanged(ref _maxPage, value); }
     }
 
-
     public bool EmptyHouseholds => Households.Count == 0;
 
     private readonly MainSocialPanelModel _model;
@@ -73,7 +72,7 @@ internal class SocialPanelViewModel : ViewModelBase
             Households.Clear();
             Households.AddRange(
                 (await _model.SearchHouseholdsAsync(SearchInput, Page))
-                .Select(hh => new HouseholdListItemViewModel(hh))
+                .Select(hh => new HouseholdListItemViewModel(new HouseholdListItemModel(hh), _showNotification))
             );
 
             MaxPage = _model.MaxPage;

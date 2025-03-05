@@ -1,5 +1,10 @@
-﻿using ReactiveUI;
+﻿using Avalonia.Markup.Xaml.MarkupExtensions;
+using ReactiveUI;
 using ShoppingList.Core;
+using ShoppingList.Core.Enums;
+using ShoppingList.Model.Models;
+using ShoppingList.Utils;
+using System;
 using System.Reactive;
 using System.Threading.Tasks;
 
@@ -7,7 +12,27 @@ namespace ShoppingList.ViewModels.Social
 {
     internal class HouseholdListItemViewModel : ViewModelBase
     {
-        public Household Household { get; private set; }
+        private string _name = string.Empty;
+        public string Name
+        {
+            get { return _name; }
+            private set { this.RaiseAndSetIfChanged(ref _name, value); }
+        }
+
+        private string _identifier = string.Empty;
+        public string Identifier 
+        {
+            get { return _identifier; }
+            private set { this.RaiseAndSetIfChanged(ref _identifier, value); }
+        }
+
+        private HouseholdRelationship _relationship;
+        public HouseholdRelationship Relationship
+        {
+            get { return _relationship; }
+            private set { this.RaiseAndSetIfChanged(ref _relationship, value); }
+        }
+
         public ReactiveCommand<Unit, Unit> ApplyCommand { get; }
 
         private bool _isLoading;
@@ -17,17 +42,44 @@ namespace ShoppingList.ViewModels.Social
             set { this.RaiseAndSetIfChanged(ref _isLoading, value); }
         }
 
-        public HouseholdListItemViewModel(Household household)
+        private readonly HouseholdListItemModel _model;
+        private readonly Action<NotificationType, string> _showNotification;
+        public HouseholdListItemViewModel(HouseholdListItemModel model, Action<NotificationType, string> showNotification)
         {
-            Household = household;
             ApplyCommand = ReactiveCommand.CreateFromTask(Apply);
+            _model = model;
+            _showNotification = showNotification;
+
+            OnHouseholdChanged();
+            _model.HouseholdChanged += OnHouseholdChanged;
+        }
+
+        private void OnHouseholdChanged()
+        {
+            Name = _model.Household.Name;
+            Identifier = _model.Household.Identifier;
+            Relationship = _model.Household.Relationship!.Value;
         }
 
         private async Task Apply()
         {
             IsLoading = true;
-            await Task.Delay(5000);
-            IsLoading = false;
+
+            try
+            {
+                await _model.ApplyAsync();
+                await _model.UpdateRelationshipAsync();
+                this.RaisePropertyChanged(nameof(Household));
+            }
+            catch (Exception ex)
+            {
+                string message = $"{StringProvider.GetString("ApplyError")}{ex.Message}";
+                _showNotification(NotificationType.Error, message);
+            }
+            finally
+            {
+                IsLoading = false;
+            }
         }
     }
 }

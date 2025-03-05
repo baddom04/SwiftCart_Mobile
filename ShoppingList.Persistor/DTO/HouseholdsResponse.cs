@@ -8,7 +8,7 @@ namespace ShoppingList.Persistor.DTO
         [JsonPropertyName("data")]
         public required IEnumerable<Household> QueryResult { get; init; }
 
-        [JsonPropertyName("last_page")]
-        public int MaxPages { get; init; }
+        [JsonPropertyName("meta")]
+        public required HouseholdsMetaData Meta { get; init; }
     }
 }

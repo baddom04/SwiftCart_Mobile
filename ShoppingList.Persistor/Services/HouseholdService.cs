@@ -17,15 +17,13 @@ namespace ShoppingList.Persistor.Services
             await ValidateResponse(response, cancellationToken);
         }
 
-        public async Task<HouseholdRelationship> GetUserRelationShipAsync(int household_id, CancellationToken cancellationToken = default)
+        public async Task<HouseholdRelationship> GetUserRelationshipAsync(int household_id, CancellationToken cancellationToken = default)
         {
             HttpResponseMessage response = await _httpClient.GetAsync($"households/{household_id}/relationship", cancellationToken);
 
             await ValidateResponse(response, cancellationToken);
 
-            HouseholdRelationship? relationship = await response.Content.ReadFromJsonAsync<HouseholdRelationship>(cancellationToken);
-
-            return relationship ?? throw new NullReferenceException();
+            return Enum.Parse<HouseholdRelationship>(await response.Content.ReadAsStringAsync(cancellationToken), ignoreCase: true);
         }
 
         public async Task DeleteHouseholdAsync(int household_id, CancellationToken cancellationToken = default)

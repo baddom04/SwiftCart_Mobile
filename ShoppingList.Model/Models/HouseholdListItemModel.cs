@@ -1,29 +1,25 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using ShoppingList.Core.Enums;
+using ShoppingList.Core;
 using ShoppingList.Persistor;
-using ShoppingList.Persistor.Services;
+using ShoppingList.Persistor.Services.Interfaces;
 
 namespace ShoppingList.Model.Models
 {
-    public class HouseholdListItemModel
+    public class HouseholdListItemModel(Household household)
     {
-        private readonly ApplicationService _applicationService;
-        private readonly HouseholdService _householdService;
+        private readonly IApplicationService _applicationService = AppServiceProvider.Services.GetRequiredService<IApplicationService>();
+        private readonly IHouseholdService _householdService = AppServiceProvider.Services.GetRequiredService<IHouseholdService>();
+        public Household Household { get; } = household;
+        public event Action? HouseholdChanged;
 
-        public HouseholdListItemModel()
+        public async Task ApplyAsync()
         {
-            _applicationService = AppServiceProvider.Services.GetRequiredService<ApplicationService>();
-            _householdService = AppServiceProvider.Services.GetRequiredService<HouseholdService>();
+            await _applicationService.ApplyAsync(Household.Id);
         }
-
-        public async Task Apply(int household_id)
+        public async Task UpdateRelationshipAsync()
         {
-            await _applicationService.ApplyAsync(household_id);
-        }
-
-        public async Task<HouseholdRelationship> GetHouseholdRelationship(int household_id)
-        {
-            return await _householdService.GetUserRelationShipAsync(household_id);
+            Household.Relationship = await _householdService.GetUserRelationshipAsync(Household.Id);
+            HouseholdChanged?.Invoke();
         }
     }
 }
