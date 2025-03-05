@@ -102,7 +102,7 @@
                               Foreground="{StaticResource MainBtnBG}"/>
 
       <Button Grid.Row="3" Classes="customButton" HorizontalAlignment="Stretch"
-              Command="">
+              Command="{Binding ManageApplicationsPageCommand}">
         <TextBlock Text="{DynamicResource ManageApplications}" Classes="setting"/>
       </Button>
 

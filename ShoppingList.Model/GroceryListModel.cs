@@ -1,8 +1,9 @@
 ﻿using ShoppingList.Core;
 using ShoppingList.Core.Enums;
+using ShoppingList.Model.Temp;
 using System.Collections.ObjectModel;
 
-namespace ShoppingList.Model.Models
+namespace ShoppingList.Model
 {
     public struct ItemEditor(ShoppingItem item, int index)
     {
@@ -28,7 +29,7 @@ namespace ShoppingList.Model.Models
             if (string.IsNullOrWhiteSpace(itemName))
             {
                 ErrorType = ItemFormErrorType.EmptyName;
-                IsValidItem = false;   
+                IsValidItem = false;
             }
             else
             {
@@ -91,7 +92,7 @@ namespace ShoppingList.Model.Models
             ShoppingList = [];
             ShoppingList.CollectionChanged += (_, _) => Save();
 
-            UnitTypes = [.. (UnitType[])Enum.GetValues(typeof(UnitType))] ;
+            UnitTypes = [.. (UnitType[])Enum.GetValues(typeof(UnitType))];
         }
         public void DeleteItem(ShoppingItem item)
         {

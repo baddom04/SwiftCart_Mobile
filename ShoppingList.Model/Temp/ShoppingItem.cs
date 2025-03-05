@@ -2,7 +2,7 @@
 using ShoppingList.Core;
 using ShoppingList.Core.Enums;
 
-namespace ShoppingList.Model
+namespace ShoppingList.Model.Temp
 {
     public class ShoppingItem(string name, int userId, ObservableCollection<Comment> comments, string quantity = "", UnitType unit = UnitType.pieces, string? description = null) : ICloneable
     {
@@ -15,7 +15,7 @@ namespace ShoppingList.Model
         public static ShoppingItem Empty => new(string.Empty, -1, []);
         public object Clone()
         {
-            return new ShoppingItem(Name, UserId, [.. Comments?.Select(com => new Comment() { Content = com.Content})], Quantity, Unit, Description);
+            return new ShoppingItem(Name, UserId, [.. Comments?.Select(com => new Comment() { Content = com.Content })], Quantity, Unit, Description);
         }
     }
 }

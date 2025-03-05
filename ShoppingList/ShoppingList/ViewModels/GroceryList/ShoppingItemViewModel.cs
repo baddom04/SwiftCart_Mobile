@@ -1,7 +1,7 @@
 ﻿using ReactiveUI;
 using System;
 using System.Reactive;
-using ShoppingList.Model;
+using ShoppingList.Model.Temp;
 
 namespace ShoppingList.ViewModels.GroceryList
 {

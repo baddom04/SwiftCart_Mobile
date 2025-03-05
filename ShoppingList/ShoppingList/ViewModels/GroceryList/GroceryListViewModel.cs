@@ -1,10 +1,10 @@
 ﻿using ReactiveUI;
-using ShoppingList.Model;
-using ShoppingList.Model.Models;
 using ShoppingList.Core.Enums;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
+using ShoppingList.Model.Temp;
+using ShoppingList.Model;
 
 namespace ShoppingList.ViewModels.GroceryList
 {

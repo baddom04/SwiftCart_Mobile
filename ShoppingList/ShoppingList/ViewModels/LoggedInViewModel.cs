@@ -1,5 +1,6 @@
 ﻿using ReactiveUI;
-using ShoppingList.Model.Models;
+using ShoppingList.Model.Settings;
+using ShoppingList.Model.Social;
 using ShoppingList.Utils;
 using ShoppingList.ViewModels.GroceryList;
 using ShoppingList.ViewModels.Map;

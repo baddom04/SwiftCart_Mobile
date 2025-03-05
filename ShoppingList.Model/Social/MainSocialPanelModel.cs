@@ -4,7 +4,7 @@ using ShoppingList.Persistor;
 using ShoppingList.Persistor.DTO;
 using ShoppingList.Persistor.Services.Interfaces;
 
-namespace ShoppingList.Model.Models
+namespace ShoppingList.Model.Social
 {
     public class MainSocialPanelModel
     {

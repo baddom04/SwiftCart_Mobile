@@ -63,6 +63,9 @@
   <x:String x:Key="Member">Member</x:String>
   <x:String x:Key="Applied">Applied</x:String>
   
+  <!--Manage Applications Page-->
+  <x:String x:Key="MyApplications">My applications</x:String>
+  
   <!--Error Messages-->
   <x:String x:Key="EmailFormatError">The given email address is not valid.</x:String>
   <x:String x:Key="EmailMissingError">Please enter your email address.</x:String>

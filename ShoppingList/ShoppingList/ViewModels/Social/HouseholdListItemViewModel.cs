@@ -2,7 +2,7 @@
 using ReactiveUI;
 using ShoppingList.Core;
 using ShoppingList.Core.Enums;
-using ShoppingList.Model.Models;
+using ShoppingList.Model.Social;
 using ShoppingList.Utils;
 using System;
 using System.Reactive;

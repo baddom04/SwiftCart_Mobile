@@ -1,5 +1,5 @@
 ﻿using ReactiveUI;
-using ShoppingList.Model.Models;
+using ShoppingList.Model.Social;
 using ShoppingList.Utils;
 using System;
 using System.Collections.Generic;
@@ -21,15 +21,22 @@ namespace ShoppingList.ViewModels.Social
         {
             _pages = new Dictionary<SocialPage, ViewModelBase>()
             {
-                { SocialPage.Main, new SocialPanelViewModel(households, showNotification) },
+                { SocialPage.Main, new SocialPanelViewModel(households, showNotification, ChangePage) },
+                { SocialPage.ManageApplications, new ManageApplicationsViewModel() },
             };
 
             _currentPage = _pages[SocialPage.Main];
+        }
+
+        private void ChangePage(SocialPage page)
+        {
+            CurrentPage = _pages[page];
         }
     }
 
     internal enum SocialPage
     {
-        Main
+        Main,
+        ManageApplications
     }
 }

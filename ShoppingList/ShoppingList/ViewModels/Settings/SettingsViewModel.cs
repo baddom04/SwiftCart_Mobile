@@ -1,10 +1,10 @@
-﻿using ShoppingList.Model.Models;
-using ShoppingList.Utils;
+﻿using ShoppingList.Utils;
 using System;
 using System.Threading.Tasks;
 using ShoppingList.Core;
 using ReactiveUI;
 using System.Reactive;
+using ShoppingList.Model.Settings;
 
 namespace ShoppingList.ViewModels.Settings;
 

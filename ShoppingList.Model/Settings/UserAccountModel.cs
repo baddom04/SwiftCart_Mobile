@@ -3,7 +3,7 @@ using ShoppingList.Persistor.Services.Interfaces;
 using ShoppingList.Persistor;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ShoppingList.Model.Models
+namespace ShoppingList.Model.Settings
 {
     public class UserAccountModel
     {
@@ -24,7 +24,7 @@ namespace ShoppingList.Model.Models
         }
         public async Task<User> GetUserAsync(bool forceQuery = false)
         {
-            if(!forceQuery)
+            if (!forceQuery)
                 return User ??= await _service.GetUserAsync();
             else
                 User = await _service.GetUserAsync();
