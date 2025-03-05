@@ -1,5 +1,4 @@
 ﻿using ShoppingList.Core;
-using ShoppingList.Core.Enums;
 using ShoppingList.Persistor.Services.Interfaces;
 using System.Net.Http.Json;
 

@@ -1,4 +1,5 @@
 ﻿using ReactiveUI;
+using ShoppingList.Model.Settings;
 using ShoppingList.Model.Social;
 using ShoppingList.Utils;
 using System;
@@ -17,12 +18,12 @@ namespace ShoppingList.ViewModels.Social
             private set { this.RaiseAndSetIfChanged(ref _currentPage, value); }
         }
 
-        public MainSocialPanelViewModel(MainSocialPanelModel households, Action<NotificationType, string> showNotification)
+        public MainSocialPanelViewModel(UserAccountModel account, ManageApplicationsModel manageApplications, MainSocialPanelModel households, Action<NotificationType, string> showNotification, Action<bool> showLoading)
         {
             _pages = new Dictionary<SocialPage, ViewModelBase>()
             {
                 { SocialPage.Main, new SocialPanelViewModel(households, showNotification, ChangePage) },
-                { SocialPage.ManageApplications, new ManageApplicationsViewModel() },
+                { SocialPage.ManageApplications, new ManageApplicationsViewModel(account, manageApplications, showLoading, showNotification, ChangePage) },
             };
 
             _currentPage = _pages[SocialPage.Main];
