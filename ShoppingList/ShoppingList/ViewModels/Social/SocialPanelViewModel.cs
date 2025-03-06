@@ -19,6 +19,7 @@ internal class SocialPanelViewModel : ViewModelBase
     public ReactiveCommand<Unit, Unit> TurnPageForwardCommand { get; }
     public ReactiveCommand<Unit, Unit> TurnPageBackwardCommand { get; }
     public ReactiveCommand<Unit, Unit> ManageApplicationsPageCommand { get; }
+    public ReactiveCommand<Unit, Unit> ManageHouseholdsPageCommand { get; }
     public ObservableCollection<HouseholdListItemViewModel> Households { get; } = [];
 
     private bool _showLoading;
@@ -58,6 +59,7 @@ internal class SocialPanelViewModel : ViewModelBase
 
         SearchCommand = ReactiveCommand.CreateFromTask(() => Search(1));
         ManageApplicationsPageCommand = ReactiveCommand.Create(() => _changePage(SocialPage.ManageApplications));
+        ManageHouseholdsPageCommand = ReactiveCommand.Create(() => _changePage(SocialPage.ManageHouseholds));
 
         TurnPageForwardCommand = ReactiveCommand.CreateFromTask(() => Search(Page + 1), 
             this.WhenAnyValue(x => x.Page, x => x.MaxPage,

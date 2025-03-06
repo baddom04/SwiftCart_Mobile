@@ -36,6 +36,6 @@ namespace ShoppingList.ViewModels.Settings
     internal enum SettingsPage
     {
         Main,
-        UpdatePassword
+        UpdatePassword,
     }
 }

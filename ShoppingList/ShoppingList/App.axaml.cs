@@ -20,7 +20,9 @@ namespace ShoppingList
             var households = new MainSocialPanelModel();
             var accountModel = new UserAccountModel();
             var manageApplications = new ManageApplicationsModel();
-            var mainViewModel = new MainViewModel(accountModel, households, manageApplications);
+            var manageHouseholds = new ManageHouseholdsModel();
+            var mainViewModel = new MainViewModel(accountModel, households, manageApplications, manageHouseholds);
+
             MainView = new MainView(mainViewModel);
 
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)

@@ -44,27 +44,31 @@
                   <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Name}" Classes="inverted_colors"/>
                   <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Identifier, Converter={StaticResource AppendAtConverter}}" Classes="mini inverted_colors" />
 
-                  <Grid Grid.Column="2" Grid.RowSpan="2" IsVisible="{Binding !IsLoading}">
-                    
-                    <Button IsVisible="{Binding Relationship, Converter={StaticResource IsNonMemberConverter}}"
-                            Content="{DynamicResource Apply}" Command="{Binding ApplyCommand}"
-                            VerticalAlignment="Center" Classes="inverted_colors bigger_text"/>
-                    <TextBlock IsVisible="{Binding !Relationship, Converter={StaticResource IsNonMemberConverter}}" 
-                               Text="{Binding Relationship, Converter={StaticResource HouseholdRelationshipToStringConverter}}"
-                               Classes="inverted_colors"
-                               VerticalAlignment="Center"/>
+                  <Grid Grid.Column="2" Grid.RowSpan="2">
+
+                    <Grid IsVisible="{Binding !IsLoading}">
+
+                      <Button IsVisible="{Binding Relationship, Converter={StaticResource IsNonMemberConverter}}"
+                              Content="{DynamicResource Apply}" Command="{Binding ApplyCommand}"
+                              VerticalAlignment="Center" Classes="inverted_colors bigger_text"/>
+                      <TextBlock IsVisible="{Binding !Relationship, Converter={StaticResource IsNonMemberConverter}}"
+                                 Text="{Binding Relationship, Converter={StaticResource HouseholdRelationshipToStringConverter}}"
+                                 Classes="inverted_colors"
+                                 VerticalAlignment="Center"/>
+
+                    </Grid>
+
+                    <progRing:ProgressRing
+                                Width="30"
+                                Height="30"
+                                Margin="0 0 15 0"
+                                IsVisible="{Binding IsLoading}"
+                                IsActive="{Binding IsLoading}"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="{StaticResource MainBG}"/>
                     
                   </Grid>
-
-                  <progRing:ProgressRing Grid.Column="2" Grid.RowSpan="2"
-                              Width="30"
-                              Height="30"
-                              Margin="0 0 15 0"
-                              IsVisible="{Binding IsLoading}"
-                              IsActive="{Binding IsLoading}"
-                              HorizontalAlignment="Center"
-                              VerticalAlignment="Center"
-                              Foreground="{StaticResource MainBG}"/>
                 </Grid>
               </Border>
             </DataTemplate>
@@ -105,8 +109,8 @@
       </Button>
 
       <Button Grid.Row="4" Classes="customButton" HorizontalAlignment="Stretch"
-              Command="">
-        <TextBlock Text="{DynamicResource ManageOwnedHousehold}" Classes="setting"/>
+              Command="{Binding ManageHouseholdsPageCommand}">
+        <TextBlock Text="{DynamicResource ManageHousehold}" Classes="setting"/>
       </Button>
 
     </Grid>

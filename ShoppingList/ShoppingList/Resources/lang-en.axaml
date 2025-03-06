@@ -58,7 +58,7 @@
   <x:String x:Key="Apply">Apply</x:String>
   <x:String x:Key="NoMatchFound">- No match found -</x:String>
   <x:String x:Key="ManageApplications">Manage applications</x:String>
-  <x:String x:Key="ManageOwnedHousehold">Manage owned households</x:String>
+  <x:String x:Key="ManageHousehold">Manage households</x:String>
   <x:String x:Key="Owner">Owner</x:String>
   <x:String x:Key="Member">Member</x:String>
   <x:String x:Key="Applied">Applied</x:String>
@@ -68,6 +68,10 @@
   <x:String x:Key="Delete">Delete</x:String>
   <x:String x:Key="Deleted">Deleted</x:String>
   <x:String x:Key="NoApplicationsFound">- No applications found -</x:String>
+  
+  <!--Manage Households Page-->
+  <x:String x:Key="CreateHousehold">Create household</x:String>
+  <x:String x:Key="MyHouseholds">My households</x:String>
   
   <!--Error Messages-->
   <x:String x:Key="EmailFormatError">The given email address is not valid.</x:String>
@@ -89,5 +93,6 @@
   <x:String x:Key="HouseholdQueryError">Household query error&#x0a;</x:String>
   <x:String x:Key="ApplyError">Apply error&#x0a;</x:String>
   <x:String x:Key="ApplicationsQueryError">Application query error&#x0a;</x:String>
+  <x:String x:Key="MyHouseholdsQueryError">Household query error&#x0a;</x:String>
   
 </ResourceDictionary>
