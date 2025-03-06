@@ -1,6 +1,5 @@
 ﻿using DynamicData;
 using ReactiveUI;
-using ShoppingList.Core;
 using ShoppingList.Model.Settings;
 using ShoppingList.Model.Social;
 using ShoppingList.Utils;
@@ -19,19 +18,23 @@ namespace ShoppingList.ViewModels.Social
 
         private readonly ManageApplicationsModel _model;
         private readonly UserAccountModel _account;
-        private readonly Action<bool> _showLoading;
         private readonly Action<NotificationType, string> _showNotification;
         private readonly Action<SocialPage> _changePage;
 
         public bool EmptyApplications => Applications.Count == 0;
         public ReactiveCommand<Unit, Unit> MainPageCommand { get; }
         public ReactiveCommand<Unit, Unit> ReloadCommand { get; }
-        
-        public ManageApplicationsViewModel(UserAccountModel account, ManageApplicationsModel model, Action<bool> showLoading, Action<NotificationType, string> showNotification, Action<SocialPage> changePage)
+
+        private bool _isLoading;
+        public bool IsLoading
+        {
+            get { return _isLoading; }
+            set { this.RaiseAndSetIfChanged(ref _isLoading, value); }
+        }
+        public ManageApplicationsViewModel(UserAccountModel account, ManageApplicationsModel model, Action<NotificationType, string> showNotification, Action<SocialPage> changePage)
         {
             _model = model;
             _account = account;
-            _showLoading = showLoading;
             _showNotification = showNotification;
             _changePage = changePage;
             Applications = [];
@@ -43,7 +46,7 @@ namespace ShoppingList.ViewModels.Social
 
         public async Task LoadApplications()
         {
-            _showLoading(true);
+            IsLoading = true;
 
             try
             {
@@ -63,7 +66,7 @@ namespace ShoppingList.ViewModels.Social
             }
             finally
             {
-                _showLoading(false);
+                IsLoading = false;
             }
         }
     }

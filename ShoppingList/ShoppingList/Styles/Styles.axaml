@@ -78,12 +78,21 @@
     <Setter Property="Foreground" Value="{StaticResource MainBG}"/>
 
 
+    <Style Selector="^:pressed /template/ ContentPresenter" >
+      <Setter Property="Background" Value="{StaticResource MainBtnPressedBG}"/>
+    </Style>
+
+    <Style Selector="^:disabled /template/ ContentPresenter" >
+      <Setter Property="Background" Value="{StaticResource MainBtnBG}"/>
+      <Setter Property="Opacity" Value="0.5"/>
+    </Style>
+    
     <Style Selector="^.trans_bg">
       <Setter Property="Background" Value="Transparent"/>  
     </Style>
 
     <Style Selector="^.trans_bg:pressed /template/ ContentPresenter">
-      <Setter Property="Background" Value="{StaticResource SecBG}"/>
+      <Setter Property="Background" Value="Transparent"/>
     </Style>
     
     <Style Selector="^.item_action">
@@ -144,15 +153,6 @@
     <Style Selector="^.text:pointerover /template/ ContentPresenter">
       <Setter Property="Background" Value="Transparent"/>
       <Setter Property="Foreground" Value="{StaticResource MainBtnBG}"/>
-    </Style>
-    
-    <Style Selector="^:pressed /template/ ContentPresenter" >
-      <Setter Property="Background" Value="{StaticResource MainBtnPressedBG}"/>
-    </Style>
-
-    <Style Selector="^:disabled /template/ ContentPresenter" >
-      <Setter Property="Background" Value="{StaticResource MainBtnBG}"/>
-      <Setter Property="Opacity" Value="0.5"/>
     </Style>
     
     <Style Selector="^.shopping_list_button">

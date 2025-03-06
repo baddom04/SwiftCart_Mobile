@@ -28,25 +28,27 @@
       </Grid>
 
       <Grid Grid.Row="1" IsVisible="{Binding !IsLoading}" RowDefinitions="*, Auto">
-        <ItemsControl Grid.Row="0" IsVisible="{Binding !EmptyHouseholds}" ItemsSource="{Binding Households}" Margin="20 5 20 0">
-          <ItemsControl.ItemTemplate>
-            <DataTemplate>
-              <controls:HouseholdListItemView HouseholdName="{Binding Name}" Identifier="{Binding Identifier}" IsLoading="{Binding IsLoading}">
-                <controls:HouseholdListItemView.RightContent>
-                  <Grid>
-                    <Button IsVisible="{Binding Relationship, Converter={StaticResource IsNonMemberConverter}}"
-                                Content="{DynamicResource Apply}" Command="{Binding ApplyCommand}"
-                                VerticalAlignment="Center" Classes="inverted_colors bigger_text"/>
-                    <TextBlock IsVisible="{Binding !Relationship, Converter={StaticResource IsNonMemberConverter}}"
-                               Text="{Binding Relationship, Converter={StaticResource HouseholdRelationshipToStringConverter}}"
-                               Classes="inverted_colors"
-                               VerticalAlignment="Center"/>
-                  </Grid>
-                </controls:HouseholdListItemView.RightContent>
-              </controls:HouseholdListItemView>
-            </DataTemplate>
-          </ItemsControl.ItemTemplate>
-        </ItemsControl>
+        <ScrollViewer Grid.Row="0" IsVisible="{Binding !EmptyHouseholds}" >
+          <ItemsControl ItemsSource="{Binding Households}" Margin="20 5 20 0">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <controls:HouseholdListItemView HouseholdName="{Binding Name}" Identifier="{Binding Identifier}" IsLoading="{Binding IsLoading}">
+                  <controls:HouseholdListItemView.RightContent>
+                    <Grid>
+                      <Button IsVisible="{Binding Relationship, Converter={StaticResource IsNonMemberConverter}}"
+                                  Content="{DynamicResource Apply}" Command="{Binding ApplyCommand}"
+                                  VerticalAlignment="Center" Classes="inverted_colors bigger_text"/>
+                      <TextBlock IsVisible="{Binding !Relationship, Converter={StaticResource IsNonMemberConverter}}"
+                                 Text="{Binding Relationship, Converter={StaticResource HouseholdRelationshipToStringConverter}}"
+                                 Classes="inverted_colors"
+                                 VerticalAlignment="Center"/>
+                    </Grid>
+                  </controls:HouseholdListItemView.RightContent>
+                </controls:HouseholdListItemView>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </ScrollViewer>
 
         <Grid Grid.Row="1" Margin="20 10" IsVisible="{Binding !EmptyHouseholds}" ColumnDefinitions="*, Auto, *">
           <Button Grid.Column="0" HorizontalAlignment="Center" Classes="wide" Command="{Binding TurnPageBackwardCommand}">

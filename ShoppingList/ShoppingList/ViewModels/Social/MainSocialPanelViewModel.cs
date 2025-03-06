@@ -23,7 +23,7 @@ namespace ShoppingList.ViewModels.Social
             _pages = new Dictionary<SocialPage, ViewModelBase>()
             {
                 { SocialPage.Main, new SocialPanelViewModel(new SocialPanelModel(), showNotification, ChangePage) },
-                { SocialPage.ManageApplications, new ManageApplicationsViewModel(account, new ManageApplicationsModel(), showLoading, showNotification, ChangePage) },
+                { SocialPage.ManageApplications, new ManageApplicationsViewModel(account, new ManageApplicationsModel(), showNotification, ChangePage) },
                 { SocialPage.ManageHouseholds, new ManageHouseholdsViewModel(account, new ManageHouseholdsModel(), ChangePage, showNotification, ChangeToHouseholdPage) },
                 { SocialPage.CreateHouseholdPage, new CreateHouseholdViewModel(new CreateHouseholdModel(), ChangePage, showLoading) },
             };

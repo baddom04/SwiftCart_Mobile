@@ -88,6 +88,9 @@
   <x:String x:Key="HouseholdNameTooLongError">The name must be no more than 20 characters.</x:String>
   <x:String x:Key="HouseholdIdentifierTooLongError">The identifier must be no more than 20 characters.</x:String>
   
+  <!--Household page-->
+  
+  
   
   <!--Error Messages-->
   <x:String x:Key="EmailFormatError">The given email address is not valid.</x:String>

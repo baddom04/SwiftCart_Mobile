@@ -24,28 +24,41 @@
       </Button>
     </Grid>
 
-    <ItemsControl Grid.Row="1" IsVisible="{Binding !EmptyApplications}" ItemsSource="{Binding Applications}" Margin="20 5 20 0">
-      <ItemsControl.ItemTemplate>
-        <DataTemplate>
-          <controls:HouseholdListItemView HouseholdName="{Binding Name}" Identifier="{Binding Identifier}" IsLoading="{Binding IsLoading}">
-            <controls:HouseholdListItemView.RightContent>
-              <Grid>
-                <Button IsVisible="{Binding !Deleted}"
-                          Content="{DynamicResource Delete}" Command="{Binding DeleteCommand}"
-                          VerticalAlignment="Center" Classes="inverted_colors bigger_text"/>
-                <TextBlock IsVisible="{Binding Deleted}"
-                           Text="{DynamicResource Deleted}"
-                           Classes="inverted_colors"
-                           VerticalAlignment="Center"/>
-              </Grid>
-            </controls:HouseholdListItemView.RightContent>
-          </controls:HouseholdListItemView>
-        </DataTemplate>
-      </ItemsControl.ItemTemplate>
-    </ItemsControl>
+    <Grid IsVisible="{Binding !IsLoading}" Grid.Row="1">
 
-    <TextBlock Grid.Row="1" IsVisible="{Binding EmptyApplications}"
-               Text="{DynamicResource NoApplicationsFound}" Classes="h2"
+      <ItemsControl IsVisible="{Binding !EmptyApplications}" ItemsSource="{Binding Applications}" Margin="20 5 20 0">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <controls:HouseholdListItemView HouseholdName="{Binding Name}" Identifier="{Binding Identifier}" IsLoading="{Binding IsLoading}">
+              <controls:HouseholdListItemView.RightContent>
+                <Grid>
+                  <Button IsVisible="{Binding !Deleted}"
+                            Content="{DynamicResource Delete}" Command="{Binding DeleteCommand}"
+                            VerticalAlignment="Center" Classes="inverted_colors bigger_text"/>
+                  <TextBlock IsVisible="{Binding Deleted}"
+                             Text="{DynamicResource Deleted}"
+                             Classes="inverted_colors"
+                             VerticalAlignment="Center"/>
+                </Grid>
+              </controls:HouseholdListItemView.RightContent>
+            </controls:HouseholdListItemView>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+
+      <TextBlock IsVisible="{Binding EmptyApplications}"
+                 Text="{DynamicResource NoApplicationsFound}" Classes="h2"
                  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+    </Grid>
+    
+    <progRing:ProgressRing  Grid.Row="1"
+                            Width="80"
+                            Height="80"
+                            IsVisible="{Binding IsLoading}"
+                            IsActive="{Binding IsLoading}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Foreground="{StaticResource MainBtnBG}"/>
   </Grid>
 </UserControl>
