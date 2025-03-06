@@ -13,6 +13,8 @@ namespace ShoppingList.ViewModels.Social
         private readonly Action<SocialPage> _changePage;
         private readonly Action<HouseholdViewModel> _changeToHouseholdPage;
         private readonly Household _household;
+
+        public bool IsOwner { get; }
         public HouseholdViewModel(Household household, Action<SocialPage> changePage, Action<HouseholdViewModel> changeToHouseholdPage, Action<Household?> householdEditingPage)
         {
             _name = household.Name;
@@ -20,6 +22,7 @@ namespace ShoppingList.ViewModels.Social
             _changePage = changePage;
             _changeToHouseholdPage = changeToHouseholdPage;
             _household = household;
+            IsOwner = household.Relationship == Core.Enums.HouseholdRelationship.Owner;
             GoToHouseholdPageCommand = ReactiveCommand.Create(() => _changeToHouseholdPage(this));
             GoBackCommand = ReactiveCommand.Create(() => _changePage(SocialPage.ManageHouseholds));
             EditHouseholdCommand = ReactiveCommand.Create(() => householdEditingPage(_household));

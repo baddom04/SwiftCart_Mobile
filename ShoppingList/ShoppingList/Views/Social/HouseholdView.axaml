@@ -4,8 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:vm="clr-namespace:ShoppingList.ViewModels.Social"
+             xmlns:converters="clr-namespace:ShoppingList.Converters"
              x:Class="ShoppingList.Views.Social.HouseholdView"
              x:DataType="vm:HouseholdViewModel">
+  <UserControl.Resources>
+    <converters:BoolToOpacityConverter x:Key="BoolToOpacityConverter"/>
+  </UserControl.Resources>
   <Grid RowDefinitions="Auto, *"  HorizontalAlignment="Stretch"
         VerticalAlignment="Top">
 
@@ -16,7 +20,9 @@
       </Button>
       <TextBlock Grid.Column="1" Text="{Binding Name}" Classes="h1" TextWrapping="Wrap"
                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
-      <Button Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right"
+      <Button Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" 
+              Opacity="{Binding IsOwner, Converter={StaticResource BoolToOpacityConverter}}"
+              IsHitTestVisible="{Binding IsOwner}"
               Command="{Binding EditHouseholdCommand}">
         <PathIcon Data="{StaticResource edit_regular}" Classes="maxi white_foreground"/>
       </Button>

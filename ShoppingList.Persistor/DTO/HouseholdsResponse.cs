@@ -9,6 +9,6 @@ namespace ShoppingList.Persistor.DTO
         public required IEnumerable<Household> QueryResult { get; init; }
 
         [JsonPropertyName("meta")]
-        public required HouseholdsMetaData Meta { get; init; }
+        public HouseholdsMetaData Meta { get; init; } = null!;
     }
 }

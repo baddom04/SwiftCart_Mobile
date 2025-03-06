@@ -63,9 +63,9 @@ namespace ShoppingList.Persistor.Services
 
             await ValidateResponse(response, cancellationToken);
 
-            IEnumerable<Household>? households = await response.Content.ReadFromJsonAsync<IEnumerable<Household>>(cancellationToken);
+            HouseholdsResponse? households = await response.Content.ReadFromJsonAsync<HouseholdsResponse>(cancellationToken);
 
-            return households ?? throw new NullReferenceException(nameof(households));
+            return households is null ? throw new NullReferenceException(nameof(households)) : households.QueryResult;
         }
 
         public async Task<IEnumerable<User>> GetUsersOfHouseholdAsync(int household_id, CancellationToken cancellationToken = default)
