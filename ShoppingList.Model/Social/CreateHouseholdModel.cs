@@ -17,5 +17,9 @@ namespace ShoppingList.Model.Social
         {
             await _householdService.CreateNewHouseholdAsync(name, identifier);
         }
+        public async Task UpdateHouseholdAsync(int household_id, string name, string identifier)
+        {
+            await _householdService.UpdateHouseholdAsync(household_id, name, identifier);
+        }
     }
 }

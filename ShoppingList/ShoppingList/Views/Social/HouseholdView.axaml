@@ -17,7 +17,7 @@
       <TextBlock Grid.Column="1" Text="{Binding Name}" Classes="h1" TextWrapping="Wrap"
                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
       <Button Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right"
-              Click="Button_Click">
+              Command="{Binding EditHouseholdCommand}">
         <PathIcon Data="{StaticResource edit_regular}" Classes="maxi white_foreground"/>
       </Button>
     </Grid>

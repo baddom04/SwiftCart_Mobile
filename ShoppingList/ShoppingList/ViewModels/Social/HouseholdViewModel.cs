@@ -9,16 +9,20 @@ namespace ShoppingList.ViewModels.Social
     {
         public ReactiveCommand<Unit, Unit> GoToHouseholdPageCommand { get; }
         public ReactiveCommand<Unit, Unit> GoBackCommand { get; }
+        public ReactiveCommand<Unit, Unit> EditHouseholdCommand { get; }
         private readonly Action<SocialPage> _changePage;
         private readonly Action<HouseholdViewModel> _changeToHouseholdPage;
-        public HouseholdViewModel(Household household, Action<SocialPage> changePage, Action<HouseholdViewModel> changeToHouseholdPage)
+        private readonly Household _household;
+        public HouseholdViewModel(Household household, Action<SocialPage> changePage, Action<HouseholdViewModel> changeToHouseholdPage, Action<Household?> householdEditingPage)
         {
             _name = household.Name;
 			_identifier = household.Identifier;
             _changePage = changePage;
             _changeToHouseholdPage = changeToHouseholdPage;
+            _household = household;
             GoToHouseholdPageCommand = ReactiveCommand.Create(() => _changeToHouseholdPage(this));
             GoBackCommand = ReactiveCommand.Create(() => _changePage(SocialPage.ManageHouseholds));
+            EditHouseholdCommand = ReactiveCommand.Create(() => householdEditingPage(_household));
         }
     }
 }

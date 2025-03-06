@@ -1,4 +1,5 @@
 ﻿using ReactiveUI;
+using ShoppingList.Core;
 using ShoppingList.Model.Social;
 using ShoppingList.Utils;
 using System;
@@ -32,9 +33,11 @@ namespace ShoppingList.ViewModels.Social
 
         public ReactiveCommand<Unit, Unit> GoBackCommand { get; }
         public ReactiveCommand<Unit, Unit> CreateHouseholdCommand { get; }
+
         private readonly CreateHouseholdModel _model;
         private readonly Action<SocialPage> _changePage;
         private readonly Action<bool> _showLoading;
+        private int? _householdId;
         public CreateHouseholdViewModel(CreateHouseholdModel model, Action<SocialPage> changePage, Action<bool> showLoading)
         {
             _model = model;
@@ -52,7 +55,14 @@ namespace ShoppingList.ViewModels.Social
 
             try
             {
-                await _model.CreateHouseholdAsync(NameInput, IdentifierInput);
+                if (!_householdId.HasValue)
+                {
+                    await _model.CreateHouseholdAsync(NameInput, IdentifierInput);
+                }
+                else
+                {
+                    await _model.UpdateHouseholdAsync(_householdId.Value, NameInput, IdentifierInput);
+                }
 
                 _changePage(SocialPage.ManageHouseholds);
                 ErrorMessage = null;
@@ -100,6 +110,14 @@ namespace ShoppingList.ViewModels.Social
             }
 
             return true;
+        }
+
+        public void EditState(Household? household)
+        {
+            ErrorMessage = null;
+            NameInput = household is null ? string.Empty : household.Name;
+            IdentifierInput = household is null ? string.Empty : household.Identifier;
+            _householdId = household?.Id;
         }
     }
 }

@@ -83,7 +83,7 @@ namespace ShoppingList.Persistor.Services
         {
             var payload = new { name, identifier };
 
-            HttpResponseMessage response = await _httpClient.PostAsJsonAsync($"households/{household_id}", payload, cancellationToken);
+            HttpResponseMessage response = await _httpClient.PutAsJsonAsync($"households/{household_id}", payload, cancellationToken);
 
             await ValidateResponse(response, cancellationToken);
         }
