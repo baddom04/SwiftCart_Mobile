@@ -1,7 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using ShoppingList.ViewModels.Social;
-using System;
 
 namespace ShoppingList.Views.Social;
 

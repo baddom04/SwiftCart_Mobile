@@ -1,0 +1,50 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ShoppingList.Views.CustomControls.HouseholdListItemView"
+             x:DataType="vm:HouseholdListItemViewModel"
+             xmlns:progRing="clr-namespace:AvaloniaProgressRing;assembly=AvaloniaProgressRing"
+             xmlns:vm="clr-namespace:ShoppingList.ViewModels.Social"
+             xmlns:converters="clr-namespace:ShoppingList.Converters"
+             xmlns:local="clr-namespace:ShoppingList.Views.CustomControls">
+  <UserControl.Resources>
+    <converters:AppendAtConverter x:Key="AppendAtConverter"/>
+    <converters:RandomHouseIconConverter x:Key="RandomHouseIconConverter"/>
+  </UserControl.Resources>
+  <Border Classes="household_item" Margin="2" Padding="8">
+    <Border.Background>
+      <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,0%">
+        <GradientStop Color="#4fc0ff" Offset="0.0"/>
+        <GradientStop Color="#42a4db" Offset="1.0"/>
+      </LinearGradientBrush>
+    </Border.Background>
+    <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="Auto, *, Auto">
+      <PathIcon Grid.Column="0" Grid.RowSpan="2"
+                Data="{Binding, Converter={StaticResource RandomHouseIconConverter}, RelativeSource={RelativeSource AncestorType={x:Type local:HouseholdListItemView}}}"
+                Classes="maxi white_foreground" Margin="0 0 8 0"/>
+      <TextBlock Grid.Column="1" Grid.Row="0"
+                 Text="{Binding HouseholdName, RelativeSource={RelativeSource AncestorType={x:Type local:HouseholdListItemView}}}"
+                 Classes="inverted_colors"/>
+      <TextBlock Grid.Column="1" Grid.Row="1"
+                 Text="{Binding Identifier, Converter={StaticResource AppendAtConverter}, RelativeSource={RelativeSource AncestorType={x:Type local:HouseholdListItemView}}}"
+                 Classes="mini inverted_colors" />
+      <Grid Grid.Column="2" Grid.RowSpan="2">
+
+        <Grid  IsVisible="{Binding !IsLoading}">
+          <ContentPresenter Content="{Binding RightContent, RelativeSource={RelativeSource AncestorType={x:Type local:HouseholdListItemView}}}" />
+        </Grid>
+
+        <progRing:ProgressRing Width="30"
+                                 Height="30"
+                                 Margin="0 0 15 0"
+                                 IsVisible="{Binding IsLoading}"
+                                 IsActive="{Binding IsLoading}"
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Center"
+                                 Foreground="{StaticResource MainBG}"/>
+      </Grid>
+    </Grid>
+  </Border>
+</UserControl>

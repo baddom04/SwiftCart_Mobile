@@ -7,11 +7,8 @@
              xmlns:converters="clr-namespace:ShoppingList.Converters"
              x:Class="ShoppingList.Views.Social.ManageApplicationsView"
              xmlns:progRing="clr-namespace:AvaloniaProgressRing;assembly=AvaloniaProgressRing"
+             xmlns:controls="clr-namespace:ShoppingList.Views.CustomControls"
              x:DataType="vm:ManageApplicationsViewModel">
-  <UserControl.Resources>
-    <converters:AppendAtConverter x:Key="AppendAtConverter"/>
-    <converters:RandomHouseIconConverter x:Key="RandomHouseIconConverter"/>
-  </UserControl.Resources>
   <Grid RowDefinitions="Auto, *">
 
     <Grid Grid.Row="0" Margin="20 30">
@@ -30,44 +27,19 @@
     <ItemsControl Grid.Row="1" IsVisible="{Binding !EmptyApplications}" ItemsSource="{Binding Applications}" Margin="20 5 20 0">
       <ItemsControl.ItemTemplate>
         <DataTemplate>
-          <Border Classes="household_item" Margin="2" Padding="8">
-            <Border.Background>
-              <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,0%">
-                <GradientStop Color="#4fc0ff" Offset="0.0"/>
-                <GradientStop Color="#42a4db" Offset="1.0"/>
-              </LinearGradientBrush>
-            </Border.Background>
-            <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="Auto, *, Auto">
-              <PathIcon Grid.Column="0" Grid.RowSpan="2" Data="{Binding, Converter={StaticResource RandomHouseIconConverter}}" Classes="maxi white_foreground" Margin="0 0 8 0"/>
-              <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Name}" Classes="inverted_colors"/>
-              <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Identifier, Converter={StaticResource AppendAtConverter}}" Classes="mini inverted_colors" />
-
-              <Grid Grid.Column="2" Grid.RowSpan="2" >
-
-                <Grid IsVisible="{Binding !IsLoading}">
-
-                  <Button IsVisible="{Binding !Deleted}"
+          <controls:HouseholdListItemView HouseholdName="{Binding Name}" Identifier="{Binding Identifier}" IsLoading="{Binding IsLoading}">
+            <controls:HouseholdListItemView.RightContent>
+              <Grid>
+                <Button IsVisible="{Binding !Deleted}"
                           Content="{DynamicResource Delete}" Command="{Binding DeleteCommand}"
                           VerticalAlignment="Center" Classes="inverted_colors bigger_text"/>
-                  <TextBlock IsVisible="{Binding Deleted}"
-                             Text="{DynamicResource Deleted}"
-                             Classes="inverted_colors"
-                             VerticalAlignment="Center"/>
-
-                </Grid>
-
-                <progRing:ProgressRing
-                            Width="30"
-                            Height="30"
-                            Margin="0 0 15 0"
-                            IsVisible="{Binding IsLoading}"
-                            IsActive="{Binding IsLoading}"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Foreground="{StaticResource MainBG}"/>
+                <TextBlock IsVisible="{Binding Deleted}"
+                           Text="{DynamicResource Deleted}"
+                           Classes="inverted_colors"
+                           VerticalAlignment="Center"/>
               </Grid>
-            </Grid>
-          </Border>
+            </controls:HouseholdListItemView.RightContent>
+          </controls:HouseholdListItemView>
         </DataTemplate>
       </ItemsControl.ItemTemplate>
     </ItemsControl>

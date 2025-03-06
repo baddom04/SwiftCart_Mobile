@@ -20,7 +20,7 @@ internal class SocialPanelViewModel : ViewModelBase
     public ReactiveCommand<Unit, Unit> TurnPageBackwardCommand { get; }
     public ReactiveCommand<Unit, Unit> ManageApplicationsPageCommand { get; }
     public ReactiveCommand<Unit, Unit> ManageHouseholdsPageCommand { get; }
-    public ObservableCollection<HouseholdListItemViewModel> Households { get; } = [];
+    public ObservableCollection<HouseholdSearchResultViewModel> Households { get; } = [];
 
     private bool _showLoading;
     public bool IsLoading
@@ -79,7 +79,7 @@ internal class SocialPanelViewModel : ViewModelBase
             Households.Clear();
             Households.AddRange(
                 (await _model.SearchHouseholdsAsync(SearchInput, Page))
-                .Select(hh => new HouseholdListItemViewModel(new HouseholdListItemModel(hh), _showNotification))
+                .Select(hh => new HouseholdSearchResultViewModel(new HouseholdListItemModel(hh), _showNotification))
             );
 
             MaxPage = _model.MaxPage;

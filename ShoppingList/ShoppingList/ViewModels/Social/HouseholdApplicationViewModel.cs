@@ -8,30 +8,9 @@ using System.Threading.Tasks;
 
 namespace ShoppingList.ViewModels.Social
 {
-    internal class HouseholdApplicationViewModel : ViewModelBase
+    internal class HouseholdApplicationViewModel : HouseholdListItemViewModel
     {
         private readonly int _householdId;
-
-        private string _name;
-        public string Name
-        {
-            get { return _name; }
-            private set { this.RaiseAndSetIfChanged(ref _name, value); }
-        }
-
-        private string _identifier;
-        public string Identifier
-        {
-            get { return _identifier; }
-            private set { this.RaiseAndSetIfChanged(ref _identifier, value); }
-        }
-
-        private bool _isLoading;
-        public bool IsLoading
-        {
-            get { return _isLoading; }
-            set { this.RaiseAndSetIfChanged(ref _isLoading, value); }
-        }
 
         private bool _deleted;
         public bool Deleted
@@ -46,7 +25,7 @@ namespace ShoppingList.ViewModels.Social
         private readonly HouseholdApplicationModel _model;
         private readonly UserAccountModel _account;
 
-        public HouseholdApplicationViewModel(UserAccountModel account, HouseholdApplicationModel model, Action<NotificationType, string> showNotification)
+        public HouseholdApplicationViewModel(UserAccountModel account, HouseholdApplicationModel model, Action<NotificationType, string> showNotification) : base()
         {
             _model = model;
             _account = account;
