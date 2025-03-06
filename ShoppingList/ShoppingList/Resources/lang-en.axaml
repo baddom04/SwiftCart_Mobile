@@ -65,6 +65,9 @@
   
   <!--Manage Applications Page-->
   <x:String x:Key="MyApplications">My applications</x:String>
+  <x:String x:Key="Delete">Delete</x:String>
+  <x:String x:Key="Deleted">Deleted</x:String>
+  <x:String x:Key="NoApplicationsFound">- No applications found -</x:String>
   
   <!--Error Messages-->
   <x:String x:Key="EmailFormatError">The given email address is not valid.</x:String>

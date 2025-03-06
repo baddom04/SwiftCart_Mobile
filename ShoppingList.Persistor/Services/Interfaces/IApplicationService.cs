@@ -12,5 +12,6 @@ namespace ShoppingList.Persistor.Services.Interfaces
         Task<IEnumerable<User>> GetAppliedUsersAsync(int household_id, CancellationToken cancellationToken = default);
         Task AcceptUserAsync(int application_id, CancellationToken cancellationToken = default);
         Task DeleteApplicationAsync(int application_id, CancellationToken cancellationToken = default);
+        Task<Application> GetApplicationByDataAsync(int household_id, int user_id, CancellationToken cancellationToken = default);
     }
 }

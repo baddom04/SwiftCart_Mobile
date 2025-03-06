@@ -27,6 +27,10 @@
       <Setter Property="FontSize" Value="30"/>
       <Setter Property="FontWeight" Value="Bold"/>
     </Style>
+    <Style Selector="^.h2">
+      <Setter Property="FontSize" Value="25"/>
+      <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
     <Style Selector="^.h3">
       <Setter Property="FontSize" Value="22"/>
       <Setter Property="FontWeight" Value="Bold"/>

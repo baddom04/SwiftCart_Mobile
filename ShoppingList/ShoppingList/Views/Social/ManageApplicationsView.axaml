@@ -6,6 +6,7 @@
              xmlns:vm="clr-namespace:ShoppingList.ViewModels.Social"
              xmlns:converters="clr-namespace:ShoppingList.Converters"
              x:Class="ShoppingList.Views.Social.ManageApplicationsView"
+             xmlns:progRing="clr-namespace:AvaloniaProgressRing;assembly=AvaloniaProgressRing"
              x:DataType="vm:ManageApplicationsViewModel">
   <UserControl.Resources>
     <converters:AppendAtConverter x:Key="AppendAtConverter"/>
@@ -13,13 +14,17 @@
   </UserControl.Resources>
   <Grid RowDefinitions="Auto, *">
     
-    <Grid Grid.Row="0" Margin="15 30">
+    <Grid Grid.Row="0" Margin="20 30">
       <Button VerticalAlignment="Top" Classes="trans_bg" HorizontalAlignment="Left"
               Command="{Binding MainPageCommand}">
         <PathIcon Data="{StaticResource arrow_left_regular}" Classes="maxi"/>
       </Button>
       <TextBlock Classes="h1" Text="{DynamicResource MyApplications}" HorizontalAlignment="Center"
                  VerticalAlignment="Center"/>
+      <Button VerticalAlignment="Top" HorizontalAlignment="Right"
+              Command="{Binding ReloadCommand}">
+        <PathIcon Data="{StaticResource arrow_clockwise_regular}" Classes="maxi white_foreground"/>
+      </Button>
     </Grid>
 
     <ItemsControl Grid.Row="1" IsVisible="{Binding !EmptyApplications}" ItemsSource="{Binding Applications}" Margin="20 5 20 0">
@@ -36,10 +41,36 @@
               <PathIcon Grid.Column="0" Grid.RowSpan="2" Data="{Binding, Converter={StaticResource RandomHouseIconConverter}}" Classes="maxi white_foreground" Margin="0 0 8 0"/>
               <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Name}" Classes="inverted_colors"/>
               <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Identifier, Converter={StaticResource AppendAtConverter}}" Classes="mini inverted_colors" />
+
+              <Grid Grid.Column="2" Grid.RowSpan="2" IsVisible="{Binding !IsLoading}">
+
+                <Button IsVisible="{Binding !Deleted}"
+                        Content="{DynamicResource Delete}" Command="{Binding DeleteCommand}"
+                        VerticalAlignment="Center" Classes="inverted_colors bigger_text"/>
+                <TextBlock IsVisible="{Binding Deleted}"
+                           Text="{DynamicResource Deleted}"
+                           Classes="inverted_colors"
+                           VerticalAlignment="Center"/>
+
+              </Grid>
+
+              <progRing:ProgressRing Grid.Column="2" Grid.RowSpan="2"
+                          Width="30"
+                          Height="30"
+                          Margin="0 0 15 0"
+                          IsVisible="{Binding IsLoading}"
+                          IsActive="{Binding IsLoading}"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"
+                          Foreground="{StaticResource MainBG}"/>
             </Grid>
           </Border>
         </DataTemplate>
       </ItemsControl.ItemTemplate>
     </ItemsControl>
+
+    <TextBlock Grid.Row="1" IsVisible="{Binding EmptyApplications}"
+               Text="{DynamicResource NoApplicationsFound}" Classes="h2"
+                 HorizontalAlignment="Center" VerticalAlignment="Center"/>
   </Grid>
 </UserControl>

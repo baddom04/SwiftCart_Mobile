@@ -27,6 +27,17 @@ namespace ShoppingList.Persistor.Services
             await ValidateResponse(response, cancellationToken);
         }
 
+        public async Task<Application> GetApplicationByDataAsync(int household_id, int user_id, CancellationToken cancellationToken = default)
+        {
+            HttpResponseMessage response = await _httpClient.GetAsync($"users/{user_id}/households/{household_id}/application", cancellationToken);
+
+            await ValidateResponse(response, cancellationToken);
+
+            Application? application = await response.Content.ReadFromJsonAsync<Application>(cancellationToken);
+
+            return application ?? throw new NullReferenceException();
+        }
+
         public async Task<IEnumerable<Household>> GetAppliedToHouseholdsAsync(int user_id, CancellationToken cancellationToken = default)
         {
             HttpResponseMessage response = await _httpClient.GetAsync($"users/{user_id}/applications/households", cancellationToken);

@@ -85,11 +85,9 @@
           </Button>
         </Grid>
 
-        <Border Grid.RowSpan="2" IsVisible="{Binding EmptyHouseholds}" Classes="setting button_bg"
-                Margin="20" VerticalAlignment="Stretch">
-          <TextBlock Text="{DynamicResource NoMatchFound}" Classes="inverted_colors h1"
-                     HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        </Border>
+        <TextBlock Grid.RowSpan="2" IsVisible="{Binding EmptyHouseholds}"
+               Text="{DynamicResource NoMatchFound}" Classes="h2"
+                 HorizontalAlignment="Center" VerticalAlignment="Center"/>
       </Grid>
 
       <progRing:ProgressRing  Grid.Row="1"
