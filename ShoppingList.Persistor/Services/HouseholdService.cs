@@ -57,7 +57,7 @@ namespace ShoppingList.Persistor.Services
             return household ?? throw new NullReferenceException(nameof(household));
         }
 
-        public async Task<IEnumerable<Household>> GetOwnedHouseholdsAsync(int user_id, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<Household>> GetMyHouseholdsAsync(int user_id, CancellationToken cancellationToken = default)
         {
             HttpResponseMessage response = await _httpClient.GetAsync($"users/{user_id}/households", cancellationToken);
 

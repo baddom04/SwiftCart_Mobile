@@ -21,7 +21,8 @@ namespace ShoppingList
             var accountModel = new UserAccountModel();
             var manageApplications = new ManageApplicationsModel();
             var manageHouseholds = new ManageHouseholdsModel();
-            var mainViewModel = new MainViewModel(accountModel, households, manageApplications, manageHouseholds);
+            var createHousehold = new CreateHouseholdModel();
+            var mainViewModel = new MainViewModel(accountModel, households, manageApplications, manageHouseholds, createHousehold);
 
             MainView = new MainView(mainViewModel);
 

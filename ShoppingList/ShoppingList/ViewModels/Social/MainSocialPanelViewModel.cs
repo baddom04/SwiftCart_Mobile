@@ -18,13 +18,14 @@ namespace ShoppingList.ViewModels.Social
             private set { this.RaiseAndSetIfChanged(ref _currentPage, value); }
         }
 
-        public MainSocialPanelViewModel(UserAccountModel account, ManageApplicationsModel manageApplications, MainSocialPanelModel households, ManageHouseholdsModel manageHouseholds, Action<NotificationType, string> showNotification, Action<bool> showLoading)
+        public MainSocialPanelViewModel(UserAccountModel account, ManageApplicationsModel manageApplications, MainSocialPanelModel households, ManageHouseholdsModel manageHouseholds, CreateHouseholdModel createHousehold, Action<NotificationType, string> showNotification, Action<bool> showLoading)
         {
             _pages = new Dictionary<SocialPage, ViewModelBase>()
             {
                 { SocialPage.Main, new SocialPanelViewModel(households, showNotification, ChangePage) },
                 { SocialPage.ManageApplications, new ManageApplicationsViewModel(account, manageApplications, showLoading, showNotification, ChangePage) },
-                { SocialPage.ManageHouseholds, new ManageHouseholdsViewModel(manageHouseholds, ChangePage, showNotification) },
+                { SocialPage.ManageHouseholds, new ManageHouseholdsViewModel(account, manageHouseholds, ChangePage, showNotification) },
+                { SocialPage.CreateHouseholdPage, new CreateHouseholdViewModel(createHousehold, ChangePage) },
             };
 
             _currentPage = _pages[SocialPage.Main];
@@ -40,6 +41,8 @@ namespace ShoppingList.ViewModels.Social
     {
         Main,
         ManageApplications,
-        ManageHouseholds
+        ManageHouseholds,
+        HouseholdPage,
+        CreateHouseholdPage
     }
 }

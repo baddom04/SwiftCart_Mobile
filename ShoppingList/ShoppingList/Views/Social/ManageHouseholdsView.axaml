@@ -6,6 +6,7 @@
              xmlns:vm="clr-namespace:ShoppingList.ViewModels.Social"
              xmlns:progRing="clr-namespace:AvaloniaProgressRing;assembly=AvaloniaProgressRing"
              x:Class="ShoppingList.Views.Social.ManageHouseholdsView"
+             xmlns:controls="clr-namespace:ShoppingList.Views.CustomControls"
              x:DataType="vm:ManageHouseholdsViewModel">
   <Grid RowDefinitions="Auto, *">
 
@@ -31,7 +32,28 @@
                           HorizontalAlignment="Center"
                           VerticalAlignment="Center"
                           Foreground="{StaticResource MainBtnBG}"/>
+
+      <Grid IsVisible="{Binding !IsLoading}">
+        <ItemsControl IsVisible="{Binding !EmptyMyHouseholds}" ItemsSource="{Binding MyHouseholds}" Margin="20 5 20 0">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <controls:HouseholdListItemView HouseholdName="{Binding Name}" Identifier="{Binding Identifier}" IsLoading="{Binding IsLoading}">
+                <controls:HouseholdListItemView.RightContent>
+                  <Button Command="{Binding GoToHouseholdPageCommand}" VerticalAlignment="Center"
+                          Classes="trans_bg">
+                    <PathIcon Data="{StaticResource chevron_right_regular}" Classes="maxi white_foreground"/>
+                  </Button>
+                </controls:HouseholdListItemView.RightContent>
+              </controls:HouseholdListItemView>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <TextBlock Grid.Row="1" IsVisible="{Binding EmptyMyHouseholds}"
+                 Text="{DynamicResource NoHouseholdsFound}" Classes="h2"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+      </Grid>
     </Grid>
-    
+
   </Grid>
 </UserControl>

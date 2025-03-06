@@ -72,6 +72,7 @@
   <!--Manage Households Page-->
   <x:String x:Key="CreateHousehold">Create household</x:String>
   <x:String x:Key="MyHouseholds">My households</x:String>
+  <x:String x:Key="NoHouseholdsFound">- No households found -</x:String>
   
   <!--Error Messages-->
   <x:String x:Key="EmailFormatError">The given email address is not valid.</x:String>
