@@ -1,0 +1,27 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="clr-namespace:ShoppingList.ViewModels.Social"
+             x:Class="ShoppingList.Views.Social.HouseholdView"
+             x:DataType="vm:HouseholdViewModel">
+  <Grid RowDefinitions="Auto, *"  HorizontalAlignment="Stretch"
+        VerticalAlignment="Top">
+
+    <Grid Grid.Row="0" Margin="20 30" ColumnDefinitions="Auto, *, Auto">
+      <Button Grid.Column="0" VerticalAlignment="Center" Classes="trans_bg" HorizontalAlignment="Left"
+              Command="{Binding GoBackCommand}">
+        <PathIcon Data="{StaticResource arrow_left_regular}" Classes="maxi"/>
+      </Button>
+      <TextBlock Grid.Column="1" Text="{Binding Name}" Classes="h1" TextWrapping="Wrap"
+                  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+      <Button Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right"
+              Command="">
+        <PathIcon Data="{StaticResource edit_regular}" Classes="maxi white_foreground"/>
+      </Button>
+    </Grid>
+    
+    
+  </Grid>
+</UserControl>

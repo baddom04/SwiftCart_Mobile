@@ -17,12 +17,7 @@ namespace ShoppingList
 
         public override void OnFrameworkInitializationCompleted()
         {
-            var households = new MainSocialPanelModel();
-            var accountModel = new UserAccountModel();
-            var manageApplications = new ManageApplicationsModel();
-            var manageHouseholds = new ManageHouseholdsModel();
-            var createHousehold = new CreateHouseholdModel();
-            var mainViewModel = new MainViewModel(accountModel, households, manageApplications, manageHouseholds, createHousehold);
+            var mainViewModel = new MainViewModel(new UserAccountModel());
 
             MainView = new MainView(mainViewModel);
 

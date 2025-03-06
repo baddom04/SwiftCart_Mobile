@@ -6,14 +6,14 @@ using ShoppingList.Persistor.Services.Interfaces;
 
 namespace ShoppingList.Model.Social
 {
-    public class MainSocialPanelModel
+    public class SocialPanelModel
     {
         private readonly IHouseholdService _householdService;
 
         public IEnumerable<Household>? LoadedHouseholds { get; private set; }
         public int MaxPage { get; private set; } = 1;
 
-        public MainSocialPanelModel()
+        public SocialPanelModel()
         {
             _householdService = AppServiceProvider.Services.GetRequiredService<IHouseholdService>();
         }

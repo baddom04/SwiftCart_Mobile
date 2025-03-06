@@ -45,11 +45,11 @@ internal class SocialPanelViewModel : ViewModelBase
 
     public bool EmptyHouseholds => Households.Count == 0;
 
-    private readonly MainSocialPanelModel _model;
+    private readonly SocialPanelModel _model;
     private readonly Action<NotificationType, string> _showNotification;
     private readonly Action<SocialPage> _changePage;
 
-    public SocialPanelViewModel(MainSocialPanelModel householdsModel, Action<NotificationType, string> showNotification, Action<SocialPage> changePage)
+    public SocialPanelViewModel(SocialPanelModel householdsModel, Action<NotificationType, string> showNotification, Action<SocialPage> changePage)
     {
         _model = householdsModel;
         _showNotification = showNotification;

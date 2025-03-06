@@ -18,7 +18,7 @@
       <TextBlock Classes="h1" Text="{DynamicResource MyHouseholds}" HorizontalAlignment="Center"
                  VerticalAlignment="Center"/>
       <Button VerticalAlignment="Center" HorizontalAlignment="Right"
-              Command="">
+              Command="{Binding CreateHouseholdPageCommand}">
         <PathIcon Data="{StaticResource add_regular}" Classes="maxi white_foreground"/>
       </Button>
     </Grid>

@@ -3,6 +3,31 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="ShoppingList.Views.Social.CreateHouseholdView">
-  Welcome to Avalonia!
+             xmlns:vm="clr-namespace:ShoppingList.ViewModels.Social"
+             xmlns:controls="clr-namespace:ShoppingList.Views.CustomControls"
+             x:Class="ShoppingList.Views.Social.CreateHouseholdView"
+             x:DataType="vm:CreateHouseholdViewModel">
+  <Grid RowDefinitions="Auto, Auto, 5*, *"  HorizontalAlignment="Stretch"
+        VerticalAlignment="Top">
+
+    <Grid Grid.Row="0" Margin="15 30">
+      <Button VerticalAlignment="Top" Classes="trans_bg" HorizontalAlignment="Left"
+              Command="{Binding GoBackCommand}">
+        <PathIcon Data="{StaticResource arrow_left_regular}" Classes="maxi"/>
+      </Button>
+      <TextBlock  Text="{DynamicResource NewHousehold}" Classes="h1"
+                  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    </Grid>
+
+    <controls:ErrorDisplay Grid.Row="1" ErrorMessage="{Binding ErrorMessage}"/>
+
+    <StackPanel Grid.Row="2" Margin="30 10" Spacing="10">
+      <TextBlock Text="{DynamicResource Name}" />
+      <TextBox Text="{Binding NameInput}" Watermark="{DynamicResource NameWatermark}"/>
+      <TextBlock Text="{DynamicResource Identifier}" Margin="0 10 0 0"/>
+      <TextBox Text="{Binding IdentifierInput}" Watermark="{DynamicResource IdentifierWatermark}"/>
+    </StackPanel>
+    <Button Grid.Row="3" Margin="15" Classes="big" Content="{DynamicResource Create}" 
+            HorizontalAlignment="Center" Command="{Binding CreateHouseholdCommand}"/>
+  </Grid>
 </UserControl>

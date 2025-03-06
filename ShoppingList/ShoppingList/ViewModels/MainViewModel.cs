@@ -45,18 +45,18 @@ namespace ShoppingList.ViewModels
         public string? NotificationMessage
         {
             get { return _notificationMessage; }
-            set { this.RaiseAndSetIfChanged(ref _notificationMessage, value); }
+            private set { this.RaiseAndSetIfChanged(ref _notificationMessage, value); }
         }
 
         public ReactiveCommand<Unit, Unit> HideNotificationCommand { get; }
 
-        public MainViewModel(UserAccountModel userAccount, MainSocialPanelModel households, ManageApplicationsModel manageApplications, ManageHouseholdsModel manageHouseholds, CreateHouseholdModel createHousehold)
+        public MainViewModel(UserAccountModel userAccount)
         {
             _pages = new Dictionary<MainPage, ViewModelBase>()
             {
-                { MainPage.Login, new LoginViewModel(userAccount, ChangePage, ShowLoading) },
-                { MainPage.Register, new RegisterViewModel(userAccount, ChangePage, ShowLoading) },
-                { MainPage.Main, new LoggedInViewModel(userAccount, manageApplications, households, manageHouseholds, createHousehold, ChangePage, ShowLoading, ShowNotificationDialog) },
+                { MainPage.Login, new LoginViewModel(userAccount, ChangeMainPage, ShowLoading) },
+                { MainPage.Register, new RegisterViewModel(userAccount, ChangeMainPage, ShowLoading) },
+                { MainPage.Main, new LoggedInViewModel(userAccount, ChangeMainPage, ShowLoading, ShowNotificationDialog) },
             };
 
             _currentPage = _pages[MainPage.Login];
@@ -71,15 +71,15 @@ namespace ShoppingList.ViewModels
             NotificationType = null;
         }
 
-        private void ChangePage(MainPage page)
+        protected void ChangeMainPage(MainPage page)
         {
             CurrentPage = _pages[page];
         }
-        private void ShowLoading(bool isLoading)
+        protected void ShowLoading(bool isLoading)
         {
             IsLoading = isLoading;
         }
-        private void ShowNotificationDialog(NotificationType type, string message)
+        protected void ShowNotificationDialog(NotificationType type, string message)
         {
             ShowNotification = true;
             NotificationMessage = message;
@@ -87,7 +87,7 @@ namespace ShoppingList.ViewModels
         }
     }
 
-    internal enum MainPage
+    public enum MainPage
     {
         Login,
         Register,

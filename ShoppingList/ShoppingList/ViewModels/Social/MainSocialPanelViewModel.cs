@@ -18,14 +18,14 @@ namespace ShoppingList.ViewModels.Social
             private set { this.RaiseAndSetIfChanged(ref _currentPage, value); }
         }
 
-        public MainSocialPanelViewModel(UserAccountModel account, ManageApplicationsModel manageApplications, MainSocialPanelModel households, ManageHouseholdsModel manageHouseholds, CreateHouseholdModel createHousehold, Action<NotificationType, string> showNotification, Action<bool> showLoading)
+        public MainSocialPanelViewModel(UserAccountModel account, Action<NotificationType, string> showNotification, Action<bool> showLoading)
         {
             _pages = new Dictionary<SocialPage, ViewModelBase>()
             {
-                { SocialPage.Main, new SocialPanelViewModel(households, showNotification, ChangePage) },
-                { SocialPage.ManageApplications, new ManageApplicationsViewModel(account, manageApplications, showLoading, showNotification, ChangePage) },
-                { SocialPage.ManageHouseholds, new ManageHouseholdsViewModel(account, manageHouseholds, ChangePage, showNotification) },
-                { SocialPage.CreateHouseholdPage, new CreateHouseholdViewModel(createHousehold, ChangePage) },
+                { SocialPage.Main, new SocialPanelViewModel(new SocialPanelModel(), showNotification, ChangePage) },
+                { SocialPage.ManageApplications, new ManageApplicationsViewModel(account, new ManageApplicationsModel(), showLoading, showNotification, ChangePage) },
+                { SocialPage.ManageHouseholds, new ManageHouseholdsViewModel(account, new ManageHouseholdsModel(), ChangePage, showNotification, ChangeToHouseholdPage) },
+                { SocialPage.CreateHouseholdPage, new CreateHouseholdViewModel(new CreateHouseholdModel(), ChangePage, showLoading) },
             };
 
             _currentPage = _pages[SocialPage.Main];
@@ -35,6 +35,10 @@ namespace ShoppingList.ViewModels.Social
         {
             CurrentPage = _pages[page];
         }
+        private void ChangeToHouseholdPage(HouseholdViewModel householdViewModel)
+        {
+            CurrentPage = householdViewModel;
+        }
     }
 
     internal enum SocialPage
@@ -42,7 +46,6 @@ namespace ShoppingList.ViewModels.Social
         Main,
         ManageApplications,
         ManageHouseholds,
-        HouseholdPage,
         CreateHouseholdPage
     }
 }

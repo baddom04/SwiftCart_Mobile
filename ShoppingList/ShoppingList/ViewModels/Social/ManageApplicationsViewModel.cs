@@ -5,6 +5,7 @@ using ShoppingList.Model.Settings;
 using ShoppingList.Model.Social;
 using ShoppingList.Utils;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive;
@@ -46,8 +47,14 @@ namespace ShoppingList.ViewModels.Social
 
             try
             {
+                IEnumerable<HouseholdApplicationViewModel> temp = 
+                    (await _model
+                    .GetHouseholdsAsync(_account.User!.Id))
+                    .Select(hh => 
+                        new HouseholdApplicationViewModel(_account, new HouseholdApplicationModel(hh), _showNotification));
+
                 Applications.Clear();
-                Applications.AddRange((await _model.GetHouseholdsAsync(_account.User!.Id)).Select(hh => new HouseholdApplicationViewModel(_account, new HouseholdApplicationModel(hh), _showNotification)));
+                Applications.AddRange(temp);
             }
             catch (Exception ex)
             {

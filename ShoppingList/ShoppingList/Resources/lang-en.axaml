@@ -74,6 +74,21 @@
   <x:String x:Key="MyHouseholds">My households</x:String>
   <x:String x:Key="NoHouseholdsFound">- No households found -</x:String>
   
+  <!--Create new household Page-->
+  <x:String x:Key="NewHousehold">Create a household</x:String>
+  <x:String x:Key="Create">Create</x:String>
+  <x:String x:Key="Name">Name</x:String>
+  <x:String x:Key="Identifier">Identifier</x:String>
+  <x:String x:Key="NameWatermark">My household</x:String>
+  <x:String x:Key="IdentifierWatermark">myhousehold</x:String>
+  <!--^Errors-->
+  <x:String x:Key="CreateHouseholdError">Household creation error&#x0a;</x:String>
+  <x:String x:Key="HouseholdNameMissingError">Please enter a name.</x:String>
+  <x:String x:Key="HouseholdIdentifierMissingError">Please enter an identifier.</x:String>
+  <x:String x:Key="HouseholdNameTooLongError">The name must be no more than 20 characters.</x:String>
+  <x:String x:Key="HouseholdIdentifierTooLongError">The identifier must be no more than 20 characters.</x:String>
+  
+  
   <!--Error Messages-->
   <x:String x:Key="EmailFormatError">The given email address is not valid.</x:String>
   <x:String x:Key="EmailMissingError">Please enter your email address.</x:String>
