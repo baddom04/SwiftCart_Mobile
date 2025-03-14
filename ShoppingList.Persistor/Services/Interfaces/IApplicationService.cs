@@ -1,5 +1,4 @@
 ﻿using ShoppingList.Core;
-using ShoppingList.Core.Enums;
 
 namespace ShoppingList.Persistor.Services.Interfaces
 {

@@ -298,7 +298,7 @@
 
   <Style Selector="ListBoxItem">
     <Style Selector="^:selected /template/ ContentPresenter">
-      <Setter Property="Background" Value="{StaticResource TerBG}"/>
+      <Setter Property="Background" Value="{StaticResource MainBtnBG}"/>
     </Style>
   </Style>
   
@@ -310,7 +310,7 @@
       <Setter Property="Height" Value="22"/>
     </Style>
     <Style Selector="^.menu_icon_selected">
-      <Setter Property="Foreground" Value="{StaticResource MainBtnBG}"/>
+      <Setter Property="Foreground" Value="{StaticResource MainBG}"/>
     </Style>
     <Style Selector="^.white_foreground">
       <Setter Property="Foreground" Value="{StaticResource MainBG}"/>

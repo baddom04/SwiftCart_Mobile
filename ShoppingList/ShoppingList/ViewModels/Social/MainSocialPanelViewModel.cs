@@ -28,7 +28,7 @@ namespace ShoppingList.ViewModels.Social
             {
                 { SocialPage.Main, new SocialPanelViewModel(new SocialPanelModel(), showNotification, ChangePage) },
                 { SocialPage.ManageApplications, new ManageApplicationsViewModel(account, new ManageApplicationsModel(), showNotification, ChangePage) },
-                { SocialPage.ManageHouseholds, new ManageHouseholdsViewModel(account, new ManageHouseholdsModel(), ChangePage, showNotification, ChangeToHouseholdPage, HouseholdEditingPage) },
+                { SocialPage.ManageHouseholds, new ManageHouseholdsViewModel(account, new ManageHouseholdsModel(), ChangePage, showNotification, ChangeToHouseholdPage, HouseholdEditingPage, showLoading) },
                 { SocialPage.CreateHouseholdPage, _householdEditingPage },
             };
 

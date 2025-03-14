@@ -2,7 +2,7 @@
 
 namespace ShoppingList.Core
 {
-    public class User() : ICloneable
+    public class User : ICloneable
     {
         public int Id { get; init; }
         public required string Name { get; init; }

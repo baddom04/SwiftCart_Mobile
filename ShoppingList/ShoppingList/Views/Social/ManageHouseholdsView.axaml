@@ -19,7 +19,7 @@
                  VerticalAlignment="Center"/>
       <Button VerticalAlignment="Center" HorizontalAlignment="Right"
               Command="{Binding CreateHouseholdPageCommand}">
-        <PathIcon Data="{StaticResource add_regular}" Classes="maxi white_foreground"/>
+        <PathIcon Data="{StaticResource home_add_regular}" Classes="maxi white_foreground"/>
       </Button>
     </Grid>
 

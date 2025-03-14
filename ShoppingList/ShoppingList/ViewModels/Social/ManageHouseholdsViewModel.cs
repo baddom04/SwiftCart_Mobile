@@ -31,14 +31,16 @@ namespace ShoppingList.ViewModels.Social
         private readonly Action<NotificationType, string> _showNotification;
         private readonly Action<HouseholdViewModel> _changeToHouseholdPage;
         private readonly Action<Household?> _householdEditingPage;
+        private readonly Action<bool> _showLoading;
         private readonly ManageHouseholdsModel _model;
         private readonly UserAccountModel _account;
-        public ManageHouseholdsViewModel(UserAccountModel account, ManageHouseholdsModel model, Action<SocialPage> changePage, Action<NotificationType, string> showNotification, Action<HouseholdViewModel> changeToHouseholdPage, Action<Household?> householdEditingPage)
+        public ManageHouseholdsViewModel(UserAccountModel account, ManageHouseholdsModel model, Action<SocialPage> changePage, Action<NotificationType, string> showNotification, Action<HouseholdViewModel> changeToHouseholdPage, Action<Household?> householdEditingPage, Action<bool> showLoading)
         {
             _changePage = changePage;
             _account = account;
             _model = model;
             _showNotification = showNotification;
+            _showLoading = showLoading;
             _changeToHouseholdPage = changeToHouseholdPage;
             _householdEditingPage = householdEditingPage;
             GoBackCommand = ReactiveCommand.Create(() => _changePage(SocialPage.Main));
@@ -55,7 +57,7 @@ namespace ShoppingList.ViewModels.Social
             try
             {
                 MyHouseholds.Clear();
-                MyHouseholds.AddRange((await _model.GetMyHouseholds(_account.User!.Id)).Select(hh => new HouseholdViewModel(hh, _changePage, _changeToHouseholdPage, _householdEditingPage)));
+                MyHouseholds.AddRange((await _model.GetMyHouseholds(_account.User!.Id)).Select(hh => new HouseholdViewModel(_account, new HouseholdModel(hh), _changePage, _changeToHouseholdPage, _householdEditingPage, _showNotification, _showLoading)));
             }
             catch (Exception ex)
             {

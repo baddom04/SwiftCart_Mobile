@@ -87,5 +87,12 @@ namespace ShoppingList.Persistor.Services
 
             await ValidateResponse(response, cancellationToken);
         }
+
+        public async Task RemoveMemberAsync(int household_id, int user_id, CancellationToken cancellationToken = default)
+        {
+            HttpResponseMessage response = await _httpClient.DeleteAsync($"households/{household_id}/users/{user_id}", cancellationToken);
+
+            await ValidateResponse(response, cancellationToken);
+        }
     }
 }

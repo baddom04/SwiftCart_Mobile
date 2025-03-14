@@ -33,7 +33,7 @@ public partial class LoggedInView : UserControl
         {
             if ((item as ListBoxItem)!.Content == listBox.SelectedItem)
             {
-                SetColorToPathIcon(item, "MainBtnBG");
+                SetColorToPathIcon(item, "MainBG");
             }
             else
             {
