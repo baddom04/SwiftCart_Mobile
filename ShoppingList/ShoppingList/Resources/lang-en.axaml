@@ -76,7 +76,7 @@
   
   <!--Create new household Page-->
   <x:String x:Key="NewHousehold">Create a household</x:String>
-  <x:String x:Key="Create">Create</x:String>
+  <x:String x:Key="UpdateHousehold">Update a household</x:String>
   <x:String x:Key="Name">Name</x:String>
   <x:String x:Key="Identifier">Identifier</x:String>
   <x:String x:Key="NameWatermark">My household</x:String>

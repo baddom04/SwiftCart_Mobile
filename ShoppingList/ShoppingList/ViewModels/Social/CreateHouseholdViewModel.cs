@@ -37,7 +37,7 @@ namespace ShoppingList.ViewModels.Social
         private readonly CreateHouseholdModel _model;
         private readonly Action<SocialPage> _changePage;
         private readonly Action<bool> _showLoading;
-        private int? _householdId;
+        public int HouseholdId { get; private set; }
         public CreateHouseholdViewModel(CreateHouseholdModel model, Action<SocialPage> changePage, Action<bool> showLoading)
         {
             _model = model;
@@ -55,13 +55,13 @@ namespace ShoppingList.ViewModels.Social
 
             try
             {
-                if (!_householdId.HasValue)
+                if (HouseholdId == default)
                 {
                     await _model.CreateHouseholdAsync(NameInput, IdentifierInput);
                 }
                 else
                 {
-                    await _model.UpdateHouseholdAsync(_householdId.Value, NameInput, IdentifierInput);
+                    await _model.UpdateHouseholdAsync(HouseholdId, NameInput, IdentifierInput);
                 }
 
                 _changePage(SocialPage.ManageHouseholds);
@@ -117,7 +117,7 @@ namespace ShoppingList.ViewModels.Social
             ErrorMessage = null;
             NameInput = household is null ? string.Empty : household.Name;
             IdentifierInput = household is null ? string.Empty : household.Identifier;
-            _householdId = household?.Id;
+            HouseholdId = household?.Id ?? default;
         }
     }
 }
