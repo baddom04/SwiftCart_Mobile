@@ -13,6 +13,6 @@ public static class NetworkSettings
         IPAddress[] localIPs = Dns.GetHostAddresses(Dns.GetHostName());
         IPAddress? ipv4Address = localIPs.FirstOrDefault(ip => ip.AddressFamily == AddressFamily.InterNetwork);
 
-        BaseAddress = ipv4Address is null ? new($"http://{ipv4Address}:8000/api/") : new($"http://192.168.0.34:8000/api/");
+        BaseAddress = ipv4Address is not null ? new($"http://{ipv4Address}:8000/api/") : new($"http://192.168.0.34:8000/api/");
     }
 }
