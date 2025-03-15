@@ -2,6 +2,7 @@
 using ShoppingList.Core;
 using ShoppingList.Persistor;
 using ShoppingList.Persistor.Services.Interfaces;
+using System.Formats.Asn1;
 
 namespace ShoppingList.Model.Social
 {
@@ -21,6 +22,11 @@ namespace ShoppingList.Model.Social
         public async Task RemoveMemberAsync(int household_id)
         {
             await _householdService.RemoveMemberAsync(household_id, User.Id);
+        }
+
+        public async Task RefuseUserAsync(int household_id)
+        {
+            await _applicationService.DeleteApplicationAsync(household_id);
         }
     }
 }

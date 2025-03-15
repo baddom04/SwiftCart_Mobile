@@ -6,7 +6,9 @@
              xmlns:vm="clr-namespace:ShoppingList.ViewModels.Social"
              xmlns:converters="clr-namespace:ShoppingList.Converters"
              x:Class="ShoppingList.Views.Social.HouseholdView"
-             x:DataType="vm:HouseholdViewModel">
+             xmlns:progRing="clr-namespace:AvaloniaProgressRing;assembly=AvaloniaProgressRing"
+             x:DataType="vm:HouseholdViewModel"
+             xmlns:controls="clr-namespace:ShoppingList.Views.CustomControls">
   <UserControl.Resources>
     <converters:BoolToOpacityConverter x:Key="BoolToOpacityConverter"/>
   </UserControl.Resources>
@@ -20,7 +22,7 @@
       </Button>
       <TextBlock Grid.Column="1" Text="{Binding Name}" Classes="h1" TextWrapping="Wrap"
                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
-      <Button Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right" 
+      <Button Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right"
               Opacity="{Binding IsOwner, Converter={StaticResource BoolToOpacityConverter}}"
               IsHitTestVisible="{Binding IsOwner}"
               Command="{Binding EditHouseholdCommand}">
@@ -28,23 +30,128 @@
       </Button>
     </Grid>
 
-    <Grid Grid.Row="1" RowDefinitions="Auto, Auto, Auto, Auto">
+    <ScrollViewer Grid.Row="1">
+      <Grid RowDefinitions="Auto, Auto, Auto, Auto">
 
-      <Border Grid.Row="2" Classes="settingDanger" Padding="10" IsVisible="{Binding IsOwner}"
-              HorizontalAlignment="Stretch" Margin="20 10" PointerPressed="DeleteHoushold_PointerPressed">
-        <StackPanel Orientation="Horizontal" Spacing="10">
-          <PathIcon Data="{StaticResource delete_regular}" Classes="white_foreground"/>
-          <TextBlock Text="{DynamicResource DeleteHousehold}" Classes="setting"/>
-        </StackPanel>
-      </Border>
+        <Grid Grid.Row="0" RowDefinitions="Auto, Auto">
 
-      <Border Grid.Row="3" Classes="settingDanger" Padding="10"
-              HorizontalAlignment="Stretch" Margin="20 10" PointerPressed="LeaveHoushold_PointerPressed">
-        <StackPanel Orientation="Horizontal" Spacing="10">
-          <PathIcon Data="{StaticResource sign_out_regular}" Classes="white_foreground"/>
-          <TextBlock Text="{DynamicResource LeaveHousehold}" Classes="setting"/>
-        </StackPanel>
-      </Border>
-    </Grid>
+          <Border Grid.Row="0" Classes="setting" Padding="10 5" Margin="20 10">
+            <Grid ColumnDefinitions="Auto, *, Auto">
+              <TextBlock Grid.Column="0" Text="{DynamicResource Members}" Classes="setting"
+                         VerticalAlignment="Center"/>
+              <Button Grid.Column="2" HorizontalAlignment="Right" Classes="trans_bg"
+                  Command="{Binding MembersDropDownCommand}" Classes.halfAnimatedIn="{Binding IsMembersOpen}"
+                  Classes.halfAnimatedOut="{Binding !IsMembersOpen}">
+                <PathIcon Data="{StaticResource chevron_right_regular}" Classes="white_foreground"/>
+              </Button>
+            </Grid>
+          </Border>
+
+          <Grid Grid.Row="1" IsVisible="{Binding IsMembersOpen}">
+
+            <progRing:ProgressRing Width="80"
+                                Height="80"
+                                IsActive="{Binding IsMemberLoading}"
+                                IsVisible="{Binding IsMemberLoading}"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="{StaticResource MainBtnBG}"/>
+
+            <ItemsControl ItemsSource="{Binding Members}" IsVisible="{Binding !IsMemberLoading}">
+              <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                  <controls:UserListItemView UserName="{Binding Name}" Email="{Binding Email}"
+                                             IsLoading="{Binding IsLoading}">
+                    <controls:UserListItemView.RightContent>
+                      <Grid IsVisible="{Binding !IsLoading}">
+                        <Button Content="{DynamicResource Kick}" IsVisible="{Binding !IsMe}"
+                                Command="{Binding KickUserCommand}"
+                                Classes="inverted_colors bigger_text"/>
+                        <TextBlock Classes="inverted_colors" IsVisible="{Binding IsMe}"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Right"
+                                   Margin="10 0"
+                                   Text="{DynamicResource You}"/>
+                      </Grid>
+                    </controls:UserListItemView.RightContent>
+                  </controls:UserListItemView>
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+          </Grid>
+        </Grid>
+
+        <Grid Grid.Row="1" RowDefinitions="Auto, Auto">
+
+          <Border Grid.Row="0" Classes="setting" Padding="10 5" Margin="20 10">
+            <Grid ColumnDefinitions="Auto, *, Auto">
+              <TextBlock Grid.Column="0" Text="{DynamicResource Applicants}" Classes="setting"
+                         VerticalAlignment="Center"/>
+              <Button Grid.Column="2" HorizontalAlignment="Right" Classes="trans_bg"
+                  Command="{Binding ApplicantsDropDownCommand}" Classes.halfAnimatedIn="{Binding IsApplicationsOpen}"
+                  Classes.halfAnimatedOut="{Binding !IsApplicationsOpen}">
+                <PathIcon Data="{StaticResource chevron_right_regular}" Classes="white_foreground"/>
+              </Button>
+            </Grid>
+          </Border>
+
+          <Grid Grid.Row="1" IsVisible="{Binding IsApplicationsOpen}">
+
+            <progRing:ProgressRing Width="80"
+                                Height="80"
+                                IsActive="{Binding IsApplicationLoading}"
+                                IsVisible="{Binding IsApplicationLoading}"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="{StaticResource MainBtnBG}"/>
+
+            <ItemsControl ItemsSource="{Binding Applicants}" IsVisible="{Binding !IsApplicationLoading}">
+              <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                  <controls:UserListItemView UserName="{Binding Name}" Email="{Binding Email}"
+                                             IsLoading="{Binding IsLoading}">
+                    <controls:UserListItemView.RightContent>
+                      <Grid IsVisible="{Binding !IsLoading}">
+                        <StackPanel Orientation="Horizontal" Spacing="10" IsVisible="{Binding !IsMe}">
+                          <Button Content="{DynamicResource Accept}"
+                                  Command="{Binding AcceptUserCommand}"
+                                  Classes="inverted_colors bigger_text"/>
+                          <Button Content="{DynamicResource Refuse}"
+                                  Command="{Binding RefuseUserCommand}"
+                                  Classes="inverted_colors bigger_text"/>
+                        </StackPanel>
+                        <TextBlock Classes="inverted_colors" IsVisible="{Binding IsMe}"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Right"
+                                   Margin="10 0"
+                                   Text="{DynamicResource You}"/>
+                      </Grid>
+                    </controls:UserListItemView.RightContent>
+                  </controls:UserListItemView>
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+          </Grid>
+        </Grid>
+
+        <Border Grid.Row="2" Classes="settingDanger" Padding="10" IsVisible="{Binding IsOwner}"
+                HorizontalAlignment="Stretch" Margin="20 10" PointerPressed="DeleteHoushold_PointerPressed">
+          <StackPanel Orientation="Horizontal" Spacing="10">
+            <PathIcon Data="{StaticResource delete_regular}" Classes="white_foreground"/>
+            <TextBlock Text="{DynamicResource DeleteHousehold}" Classes="setting"/>
+          </StackPanel>
+        </Border>
+
+        <Border Grid.Row="3" Classes="settingDanger" Padding="10"
+                HorizontalAlignment="Stretch" Margin="20 10" PointerPressed="LeaveHoushold_PointerPressed">
+          <StackPanel Orientation="Horizontal" Spacing="10">
+            <PathIcon Data="{StaticResource sign_out_regular}" Classes="white_foreground"/>
+            <TextBlock Text="{DynamicResource LeaveHousehold}" Classes="setting"/>
+          </StackPanel>
+        </Border>
+      </Grid>
+    </ScrollViewer>
   </Grid>
 </UserControl>

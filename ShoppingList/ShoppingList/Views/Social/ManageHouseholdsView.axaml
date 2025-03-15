@@ -34,7 +34,7 @@
                           Foreground="{StaticResource MainBtnBG}"/>
 
       <Grid IsVisible="{Binding !IsLoading}">
-        <ItemsControl IsVisible="{Binding !EmptyMyHouseholds}" ItemsSource="{Binding MyHouseholds}" Margin="20 5 20 0">
+        <ItemsControl IsVisible="{Binding !EmptyMyHouseholds}" ItemsSource="{Binding MyHouseholds}">
           <ItemsControl.ItemTemplate>
             <DataTemplate>
               <controls:HouseholdListItemView HouseholdName="{Binding Name}" Identifier="{Binding Identifier}" IsLoading="{Binding IsLoading}">

@@ -93,11 +93,18 @@
   <x:String x:Key="LeaveHousehold">Leave</x:String>
   <x:String x:Key="DeleteHouseholdQuestion">Are you sure you want to delete this household?</x:String>
   <x:String x:Key="LeaveHouseholdQuestion">Are you sure you want to leave this household?</x:String>
+  <x:String x:Key="Members">Members</x:String>
+  <x:String x:Key="Applicants">Applicants</x:String>
+  <x:String x:Key="Kick">Kick</x:String>
+  <x:String x:Key="You">You</x:String>
+  <x:String x:Key="Accept">Accept</x:String>
+  <x:String x:Key="Refuse">Refuse</x:String>
   <!--^Errors-->
   <x:String x:Key="LoadMembersError">Load members error&#x0a;</x:String>
   <x:String x:Key="KickUserError">Kick user error&#x0a;</x:String>
   <x:String x:Key="AcceptUserError">Accept user error&#x0a;</x:String>
   <x:String x:Key="DeleteHouseholdError">Delete household error&#x0a;</x:String>
+  <x:String x:Key="RefuseUserError">Refuse user error&#x0a;</x:String>
   
   
   

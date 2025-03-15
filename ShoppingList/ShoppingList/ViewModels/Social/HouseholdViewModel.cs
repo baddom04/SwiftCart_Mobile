@@ -133,7 +133,7 @@ namespace ShoppingList.ViewModels.Social
                 Members.Clear();
                 Members.AddRange(
                     (await _model.GetHouseholdMembersAsync())
-                    .Select(u => new UserListItemViewModel(_model.Household.Id, new UserListItemModel(u), _showNotification))
+                    .Select(u => new UserListItemViewModel(_account, _model.Household.Id, new UserListItemModel(u), _showNotification))
                 );
             }
             catch (Exception ex)
@@ -156,7 +156,7 @@ namespace ShoppingList.ViewModels.Social
                 Applicants.Clear();
                 Applicants.AddRange(
                     (await _model.GetApplicantsAsync())
-                    .Select(u => new UserListItemViewModel(_model.Household.Id, new UserListItemModel(u), _showNotification))
+                    .Select(u => new UserListItemViewModel(_account, _model.Household.Id, new UserListItemModel(u), _showNotification))
                 );
             }
             catch (Exception ex)

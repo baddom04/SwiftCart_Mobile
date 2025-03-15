@@ -221,15 +221,8 @@
         <ControlTemplate TargetType="Button">
           <Border Padding="10"
                   HorizontalAlignment="Stretch"
-                  CornerRadius="10"
                   Margin="20 10"
-                  BoxShadow="0 0 10 0 Gray">
-            <Border.Background>
-              <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,0%">
-                <GradientStop Color="#4fc0ff" Offset="0.0"/>
-                <GradientStop Color="#42a4db" Offset="1.0"/>
-              </LinearGradientBrush>
-            </Border.Background>
+                  Classes="setting">
             <Grid ColumnDefinitions="*, Auto">
               <ContentPresenter Grid.Column="0" Classes="setting"
                                 Content="{TemplateBinding Content}" />
@@ -259,12 +252,16 @@
       <Setter Property="Padding" Value="10"/>
       <Setter Property="Background" Value="{StaticResource ErrorSecondaryRed}"/>
     </Style>
+    <Style Selector="^.household_item">
+      <Setter Property="Background" Value="{StaticResource MainBtnBG}"/>
+      <Setter Property="CornerRadius" Value="10"/>
+    </Style>
     <Style Selector="^.settingGroup">
       <Setter Property="Background" Value="{StaticResource MainBtnBG}"/>
     </Style>
     <Style Selector="^.settingDanger">
       <Setter Property="CornerRadius" Value="10"/>
-      <Setter Property="BoxShadow" Value="2 2 10 0 Gray"/>
+      <Setter Property="BoxShadow" Value="2 2 5 0 Gray"/>
       <Setter Property="Background">
         <Setter.Value>
           <LinearGradientBrush StartPoint="0,0" EndPoint="100%,0%">
@@ -276,7 +273,7 @@
     </Style>
     <Style Selector="^.setting">
       <Setter Property="CornerRadius" Value="10"/>
-      <Setter Property="BoxShadow" Value="2 2 10 0 Gray"/>
+      <Setter Property="BoxShadow" Value="2 2 5 0 Gray"/>
       <Setter Property="Background">
         <Setter.Value>
           <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,0%">
@@ -292,10 +289,6 @@
     <Style Selector="^.badge">
       <Setter Property="CornerRadius" Value="10"/>
       <Setter Property="BoxShadow" Value="0 0 10 0 Gray"/>
-    </Style>
-    <Style Selector="^.household_item">
-      <Setter Property="Background" Value="{StaticResource MainBtnBG}"/>
-      <Setter Property="CornerRadius" Value="10"/>
     </Style>
   </Style>
 
