@@ -9,4 +9,19 @@ public partial class HouseholdView : UserControl
     {
         InitializeComponent();
     }
+
+    private async void DeleteHoushold_PointerPressed(object? sender, Avalonia.Input.PointerPressedEventArgs e)
+    {
+        bool result = await App.MainView.ShowConfirmDialog("DeleteHouseholdQuestion");
+        if (!result) return;
+
+        (DataContext as HouseholdViewModel)!.DeleteHouseholdCommand.Execute();
+    }
+    private async void LeaveHoushold_PointerPressed(object? sender, Avalonia.Input.PointerPressedEventArgs e)
+    {
+        bool result = await App.MainView.ShowConfirmDialog("LeaveHouseholdQuestion");
+        if (!result) return;
+
+        (DataContext as HouseholdViewModel)!.LeaveHouseholdCommand.Execute();
+    }
 }

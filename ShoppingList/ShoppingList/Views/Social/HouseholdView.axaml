@@ -27,7 +27,24 @@
         <PathIcon Data="{StaticResource edit_regular}" Classes="maxi white_foreground"/>
       </Button>
     </Grid>
-    
-    
+
+    <Grid Grid.Row="1" RowDefinitions="Auto, Auto, Auto, Auto">
+
+      <Border Grid.Row="2" Classes="settingDanger" Padding="10" IsVisible="{Binding IsOwner}"
+              HorizontalAlignment="Stretch" Margin="20 10" PointerPressed="DeleteHoushold_PointerPressed">
+        <StackPanel Orientation="Horizontal" Spacing="10">
+          <PathIcon Data="{StaticResource delete_regular}" Classes="white_foreground"/>
+          <TextBlock Text="{DynamicResource DeleteHousehold}" Classes="setting"/>
+        </StackPanel>
+      </Border>
+
+      <Border Grid.Row="3" Classes="settingDanger" Padding="10"
+              HorizontalAlignment="Stretch" Margin="20 10" PointerPressed="LeaveHoushold_PointerPressed">
+        <StackPanel Orientation="Horizontal" Spacing="10">
+          <PathIcon Data="{StaticResource sign_out_regular}" Classes="white_foreground"/>
+          <TextBlock Text="{DynamicResource LeaveHousehold}" Classes="setting"/>
+        </StackPanel>
+      </Border>
+    </Grid>
   </Grid>
 </UserControl>

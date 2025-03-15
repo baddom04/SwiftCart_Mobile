@@ -265,10 +265,26 @@
     <Style Selector="^.settingDanger">
       <Setter Property="CornerRadius" Value="10"/>
       <Setter Property="BoxShadow" Value="2 2 10 0 Gray"/>
+      <Setter Property="Background">
+        <Setter.Value>
+          <LinearGradientBrush StartPoint="0,0" EndPoint="100%,0%">
+            <GradientStop Color="#d40000" Offset="0"/>
+            <GradientStop Color="#B30000" Offset="1"/>
+          </LinearGradientBrush>
+        </Setter.Value>
+      </Setter>
     </Style>
     <Style Selector="^.setting">
       <Setter Property="CornerRadius" Value="10"/>
       <Setter Property="BoxShadow" Value="2 2 10 0 Gray"/>
+      <Setter Property="Background">
+        <Setter.Value>
+          <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,0%">
+            <GradientStop Color="#4fc0ff" Offset="0.0"/>
+            <GradientStop Color="#42a4db" Offset="1.0"/>
+          </LinearGradientBrush>
+        </Setter.Value>
+      </Setter>
     </Style>
     <Style Selector="^.button_bg">
       <Setter Property="Background" Value="{StaticResource MainBtnBG}"/>

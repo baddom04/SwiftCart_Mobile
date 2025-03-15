@@ -89,6 +89,11 @@
   <x:String x:Key="HouseholdIdentifierTooLongError">The identifier must be no more than 20 characters.</x:String>
   
   <!--Household page-->
+  <x:String x:Key="DeleteHousehold">Delete household</x:String>
+  <x:String x:Key="LeaveHousehold">Leave</x:String>
+  <x:String x:Key="DeleteHouseholdQuestion">Are you sure you want to delete this household?</x:String>
+  <x:String x:Key="LeaveHouseholdQuestion">Are you sure you want to leave this household?</x:String>
+  <!--^Errors-->
   <x:String x:Key="LoadMembersError">Load members error&#x0a;</x:String>
   <x:String x:Key="KickUserError">Kick user error&#x0a;</x:String>
   <x:String x:Key="AcceptUserError">Accept user error&#x0a;</x:String>

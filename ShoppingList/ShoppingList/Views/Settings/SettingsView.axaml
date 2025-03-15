@@ -61,12 +61,6 @@
 
       <Border Grid.Row="3" Classes="setting" Padding="10"
               HorizontalAlignment="Stretch" Margin="20 10" PointerPressed="Logout_PointerPressed">
-        <Border.Background>
-          <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,0%">
-            <GradientStop Color="#4fc0ff" Offset="0.0"/>
-            <GradientStop Color="#42a4db" Offset="1.0"/>
-          </LinearGradientBrush>
-        </Border.Background>
         <StackPanel Orientation="Horizontal" Spacing="10">
           <PathIcon Data="{StaticResource sign_out_regular}" Classes="white_foreground"/>
           <TextBlock Text="{DynamicResource Logout}" Classes="setting"/>
@@ -75,12 +69,6 @@
 
       <Border Grid.Row="4" Classes="settingDanger" Padding="10"
               HorizontalAlignment="Stretch" Margin="20 10" PointerPressed="DeleteUser_PointerPressed">
-        <Border.Background>
-          <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-            <GradientStop Color="#FF4C4C" Offset="0"/>
-            <GradientStop Color="#B30000" Offset="1"/>
-          </LinearGradientBrush>
-        </Border.Background>
         <StackPanel Orientation="Horizontal" Spacing="10">
           <PathIcon Data="{StaticResource person_delete_regular}" Classes="white_foreground"/>
           <TextBlock Text="{DynamicResource DeleteUser}" Classes="setting"/>
