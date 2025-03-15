@@ -11,6 +11,7 @@
              xmlns:controls="clr-namespace:ShoppingList.Views.CustomControls">
   <UserControl.Resources>
     <converters:BoolToOpacityConverter x:Key="BoolToOpacityConverter"/>
+    <converters:ApplicationStatusToStringConverter x:Key="ApplicationStatusToStringConverter"/>
   </UserControl.Resources>
   <Grid RowDefinitions="Auto, *"  HorizontalAlignment="Stretch"
         VerticalAlignment="Top">
@@ -64,9 +65,19 @@
                                              IsLoading="{Binding IsLoading}">
                     <controls:UserListItemView.RightContent>
                       <Grid IsVisible="{Binding !IsLoading}">
-                        <Button Content="{DynamicResource Kick}" IsVisible="{Binding !IsMe}"
-                                Command="{Binding KickUserCommand}"
-                                Classes="inverted_colors bigger_text"/>
+                        <Grid IsVisible="{Binding IsOwner}">
+                          <Grid IsVisible="{Binding !IsMe}">
+                            <Button Content="{DynamicResource Kick}" IsVisible="{Binding Status, Converter={x:Static ObjectConverters.IsNull}}"
+                                    Command="{Binding KickUserCommand}"
+                                    Classes="inverted_colors bigger_text"/>
+                            <TextBlock Classes="inverted_colors"
+                                       IsVisible="{Binding Status, Converter={x:Static ObjectConverters.IsNotNull}}"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Right"
+                                       Margin="10 0"
+                                       Text="{Binding Status, Converter={StaticResource ApplicationStatusToStringConverter}}"/>
+                          </Grid>
+                        </Grid>
                         <TextBlock Classes="inverted_colors" IsVisible="{Binding IsMe}"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Right"
@@ -82,7 +93,7 @@
           </Grid>
         </Grid>
 
-        <Grid Grid.Row="1" RowDefinitions="Auto, Auto">
+        <Grid Grid.Row="1" RowDefinitions="Auto, Auto" IsVisible="{Binding IsOwner}">
 
           <Border Grid.Row="0" Classes="setting" Padding="10 5" Margin="20 10">
             <Grid ColumnDefinitions="Auto, *, Auto">
@@ -113,14 +124,23 @@
                                              IsLoading="{Binding IsLoading}">
                     <controls:UserListItemView.RightContent>
                       <Grid IsVisible="{Binding !IsLoading}">
-                        <StackPanel Orientation="Horizontal" Spacing="10" IsVisible="{Binding !IsMe}">
-                          <Button Content="{DynamicResource Accept}"
-                                  Command="{Binding AcceptUserCommand}"
-                                  Classes="inverted_colors bigger_text"/>
-                          <Button Content="{DynamicResource Refuse}"
-                                  Command="{Binding RefuseUserCommand}"
-                                  Classes="inverted_colors bigger_text"/>
-                        </StackPanel>
+                        <Grid IsVisible="{Binding !IsMe}">
+                          <StackPanel Orientation="Horizontal" Spacing="10"
+                                      IsVisible="{Binding Status, Converter={x:Static ObjectConverters.IsNull}}">
+                            <Button Content="{DynamicResource Accept}"
+                                    Command="{Binding AcceptUserCommand}"
+                                    Classes="inverted_colors bigger_text"/>
+                            <Button Content="{DynamicResource Refuse}"
+                                    Command="{Binding RefuseUserCommand}"
+                                    Classes="inverted_colors bigger_text"/>
+                          </StackPanel>
+                          <TextBlock Classes="inverted_colors"
+                                     IsVisible="{Binding Status, Converter={x:Static ObjectConverters.IsNotNull}}"
+                                     VerticalAlignment="Center"
+                                     HorizontalAlignment="Right"
+                                     Margin="10 0"
+                                     Text="{Binding Status, Converter={StaticResource ApplicationStatusToStringConverter}}"/>
+                        </Grid>
                         <TextBlock Classes="inverted_colors" IsVisible="{Binding IsMe}"
                                    VerticalAlignment="Center"
                                    HorizontalAlignment="Right"

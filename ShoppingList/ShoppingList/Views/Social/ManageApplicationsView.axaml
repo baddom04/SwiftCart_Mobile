@@ -26,7 +26,7 @@
 
     <Grid IsVisible="{Binding !IsLoading}" Grid.Row="1">
 
-      <ItemsControl IsVisible="{Binding !EmptyApplications}" ItemsSource="{Binding Applications}" Margin="20 5 20 0">
+      <ItemsControl IsVisible="{Binding !EmptyApplications}" ItemsSource="{Binding Applications}">
         <ItemsControl.ItemTemplate>
           <DataTemplate>
             <controls:HouseholdListItemView HouseholdName="{Binding Name}" Identifier="{Binding Identifier}" IsLoading="{Binding IsLoading}">

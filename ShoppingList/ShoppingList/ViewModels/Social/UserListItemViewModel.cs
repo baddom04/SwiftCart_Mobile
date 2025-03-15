@@ -10,6 +10,13 @@ namespace ShoppingList.ViewModels.Social
 {
     internal class UserListItemViewModel : ViewModelBase
     {
+        private UserStatus? _status;
+        public UserStatus? Status
+        {
+            get { return _status; }
+            private set { this.RaiseAndSetIfChanged(ref _status, value); }
+        }
+
 
         private bool _isLoading;
         public bool IsLoading
@@ -24,14 +31,16 @@ namespace ShoppingList.ViewModels.Social
 
         public string Name { get; }
         public string Email { get; }
+        public bool IsOwner { get; }
         public bool IsMe => _account.User!.Email == Email;
 
         private readonly UserListItemModel _model;
         private readonly Action<NotificationType, string> _showNotification;
         private readonly int _householdId;
         private readonly UserAccountModel _account;
-        public UserListItemViewModel(UserAccountModel account, int householdId, UserListItemModel model, Action<NotificationType, string> showNotification)
+        public UserListItemViewModel(bool isOwner, UserAccountModel account, int householdId, UserListItemModel model, Action<NotificationType, string> showNotification)
         {
+            IsOwner = isOwner;
             _account = account;
             _model = model;
             _householdId = householdId;
@@ -45,32 +54,31 @@ namespace ShoppingList.ViewModels.Social
 
         private async Task RefuseUserAsync()
         {
-            await DoOperation(_model.RefuseUserAsync, "RefuseUserError");
+            await DoOperation(_model.RefuseUserAsync, "RefuseUserError", UserStatus.Refused);
         }
 
         private async Task KickUserAsync()
         {
-            await DoOperation(_model.RemoveMemberAsync, "KickUserError");
+            await DoOperation(_model.RemoveMemberAsync, "KickUserError", UserStatus.Kicked);
         }
 
         private async Task AcceptUserAsync()
         {
-            await DoOperation(_model.AcceptUserAsync, "AcceptUserError");
+            await DoOperation(_model.AcceptUserAsync, "AcceptUserError", UserStatus.Accepted);
         }
-        private async Task<bool> DoOperation(Func<int, Task> operation, string errorKey)
+        private async Task DoOperation(Func<int, Task> operation, string errorKey, UserStatus resultStatus)
         {
             IsLoading = true;
 
             try
             {
                 await operation(_householdId);
-                return true;
+                Status = resultStatus;
             }
             catch (Exception ex)
             {
                 string msg = $"{StringProvider.GetString(errorKey)}{ex.Message}";
                 _showNotification(NotificationType.Error, msg);
-                return false;
             }
             finally
             {

@@ -26,7 +26,8 @@ namespace ShoppingList.Model.Social
 
         public async Task RefuseUserAsync(int household_id)
         {
-            await _applicationService.DeleteApplicationAsync(household_id);
+            Application application = await _applicationService.GetApplicationByDataAsync(household_id, User.Id);
+            await _applicationService.DeleteApplicationAsync(application.Id);
         }
     }
 }

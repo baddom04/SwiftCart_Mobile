@@ -99,6 +99,9 @@
   <x:String x:Key="You">You</x:String>
   <x:String x:Key="Accept">Accept</x:String>
   <x:String x:Key="Refuse">Refuse</x:String>
+  <x:String x:Key="Accepted">Accepted</x:String>
+  <x:String x:Key="Refused">Refused</x:String>
+  <x:String x:Key="Kicked">Kicked</x:String>
   <!--^Errors-->
   <x:String x:Key="LoadMembersError">Load members error&#x0a;</x:String>
   <x:String x:Key="KickUserError">Kick user error&#x0a;</x:String>
