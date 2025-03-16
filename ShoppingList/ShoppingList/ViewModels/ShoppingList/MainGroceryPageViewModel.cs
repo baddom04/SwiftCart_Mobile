@@ -1,6 +1,6 @@
 ﻿using ShoppingList.ViewModels.Shared;
 
-namespace ShoppingList.ViewModels.GroceryList
+namespace ShoppingList.ViewModels.ShoppingList
 {
     internal class MainGroceryPageViewModel : MainViewModelBase<GroceryPage>
     {

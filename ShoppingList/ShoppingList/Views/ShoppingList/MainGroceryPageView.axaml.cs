@@ -1,8 +1,6 @@
-using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Markup.Xaml;
 
-namespace ShoppingList;
+namespace ShoppingList.Views.ShoppingList;
 
 public partial class MainGroceryPageView : UserControl
 {

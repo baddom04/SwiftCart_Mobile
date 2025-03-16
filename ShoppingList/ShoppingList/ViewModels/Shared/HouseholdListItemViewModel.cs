@@ -1,7 +1,7 @@
 ﻿using ReactiveUI;
 using System.Reactive;
 
-namespace ShoppingList.ViewModels.Social
+namespace ShoppingList.ViewModels.Shared
 {
     internal abstract class HouseholdListItemViewModel : ViewModelBase
     {

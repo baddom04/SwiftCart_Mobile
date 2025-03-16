@@ -3,7 +3,7 @@ using System;
 using System.Reactive;
 using ShoppingList.Model.Temp;
 
-namespace ShoppingList.ViewModels.GroceryList
+namespace ShoppingList.ViewModels.ShoppingList
 {
     internal class ShoppingItemViewModel : ReactiveObject
     {

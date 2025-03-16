@@ -307,11 +307,16 @@
 
   <Style Selector="ListBoxItem">
     <Style Selector="^:selected /template/ ContentPresenter">
-      <Setter Property="Background" Value="{StaticResource MainBtnBG}"/>
+      <Setter Property="Background">
+        <Setter.Value>
+          <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,0%">
+            <GradientStop Color="#4fc0ff" Offset="0.0"/>
+            <GradientStop Color="#42a4db" Offset="1.0"/>
+          </LinearGradientBrush>
+        </Setter.Value>
+      </Setter>
     </Style>
   </Style>
-  
-  
 
   <Style Selector="PathIcon">
     <Style Selector="^.menu_icon">

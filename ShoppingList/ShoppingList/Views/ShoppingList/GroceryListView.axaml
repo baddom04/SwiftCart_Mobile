@@ -2,10 +2,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:vm="clr-namespace:ShoppingList.ViewModels.GroceryList"
+             xmlns:vm="clr-namespace:ShoppingList.ViewModels.ShoppingList"
              xmlns:converters="clr-namespace:ShoppingList.Converters"
              mc:Ignorable="d" d:DesignWidth="405" d:DesignHeight="900"
-             x:Class="ShoppingList.Views.GroceryList.GroceryListView"
+             x:Class="ShoppingList.Views.ShoppingList.GroceryListView"
              x:DataType="vm:GroceryListViewModel"
              Background="{StaticResource MainBG}">
   <UserControl.Resources>

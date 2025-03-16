@@ -1,13 +1,12 @@
 ﻿using ReactiveUI;
 using ShoppingList.Core.Enums;
+using ShoppingList.Model;
+using ShoppingList.Model.Temp;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive;
-using ShoppingList.Model.Temp;
-using ShoppingList.Model;
-using ShoppingList.ViewModels.Shared;
 
-namespace ShoppingList.ViewModels.GroceryList
+namespace ShoppingList.ViewModels.ShoppingList
 {
     internal class GroceryListViewModel : ViewModelBase
     {

@@ -6,7 +6,7 @@
              x:Class="ShoppingList.Views.CustomControls.HouseholdListItemView"
              x:DataType="vm:HouseholdListItemViewModel"
              xmlns:progRing="clr-namespace:AvaloniaProgressRing;assembly=AvaloniaProgressRing"
-             xmlns:vm="clr-namespace:ShoppingList.ViewModels.Social"
+             xmlns:vm="clr-namespace:ShoppingList.ViewModels.Shared"
              xmlns:converters="clr-namespace:ShoppingList.Converters"
              xmlns:local="clr-namespace:ShoppingList.Views.CustomControls">
   <UserControl.Resources>

@@ -2,12 +2,12 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
-using ShoppingList.ViewModels.GroceryList;
+using ShoppingList.ViewModels.ShoppingList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ShoppingList.Views.GroceryList;
+namespace ShoppingList.Views.ShoppingList;
 
 public partial class GroceryListView : UserControl
 {

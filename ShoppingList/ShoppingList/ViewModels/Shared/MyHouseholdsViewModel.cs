@@ -2,7 +2,6 @@
 using ShoppingList.Model.Settings;
 using ShoppingList.Model.Social;
 using ShoppingList.Utils;
-using ShoppingList.ViewModels.Social;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
