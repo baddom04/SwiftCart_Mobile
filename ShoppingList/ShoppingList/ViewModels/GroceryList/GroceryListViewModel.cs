@@ -9,7 +9,7 @@ using ShoppingList.ViewModels.Shared;
 
 namespace ShoppingList.ViewModels.GroceryList
 {
-    internal class GroceryListViewModel : DefaultPageOnChangeViewModel
+    internal class GroceryListViewModel : ViewModelBase
     {
         #region Properties
         public GroceryListModel Model { get; }
@@ -96,11 +96,6 @@ namespace ShoppingList.ViewModels.GroceryList
         private void Boughtitem(ShoppingItemViewModel item)
         {
             Model.DeleteItem(item.Item);
-        }
-
-        public override void ChangeToDefaultPage()
-        {
-            // TODO: implement
         }
         #endregion
     }

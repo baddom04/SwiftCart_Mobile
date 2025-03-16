@@ -47,7 +47,7 @@ namespace ShoppingList.ViewModels
             Menus = new Dictionary<MenuIcon, DefaultPageOnChangeViewModel>
             {
                 { new MenuIcon("Map", "globe_regular"), new MapViewModel() },
-                { new MenuIcon("Shopping list", "cart_regular"), new GroceryListViewModel() },
+                { new MenuIcon("Shopping list", "cart_regular"), new MainGroceryPageViewModel() },
                 { new MenuIcon("Social", "people_regular"), new MainSocialPanelViewModel(userAccount, showNotification, showLoading) },
                 { new MenuIcon("Settings", "settings_regular"), new MainSettingsViewModel(userAccount, showLoading, showNotification, changePage) },
             };
