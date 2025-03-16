@@ -17,7 +17,6 @@ namespace ShoppingList.Persistor.ServerResponseHandling
             else if (reader.TokenType == JsonTokenType.String)
             {
                 errorContent.GeneralError = reader.GetString();
-                //reader.Read();
             }
             else
             {

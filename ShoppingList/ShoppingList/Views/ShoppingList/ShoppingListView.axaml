@@ -1,0 +1,29 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="clr-namespace:ShoppingList.ViewModels.ShoppingList"
+             x:Class="ShoppingList.Views.ShoppingList.ShoppingListView"
+             x:DataType="vm:ShoppingListViewModel">
+  <Grid RowDefinitions="Auto, *">
+
+    <Grid Grid.Row="0" Margin="20 30">
+      <Button VerticalAlignment="Center" Classes="trans_bg" HorizontalAlignment="Left"
+              Command="{Binding GoBackCommand}">
+        <PathIcon Data="{StaticResource arrow_left_regular}" Classes="maxi"/>
+      </Button>
+      <TextBlock Classes="h1" Text="{DynamicResource ShoppingList}" HorizontalAlignment="Center"
+                 VerticalAlignment="Center"/>
+      <Button VerticalAlignment="Center" HorizontalAlignment="Right"
+              Command="{Binding CreateGroceryPageCommand}">
+        <PathIcon Data="{StaticResource channel_add_regular}" Classes="maxi white_foreground"/>
+      </Button>
+    </Grid>
+
+    <Grid>
+      
+    </Grid>
+    
+  </Grid>
+</UserControl>

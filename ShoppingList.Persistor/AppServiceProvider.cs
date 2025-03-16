@@ -27,6 +27,8 @@ namespace ShoppingList.Persistor
             services.AddHttpClient<IUserService, UserService>(configureClient).AddHttpMessageHandler<AuthDelegatingHandler>();
             services.AddHttpClient<IHouseholdService, HouseholdService>(configureClient).AddHttpMessageHandler<AuthDelegatingHandler>();
             services.AddHttpClient<IApplicationService, ApplicationService>(configureClient).AddHttpMessageHandler<AuthDelegatingHandler>();
+            services.AddHttpClient<IGroceryService, GroceryService>(configureClient).AddHttpMessageHandler<AuthDelegatingHandler>();
+            services.AddHttpClient<ICommentService, CommentService>(configureClient).AddHttpMessageHandler<AuthDelegatingHandler>();
 
             Services = services.BuildServiceProvider();
         }

@@ -12,7 +12,7 @@ namespace ShoppingList.ViewModels.ShoppingList
         {
             _pages = new()
             {
-                { GroceryPage.Main, new HouseholdsGroceriesViewModel(account, myHouseholds, ChangeToPage, showNotification) }
+                { GroceryPage.Main, new HouseholdsGroceriesViewModel(account, myHouseholds, ChangeToPage, showNotification, ChangePage) }
             };
             _currentPage = _pages[GroceryPage.Main];
         }
