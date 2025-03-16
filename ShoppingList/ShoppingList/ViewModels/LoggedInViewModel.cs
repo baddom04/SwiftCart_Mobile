@@ -4,6 +4,7 @@ using ShoppingList.Utils;
 using ShoppingList.ViewModels.GroceryList;
 using ShoppingList.ViewModels.Map;
 using ShoppingList.ViewModels.Settings;
+using ShoppingList.ViewModels.Shared;
 using ShoppingList.ViewModels.Social;
 using System;
 using System.Collections.Generic;

@@ -1,4 +1,4 @@
-﻿namespace ShoppingList.ViewModels
+﻿namespace ShoppingList.ViewModels.Shared
 {
     internal abstract class DefaultPageOnChangeViewModel : ViewModelBase
     {

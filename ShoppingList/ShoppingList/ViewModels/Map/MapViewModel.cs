@@ -1,4 +1,6 @@
-﻿namespace ShoppingList.ViewModels.Map
+﻿using ShoppingList.ViewModels.Shared;
+
+namespace ShoppingList.ViewModels.Map
 {
     internal class MapViewModel : DefaultPageOnChangeViewModel
     {

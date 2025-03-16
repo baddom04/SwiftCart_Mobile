@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reactive;
 using ShoppingList.Model.Temp;
 using ShoppingList.Model;
+using ShoppingList.ViewModels.Shared;
 
 namespace ShoppingList.ViewModels.GroceryList
 {

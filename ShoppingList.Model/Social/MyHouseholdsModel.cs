@@ -5,11 +5,11 @@ using ShoppingList.Persistor.Services.Interfaces;
 
 namespace ShoppingList.Model.Social
 {
-    public class ManageHouseholdsModel
+    public class MyHouseholdsModel
     {
         private readonly IHouseholdService _householdService;
-        private IEnumerable<Household> _myHouseholds;
-        public ManageHouseholdsModel()
+        private IEnumerable<Household>? _myHouseholds;
+        public MyHouseholdsModel()
         {
             _householdService = AppServiceProvider.Services.GetRequiredService<IHouseholdService>();
         }

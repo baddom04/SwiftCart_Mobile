@@ -3,6 +3,7 @@ using ShoppingList.Core;
 using ShoppingList.Model.Settings;
 using ShoppingList.Model.Social;
 using ShoppingList.Utils;
+using ShoppingList.ViewModels.Shared;
 using System;
 using System.Collections.Generic;
 
@@ -28,7 +29,7 @@ namespace ShoppingList.ViewModels.Social
             {
                 { SocialPage.Main, new SocialPanelViewModel(new SocialPanelModel(), showNotification, ChangePage) },
                 { SocialPage.ManageApplications, new ManageApplicationsViewModel(account, new ManageApplicationsModel(), showNotification, ChangePage) },
-                { SocialPage.ManageHouseholds, new ManageHouseholdsViewModel(account, new ManageHouseholdsModel(), ChangePage, showNotification, ChangeToHouseholdPage, HouseholdEditingPage, showLoading) },
+                { SocialPage.ManageHouseholds, new ManageHouseholdsViewModel(account, new MyHouseholdsModel(), ChangePage, showNotification, ChangeToHouseholdPage, HouseholdEditingPage, showLoading) },
                 { SocialPage.CreateHouseholdPage, _householdEditingPage },
             };
 
@@ -39,7 +40,7 @@ namespace ShoppingList.ViewModels.Social
         {
             CurrentPage = _pages[page];
         }
-        private void ChangeToHouseholdPage(HouseholdViewModel householdViewModel)
+        private void ChangeToHouseholdPage(ViewModelBase householdViewModel)
         {
             CurrentPage = householdViewModel;
         }
