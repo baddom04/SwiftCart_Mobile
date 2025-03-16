@@ -1,8 +1,9 @@
 ﻿using ReactiveUI;
+using System.Reactive;
 
 namespace ShoppingList.ViewModels.Social
 {
-    internal class HouseholdListItemViewModel : ViewModelBase
+    internal abstract class HouseholdListItemViewModel : ViewModelBase
     {
         protected string _name = string.Empty;
         public string Name
@@ -24,5 +25,7 @@ namespace ShoppingList.ViewModels.Social
             get { return _isLoading; }
             protected set { this.RaiseAndSetIfChanged(ref _isLoading, value); }
         }
+
+        public abstract ReactiveCommand<Unit, Unit> HouseholdOperationCommand { get; }
     }
 }

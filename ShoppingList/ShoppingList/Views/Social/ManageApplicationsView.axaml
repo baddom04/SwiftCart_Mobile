@@ -33,7 +33,7 @@
               <controls:HouseholdListItemView.RightContent>
                 <Grid>
                   <Button IsVisible="{Binding !Deleted}"
-                            Content="{DynamicResource Delete}" Command="{Binding DeleteCommand}"
+                            Content="{DynamicResource Delete}" Command="{Binding HouseholdOperationCommand}"
                             VerticalAlignment="Center" Classes="inverted_colors bigger_text"/>
                   <TextBlock IsVisible="{Binding Deleted}"
                              Text="{DynamicResource Deleted}"

@@ -11,7 +11,7 @@ namespace ShoppingList.ViewModels.Shared
 {
     internal abstract class MyHouseholdsViewModel : ViewModelBase
     {
-        public ObservableCollection<HouseholdListItemViewModel> MyHouseholds { get; }
+        public virtual ObservableCollection<HouseholdListItemViewModel> MyHouseholds { get; }
 
         private bool _isLoading;
         public bool IsLoading

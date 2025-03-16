@@ -15,7 +15,7 @@ namespace ShoppingList.ViewModels.Social
 {
     internal class HouseholdViewModel : HouseholdListItemViewModel
     {
-        public ReactiveCommand<Unit, Unit> GoToHouseholdPageCommand { get; }
+        public override ReactiveCommand<Unit, Unit> HouseholdOperationCommand { get; }
         public ReactiveCommand<Unit, Unit> GoBackCommand { get; }
         public ReactiveCommand<Unit, Unit> EditHouseholdCommand { get; }
         public ReactiveCommand<Unit, Unit> DeleteHouseholdCommand { get; }
@@ -76,7 +76,7 @@ namespace ShoppingList.ViewModels.Social
 
             DeleteHouseholdCommand = ReactiveCommand.CreateFromTask(DeleteHouseholdAsync);
             LeaveHouseholdCommand = ReactiveCommand.CreateFromTask(LeaveHouseholdAsync);
-            GoToHouseholdPageCommand = ReactiveCommand.Create(() => _changeToHouseholdPage(this));
+            HouseholdOperationCommand = ReactiveCommand.Create(() => _changeToHouseholdPage(this));
             GoBackCommand = ReactiveCommand.Create(() => _changePage(SocialPage.ManageHouseholds));
             EditHouseholdCommand = ReactiveCommand.Create(() => householdEditingPage(_model.Household));
             MembersDropDownCommand = ReactiveCommand.Create(() => IsMembersOpen = !IsMembersOpen);

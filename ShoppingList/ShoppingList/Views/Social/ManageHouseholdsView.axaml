@@ -39,7 +39,7 @@
             <DataTemplate>
               <controls:HouseholdListItemView HouseholdName="{Binding Name}" Identifier="{Binding Identifier}" IsLoading="{Binding IsLoading}">
                 <controls:HouseholdListItemView.RightContent>
-                  <Button Command="{Binding GoToHouseholdPageCommand}" VerticalAlignment="Center"
+                  <Button Command="{Binding HouseholdOperationCommand}" VerticalAlignment="Center"
                           Classes="trans_bg">
                     <PathIcon Data="{StaticResource chevron_right_regular}" Classes="maxi white_foreground"/>
                   </Button>

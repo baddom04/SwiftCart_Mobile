@@ -18,13 +18,13 @@ namespace ShoppingList.ViewModels.Social
             private set { this.RaiseAndSetIfChanged(ref _relationship, value); }
         }
 
-        public ReactiveCommand<Unit, Unit> ApplyCommand { get; }
+        public override ReactiveCommand<Unit, Unit> HouseholdOperationCommand { get; }
 
         private readonly HouseholdListItemModel _model;
         private readonly Action<NotificationType, string> _showNotification;
         public HouseholdSearchResultViewModel(HouseholdListItemModel model, Action<NotificationType, string> showNotification) : base()
         {
-            ApplyCommand = ReactiveCommand.CreateFromTask(Apply);
+            HouseholdOperationCommand = ReactiveCommand.CreateFromTask(Apply);
             _model = model;
             _showNotification = showNotification;
 

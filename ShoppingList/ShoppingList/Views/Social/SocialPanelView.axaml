@@ -36,7 +36,7 @@
                   <controls:HouseholdListItemView.RightContent>
                     <Grid>
                       <Button IsVisible="{Binding Relationship, Converter={StaticResource IsNonMemberConverter}}"
-                                  Content="{DynamicResource Apply}" Command="{Binding ApplyCommand}"
+                                  Content="{DynamicResource Apply}" Command="{Binding HouseholdOperationCommand}"
                                   VerticalAlignment="Center" Classes="inverted_colors bigger_text"/>
                       <TextBlock IsVisible="{Binding !Relationship, Converter={StaticResource IsNonMemberConverter}}"
                                  Text="{Binding Relationship, Converter={StaticResource HouseholdRelationshipToStringConverter}}"

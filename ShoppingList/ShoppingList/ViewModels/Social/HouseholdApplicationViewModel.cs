@@ -19,7 +19,7 @@ namespace ShoppingList.ViewModels.Social
             set { this.RaiseAndSetIfChanged(ref _deleted, value); }
         }
 
-        public ReactiveCommand<Unit, Unit> DeleteCommand { get; }
+        public override ReactiveCommand<Unit, Unit> HouseholdOperationCommand { get; }
 
         private readonly Action<NotificationType, string> _showNotification;
         private readonly HouseholdApplicationModel _model;
@@ -35,7 +35,7 @@ namespace ShoppingList.ViewModels.Social
             _identifier = _model.Household.Identifier;
             _householdId = _model.Household.Id;
 
-            DeleteCommand = ReactiveCommand.CreateFromTask(DeleteApplicationAsync);
+            HouseholdOperationCommand = ReactiveCommand.CreateFromTask(DeleteApplicationAsync);
         }
 
         private async Task DeleteApplicationAsync()
