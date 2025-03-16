@@ -109,7 +109,8 @@
   <x:String x:Key="DeleteHouseholdError">Delete household error&#x0a;</x:String>
   <x:String x:Key="RefuseUserError">Refuse user error&#x0a;</x:String>
   
-  
+  <!--ShoppingLists-->
+  <x:String x:Key="ShoppingLists">Shopping lists</x:String>
   
   <!--Error Messages-->
   <x:String x:Key="EmailFormatError">The given email address is not valid.</x:String>

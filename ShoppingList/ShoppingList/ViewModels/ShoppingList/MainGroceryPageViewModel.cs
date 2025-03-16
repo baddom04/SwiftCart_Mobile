@@ -1,17 +1,30 @@
-﻿using ShoppingList.ViewModels.Shared;
+﻿using ShoppingList.Model.Settings;
+using ShoppingList.Model.Social;
+using ShoppingList.Utils;
+using ShoppingList.ViewModels.Shared;
+using System;
 
 namespace ShoppingList.ViewModels.ShoppingList
 {
     internal class MainGroceryPageViewModel : MainViewModelBase<GroceryPage>
     {
-        public MainGroceryPageViewModel()
+        public MainGroceryPageViewModel(UserAccountModel account, MyHouseholdsModel myHouseholds, Action<NotificationType, string> showNotification)
         {
-            _currentPage = new GroceryListViewModel();
+            _pages = new()
+            {
+                { GroceryPage.Main, new HouseholdsGroceriesViewModel(account, myHouseholds, ChangeToPage, showNotification) }
+            };
+            _currentPage = _pages[GroceryPage.Main];
         }
 
         public override void ChangeToDefaultPage()
         {
-            // TODO: implement
+            CurrentPage = _pages[GroceryPage.Main];
+        }
+
+        public void ChangeToPage(ViewModelBase page)
+        {
+            CurrentPage = page;
         }
     }
     internal enum GroceryPage

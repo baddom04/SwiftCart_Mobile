@@ -32,7 +32,6 @@ namespace ShoppingList.ViewModels.ShoppingList
             ToggleExpandedCommand = ReactiveCommand.Create(() => IsExpanded = !IsExpanded);
             Editing = editing;
             EditCommand = ReactiveCommand.Create(() => editing());
-
         }
     }
 }

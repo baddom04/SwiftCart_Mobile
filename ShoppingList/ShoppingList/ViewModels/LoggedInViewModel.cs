@@ -1,5 +1,6 @@
 ﻿using ReactiveUI;
 using ShoppingList.Model.Settings;
+using ShoppingList.Model.Social;
 using ShoppingList.Utils;
 using ShoppingList.ViewModels.Map;
 using ShoppingList.ViewModels.Settings;
@@ -44,11 +45,12 @@ namespace ShoppingList.ViewModels
         public LoggedInViewModel(UserAccountModel userAccount, Action<MainPage> changePage, Action<bool> showLoading, Action<NotificationType, string> showNotification)
         {
 
+            MyHouseholdsModel myHouseholds = new();
             Menus = new Dictionary<MenuIcon, MainViewModelBase>
             {
                 { new MenuIcon("Map", "globe_regular"), new MapViewModel() },
-                { new MenuIcon("Shopping list", "cart_regular"), new MainGroceryPageViewModel() },
-                { new MenuIcon("Social", "people_regular"), new MainSocialPanelViewModel(userAccount, showNotification, showLoading) },
+                { new MenuIcon("Shopping list", "cart_regular"), new MainGroceryPageViewModel(userAccount, myHouseholds, showNotification) },
+                { new MenuIcon("Social", "people_regular"), new MainSocialPanelViewModel(myHouseholds, userAccount, showNotification, showLoading) },
                 { new MenuIcon("Settings", "settings_regular"), new MainSettingsViewModel(userAccount, showLoading, showNotification, changePage) },
             };
 

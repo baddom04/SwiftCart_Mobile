@@ -3,6 +3,49 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="ShoppingList.Views.ShoppingList.HouseholdsGroceriesView">
-  Welcome to Avalonia!
+             xmlns:vm="clr-namespace:ShoppingList.ViewModels.ShoppingList"
+             xmlns:controls="clr-namespace:ShoppingList.Views.CustomControls"
+             x:Class="ShoppingList.Views.ShoppingList.HouseholdsGroceriesView"
+             x:DataType="vm:HouseholdsGroceriesViewModel"
+             xmlns:progRing="clr-namespace:AvaloniaProgressRing;assembly=AvaloniaProgressRing">
+  <Grid RowDefinitions="Auto, *">
+
+    <Grid Grid.Row="0" Margin="20 30">
+      <TextBlock Classes="h1" Text="{DynamicResource ShoppingLists}" HorizontalAlignment="Center"
+                 VerticalAlignment="Center"/>
+    </Grid>
+
+    <Grid Grid.Row="1" VerticalAlignment="Stretch">
+      <progRing:ProgressRing
+                          Width="80"
+                          Height="80"
+                          IsVisible="{Binding IsLoading}"
+                          IsActive="{Binding IsLoading}"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"
+                          Foreground="{StaticResource MainBtnBG}"/>
+
+      <Grid IsVisible="{Binding !IsLoading}">
+        <ItemsControl IsVisible="{Binding !EmptyMyHouseholds}" ItemsSource="{Binding MyHouseholds}">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <controls:HouseholdListItemView HouseholdName="{Binding Name}" Identifier="{Binding Identifier}" IsLoading="{Binding IsLoading}">
+                <controls:HouseholdListItemView.RightContent>
+                  <Button Command="{Binding HouseholdOperationCommand}" VerticalAlignment="Center"
+                          Classes="trans_bg">
+                    <PathIcon Data="{StaticResource chevron_right_regular}" Classes="maxi white_foreground"/>
+                  </Button>
+                </controls:HouseholdListItemView.RightContent>
+              </controls:HouseholdListItemView>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        <TextBlock Grid.Row="1" IsVisible="{Binding EmptyMyHouseholds}"
+                 Text="{DynamicResource NoHouseholdsFound}" Classes="h2"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+      </Grid>
+    </Grid>
+
+  </Grid>
 </UserControl>

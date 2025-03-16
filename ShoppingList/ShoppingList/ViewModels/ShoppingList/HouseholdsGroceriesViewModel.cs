@@ -23,7 +23,7 @@ namespace ShoppingList.ViewModels.ShoppingList
             try
             {
                 MyHouseholds.Clear();
-                //MyHouseholds.AddRange((await _model.GetMyHouseholds(_account.User!.Id)).Select(hh => new HouseholdViewModel(_account, new HouseholdModel(hh), _changePage, _changeToPage, _householdEditingPage, _showNotification, _showLoading)));
+                MyHouseholds.AddRange((await _model.GetMyHouseholds(_account.User!.Id)).Select(hh => new ShoppingListViewModel(hh, _changeToPage)));
             }
             catch (Exception ex)
             {

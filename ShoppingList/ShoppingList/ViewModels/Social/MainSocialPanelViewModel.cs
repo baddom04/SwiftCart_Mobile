@@ -12,14 +12,14 @@ namespace ShoppingList.ViewModels.Social
     {
         private readonly CreateHouseholdViewModel _householdEditingPage;
 
-        public MainSocialPanelViewModel(UserAccountModel account, Action<NotificationType, string> showNotification, Action<bool> showLoading)
+        public MainSocialPanelViewModel(MyHouseholdsModel householdsModel, UserAccountModel account, Action<NotificationType, string> showNotification, Action<bool> showLoading)
         {
             _householdEditingPage = new CreateHouseholdViewModel(new CreateHouseholdModel(), ChangePage, showLoading);
             _pages = new Dictionary<SocialPage, ViewModelBase>()
             {
                 { SocialPage.Main, new SocialPanelViewModel(new SocialPanelModel(), showNotification, ChangePage) },
                 { SocialPage.ManageApplications, new ManageApplicationsViewModel(account, new ManageApplicationsModel(), showNotification, ChangePage) },
-                { SocialPage.ManageHouseholds, new ManageHouseholdsViewModel(account, new MyHouseholdsModel(), ChangePage, showNotification, ChangeToHouseholdPage, HouseholdEditingPage, showLoading) },
+                { SocialPage.ManageHouseholds, new ManageHouseholdsViewModel(account, householdsModel, ChangePage, showNotification, ChangeToHouseholdPage, HouseholdEditingPage, showLoading) },
                 { SocialPage.CreateHouseholdPage, _householdEditingPage },
             };
             _currentPage = _pages[SocialPage.Main];
