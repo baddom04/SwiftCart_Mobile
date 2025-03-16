@@ -4,21 +4,25 @@ using System;
 
 namespace ShoppingList.ViewModels.Shared
 {
-    internal abstract class MainViewModelBase<T> : ViewModelBase where T : Enum
+    internal abstract class MainViewModelBase : ViewModelBase
     {
-        private ViewModelBase _currentPage;
+        protected ViewModelBase _currentPage = null!;
         public ViewModelBase CurrentPage
         {
             get { return _currentPage; }
-            private set { this.RaiseAndSetIfChanged(ref _currentPage, value); }
+            protected set { this.RaiseAndSetIfChanged(ref _currentPage, value); }
         }
 
-        protected readonly Dictionary<T, ViewModelBase> _pages;
+        public abstract void ChangeToDefaultPage();
+    }
+
+    internal abstract class MainViewModelBase<T> : MainViewModelBase where T : Enum
+    {
+        protected Dictionary<T, ViewModelBase> _pages = [];
 
         protected void ChangePage(T changeSettingsPage)
         {
             CurrentPage = _pages[changeSettingsPage];
         }
-        public abstract void ChangeToDefaultPage();
     }
 }

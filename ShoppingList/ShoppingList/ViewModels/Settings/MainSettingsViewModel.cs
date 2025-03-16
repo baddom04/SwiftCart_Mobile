@@ -1,5 +1,4 @@
-﻿using ReactiveUI;
-using ShoppingList.Model.Settings;
+﻿using ShoppingList.Model.Settings;
 using ShoppingList.Utils;
 using ShoppingList.ViewModels.Shared;
 using System;
@@ -7,30 +6,17 @@ using System.Collections.Generic;
 
 namespace ShoppingList.ViewModels.Settings
 {
-    internal class MainSettingsViewModel : DefaultPageOnChangeViewModel
+    internal class MainSettingsViewModel : MainViewModelBase<SettingsPage>
     {
-		private ViewModelBase _currentPage;
-		public ViewModelBase CurrentPage
-		{
-			get { return _currentPage; }
-			private set { this.RaiseAndSetIfChanged(ref _currentPage, value); }
-		}
-
-        private readonly Dictionary<SettingsPage, ViewModelBase> _pages;
         public MainSettingsViewModel(UserAccountModel userAccount, Action<bool> showLoading, Action<NotificationType, string> showNotification, Action<MainPage> changePage)
         {
             _pages = new Dictionary<SettingsPage, ViewModelBase>()
             {
-                { SettingsPage.Main, new SettingsViewModel(userAccount, changePage, showLoading, showNotification, ChangeSettingsPage) },
-                { SettingsPage.UpdatePassword, new UpdatePasswordViewModel(userAccount, showLoading, ChangeSettingsPage) }
+                { SettingsPage.Main, new SettingsViewModel(userAccount, changePage, showLoading, showNotification, ChangePage) },
+                { SettingsPage.UpdatePassword, new UpdatePasswordViewModel(userAccount, showLoading, ChangePage) }
             };
 
             _currentPage = _pages[SettingsPage.Main];
-        }
-
-        private void ChangeSettingsPage(SettingsPage changeSettingsPage)
-        {
-            CurrentPage = _pages[changeSettingsPage];
         }
 
         public override void ChangeToDefaultPage()

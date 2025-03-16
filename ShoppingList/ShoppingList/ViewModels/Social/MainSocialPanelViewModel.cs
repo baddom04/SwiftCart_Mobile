@@ -1,5 +1,4 @@
-﻿using ReactiveUI;
-using ShoppingList.Core;
+﻿using ShoppingList.Core;
 using ShoppingList.Model.Settings;
 using ShoppingList.Model.Social;
 using ShoppingList.Utils;
@@ -9,17 +8,8 @@ using System.Collections.Generic;
 
 namespace ShoppingList.ViewModels.Social
 {
-    internal class MainSocialPanelViewModel : DefaultPageOnChangeViewModel
+    internal class MainSocialPanelViewModel : MainViewModelBase<SocialPage>
     {
-        private readonly Dictionary<SocialPage, ViewModelBase> _pages;
-
-        private ViewModelBase _currentPage;
-        public ViewModelBase CurrentPage
-        {
-            get { return _currentPage; }
-            private set { this.RaiseAndSetIfChanged(ref _currentPage, value); }
-        }
-
         private readonly CreateHouseholdViewModel _householdEditingPage;
 
         public MainSocialPanelViewModel(UserAccountModel account, Action<NotificationType, string> showNotification, Action<bool> showLoading)
@@ -32,13 +22,7 @@ namespace ShoppingList.ViewModels.Social
                 { SocialPage.ManageHouseholds, new ManageHouseholdsViewModel(account, new MyHouseholdsModel(), ChangePage, showNotification, ChangeToHouseholdPage, HouseholdEditingPage, showLoading) },
                 { SocialPage.CreateHouseholdPage, _householdEditingPage },
             };
-
             _currentPage = _pages[SocialPage.Main];
-        }
-
-        private void ChangePage(SocialPage page)
-        {
-            CurrentPage = _pages[page];
         }
         private void ChangeToHouseholdPage(ViewModelBase householdViewModel)
         {

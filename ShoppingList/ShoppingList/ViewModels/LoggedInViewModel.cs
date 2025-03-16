@@ -16,8 +16,8 @@ namespace ShoppingList.ViewModels
 {
     internal class LoggedInViewModel : ViewModelBase
     {
-        private DefaultPageOnChangeViewModel _currentPage;
-        public DefaultPageOnChangeViewModel CurrentPage
+        private MainViewModelBase _currentPage;
+        public MainViewModelBase CurrentPage
         {
             get { return _currentPage; }
             set { this.RaiseAndSetIfChanged(ref _currentPage, value); }
@@ -36,7 +36,7 @@ namespace ShoppingList.ViewModels
         }
         public ObservableCollection<MenuIcon> MenuItems { get; }
 
-        public Dictionary<MenuIcon, DefaultPageOnChangeViewModel> Menus { get; }
+        public Dictionary<MenuIcon, MainViewModelBase> Menus { get; }
 
         private readonly UserAccountModel _userAccount;
         private readonly Action<NotificationType, string> _showNotification;
@@ -44,7 +44,7 @@ namespace ShoppingList.ViewModels
         public LoggedInViewModel(UserAccountModel userAccount, Action<MainPage> changePage, Action<bool> showLoading, Action<NotificationType, string> showNotification)
         {
 
-            Menus = new Dictionary<MenuIcon, DefaultPageOnChangeViewModel>
+            Menus = new Dictionary<MenuIcon, MainViewModelBase>
             {
                 { new MenuIcon("Map", "globe_regular"), new MapViewModel() },
                 { new MenuIcon("Shopping list", "cart_regular"), new MainGroceryPageViewModel() },

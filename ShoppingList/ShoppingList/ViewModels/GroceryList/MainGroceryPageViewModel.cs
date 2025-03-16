@@ -1,17 +1,9 @@
-﻿using ReactiveUI;
-using ShoppingList.ViewModels.Shared;
+﻿using ShoppingList.ViewModels.Shared;
 
 namespace ShoppingList.ViewModels.GroceryList
 {
-    internal class MainGroceryPageViewModel : DefaultPageOnChangeViewModel
+    internal class MainGroceryPageViewModel : MainViewModelBase<GroceryPage>
     {
-        private ViewModelBase _currentPage;
-        public ViewModelBase CurrentPage
-        {
-            get { return _currentPage; }
-            private set { this.RaiseAndSetIfChanged(ref _currentPage, value); }
-        }
-
         public MainGroceryPageViewModel()
         {
             _currentPage = new GroceryListViewModel();
@@ -21,5 +13,9 @@ namespace ShoppingList.ViewModels.GroceryList
         {
             // TODO: implement
         }
+    }
+    internal enum GroceryPage
+    {
+        Main
     }
 }
