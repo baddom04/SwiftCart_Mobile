@@ -11,5 +11,7 @@ namespace ShoppingList.Core
         public string? Description { get; init; }
         public int HouseholdId { get; init; }
         public int UserId { get; init; }
+
+        public required User User { get; init; }
     }
 }

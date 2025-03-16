@@ -1,5 +1,7 @@
 ﻿using DynamicData;
+using ShoppingList.Core;
 using ShoppingList.Model.Settings;
+using ShoppingList.Model.ShoppingList;
 using ShoppingList.Model.Social;
 using ShoppingList.Utils;
 using ShoppingList.ViewModels.Shared;
@@ -9,15 +11,12 @@ using System.Threading.Tasks;
 
 namespace ShoppingList.ViewModels.ShoppingList
 {
-    internal class HouseholdsGroceriesViewModel : MyHouseholdsViewModel
+    internal class HouseholdsGroceriesViewModel(UserAccountModel account, MyHouseholdsModel householdsModel, Action<ViewModelBase> changeToPage, Action<NotificationType, string> showNotification, Action<GroceryPage> changePage, Action<int, Grocery?, Action> changeToEditingPage) 
+        : MyHouseholdsViewModel(account, householdsModel, changeToPage, showNotification)
     {
-        private readonly MyHouseholdsModel _householdsModel;
-        private readonly Action<GroceryPage> _changePage;
-        public HouseholdsGroceriesViewModel(UserAccountModel account, MyHouseholdsModel householdsModel, Action<ViewModelBase> changeToPage, Action<NotificationType, string> showNotification, Action<GroceryPage> changePage) : base(account, householdsModel, changeToPage, showNotification)
-        {
-            _householdsModel = householdsModel;
-            _changePage = changePage;
-        }
+        private readonly Action<GroceryPage> _changePage = changePage;
+        private readonly Action<int, Grocery?, Action> _changeToEditingPage = changeToEditingPage;
+
         public override async Task LoadMyHouseholds()
         {
             IsLoading = true;
@@ -25,7 +24,7 @@ namespace ShoppingList.ViewModels.ShoppingList
             try
             {
                 MyHouseholds.Clear();
-                MyHouseholds.AddRange((await _model.GetMyHouseholds(_account.User!.Id)).Select(hh => new ShoppingListViewModel(hh, _changeToPage, _changePage)));
+                MyHouseholds.AddRange((await _model.GetMyHouseholds(_account.User!.Id)).Select(hh => new ShoppingListViewModel(new ShoppingListModel(hh.Id), hh, _changeToPage, _changePage, _showNotification, _changeToEditingPage)));
             }
             catch (Exception ex)
             {

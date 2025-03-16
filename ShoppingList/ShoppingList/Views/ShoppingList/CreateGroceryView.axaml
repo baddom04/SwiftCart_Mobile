@@ -1,0 +1,49 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="clr-namespace:ShoppingList.ViewModels.ShoppingList"
+             xmlns:converters="clr-namespace:ShoppingList.Converters"
+             xmlns:controls="clr-namespace:ShoppingList.Views.CustomControls"
+             x:Class="ShoppingList.Views.ShoppingList.CreateGroceryView"
+             x:DataType="vm:CreateGroceryViewModel">
+  <UserControl.Resources>
+    <converters:FunctionTextConverter x:Key="FunctionTextConverter"/>
+  </UserControl.Resources>
+  <Grid RowDefinitions="Auto, Auto, 5*, *"  HorizontalAlignment="Stretch"
+        VerticalAlignment="Top">
+
+    <Grid Grid.Row="0" Margin="15 30">
+      <Button VerticalAlignment="Top" Classes="trans_bg" HorizontalAlignment="Left"
+              Command="{Binding GoBackCommand}">
+        <PathIcon Data="{StaticResource arrow_left_regular}" Classes="maxi"/>
+      </Button>
+      <TextBlock Text="{Binding Updating, Converter={StaticResource FunctionTextConverter}}"
+                 Classes="h1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    </Grid>
+
+    <controls:ErrorDisplay Grid.Row="1" ErrorMessage="{Binding ErrorMessage}"/>
+
+    <StackPanel Grid.Row="2" Margin="30 10" Spacing="10">
+      <TextBlock Text="{DynamicResource Name}" />
+      <TextBox Text="{Binding NameInput}" Watermark="{DynamicResource GroceryNameWatermark}"
+               MaxLength="20"/>
+      <TextBlock Text="{DynamicResource Quantity}" Margin="0 10 0 0"/>
+      
+      <Grid ColumnDefinitions="*, Auto">
+        <TextBox Grid.Column="0" Text="{Binding QuantityInput}" Watermark="{DynamicResource QuantityWatermark}"
+                 TextChanged="OnQuantityTextChanged" MaxLength="3" Margin="0 0 10 0"/>
+        <ComboBox Grid.Column="1" ItemsSource="{Binding UnitTypes}" SelectedItem="{Binding UnitInput}"
+                  VerticalAlignment="Center"/>
+      </Grid>
+
+      <TextBlock Text="{DynamicResource Description}"/>
+      <TextBox Text="{Binding DescriptionInput}" Watermark="{DynamicResource DescriptionWatermark}"
+               MaxLength="255" AcceptsReturn="True" TextWrapping="Wrap"/>
+    </StackPanel>
+    <Button Grid.Row="3" Margin="15" Classes="big"
+            Content="{Binding Updating, Converter={StaticResource FunctionTextConverter}, ConverterParameter=Btn}"
+            HorizontalAlignment="Center" Command="{Binding CreateGroceryCommand}"/>
+  </Grid>
+</UserControl>

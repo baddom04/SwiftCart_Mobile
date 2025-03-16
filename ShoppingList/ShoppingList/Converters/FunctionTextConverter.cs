@@ -9,9 +9,14 @@ namespace ShoppingList.Converters
     {
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            if(value is not int householdId) throw new ArgumentException(null, nameof(value));
+            (bool condition, string appendage) = value switch
+            {
+                bool isUpdating => (isUpdating, "Item"),
+                int householdId => (householdId != 0, "Household"),
+                _ => throw new ArgumentException(null, nameof(value))
+            };
 
-            string res = StringProvider.GetString(householdId != 0 ? "UpdateHousehold" : "NewHousehold");
+            string res = StringProvider.GetString(condition ? $"Update{appendage}" : $"Create{appendage}");
 
             return parameter is string param && param == "Btn" ? res.Split(' ')[0] : res;
         }

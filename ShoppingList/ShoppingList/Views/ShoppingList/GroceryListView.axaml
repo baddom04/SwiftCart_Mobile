@@ -6,15 +6,15 @@
              xmlns:converters="clr-namespace:ShoppingList.Converters"
              mc:Ignorable="d" d:DesignWidth="405" d:DesignHeight="900"
              x:Class="ShoppingList.Views.ShoppingList.GroceryListView"
-             x:DataType="vm:GroceryListViewModel"
              Background="{StaticResource MainBG}">
-  <UserControl.Resources>
+             <!--x:DataType="vm:GroceryListViewModel"-->
+  <!--<UserControl.Resources>
     <converters:CommentConverter x:Key="CommentConverter"/>
   </UserControl.Resources>
 
   <Grid RowDefinitions="Auto, *">
 
-    <!--Form popup-->
+    --><!--Form popup--><!--
     <Border ZIndex="1"
             Background="#80000000"
             IsVisible="{Binding InputMode}"
@@ -34,19 +34,19 @@
             <TextBox Grid.Row="1" Grid.ColumnSpan="3" Margin="2" x:Name="ItemDescription" Text="{Binding CurrentlyEditedItem.Description}" Watermark="ItemDescriptionWatermark" TextWrapping="Wrap"/>
           </Grid>
 
-          <!--ErrorMessage-->
+          --><!--ErrorMessage--><!--
           <TextBlock Classes="error" x:Name="ErrorMessage" Text="{Binding ErrorMessage, Mode=TwoWay}"/>
 
-          <!--Button panel-->
+          --><!--Button panel--><!--
           <StackPanel Orientation="Horizontal" Spacing="15" HorizontalAlignment="Center">
 
-            <!--Confirm button-->
+            --><!--Confirm button--><!--
             <Button Classes="shopping_list_button" Command="{Binding SaveCommand}">
               <PathIcon Data="{StaticResource checkmark_regular}"
                         Classes="white_foreground mini"/>
             </Button>
 
-            <!--Dismiss button-->
+            --><!--Dismiss button--><!--
             <Button Classes="shopping_list_button" Command="{Binding InputModeOffCommand}">
               <PathIcon Data="{StaticResource dismiss_regular}"
                         Classes="white_foreground mini"/>
@@ -58,29 +58,29 @@
       </Border>
     </Border>
 
-    <!--Title-->
+    --><!--Title--><!--
     <TextBlock Grid.Row="0" Text="{DynamicResource ShoppingList}" HorizontalAlignment="Center" Margin="20" Classes="h1"/>
 
     <ScrollViewer Grid.Row="1">
       <Grid RowDefinitions="Auto, Auto, Auto">
-        <!--List-->
+        --><!--List--><!--
         <ItemsControl Grid.Row="0" 
                       ItemsSource="{Binding ShoppingList}" Margin="20">
           <ItemsControl.ItemTemplate>
             <DataTemplate>
-              <!--ItemDisplay-->
+              --><!--ItemDisplay--><!--
               <Border Classes="shopping_list_item" PointerPressed="Display_Click">
                 <Grid Margin="10" ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto">
 
-                  <!--Name-->
+                  --><!--Name--><!--
                   <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Item.Name}"
                              VerticalAlignment="Center" TextWrapping="Wrap" MaxWidth="150"/>
 
                   <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
 
-                    <!--Quantity display-->
+                    --><!--Quantity display--><!--
                     <TextBlock Text="{Binding QuantityDisplay}" VerticalAlignment="Center" Margin="10 0" TextWrapping="Wrap"/>
-                    <!--Dropdown button-->
+                    --><!--Dropdown button--><!--
                     <Button Grid.Column="3" Grid.Row="0" Command="{Binding ToggleExpandedCommand}"
                             Classes.animatedIn="{Binding IsExpanded}"
                             Classes.animatedOut="{Binding !IsExpanded}">
@@ -92,11 +92,11 @@
 
                   <Grid Grid.Row="1" Grid.ColumnSpan="4" IsVisible="{Binding IsExpanded}" RowDefinitions="Auto, Auto, Auto">
 
-                    <!--Description-->
+                    --><!--Description--><!--
                     <TextBlock Text="{Binding Item.Description}"
                                      Classes="mini" TextWrapping="Wrap" Margin="10"/>
 
-                    <!--Comments-->
+                    --><!--Comments--><!--
                     <ItemsControl Grid.Row="1" ItemsSource="{Binding Item.Comments}">
                       <ItemsControl.ItemTemplate>
                         <DataTemplate>
@@ -106,28 +106,28 @@
                       </ItemsControl.ItemTemplate>
                     </ItemsControl>
 
-                    <!--Action buttons-->
+                    --><!--Action buttons--><!--
                     <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="15" Margin="10 10 10 0" HorizontalAlignment="Center">
 
-                      <!--Bought button-->
+                      --><!--Bought button--><!--
                       <Button Classes="item_action" Command="{Binding $parent[UserControl].((vm:GroceryListViewModel)DataContext).BoughtItemCommand}" CommandParameter="{Binding}">
                         <PathIcon Data="{StaticResource money_regular}"
                                   Classes="item_action_green"/>
                       </Button>
 
-                      <!--Edit button-->
+                      --><!--Edit button--><!--
                       <Button Classes="item_action" Command="{Binding EditCommand}" IsVisible="{Binding IsOwner}">
                         <PathIcon Data="{StaticResource edit_regular}"
                                   Classes="item_action"/>
                       </Button>
 
-                      <!--Add comment button-->
+                      --><!--Add comment button--><!--
                       <Button Classes="item_action" Click="Comment_Click" Tag="{Binding}">
                         <PathIcon Data="{StaticResource comment_add_regular}"
                                   Classes="item_action"/>
                       </Button>
 
-                      <!--Delete button-->
+                      --><!--Delete button--><!--
                       <Button Classes="item_action" Click="DeleteItem_Click" Tag="{Binding}">
                         <PathIcon Data="{StaticResource delete_regular}"
                                   Classes="item_action_red"/>
@@ -141,7 +141,7 @@
           </ItemsControl.ItemTemplate>
         </ItemsControl>
 
-        <!--Add Button-->
+        --><!--Add Button--><!--
         <Button Grid.Row="2" IsVisible="{Binding !InputMode}" HorizontalAlignment="Center" Classes="shopping_list_button" Command="{Binding InputModeOnCommand}">
           <PathIcon Data="{StaticResource add_regular}"
                     Classes="white_foreground mini"/>
@@ -149,5 +149,5 @@
 
       </Grid>
     </ScrollViewer>
-  </Grid>
+  </Grid>-->
 </UserControl>

@@ -6,9 +6,9 @@ namespace ShoppingList.Persistor.Services
 {
     public class CommentService(HttpClient client) : APIService(client), ICommentService
     {
-        public async Task DeleteCommentAsync(int household_id, int grocery_id, int commment_id, CancellationToken cancellationToken = default)
+        public async Task DeleteCommentAsync(int household_id, int grocery_id, int comment_id, CancellationToken cancellationToken = default)
         {
-            HttpResponseMessage response = await _httpClient.DeleteAsync($"households/{household_id}/groceries/{grocery_id}/comments/{commment_id}", cancellationToken);
+            HttpResponseMessage response = await _httpClient.DeleteAsync($"households/{household_id}/groceries/{grocery_id}/comments/{comment_id}", cancellationToken);
 
             await ValidateResponse(response, cancellationToken);
         }

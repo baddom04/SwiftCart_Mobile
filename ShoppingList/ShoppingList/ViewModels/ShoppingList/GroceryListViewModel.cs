@@ -1,101 +1,101 @@
-﻿using ReactiveUI;
-using ShoppingList.Core.Enums;
-using ShoppingList.Model;
-using ShoppingList.Model.Temp;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reactive;
+﻿//using ReactiveUI;
+//using ShoppingList.Core.Enums;
+//using ShoppingList.Model;
+//using ShoppingList.Model.Temp;
+//using System.Collections.Generic;
+//using System.Linq;
+//using System.Reactive;
 
-namespace ShoppingList.ViewModels.ShoppingList
-{
-    internal class GroceryListViewModel : ViewModelBase
-    {
-        #region Properties
-        public GroceryListModel Model { get; }
+//namespace ShoppingList.ViewModels.ShoppingList
+//{
+//    internal class GroceryListViewModel : ViewModelBase
+//    {
+//        #region Properties
+//        public GroceryListModel Model { get; }
 
-        private List<ShoppingItemViewModel> _shoppingList;
-        public List<ShoppingItemViewModel> ShoppingList
-        {
-            get { return _shoppingList; }
-            set { this.RaiseAndSetIfChanged(ref _shoppingList, value); }
-        }
+//        private List<ShoppingItemViewModel> _shoppingList;
+//        public List<ShoppingItemViewModel> ShoppingList
+//        {
+//            get { return _shoppingList; }
+//            set { this.RaiseAndSetIfChanged(ref _shoppingList, value); }
+//        }
 
-        private bool _inputMode;
-        public bool InputMode
-        {
-            get { return _inputMode; }
-            set { this.RaiseAndSetIfChanged(ref _inputMode, value); }
-        }
+//        private bool _inputMode;
+//        public bool InputMode
+//        {
+//            get { return _inputMode; }
+//            set { this.RaiseAndSetIfChanged(ref _inputMode, value); }
+//        }
 
-        private string? _errorMessage;
-        public string? ErrorMessage
-        {
-            get { return _errorMessage; }
-            set { this.RaiseAndSetIfChanged(ref _errorMessage, value); }
-        }
+//        private string? _errorMessage;
+//        public string? ErrorMessage
+//        {
+//            get { return _errorMessage; }
+//            set { this.RaiseAndSetIfChanged(ref _errorMessage, value); }
+//        }
 
-        private ShoppingItem? _currentlyEditedItem;
-        public ShoppingItem? CurrentlyEditedItem
-        {
-            get { return _currentlyEditedItem; }
-            set { this.RaiseAndSetIfChanged(ref _currentlyEditedItem, value); }
-        }
+//        private ShoppingItem? _currentlyEditedItem;
+//        public ShoppingItem? CurrentlyEditedItem
+//        {
+//            get { return _currentlyEditedItem; }
+//            set { this.RaiseAndSetIfChanged(ref _currentlyEditedItem, value); }
+//        }
 
-        #endregion
+//        #endregion
 
-        #region Commands
-        public ReactiveCommand<Unit, Unit> InputModeOnCommand { get; }
-        public ReactiveCommand<Unit, Unit> SaveCommand { get; }
-        public ReactiveCommand<Unit, Unit> InputModeOffCommand { get; }
-        public ReactiveCommand<ShoppingItemViewModel, Unit> BoughtItemCommand { get; }
-        #endregion
+//        #region Commands
+//        public ReactiveCommand<Unit, Unit> InputModeOnCommand { get; }
+//        public ReactiveCommand<Unit, Unit> SaveCommand { get; }
+//        public ReactiveCommand<Unit, Unit> InputModeOffCommand { get; }
+//        public ReactiveCommand<ShoppingItemViewModel, Unit> BoughtItemCommand { get; }
+//        #endregion
 
-        #region Methods
-        public GroceryListViewModel()
-        {
-            Model = new();
-            Model.ErrorTypeChanged += (_, _) => OnErrorTypeChanged();
-            Model.ShoppingList.CollectionChanged += ShoppingList_CollectionChanged;
-            Model.EditedItemChanged += (_, _) => CurrentlyEditedItem = Model.EditedItem?.Item;
+//        #region Methods
+//        public GroceryListViewModel()
+//        {
+//            Model = new();
+//            Model.ErrorTypeChanged += (_, _) => OnErrorTypeChanged();
+//            Model.ShoppingList.CollectionChanged += ShoppingList_CollectionChanged;
+//            Model.EditedItemChanged += (_, _) => CurrentlyEditedItem = Model.EditedItem?.Item;
 
-            _shoppingList = [.. Model.ShoppingList.Select(item => new ShoppingItemViewModel(item, () => OnInputModeOn((item.Clone() as ShoppingItem)!, Model.ShoppingList.IndexOf(item))))];
+//            _shoppingList = [.. Model.ShoppingList.Select(item => new ShoppingItemViewModel(item, () => OnInputModeOn((item.Clone() as ShoppingItem)!, Model.ShoppingList.IndexOf(item))))];
 
-            InputModeOnCommand = ReactiveCommand.Create(() => OnInputModeOn(ShoppingItem.Empty, -1));
-            SaveCommand = ReactiveCommand.Create(() => { Model.SaveEdit(); if (Model.IsValidItem) OnInputModeOff(); });
-            InputModeOffCommand = ReactiveCommand.Create(OnInputModeOff);
-            BoughtItemCommand = ReactiveCommand.Create<ShoppingItemViewModel>(Boughtitem);
-        }
+//            InputModeOnCommand = ReactiveCommand.Create(() => OnInputModeOn(ShoppingItem.Empty, -1));
+//            SaveCommand = ReactiveCommand.Create(() => { Model.SaveEdit(); if (Model.IsValidItem) OnInputModeOff(); });
+//            InputModeOffCommand = ReactiveCommand.Create(OnInputModeOff);
+//            BoughtItemCommand = ReactiveCommand.Create<ShoppingItemViewModel>(Boughtitem);
+//        }
 
-        private void ShoppingList_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-        {
-            ShoppingList = [.. Model.ShoppingList.Select(item => new ShoppingItemViewModel(item, () => OnInputModeOn((item.Clone() as ShoppingItem)!, Model.ShoppingList.IndexOf(item))))];
-        }
-        private void OnErrorTypeChanged()
-        {
-            ErrorMessage = Model.ErrorType switch
-            {
-                ItemFormErrorType.EmptyName => "The item's name cannot be empty!",
-                _ => null,
-            };
-        }
-        private void OnInputModeOn(ShoppingItem item, int index)
-        {
-            if (index < 0)
-            {
-                //item.UserId = App.CurrentUser!.Id;
-            }
+//        private void ShoppingList_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+//        {
+//            ShoppingList = [.. Model.ShoppingList.Select(item => new ShoppingItemViewModel(item, () => OnInputModeOn((item.Clone() as ShoppingItem)!, Model.ShoppingList.IndexOf(item))))];
+//        }
+//        private void OnErrorTypeChanged()
+//        {
+//            ErrorMessage = Model.ErrorType switch
+//            {
+//                ItemFormErrorType.EmptyName => "The item's name cannot be empty!",
+//                _ => null,
+//            };
+//        }
+//        private void OnInputModeOn(ShoppingItem item, int index)
+//        {
+//            if (index < 0)
+//            {
+//                //item.UserId = App.CurrentUser!.Id;
+//            }
 
-            Model.StartEdit(item, index);
-            InputMode = true;
-        }
-        private void OnInputModeOff()
-        {
-            InputMode = false;
-        }
-        private void Boughtitem(ShoppingItemViewModel item)
-        {
-            Model.DeleteItem(item.Item);
-        }
-        #endregion
-    }
-}
+//            Model.StartEdit(item, index);
+//            InputMode = true;
+//        }
+//        private void OnInputModeOff()
+//        {
+//            InputMode = false;
+//        }
+//        private void Boughtitem(ShoppingItemViewModel item)
+//        {
+//            Model.DeleteItem(item.Item);
+//        }
+//        #endregion
+//    }
+//}

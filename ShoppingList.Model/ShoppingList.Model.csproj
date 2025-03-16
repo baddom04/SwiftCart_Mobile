@@ -11,8 +11,4 @@
     <ProjectReference Include="..\ShoppingList.Persistor\ShoppingList.Persistor.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ShoppingList\" />
-  </ItemGroup>
-
 </Project>

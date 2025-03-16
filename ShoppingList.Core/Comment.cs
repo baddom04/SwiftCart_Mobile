@@ -6,5 +6,7 @@
         public int UserId { get; init; }
         public int GroceryId { get; init; }
         public required string Content { get; init; }
+
+        public required User User { get; init; }
     }
 }

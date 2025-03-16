@@ -2,6 +2,7 @@
 {
     public enum UnitType
     {
+        none,
         pieces,
         pair,
         kilogram,

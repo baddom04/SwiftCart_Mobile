@@ -27,6 +27,7 @@
   <x:String x:Key="PasswordWatermark">********</x:String>
   
   <!--UnitTypes-->
+  <x:String x:Key="None">None</x:String>
   <x:String x:Key="Pieces">Pieces</x:String>
   <x:String x:Key="Pair">Pair</x:String>
   <x:String x:Key="Kilogram">Kilogram</x:String>
@@ -70,12 +71,11 @@
   <x:String x:Key="NoApplicationsFound">- No applications found -</x:String>
   
   <!--Manage Households Page-->
-  <x:String x:Key="CreateHousehold">Create household</x:String>
   <x:String x:Key="MyHouseholds">My households</x:String>
   <x:String x:Key="NoHouseholdsFound">- No households found -</x:String>
   
   <!--Create new household Page-->
-  <x:String x:Key="NewHousehold">Create a household</x:String>
+  <x:String x:Key="CreateHousehold">Create a household</x:String>
   <x:String x:Key="UpdateHousehold">Update a household</x:String>
   <x:String x:Key="Name">Name</x:String>
   <x:String x:Key="Identifier">Identifier</x:String>
@@ -111,6 +111,21 @@
   
   <!--ShoppingLists-->
   <x:String x:Key="ShoppingLists">Shopping lists</x:String>
+  <x:String x:Key="CreateItem">Create an item</x:String>
+  <x:String x:Key="UpdateItem">Update an item</x:String>
+  <x:String x:Key="GroceryNameWatermark">Apple</x:String>
+  <x:String x:Key="Quantity">Quantity (optional)</x:String>
+  <x:String x:Key="QuantityWatermark">123</x:String>
+  <x:String x:Key="Unit">Unit (optional)</x:String>
+  <x:String x:Key="Description">Description (optional)</x:String>
+  <x:String x:Key="DescriptionWatermark">From the local store on the market, only the big and red ones that I like :P</x:String>
+  <!--^Errors-->
+  <x:String x:Key="ShoppingListQueryError">Shopping list query error&#x0a;</x:String>
+  <x:String x:Key="GroceryCreationError">Grocery creation error&#x0a;</x:String>
+  <x:String x:Key="EmptyNameError">Please enter a name.</x:String>
+  <x:String x:Key="TooLongNameError">The name must be a maximum of 20 characters.</x:String>
+  <x:String x:Key="BothMustBeNullError">Either both the quantity and unit must be empty, or both must be filled.</x:String>
+  <x:String x:Key="TooLongDescriptionError">The description must be a maximum of 20 characters.</x:String>
   
   <!--Error Messages-->
   <x:String x:Key="EmailFormatError">The given email address is not valid.</x:String>
