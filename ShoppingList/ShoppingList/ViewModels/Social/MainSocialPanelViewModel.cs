@@ -8,7 +8,7 @@ using System.Collections.Generic;
 
 namespace ShoppingList.ViewModels.Social
 {
-    internal class MainSocialPanelViewModel : ViewModelBase
+    internal class MainSocialPanelViewModel : DefaultPageOnChangeViewModel
     {
         private readonly Dictionary<SocialPage, ViewModelBase> _pages;
 
@@ -47,6 +47,11 @@ namespace ShoppingList.ViewModels.Social
         {
             _householdEditingPage.EditState(household);
             CurrentPage = _householdEditingPage;
+        }
+
+        public override void ChangeToDefaultPage()
+        {
+            CurrentPage = _pages[SocialPage.Main];
         }
     }
 

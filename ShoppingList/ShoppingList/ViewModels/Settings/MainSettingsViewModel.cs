@@ -6,7 +6,7 @@ using System.Collections.Generic;
 
 namespace ShoppingList.ViewModels.Settings
 {
-    internal class MainSettingsViewModel : ViewModelBase
+    internal class MainSettingsViewModel : DefaultPageOnChangeViewModel
     {
 		private ViewModelBase _currentPage;
 		public ViewModelBase CurrentPage
@@ -30,6 +30,11 @@ namespace ShoppingList.ViewModels.Settings
         private void ChangeSettingsPage(SettingsPage changeSettingsPage)
         {
             CurrentPage = _pages[changeSettingsPage];
+        }
+
+        public override void ChangeToDefaultPage()
+        {
+            CurrentPage = _pages[SettingsPage.Main];
         }
     }
 

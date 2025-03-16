@@ -2,7 +2,6 @@
 using ShoppingList.Core;
 using ShoppingList.Persistor;
 using ShoppingList.Persistor.Services.Interfaces;
-using System.Formats.Asn1;
 
 namespace ShoppingList.Model.Social
 {

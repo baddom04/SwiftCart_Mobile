@@ -8,7 +8,7 @@ using ShoppingList.Model;
 
 namespace ShoppingList.ViewModels.GroceryList
 {
-    internal class GroceryListViewModel : ViewModelBase
+    internal class GroceryListViewModel : DefaultPageOnChangeViewModel
     {
         #region Properties
         public GroceryListModel Model { get; }
@@ -95,6 +95,11 @@ namespace ShoppingList.ViewModels.GroceryList
         private void Boughtitem(ShoppingItemViewModel item)
         {
             Model.DeleteItem(item.Item);
+        }
+
+        public override void ChangeToDefaultPage()
+        {
+            // TODO: implement
         }
         #endregion
     }

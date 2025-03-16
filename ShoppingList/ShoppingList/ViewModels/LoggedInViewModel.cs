@@ -1,6 +1,5 @@
 ﻿using ReactiveUI;
 using ShoppingList.Model.Settings;
-using ShoppingList.Model.Social;
 using ShoppingList.Utils;
 using ShoppingList.ViewModels.GroceryList;
 using ShoppingList.ViewModels.Map;
@@ -16,8 +15,8 @@ namespace ShoppingList.ViewModels
 {
     internal class LoggedInViewModel : ViewModelBase
     {
-        private ViewModelBase _currentPage;
-        public ViewModelBase CurrentPage
+        private DefaultPageOnChangeViewModel _currentPage;
+        public DefaultPageOnChangeViewModel CurrentPage
         {
             get { return _currentPage; }
             set { this.RaiseAndSetIfChanged(ref _currentPage, value); }
@@ -30,12 +29,13 @@ namespace ShoppingList.ViewModels
             set
             {
                 this.RaiseAndSetIfChanged(ref _selectedMenuItem, value);
+                CurrentPage.ChangeToDefaultPage();
                 CurrentPage = Menus[value];
             }
         }
         public ObservableCollection<MenuIcon> MenuItems { get; }
 
-        public Dictionary<MenuIcon, ViewModelBase> Menus { get; }
+        public Dictionary<MenuIcon, DefaultPageOnChangeViewModel> Menus { get; }
 
         private readonly UserAccountModel _userAccount;
         private readonly Action<NotificationType, string> _showNotification;
@@ -43,7 +43,7 @@ namespace ShoppingList.ViewModels
         public LoggedInViewModel(UserAccountModel userAccount, Action<MainPage> changePage, Action<bool> showLoading, Action<NotificationType, string> showNotification)
         {
 
-            Menus = new Dictionary<MenuIcon, ViewModelBase>
+            Menus = new Dictionary<MenuIcon, DefaultPageOnChangeViewModel>
             {
                 { new MenuIcon("Map", "globe_regular"), new MapViewModel() },
                 { new MenuIcon("Shopping list", "cart_regular"), new GroceryListViewModel() },
