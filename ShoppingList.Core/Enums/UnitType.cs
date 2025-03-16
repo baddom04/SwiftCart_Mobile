@@ -1,5 +1,8 @@
-﻿namespace ShoppingList.Core.Enums
+﻿using System.Text.Json.Serialization;
+
+namespace ShoppingList.Core.Enums
 {
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum UnitType
     {
         none,

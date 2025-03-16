@@ -1,5 +1,6 @@
 ﻿using ShoppingList.Core;
 using ShoppingList.Core.Enums;
+using ShoppingList.Persistor.DTO;
 using ShoppingList.Persistor.Services.Interfaces;
 using System.Net.Http.Json;
 
@@ -29,9 +30,9 @@ namespace ShoppingList.Persistor.Services
 
             await ValidateResponse(response, cancellationToken);
 
-            IEnumerable<Grocery>? groceries = await response.Content.ReadFromJsonAsync<IEnumerable<Grocery>>(cancellationToken); 
+            GroceriesResponse? groceries = await response.Content.ReadFromJsonAsync<GroceriesResponse>(cancellationToken);
 
-            return groceries ?? throw new NullReferenceException(nameof(groceries));
+            return groceries?.QueryResult ?? throw new NullReferenceException(nameof(groceries)); ;
         }
 
         public async Task UpdateGroceryAsync(int household_id, int grocery_id, string? name = null, int? quantity = null, UnitType? unit = null, string? description = null, CancellationToken cancellationToken = default)

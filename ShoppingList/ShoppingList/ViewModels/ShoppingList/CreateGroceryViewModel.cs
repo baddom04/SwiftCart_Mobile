@@ -31,7 +31,8 @@ namespace ShoppingList.ViewModels.ShoppingList
         private int _householdId;
 
         public ReactiveCommand<Unit, Unit> CreateGroceryCommand { get; }
-        private Action _goBackAction;
+
+        private Action _goBackAction = null!;
         public ReactiveCommand<Unit, Unit> GoBackCommand { get; private set; } = null!;
 
         public List<UnitType> UnitTypes { get; } = [.. (UnitType[])Enum.GetValues(typeof(UnitType))];
