@@ -1,6 +1,7 @@
 ﻿using DynamicData;
 using ReactiveUI;
 using ShoppingList.Core;
+using ShoppingList.Model.Settings;
 using ShoppingList.Model.ShoppingList;
 using ShoppingList.Utils;
 using ShoppingList.ViewModels.Shared;
@@ -24,8 +25,9 @@ namespace ShoppingList.ViewModels.ShoppingList
         private readonly Action<NotificationType, string> _showNotification;
         private readonly ShoppingListModel _model;
         private readonly Action<int, Grocery?, Action> _changeToEditingPage;
+        private readonly UserAccountModel _account;
 
-        public ShoppingListViewModel(ShoppingListModel model, Household household, Action<ViewModelBase> changeToPage, Action<GroceryPage> changePage, Action<NotificationType, string> showNotification, Action<int, Grocery?, Action> changeToEditingPage)
+        public ShoppingListViewModel(UserAccountModel account, ShoppingListModel model, Household household, Action<ViewModelBase> changeToPage, Action<GroceryPage> changePage, Action<NotificationType, string> showNotification, Action<int, Grocery?, Action> changeToEditingPage)
         {
             _model = model;
             _name = household.Name;
@@ -34,10 +36,18 @@ namespace ShoppingList.ViewModels.ShoppingList
             _changePage = changePage;
             _showNotification = showNotification;
             _changeToEditingPage = changeToEditingPage;
-            Action goToThisPage = () => _changeToPage(this);
-            HouseholdOperationCommand = ReactiveCommand.Create(goToThisPage);
+            _account = account;
+            HouseholdOperationCommand = ReactiveCommand.Create(GoToThisPage);
             GoBackCommand = ReactiveCommand.Create(() => _changePage(GroceryPage.Main));
-            CreateGroceryPageCommand = ReactiveCommand.Create(() => _changeToEditingPage(household.Id, null, goToThisPage));
+            CreateGroceryPageCommand = ReactiveCommand.Create(() => _changeToEditingPage(household.Id, null, GoToThisPage));
+        }
+        private void GoToThisPage()
+        {
+            _changeToPage(this);
+        }
+        private void ShowLoading(bool isLoading) 
+        {
+            IsLoading = isLoading;
         }
 
         public async Task GetGroceriesAsync()
@@ -47,7 +57,7 @@ namespace ShoppingList.ViewModels.ShoppingList
             try
             {
                 Items.Clear();
-                Items.AddRange((await _model.GetGroceriesAsync()).Select(g => new ShoppingItemViewModel(g)));
+                Items.AddRange((await _model.GetGroceriesAsync()).Select(g => new ShoppingItemViewModel(new ShoppingItemModel(g, g.HouseholdId), _account, g, ShowLoading, _showNotification, _changeToEditingPage, GoToThisPage, GetGroceriesAsync)));
             }
             catch (Exception ex)
             {

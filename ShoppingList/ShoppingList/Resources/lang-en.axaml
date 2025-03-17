@@ -126,6 +126,10 @@
   <x:String x:Key="TooLongNameError">The name must be a maximum of 20 characters.</x:String>
   <x:String x:Key="BothMustBeNullError">Either both the quantity and unit must be empty, or both must be filled.</x:String>
   <x:String x:Key="TooLongDescriptionError">The description must be a maximum of 20 characters.</x:String>
+  <x:String x:Key="LoadCommentsError">Comment loading error&#x0a;</x:String>
+  <x:String x:Key="DeleteGroceryError">Delete item error&#x0a;</x:String>
+  <x:String x:Key="DeleteCommentError">Delete comment error&#x0a;</x:String>
+  <x:String x:Key="AddCommentError">Comment creation error&#x0a;</x:String>
   
   <!--Error Messages-->
   <x:String x:Key="EmailFormatError">The given email address is not valid.</x:String>

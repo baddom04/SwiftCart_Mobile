@@ -23,7 +23,7 @@
     </Grid>
 
     <Grid Grid.Row="1" VerticalAlignment="Stretch">
-      
+
       <progRing:ProgressRing
                           Width="80"
                           Height="80"
@@ -32,17 +32,21 @@
                           HorizontalAlignment="Center"
                           VerticalAlignment="Center"
                           Foreground="{StaticResource MainBtnBG}"/>
-      
+
       <ItemsControl ItemsSource="{Binding Items}" IsVisible="{Binding !IsLoading}">
         <ItemsControl.ItemTemplate>
           <DataTemplate>
-            <TextBlock Text="{Binding Name}"/>
+            <Border Classes="shopping_list_item">
+              <Grid ColumnDefinitions="*, Auto, Auto, Auto">
+                <TextBlock Text="{Binding Name}"/>
+              </Grid>
+            </Border>
           </DataTemplate>
         </ItemsControl.ItemTemplate>
       </ItemsControl>
-      
-      
+
+
     </Grid>
-    
+
   </Grid>
 </UserControl>

@@ -24,7 +24,7 @@ namespace ShoppingList.ViewModels.ShoppingList
             try
             {
                 MyHouseholds.Clear();
-                MyHouseholds.AddRange((await _model.GetMyHouseholds(_account.User!.Id)).Select(hh => new ShoppingListViewModel(new ShoppingListModel(hh.Id), hh, _changeToPage, _changePage, _showNotification, _changeToEditingPage)));
+                MyHouseholds.AddRange((await _model.GetMyHouseholds(_account.User!.Id)).Select(hh => new ShoppingListViewModel(_account, new ShoppingListModel(hh.Id), hh, _changeToPage, _changePage, _showNotification, _changeToEditingPage)));
             }
             catch (Exception ex)
             {
