@@ -47,7 +47,13 @@ namespace ShoppingList.ViewModels.ShoppingList
         public UnitType? Unit { get; }
         public string? Description { get; }
         public string OwnerName { get; }
-        public int CommentCount { get; }
+
+        private int _commentCount;
+        public int CommentCount
+        {
+            get { return _commentCount; }
+            private set { this.RaiseAndSetIfChanged(ref _commentCount, value); }
+        }
         public ReactiveCommand<Unit, bool> ExpandCommand { get; }
         public ReactiveCommand<Unit, Unit> ExpandCommentsCommand { get; }
         public ReactiveCommand<Unit, Unit> EditCommand { get; }
@@ -159,6 +165,7 @@ namespace ShoppingList.ViewModels.ShoppingList
             {
                 await _model.CreateCommentAsync(content);
                 await LoadCommentsAsync();
+                CommentCount++;
             }
             catch (Exception ex)
             {

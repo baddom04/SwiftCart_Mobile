@@ -29,6 +29,7 @@ namespace ShoppingList.ViewModels.ShoppingList
         private readonly Action<bool> _showLoading;
         private readonly CreateGroceryModel _model;
         private int _householdId;
+        private int? _groceryId;
 
         public ReactiveCommand<Unit, Unit> CreateGroceryCommand { get; }
 
@@ -52,7 +53,12 @@ namespace ShoppingList.ViewModels.ShoppingList
             try
             {
                 int? quantity = string.IsNullOrWhiteSpace(QuantityInput) ? null : Int32.Parse(QuantityInput);
-                await _model.CreateGroceryAsync(_householdId, NameInput, quantity, UnitInput == UnitType.none ? null : UnitInput, string.IsNullOrWhiteSpace(DescriptionInput) ? null : DescriptionInput);
+
+                if(Updating)
+                    await _model.UpdateGroceryAsync(_householdId, _groceryId!.Value, NameInput, quantity, UnitInput == UnitType.none ? null : UnitInput, string.IsNullOrWhiteSpace(DescriptionInput) ? null : DescriptionInput);
+                else
+                    await _model.CreateGroceryAsync(_householdId, NameInput, quantity, UnitInput == UnitType.none ? null : UnitInput, string.IsNullOrWhiteSpace(DescriptionInput) ? null : DescriptionInput);
+
                 ErrorMessage = null;
                 _goBackAction();
             }
@@ -97,6 +103,7 @@ namespace ShoppingList.ViewModels.ShoppingList
             GoBackCommand = ReactiveCommand.Create(_goBackAction);
             ErrorMessage = null;
             _householdId = householdId;
+            _groceryId = grocery?.Id;
             NameInput = grocery?.Name ?? string.Empty;
             DescriptionInput = grocery?.Description;
             QuantityInput = grocery?.Quantity.ToString();

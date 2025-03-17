@@ -1,22 +1,28 @@
 ﻿using Avalonia.Data.Converters;
 using ShoppingList.Utils;
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 
 namespace ShoppingList.Converters
 {
-    internal class ExpandCommentsButtonTextConverter : IValueConverter
+    internal class ExpandCommentsButtonTextConverter : IMultiValueConverter
     {
-        public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+        public object? Convert(IList<object?> values, Type targetType, object? parameter, CultureInfo culture)
         {
-            if(value is not bool seeComments) throw new ArgumentException(null, nameof(value));
+            if (values.Count < 2)
+                return string.Empty;
 
-            return StringProvider.GetString(seeComments ? "HideComments" : "OpenComments");
-        }
+            if (values[0] is bool seeComments && values[1] is int commentCount)
+            {
+                string result = seeComments
+                ? StringProvider.GetString("HideComments")
+                : $"{StringProvider.GetString("OpenCommentsStart")} {commentCount} {StringProvider.GetString("OpenCommentsEnd")}";
 
-        public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
+                return result;
+            }
+
+            return "Invalid data";
         }
     }
 }

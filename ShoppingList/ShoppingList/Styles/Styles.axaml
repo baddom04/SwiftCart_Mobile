@@ -66,8 +66,10 @@
       <Setter Property="Foreground" Value="{StaticResource MainBG}"/>
     </Style>
     <Style Selector="^.author">
-      <Setter Property="Foreground" Value="{StaticResource MainBG}"/>
       <Setter Property="FontStyle" Value="Italic"/>
+    </Style>
+    <Style Selector="^.bold">
+      <Setter Property="FontWeight" Value="Bold"/>
     </Style>
   </Style>
 
@@ -101,7 +103,7 @@
 
     <Style Selector="^.item_action">
       <Setter Property="Width" Value="50"/>
-      <Setter Property="Background" Value="{StaticResource MainBG}"/>
+      <Setter Property="Background" Value="{StaticResource MainBtnBG}"/>
       <Setter Property="Padding" Value="5"/>
     </Style>
 
@@ -121,7 +123,7 @@
 
     <Style Selector="^.bigger_text">
       <Setter Property="FontSize" Value="16"/>
-    </Style>
+    </Style> 
 
     <Style Selector="^.setting">
       <Setter Property="CornerRadius" Value="10"/>
@@ -164,6 +166,10 @@
 
     <Style Selector="^.text_iv:pressed /template/ ContentPresenter">
       <Setter Property="Foreground" Value="{StaticResource MainBG}"/>
+    </Style>
+
+    <Style Selector="^.much_bigger_text">
+      <Setter Property="FontSize" Value="18"/>
     </Style>
 
     <Style Selector="^.shopping_list_button">
@@ -249,7 +255,11 @@
     </Style>
 
     <Style Selector="^.danger">
-      <Setter Property="Background" Value="{DynamicResource RedButtonBGStart}"/>
+      <Setter Property="Background" Value="{DynamicResource RedButtonBGEnd}"/>
+    </Style>
+
+    <Style Selector="^.success">
+      <Setter Property="Background" Value="{DynamicResource Green}"/>
     </Style>
   </Style>
 
@@ -257,7 +267,18 @@
     <Style Selector="^.shopping_list_item">
       <Setter Property="CornerRadius" Value="10"/>
       <Setter Property="BoxShadow" Value="1 1 5 0 Gray"/>
-      <Setter Property="Background" Value="{DynamicResource Item}"/>
+    </Style>
+    <Style Selector="^.shopping_list_item_owner">
+      <Setter Property="CornerRadius" Value="10"/>
+      <Setter Property="BoxShadow" Value="1 1 5 0 Gray"/>
+      <Setter Property="Background">
+        <Setter.Value>
+          <LinearGradientBrush StartPoint="0%,0%" EndPoint="100%,0%">
+            <GradientStop Color="#4fc0ff" Offset="0.0"/>
+            <GradientStop Color="#42a4db" Offset="1.0"/>
+          </LinearGradientBrush>
+        </Setter.Value>
+      </Setter>
     </Style>
     <Style Selector="^.loginError">
       <Setter Property="BorderBrush" Value="{StaticResource ErrorPrimaryRed}"/>

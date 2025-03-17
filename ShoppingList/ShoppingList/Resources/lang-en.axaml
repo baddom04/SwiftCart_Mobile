@@ -119,8 +119,13 @@
   <x:String x:Key="Unit">Unit (optional)</x:String>
   <x:String x:Key="Description">Description (optional)</x:String>
   <x:String x:Key="DescriptionWatermark">From the local store on the corner, only the big and red ones that I like :P</x:String>
-  <x:String x:Key="OpenComments">- View comments -</x:String>
-  <x:String x:Key="HideComments">- Hide comments -</x:String>
+  <x:String x:Key="OpenCommentsStart">- View</x:String>
+  <x:String x:Key="OpenCommentsEnd">comment(s) -</x:String>
+  <x:String x:Key="HideComments">- Hide comment(s) -</x:String>
+  <x:String x:Key="DeleteItemQuestion">Are you sure you want to delete this item?</x:String>
+  <x:String x:Key="BoughtItemQuestion">Are you sure you bought this item?</x:String>
+  <x:String x:Key="NewComment">New comment</x:String>
+  <x:String x:Key="Creator">Creator:</x:String>
   <!--^Errors-->
   <x:String x:Key="ShoppingListQueryError">Shopping list query error&#x0a;</x:String>
   <x:String x:Key="GroceryCreationError">Grocery creation error&#x0a;</x:String>

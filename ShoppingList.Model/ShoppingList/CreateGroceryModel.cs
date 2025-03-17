@@ -13,5 +13,10 @@ namespace ShoppingList.Model.ShoppingList
         {
             await _groceryService.CreateGroceryAsync(household_id, name, quantity, unit, description);
         }
+
+        public async Task UpdateGroceryAsync(int household_id, int grocery_id, string name, int? quantity, UnitType? unit, string? description)
+        {
+            await _groceryService.UpdateGroceryAsync(household_id, grocery_id, name, quantity, unit, description);
+        }
     }
 }
