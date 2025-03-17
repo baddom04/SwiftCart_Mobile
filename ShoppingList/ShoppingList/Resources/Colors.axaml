@@ -15,4 +15,5 @@
   <SolidColorBrush x:Key="WarningYellow" Color="#f5b914"/>
   <SolidColorBrush x:Key="InfoBlue" Color="#4fc0ff"/>
   <SolidColorBrush x:Key="Gold" Color="#f2cc00"/>
+  <SolidColorBrush x:Key="Item" Color="#c9aa00"/>
 </ResourceDictionary>

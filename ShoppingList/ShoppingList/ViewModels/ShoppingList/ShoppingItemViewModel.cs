@@ -46,7 +46,8 @@ namespace ShoppingList.ViewModels.ShoppingList
         public int? Quantity { get; }
         public UnitType? Unit { get; }
         public string? Description { get; }
-        public string OwnerName { get; set; }
+        public string OwnerName { get; }
+        public int CommentCount { get; }
         public ReactiveCommand<Unit, bool> ExpandCommand { get; }
         public ReactiveCommand<Unit, Unit> ExpandCommentsCommand { get; }
         public ReactiveCommand<Unit, Unit> EditCommand { get; }
@@ -65,11 +66,11 @@ namespace ShoppingList.ViewModels.ShoppingList
             private set { this.RaiseAndSetIfChanged(ref _isCommentsExpanded, value); }
         }
 
-        private bool _showCommentsLoading;
-        public bool ShowCommentsLoading
+        private bool _isCommentsLoading;
+        public bool IsCommentsLoading
         {
-            get { return _showCommentsLoading; }
-            private set { this.RaiseAndSetIfChanged(ref _showCommentsLoading, value); }
+            get { return _isCommentsLoading; }
+            private set { this.RaiseAndSetIfChanged(ref _isCommentsLoading, value); }
         }
 
         public ObservableCollection<CommentViewModel> Comments { get; } = [];
@@ -88,6 +89,7 @@ namespace ShoppingList.ViewModels.ShoppingList
             Unit = grocery.Unit;
             Description = grocery.Description;
             OwnerName = grocery.User.Name;
+            CommentCount = grocery.CommentCount;
 
             _account = account;
             IsOwner = account.User!.Id == grocery.UserId;
@@ -112,14 +114,14 @@ namespace ShoppingList.ViewModels.ShoppingList
         }
         private async Task LoadCommentsAsync()
         {
-            ShowCommentsLoading = true;
+            IsCommentsLoading = true;
             try
             {
                 Comments.Clear();
                 Comments.AddRange((await _model.GetCommentsAsync())
                     .Select(c => 
                     new CommentViewModel(_account, _model, c, LoadCommentsAsync, 
-                    (b) => ShowCommentsLoading = b, _showNotification)));
+                    (b) => IsCommentsLoading = b, _showNotification)));
             }
             catch (Exception ex)
             {
@@ -128,7 +130,7 @@ namespace ShoppingList.ViewModels.ShoppingList
             }
             finally
             {
-                ShowCommentsLoading = false;
+                IsCommentsLoading = false;
             }
         }
 
@@ -152,7 +154,7 @@ namespace ShoppingList.ViewModels.ShoppingList
         }
         public async Task AddCommentAsync(string content)
         {
-            ShowCommentsLoading = true;
+            IsCommentsLoading = true;
             try
             {
                 await _model.CreateCommentAsync(content);
@@ -165,7 +167,7 @@ namespace ShoppingList.ViewModels.ShoppingList
             }
             finally
             {
-                ShowCommentsLoading = false;
+                IsCommentsLoading = false;
             }
         }
     }

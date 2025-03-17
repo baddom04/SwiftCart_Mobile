@@ -29,7 +29,9 @@
         <ItemsControl IsVisible="{Binding !EmptyMyHouseholds}" ItemsSource="{Binding MyHouseholds}">
           <ItemsControl.ItemTemplate>
             <DataTemplate>
-              <controls:HouseholdListItemView HouseholdName="{Binding Name}" Identifier="{Binding Identifier}" IsLoading="{Binding IsLoading}">
+              <controls:HouseholdListItemView HouseholdName="{Binding Name}" 
+                                              Identifier="{Binding Identifier}" 
+                                              IsLoading="{Binding IsLoading}">
                 <controls:HouseholdListItemView.RightContent>
                   <Button Command="{Binding HouseholdOperationCommand}" VerticalAlignment="Center"
                           Classes="trans_bg">

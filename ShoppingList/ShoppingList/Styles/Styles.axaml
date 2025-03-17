@@ -65,6 +65,10 @@
     <Style Selector="^.inverted_colors">
       <Setter Property="Foreground" Value="{StaticResource MainBG}"/>
     </Style>
+    <Style Selector="^.author">
+      <Setter Property="Foreground" Value="{StaticResource MainBG}"/>
+      <Setter Property="FontStyle" Value="Italic"/>
+    </Style>
   </Style>
 
   <Style Selector="UserControl">
@@ -86,15 +90,15 @@
       <Setter Property="Background" Value="{StaticResource MainBtnBG}"/>
       <Setter Property="Opacity" Value="0.5"/>
     </Style>
-    
+
     <Style Selector="^.trans_bg">
-      <Setter Property="Background" Value="Transparent"/>  
+      <Setter Property="Background" Value="Transparent"/>
     </Style>
 
     <Style Selector="^.trans_bg:pressed /template/ ContentPresenter">
       <Setter Property="Background" Value="Transparent"/>
     </Style>
-    
+
     <Style Selector="^.item_action">
       <Setter Property="Width" Value="50"/>
       <Setter Property="Background" Value="{StaticResource MainBG}"/>
@@ -104,7 +108,7 @@
     <Style Selector="^.wide">
       <Setter Property="Width" Value="50"/>
     </Style>
-    
+
     <Style Selector="^.inverted_colors">
       <Setter Property="Background" Value="{StaticResource MainBG}"/>
       <Setter Property="Foreground" Value="{StaticResource MainFG}"/>
@@ -114,7 +118,7 @@
       <Setter Property="Background" Value="{StaticResource SecBG}"/>
       <Setter Property="Foreground" Value="{StaticResource MainFG}"/>
     </Style>
-    
+
     <Style Selector="^.bigger_text">
       <Setter Property="FontSize" Value="16"/>
     </Style>
@@ -154,11 +158,18 @@
       <Setter Property="Background" Value="Transparent"/>
       <Setter Property="Foreground" Value="{StaticResource MainBtnBG}"/>
     </Style>
-    
+    <Style Selector="^.text_iv">
+      <Setter Property="Foreground" Value="{StaticResource MainBG}"/>
+    </Style>
+
+    <Style Selector="^.text_iv:pressed /template/ ContentPresenter">
+      <Setter Property="Foreground" Value="{StaticResource MainBG}"/>
+    </Style>
+
     <Style Selector="^.shopping_list_button">
       <Setter Property="Width" Value="50"/>
     </Style>
-    
+
     <Style Selector="^.animatedOut">
       <Style.Animations>
         <Animation Duration="0:0:0.3"
@@ -170,7 +181,7 @@
         </Animation>
       </Style.Animations>
     </Style>
-    
+
     <Style Selector="^.animatedIn">
       <Style.Animations>
         <Animation Duration="0:0:0.3"
@@ -236,13 +247,17 @@
     <Style Selector="^.customButton:pressed /template/ ContentPresenter">
       <Setter Property="Background" Value="Transparent"/>
     </Style>
+
+    <Style Selector="^.danger">
+      <Setter Property="Background" Value="{DynamicResource RedButtonBGStart}"/>
+    </Style>
   </Style>
 
   <Style Selector="Border">
     <Style Selector="^.shopping_list_item">
-      <Setter Property="Background" Value="{StaticResource SecBG}"/>
-      <Setter Property="Margin" Value="0 5"/>
       <Setter Property="CornerRadius" Value="10"/>
+      <Setter Property="BoxShadow" Value="1 1 5 0 Gray"/>
+      <Setter Property="Background" Value="{DynamicResource Item}"/>
     </Style>
     <Style Selector="^.loginError">
       <Setter Property="BorderBrush" Value="{StaticResource ErrorPrimaryRed}"/>
@@ -354,5 +369,5 @@
       <Setter Property="Foreground" Value="{StaticResource MainBG}"/>
     </Style>
   </Style>
-  
+
 </Styles>

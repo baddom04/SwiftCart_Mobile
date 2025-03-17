@@ -1,4 +1,5 @@
 ﻿using ShoppingList.Core;
+using ShoppingList.Persistor.DTO;
 using ShoppingList.Persistor.Services.Interfaces;
 using System.Net.Http.Json;
 
@@ -19,9 +20,9 @@ namespace ShoppingList.Persistor.Services
 
             await ValidateResponse(response, cancellationToken);
 
-            IEnumerable<Comment>? groceries = await response.Content.ReadFromJsonAsync<IEnumerable<Comment>>(cancellationToken);
+            CommentsResponse? comments = await response.Content.ReadFromJsonAsync<CommentsResponse>(cancellationToken);
 
-            return groceries ?? throw new NullReferenceException(nameof(groceries));
+            return comments?.QueryResult ?? throw new NullReferenceException(nameof(comments));
         }
 
         public async Task PostCommentAsync(int household_id, int grocery_id, string content, CancellationToken cancellationToken = default)

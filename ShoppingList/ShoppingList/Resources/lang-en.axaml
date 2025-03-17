@@ -118,7 +118,9 @@
   <x:String x:Key="QuantityWatermark">123</x:String>
   <x:String x:Key="Unit">Unit (optional)</x:String>
   <x:String x:Key="Description">Description (optional)</x:String>
-  <x:String x:Key="DescriptionWatermark">From the local store on the market, only the big and red ones that I like :P</x:String>
+  <x:String x:Key="DescriptionWatermark">From the local store on the corner, only the big and red ones that I like :P</x:String>
+  <x:String x:Key="OpenComments">- View comments -</x:String>
+  <x:String x:Key="HideComments">- Hide comments -</x:String>
   <!--^Errors-->
   <x:String x:Key="ShoppingListQueryError">Shopping list query error&#x0a;</x:String>
   <x:String x:Key="GroceryCreationError">Grocery creation error&#x0a;</x:String>
