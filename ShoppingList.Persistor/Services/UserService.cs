@@ -5,7 +5,7 @@ using System.Net.Http.Json;
 
 namespace ShoppingList.Persistor.Services
 {
-    public class UserService(HttpClient httpClient, ITokenService tokenService) : APIService(httpClient), IUserService
+    internal class UserService(HttpClient httpClient, ITokenService tokenService) : APIService(httpClient), IUserService
     {
         private readonly ITokenService _tokenService = tokenService;
 

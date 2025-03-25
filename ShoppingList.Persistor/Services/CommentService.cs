@@ -5,7 +5,7 @@ using System.Net.Http.Json;
 
 namespace ShoppingList.Persistor.Services
 {
-    public class CommentService(HttpClient client) : APIService(client), ICommentService
+    internal class CommentService(HttpClient client) : APIService(client), ICommentService
     {
         public async Task DeleteCommentAsync(int household_id, int grocery_id, int comment_id, CancellationToken cancellationToken = default)
         {

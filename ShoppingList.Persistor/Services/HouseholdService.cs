@@ -6,7 +6,7 @@ using System.Net.Http.Json;
 
 namespace ShoppingList.Persistor.Services
 {
-    public class HouseholdService(HttpClient client) : APIService(client), IHouseholdService
+    internal class HouseholdService(HttpClient client) : APIService(client), IHouseholdService
     {
         public async Task CreateNewHouseholdAsync(string name, string identifier, CancellationToken cancellationToken = default)
         {

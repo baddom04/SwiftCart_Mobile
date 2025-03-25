@@ -3,7 +3,7 @@ using System.Net.Http.Json;
 
 namespace ShoppingList.Persistor.Services
 {
-    public abstract class APIService(HttpClient httpClient)
+    internal abstract class APIService(HttpClient httpClient)
     {
         protected readonly HttpClient _httpClient = httpClient;
 

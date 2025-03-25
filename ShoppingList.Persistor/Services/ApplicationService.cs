@@ -4,7 +4,7 @@ using System.Net.Http.Json;
 
 namespace ShoppingList.Persistor.Services
 {
-    public class ApplicationService(HttpClient client) : APIService(client), IApplicationService
+    internal class ApplicationService(HttpClient client) : APIService(client), IApplicationService
     {
         public async Task AcceptUserAsync(int application_id, CancellationToken cancellationToken = default)
         {
