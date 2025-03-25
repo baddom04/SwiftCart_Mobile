@@ -19,6 +19,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingList.Persistor", "S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingList.Core", "ShoppingList.Core\ShoppingList.Core.csproj", "{6948465F-47B0-48CC-983E-8E8CA7EB4E86}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingListEditor", "ShoppingListEditor\ShoppingListEditor.csproj", "{83C2B12F-0581-492D-A195-A0EA8726DA84}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingList.Shared", "ShoppingList.Shared\ShoppingList.Shared.csproj", "{8353C1C9-6426-493A-B24D-B5C1AA8AFD6B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +65,14 @@ Global
 		{6948465F-47B0-48CC-983E-8E8CA7EB4E86}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6948465F-47B0-48CC-983E-8E8CA7EB4E86}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6948465F-47B0-48CC-983E-8E8CA7EB4E86}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83C2B12F-0581-492D-A195-A0EA8726DA84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83C2B12F-0581-492D-A195-A0EA8726DA84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83C2B12F-0581-492D-A195-A0EA8726DA84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83C2B12F-0581-492D-A195-A0EA8726DA84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8353C1C9-6426-493A-B24D-B5C1AA8AFD6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8353C1C9-6426-493A-B24D-B5C1AA8AFD6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8353C1C9-6426-493A-B24D-B5C1AA8AFD6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8353C1C9-6426-493A-B24D-B5C1AA8AFD6B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

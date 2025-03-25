@@ -123,7 +123,7 @@
 
     <Style Selector="^.bigger_text">
       <Setter Property="FontSize" Value="16"/>
-    </Style> 
+    </Style>
 
     <Style Selector="^.setting">
       <Setter Property="CornerRadius" Value="10"/>

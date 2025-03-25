@@ -23,5 +23,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\ShoppingList.Model\ShoppingList.Model.csproj" />
+    <ProjectReference Include="..\..\ShoppingList.Shared\ShoppingList.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Styles\" />
   </ItemGroup>
 </Project>
