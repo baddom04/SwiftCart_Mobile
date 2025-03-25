@@ -28,9 +28,9 @@ namespace ShoppingList.Persistor.Services
 
             await ValidateResponse(response, cancellationToken);
 
-            Map? location = await response.Content.ReadFromJsonAsync<Map>(cancellationToken);
+            Map? map = await response.Content.ReadFromJsonAsync<Map>(cancellationToken);
 
-            return location ?? throw new NullReferenceException();
+            return map ?? throw new NullReferenceException();
         }
 
         public async Task UpdateMapAsync(int store_id, int x_size, int y_size, CancellationToken cancellationToken = default)
