@@ -23,9 +23,11 @@ namespace ShoppingList.ViewModels.Map
         private readonly Action<ViewModelBase> _changeToPage;
         private readonly Action<MapPages> _changePage;
         private readonly Action<NotificationType, string> _showNotification;
-        public StoreListItemViewModel(StoreListItemModel model, Action<NotificationType, string> showNotification, Action<ViewModelBase> changeToPage, Action<MapPages> changePage)
+        private readonly Action<bool> _showLoading;
+        public StoreListItemViewModel(StoreListItemModel model, Action<bool> showLoading, Action<NotificationType, string> showNotification, Action<ViewModelBase> changeToPage, Action<MapPages> changePage)
         {
             _model = model;
+            _showLoading = showLoading;
             _showNotification = showNotification;
             _changeToPage = changeToPage;
             _changePage = changePage;
@@ -39,7 +41,7 @@ namespace ShoppingList.ViewModels.Map
 
             try
             {
-                MapViewModel map = new(new MapModel(await _model.GetFullStoreAsync()), _changeToPage, _changePage);
+                MapViewModel map = new(new MapModel(await _model.GetFullStoreAsync()), _showLoading, _changeToPage, _changePage);
                 IsLoading = false;
                 _changeToPage(map);
             }

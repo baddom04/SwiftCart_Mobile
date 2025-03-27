@@ -76,7 +76,8 @@ public partial class MapView : UserControl
                 Height = _squareSize,
                 Background = (IBrush)_toColorConverter.Convert(segment.Type, typeof(IBrush), null, CultureInfo.CurrentCulture)!,
                 BorderBrush = Brushes.LightGray,
-                BorderThickness = new Thickness(1)
+                BorderThickness = new Thickness(1),
+                DataContext = segment
             };
 
             Canvas.SetLeft(border, _extraPadding / 2 + segment.X * _squareSize);

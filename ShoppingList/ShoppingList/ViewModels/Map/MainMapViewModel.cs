@@ -12,12 +12,11 @@ namespace ShoppingList.ViewModels.Map
             ChangePage(MapPages.StoreList);
         }
 
-        public MainMapViewModel(Action<NotificationType, string> showNotification)
+        public MainMapViewModel(Action<bool> showLoading, Action<NotificationType, string> showNotification)
         {
             _pages = new()
             {
-                { MapPages.StoreList, new StoreListViewModel(new StoreListModel(), showNotification, ChangeToPage, ChangePage) },
-                { MapPages.StoreSettings, new StoreSettingsViewModel() },
+                { MapPages.StoreList, new StoreListViewModel(new StoreListModel(), showLoading, showNotification, ChangeToPage, ChangePage) },
             };
 
             _currentPage = _pages[MapPages.StoreList];

@@ -371,6 +371,9 @@
     <Style Selector="^.white_foreground">
       <Setter Property="Foreground" Value="{StaticResource MainBG}"/>
     </Style>
+    <Style Selector="^.btn_foreground">
+      <Setter Property="Foreground" Value="{StaticResource MainBtnBG}"/>
+    </Style>
     <Style Selector="^.red_foreground">
       <Setter Property="Foreground" Value="{StaticResource ErrorSecondaryRed}"/>
     </Style>

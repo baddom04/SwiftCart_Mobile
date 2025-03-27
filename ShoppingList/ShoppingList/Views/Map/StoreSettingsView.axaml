@@ -4,7 +4,82 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:vm="clr-namespace:ShoppingList.ViewModels.Map"
+             xmlns:progRing="clr-namespace:AvaloniaProgressRing;assembly=AvaloniaProgressRing"
              x:DataType="vm:StoreSettingsViewModel"
              x:Class="ShoppingList.Views.Map.StoreSettingsView">
-  Welcome to Avalonia!
+  <Grid RowDefinitions="Auto, *">
+
+    <Grid Grid.Row="0" Margin="20 30">
+      <Button VerticalAlignment="Center" Classes="trans_bg" HorizontalAlignment="Left"
+              Command="{Binding GoBackCommand}">
+        <PathIcon Data="{StaticResource arrow_left_regular}" Classes="maxi"/>
+      </Button>
+      <TextBlock Classes="h1" Text="{DynamicResource AvailableProducts}" HorizontalAlignment="Center"
+                 VerticalAlignment="Center" TextWrapping="Wrap"/>
+      <Button VerticalAlignment="Center" HorizontalAlignment="Right"
+              Command="{Binding ClearCommand}">
+        <PathIcon Data="{StaticResource erase_regular}" Classes="maxi white_foreground"/>
+      </Button>
+    </Grid>
+
+    <Grid Grid.Row="1" RowDefinitions="Auto, *">
+      <Grid Grid.Row="0"  ColumnDefinitions="*, Auto" Margin="20 20 20 30">
+        <TextBox Grid.Column="0" Text="{Binding SearchInput}" MaxLength="20"
+                 Watermark="{DynamicResource SearchHereWatermark}"/>
+        <Button Grid.Column="1" Margin="10 0 0 0" Command="{Binding SearchCommand}">
+          <PathIcon Data="{StaticResource search_regular}"
+                    Classes="maxi white_foreground"/>
+        </Button>
+      </Grid>
+
+      <ScrollViewer Grid.Row="1">
+        <Grid>
+          <Grid IsVisible="{Binding !IsLoading}">
+            <ItemsControl ItemsSource="{Binding SearchResults}" IsVisible="{Binding ShowSearchResults}">
+              <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                  <Border Classes="shopping_list_item" Margin="20 5" Padding="8">
+                    <Grid RowDefinitions="Auto, Auto, Auto" ColumnDefinitions="Auto, *, Auto">
+                      <PathIcon Grid.Column="0" Grid.RowSpan="2"
+                                Data="{StaticResource money_regular}"
+                                Classes="maxi btn_foreground" Margin="0 0 8 0"/>
+                      <TextBlock Grid.Column="1" Grid.Row="0" TextWrapping="Wrap"
+                                 Text="{Binding Product.Name}" Margin="0 0 0 5"/>
+                      <TextBlock Grid.Column="1" Grid.Row="1" TextWrapping="Wrap"
+                                 Text="{Binding Product.Brand}"
+                                 Classes="mini" />
+                      <Grid Grid.Column="2" Grid.RowSpan="2">
+                        <Button Classes="trans_bg" Command="{Binding OpenCommand}"
+                                Classes.halfAnimatedIn="{Binding IsOpen}"
+                                Classes.halfAnimatedOut="{Binding !IsOpen}">
+                          <PathIcon Data="{StaticResource chevron_right_regular}"
+                                    Classes="maxi btn_foreground"/>
+                        </Button>
+                      </Grid>
+                      <TextBlock Grid.Row="2" Grid.ColumnSpan="3" Margin="10"
+                                 Text="{Binding Product.Description}" TextWrapping="Wrap"
+                                 IsVisible="{Binding IsOpen}"/>
+                    </Grid>
+                  </Border>
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <Grid IsVisible="{Binding !ShowSearchResults}">
+
+
+
+            </Grid>
+          </Grid>
+          <progRing:ProgressRing  Grid.Row="1"
+                            Width="80"
+                            Height="80"
+                            IsVisible="{Binding IsLoading}"
+                            IsActive="{Binding IsLoading}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Foreground="{StaticResource MainBtnBG}"/>
+        </Grid>
+      </ScrollViewer>
+    </Grid>
+  </Grid>
 </UserControl>

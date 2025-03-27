@@ -31,7 +31,8 @@ namespace ShoppingList.ViewModels
             set
             {
                 this.RaiseAndSetIfChanged(ref _selectedMenuItem, value);
-                CurrentPage.ChangeToDefaultPage();
+                if(CurrentPage is not MainMapViewModel)
+                    CurrentPage.ChangeToDefaultPage();
                 CurrentPage = Menus[value];
             }
         }
@@ -48,7 +49,7 @@ namespace ShoppingList.ViewModels
             MyHouseholdsModel myHouseholds = new();
             Menus = new Dictionary<MenuIcon, MainViewModelBase>
             {
-                { new MenuIcon("Map", "globe_regular"), new MainMapViewModel(showNotification) },
+                { new MenuIcon("Map", "globe_regular"), new MainMapViewModel(showLoading, showNotification) },
                 { new MenuIcon("Shopping list", "cart_regular"), new MainGroceryPageViewModel(userAccount, myHouseholds, showNotification, showLoading) },
                 { new MenuIcon("Social", "people_regular"), new MainSocialPanelViewModel(myHouseholds, userAccount, showNotification, showLoading) },
                 { new MenuIcon("Settings", "settings_regular"), new MainSettingsViewModel(userAccount, showLoading, showNotification, changePage) },
