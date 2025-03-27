@@ -263,6 +263,14 @@
     </Style>
   </Style>
 
+  <Style Selector="ToggleSwitch">
+    <Style Selector="^:checked /template/ Border#SwitchKnobBounds">
+      <Setter Property="Background" Value="{DynamicResource MainBtnBG}"/>
+      <Setter Property="BorderBrush" Value="{DynamicResource MainBG}"/>
+      <Setter Property="BorderThickness" Value="0.6"/>
+    </Style>
+  </Style>
+
   <Style Selector="Border">
     <Style Selector="^.shopping_list_item">
       <Setter Property="CornerRadius" Value="10"/>

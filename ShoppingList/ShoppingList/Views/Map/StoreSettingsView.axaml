@@ -40,9 +40,8 @@
                 <DataTemplate>
                   <Border Classes="shopping_list_item" Margin="20 5" Padding="8">
                     <Grid RowDefinitions="Auto, Auto, Auto" ColumnDefinitions="Auto, *, Auto">
-                      <PathIcon Grid.Column="0" Grid.RowSpan="2"
-                                Data="{StaticResource money_regular}"
-                                Classes="maxi btn_foreground" Margin="0 0 8 0"/>
+                      <ToggleSwitch Grid.Column="0" Grid.RowSpan="2" IsChecked="{Binding IsSelected}"
+                                    OffContent="" OnContent="" Margin="0 0 8 0"/>
                       <TextBlock Grid.Column="1" Grid.Row="0" TextWrapping="Wrap"
                                  Text="{Binding Product.Name}" Margin="0 0 0 5"/>
                       <TextBlock Grid.Column="1" Grid.Row="1" TextWrapping="Wrap"
@@ -65,9 +64,36 @@
               </ItemsControl.ItemTemplate>
             </ItemsControl>
             <Grid IsVisible="{Binding !ShowSearchResults}">
-
-
-
+              <ItemsControl ItemsSource="{Binding Sections}">
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate>
+                    <Border Classes="shopping_list_item" Margin="20 5" Padding="8">
+                      <Grid RowDefinitions="Auto, Auto, Auto" ColumnDefinitions="Auto, *, Auto">
+                        <Button Grid.RowSpan="2" Grid.Column="0" 
+                                Command="{Binding SelectSectionCommand}">
+                          <PathIcon Data="{StaticResource arrow_reply_regular}" />
+                        </Button>
+                        <TextBlock Grid.Column="1" Grid.Row="0" TextWrapping="Wrap"
+                                   Text="{Binding Product.Name}" Margin="0 0 0 5"/>
+                        <TextBlock Grid.Column="1" Grid.Row="1" TextWrapping="Wrap"
+                                   Text="{Binding Product.Brand}"
+                                   Classes="mini" />
+                        <Grid Grid.Column="2" Grid.RowSpan="2">
+                          <Button Classes="trans_bg" Command="{Binding OpenCommand}"
+                                  Classes.halfAnimatedIn="{Binding IsOpen}"
+                                  Classes.halfAnimatedOut="{Binding !IsOpen}">
+                            <PathIcon Data="{StaticResource chevron_right_regular}"
+                                      Classes="maxi btn_foreground"/>
+                          </Button>
+                        </Grid>
+                        <TextBlock Grid.Row="2" Grid.ColumnSpan="3" Margin="10"
+                                   Text="{Binding Product.Description}" TextWrapping="Wrap"
+                                   IsVisible="{Binding IsOpen}"/>
+                      </Grid>
+                    </Border>
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
             </Grid>
           </Grid>
           <progRing:ProgressRing  Grid.Row="1"

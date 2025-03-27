@@ -1,17 +1,14 @@
-﻿using ReactiveUI;
+﻿using DynamicData;
+using ReactiveUI;
 using ShoppingList.Core;
 using ShoppingList.Model.Map;
+using ShoppingList.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Collections.Specialized;
 using System.Linq;
 using System.Reactive;
-using System.Timers;
 using System.Threading.Tasks;
-using ShoppingList.Utils;
-using DynamicData;
-using Avalonia.Threading;
 
 namespace ShoppingList.ViewModels.Map
 {
@@ -24,152 +21,124 @@ namespace ShoppingList.ViewModels.Map
             private set { this.RaiseAndSetIfChanged(ref _isLoading, value); }
         }
 
-
         private string _searchInput = string.Empty;
         public string SearchInput
         {
             get { return _searchInput; }
-            set
-            {
-                this.RaiseAndSetIfChanged(ref _searchInput, value);
-                this.RaisePropertyChanged(nameof(ShowSearchResults));
-            }
+            set { this.RaiseAndSetIfChanged(ref _searchInput, value); }
         }
 
-        public bool ShowSearchResults => SearchInput.Length != 0;
+        private bool _showSearchResults;
+        public bool ShowSearchResults
+        {
+            get { return _showSearchResults; }
+            private set { this.RaiseAndSetIfChanged(ref _showSearchResults, value); }
+        }
+
         public ObservableCollection<ProductViewModel> SearchResults { get; } = [];
         public ObservableCollection<SectionViewModel> Sections { get; } = [];
-        public SectionViewModel? SelectedSection { get; set; }
         public ObservableCollection<ProductViewModel> MiscProducts { get; } = [];
-        public ObservableCollection<ProductViewModel> SelectedMiscProducts { get; } = [];
-        public ReactiveCommand<Unit, Task> GoBackCommand { get; }
+        public ReactiveCommand<Unit, Unit> GoBackCommand { get; }
         public ReactiveCommand<Unit, Unit> ClearCommand { get; }
         public ReactiveCommand<Unit, Unit> SearchCommand { get; }
+        public ReactiveCommand<Section, Unit> SelectSectionCommand { get; }
 
         private readonly MapModel _model;
         private readonly Action _goBack;
-        private readonly List<Product> _allProducts = [];
+        private readonly List<ProductViewModel> _allProducts = [];
         private readonly Action<bool> _showLoading;
         public StoreSettingsViewModel(MapModel model, Action<bool> showLoading, Action goBack)
         {
             _model = model;
             _showLoading = showLoading;
             _goBack = goBack;
-            GoBackCommand = ReactiveCommand.Create(async () =>
-            {
-                _showLoading(true);
-                await Task.Run(_model.MarkMapSegments);
-                _showLoading(false);
-                _goBack();
-            });
-            ClearCommand = ReactiveCommand.CreateFromTask(ClearAllSelection);
+            GoBackCommand = ReactiveCommand.CreateFromTask(MarkAndGoBack);
+            ClearCommand = ReactiveCommand.Create(ClearAllSelection);
             SearchCommand = ReactiveCommand.Create(OnSearch);
+            SelectSectionCommand = ReactiveCommand.CreateFromTask<Section>(OnSectionSelected);
 
-            SelectedMiscProducts.CollectionChanged += MiscProducts_CollectionChanged;
+            LoadData();
+        }
 
-            this.WhenAnyValue(x => x.SelectedSection).Subscribe(OnSectionSelected);
+        private async Task OnSectionSelected(Section section)
+        {
+            ClearAllSelection();
+            _model.SelectSection(section);
+            await MarkAndGoBack();
+        }
+        private async Task MarkAndGoBack()
+        {
+            _showLoading(true);
+            await Task.Run(_model.MarkMapSegments);
+            _showLoading(false);
+            _goBack();
         }
 
         private IEnumerable<ProductViewModel> Search()
         {
             return _allProducts
-                .Select(p => new { Product = p, Score = FuzzyMatcher.CommandScore(p.Name, SearchInput) })
+                .Select(p => new
+                {
+                    Product = p,
+                    Score = FuzzyMatcher.CommandScore(p.Product.Name, SearchInput) +
+                    FuzzyMatcher.CommandScore(p.Product.Brand, SearchInput) +
+                    FuzzyMatcher.CommandScore(p.Product.Description, SearchInput)
+                })
                 .Where(x => x.Score != 0)
                 .OrderByDescending(x => x.Score)
                 .Take(10)
-                .Select(x => new ProductViewModel(x.Product))
+                .Select(x => x.Product)
                 .ToList();
         }
 
         private async void OnSearch()
         {
             IsLoading = true;
+            ShowSearchResults = SearchInput.Length != 0;
             SearchResults.Clear();
             SearchResults.AddRange(await Task.Run(Search));
             IsLoading = false;
         }
-
-        private void MiscProducts_CollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
+        private void ClearAllSelection()
         {
-            switch (e.Action)
-            {
-                case NotifyCollectionChangedAction.Add:
-                    if (e.NewItems is null) break;
-                    foreach (ProductViewModel newItem in e.NewItems)
-                    {
-                        _model.Select(newItem.Product);
-                    }
-                    break;
-                case NotifyCollectionChangedAction.Remove:
-                    if (e.OldItems is null) break;
-                    foreach (ProductViewModel oldItem in e.OldItems)
-                    {
-                        _model.UnSelect(oldItem.Product);
-                    }
-                    break;
-                default:
-                    break;
-            }
+            _allProducts.ForEach(p => p.IsSelected = false);
+            _model.Clear();
         }
 
-        private async void OnSectionSelected(SectionViewModel? sectionViewModel)
-        {
-            if (sectionViewModel == null) return;
-
-            _showLoading(true);
-            await ClearAllSelection();
-            _model.SelectSection(sectionViewModel.Section);
-
-            _showLoading(true);
-            await Task.Run(_model.MarkMapSegments);
-            _showLoading(false);
-            _goBack();
-        }
-        private async Task ClearAllSelection()
-        {
-            await Dispatcher.UIThread.InvokeAsync(() =>
-            {
-                SelectedMiscProducts.Clear();
-                Sections.ToList().ForEach(s => s.SelectedProducts.Clear());
-                _model.Clear();
-            });
-        }
-
-        public async Task LoadData()
+        public void LoadData()
         {
             _showLoading(true);
-            await Task.Run(InitializeData);
+            InitializeData();
             _showLoading(false);
         }
-        private async Task InitializeData()
+        private void InitializeData()
         {
-            Dictionary<int, List<Product>> temp =
+            Dictionary<int, List<ProductViewModel>> temp =
                 _model.Store.Map!.Sections.ToDictionary(
                     section => section.Id,
-                    section => new List<Product>());
+                    section => new List<ProductViewModel>());
 
-            List<ProductViewModel> temp2 = [];
+            List<ProductViewModel> misc = [];
 
             foreach (MapSegment segment in _model.Store.Map!.MapSegments)
             {
                 foreach (Product product in segment.Products)
                 {
+                    ProductViewModel productViewModel = new(_model, product);
                     if (segment.SectionId.HasValue)
-                        temp[segment.SectionId.Value].Add(product);
+                        temp[segment.SectionId.Value].Add(productViewModel);
                     else
-                        temp2.Add(new ProductViewModel(product));
+                        misc.Add(productViewModel);
 
-                    _allProducts.Add(product);
+                    _allProducts.Add(productViewModel);
                 }
             }
-            await Dispatcher.UIThread.InvokeAsync(() =>
+
+            MiscProducts.AddRange(misc);
+            foreach (Section section in _model.Store.Map!.Sections)
             {
-                MiscProducts.AddRange(temp2);
-                foreach (Section section in _model.Store.Map!.Sections)
-                {
-                    Sections.Add(new SectionViewModel(_model, section, temp[section.Id]));
-                }
-            });
+                Sections.Add(new SectionViewModel(_model, section, temp[section.Id]));
+            }
         }
     }
 }
