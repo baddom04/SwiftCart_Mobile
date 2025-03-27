@@ -8,7 +8,7 @@
              x:Class="ShoppingList.Views.Map.MainMapView">
   <TransitioningContentControl Content="{Binding CurrentPage}">
     <TransitioningContentControl.PageTransition>
-      <PageSlide Duration="0:00:00.200" />
+      <CrossFade Duration="0:00:00.200" />
     </TransitioningContentControl.PageTransition>
   </TransitioningContentControl>
 </UserControl>

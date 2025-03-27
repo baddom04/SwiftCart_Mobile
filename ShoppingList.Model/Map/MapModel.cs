@@ -56,9 +56,14 @@ namespace ShoppingList.Model.Map
         public void MarkMapSegments()
         {
             Store.Map!.MapSegments
-                .Where(ms => _markedMapSegmentIds.Contains(ms.Id))
                 .ToList()
-                .ForEach(ms => ms.Marked = true);
+                .ForEach(ms => 
+                { 
+                    if (_markedMapSegmentIds.Contains(ms.Id)) 
+                        ms.Marked = true; 
+                    else 
+                        ms.Marked = false; 
+                });
         }
     }
 }

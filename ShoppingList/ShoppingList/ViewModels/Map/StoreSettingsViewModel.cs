@@ -65,6 +65,7 @@ namespace ShoppingList.ViewModels.Map
             ClearAllSelection();
             _model.SelectSection(section);
             await MarkAndGoBack();
+            _model.UnSelectSection();
         }
         private async Task MarkAndGoBack()
         {

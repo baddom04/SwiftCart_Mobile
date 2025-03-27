@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using Avalonia.Media;
+using Avalonia.Platform;
 using Avalonia.Threading;
 using ShoppingList.Converters;
 using ShoppingList.Core;
@@ -79,6 +80,25 @@ public partial class MapView : UserControl
                 BorderThickness = new Thickness(1),
                 DataContext = segment
             };
+
+            if (segment.Marked)
+            {
+                Avalonia.Application.Current!.TryFindResource("star_regular", out var res);
+
+                border.BorderBrush = Brushes.Red;
+                border.BorderThickness = new Thickness(1);
+                border.ZIndex = 1;
+
+                border.Child = new PathIcon
+                {
+                    Data = res as StreamGeometry,
+                    HorizontalAlignment = Avalonia.Layout.HorizontalAlignment.Center,
+                    VerticalAlignment = Avalonia.Layout.VerticalAlignment.Center,
+                    Foreground = Brushes.Red,
+                    Width = _squareSize / 2,
+                    Height = _squareSize / 2,
+                };
+            }
 
             Canvas.SetLeft(border, _extraPadding / 2 + segment.X * _squareSize);
             Canvas.SetTop(border, _extraPadding / 2 + segment.Y * _squareSize);

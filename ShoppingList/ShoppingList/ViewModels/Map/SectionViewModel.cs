@@ -1,14 +1,23 @@
-﻿using ShoppingList.Core;
+﻿using ReactiveUI;
+using ShoppingList.Core;
 using ShoppingList.Model.Map;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Reactive;
 
 namespace ShoppingList.ViewModels.Map
 {
     internal class SectionViewModel : ViewModelBase
     {
         public ObservableCollection<ProductViewModel> Products { get; }
-        public bool IsOpen { get; set; }
+
+        private bool _isOpen;
+        public bool IsOpen
+        {
+            get { return _isOpen; }
+            private set { this.RaiseAndSetIfChanged(ref _isOpen, value); }
+        }
+        public ReactiveCommand<Unit, bool> OpenCommand { get; }
 
         private readonly MapModel _model;
         public Section Section { get; }
@@ -18,6 +27,7 @@ namespace ShoppingList.ViewModels.Map
             Section = section;
 
             Products = [.. products];
+            OpenCommand = ReactiveCommand.Create(() => IsOpen = !IsOpen);
         }
     }
 }

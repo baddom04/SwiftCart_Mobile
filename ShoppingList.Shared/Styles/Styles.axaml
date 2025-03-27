@@ -276,6 +276,12 @@
       <Setter Property="CornerRadius" Value="10"/>
       <Setter Property="BoxShadow" Value="1 1 5 0 Gray"/>
     </Style>
+
+    <Style Selector="^.shopping_list_item_selected">
+      <Setter Property="BorderBrush" Value="{DynamicResource MainBtnBG}"/>
+      <Setter Property="BorderThickness" Value="2"/>
+    </Style>
+    
     <Style Selector="^.shopping_list_item_owner">
       <Setter Property="CornerRadius" Value="10"/>
       <Setter Property="BoxShadow" Value="1 1 5 0 Gray"/>
