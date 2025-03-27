@@ -326,6 +326,12 @@
       <Setter Property="CornerRadius" Value="10"/>
       <Setter Property="BoxShadow" Value="0 0 10 0 Gray"/>
     </Style>
+    <Style Selector="^.mainbg_floater">
+      <Setter Property="CornerRadius" Value="10"/>
+      <Setter Property="BoxShadow" Value="0 0 10 0 Gray"/>
+      <Setter Property="Padding" Value="5"/>
+      <Setter Property="Background" Value="{StaticResource MainBG}"/>
+    </Style>
   </Style>
 
   <Style Selector="TextBox">

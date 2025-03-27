@@ -8,6 +8,8 @@ using System;
 using ShoppingList.Core.Enums;
 using System.Linq;
 using ShoppingList.ViewModels.Map;
+using ShoppingList.Converters;
+using System.Globalization;
 
 namespace ShoppingList.Views.Map;
 
@@ -24,6 +26,8 @@ public partial class MapView : UserControl
 
     private double _squareSize = 50;
     private readonly Canvas _canvas;
+
+    private readonly SegmentTypeToColorConverter _toColorConverter = new();
     public MapView()
     {
         InitializeComponent();
@@ -64,7 +68,9 @@ public partial class MapView : UserControl
             {
                 Width = _squareSize,
                 Height = _squareSize,
-                Background = GetBrushForSegment(segment)
+                Background = (IBrush)_toColorConverter.Convert(segment.Type, typeof(IBrush), null, CultureInfo.CurrentCulture)!,
+                BorderBrush = Brushes.LightGray,
+                BorderThickness = new Thickness(1)
             };
 
             Canvas.SetLeft(border, segment.X * _squareSize);
@@ -74,21 +80,6 @@ public partial class MapView : UserControl
         }
 
         UpdateTransforms();
-    }
-
-    private static IBrush GetBrushForSegment(MapSegment segment)
-    {
-        return segment.Type switch
-        {
-            SegmentType.Entrance => Brushes.LightGreen,
-            SegmentType.CashRegister => Brushes.LightBlue,
-            SegmentType.Shelf => Brushes.Beige,
-            SegmentType.Fridge => Brushes.LightCyan,
-            SegmentType.Wall => Brushes.Gray,
-            SegmentType.Outside => Brushes.LightYellow,
-            SegmentType.Empty => Brushes.White,
-            _ => Brushes.White,
-        };
     }
     private void UpdateTransforms()
     {
