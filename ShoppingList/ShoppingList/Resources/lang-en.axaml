@@ -138,6 +138,12 @@
   <x:String x:Key="DeleteCommentError">Delete comment error&#x0a;</x:String>
   <x:String x:Key="AddCommentError">Comment creation error&#x0a;</x:String>
   
+  <!--MapView-->
+  <x:String x:Key="AvailableStores">Available stores</x:String>
+  <!--^Errors-->
+  <x:String x:Key="SearchStoresError">Search stores error&#x0a;</x:String>
+  <x:String x:Key="StoreQueryError">Store query error&#x0a;</x:String>
+  
   <!--Error Messages-->
   <x:String x:Key="EmailFormatError">The given email address is not valid.</x:String>
   <x:String x:Key="EmailMissingError">Please enter your email address.</x:String>

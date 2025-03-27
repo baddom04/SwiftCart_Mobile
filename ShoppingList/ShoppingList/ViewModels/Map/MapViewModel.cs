@@ -1,16 +1,12 @@
-﻿using ShoppingList.ViewModels.Shared;
+﻿using ShoppingList.Model.Map;
 
 namespace ShoppingList.ViewModels.Map
 {
-    internal class MapViewModel : MainViewModelBase<MapPages>
+    internal class MapViewModel : ViewModelBase
     {
-        public override void ChangeToDefaultPage()
+        public MapViewModel(MapModel model)
         {
-            // TODO: implement
+            
         }
-    }
-    internal enum MapPages
-    {
-        Main
     }
 }

@@ -2,7 +2,7 @@
 
 namespace ShoppingList.Persistor.DTO
 {
-    public class HouseholdsMetaData
+    public class MetaData
     {
         [JsonPropertyName("last_page")]
         public int MaxPages { get; init; }

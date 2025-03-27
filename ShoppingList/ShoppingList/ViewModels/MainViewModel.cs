@@ -1,11 +1,10 @@
-﻿using ShoppingList.Utils;
-using ReactiveUI;
-using System.Collections.Generic;
-using System.Reactive;
+﻿using ReactiveUI;
+using ShoppingList.Model.Settings;
+using ShoppingList.Utils;
 using ShoppingList.ViewModels.Login;
 using ShoppingList.ViewModels.Register;
-using ShoppingList.Model.Settings;
-using ShoppingList.Model.Social;
+using System.Collections.Generic;
+using System.Reactive;
 
 namespace ShoppingList.ViewModels
 {

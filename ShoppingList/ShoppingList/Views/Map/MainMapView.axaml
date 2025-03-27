@@ -4,7 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:vm="clr-namespace:ShoppingList.ViewModels.Map"
-             x:DataType="vm:MapViewModel"
-             x:Class="ShoppingList.Views.Map.MapView">
-  
+             x:DataType="vm:MainMapViewModel"
+             x:Class="ShoppingList.Views.Map.MainMapView">
+  <TransitioningContentControl Content="{Binding CurrentPage}">
+    <TransitioningContentControl.PageTransition>
+      <PageSlide Duration="0:00:00.200" />
+    </TransitioningContentControl.PageTransition>
+  </TransitioningContentControl>
 </UserControl>

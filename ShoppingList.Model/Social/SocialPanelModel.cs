@@ -20,7 +20,7 @@ namespace ShoppingList.Model.Social
 
         public async Task<IEnumerable<Household>> SearchHouseholdsAsync(string search, int page)
         {
-            HouseholdsResponse response = await _householdService.GetAllHouseholdsAsync(search, page);
+            PaginatedResponse<Household> response = await _householdService.GetAllHouseholdsAsync(search, page);
 
             LoadedHouseholds = response.QueryResult;
 

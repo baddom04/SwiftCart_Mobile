@@ -1,0 +1,27 @@
+﻿using Microsoft.Extensions.DependencyInjection;
+using ShoppingList.Core;
+using ShoppingList.Persistor;
+using ShoppingList.Persistor.DTO;
+using ShoppingList.Persistor.Services.Interfaces;
+
+namespace ShoppingList.Model.Map
+{
+    public class StoreListModel
+    {
+        private IEnumerable<Store> _stores = [];
+        public int MaxPages { get; private set; }
+
+        private readonly IStoreService _storeService = AppServiceProvider.Services.GetRequiredService<IStoreService>();
+
+        public async Task<IEnumerable<Store>> GetStoresAsync(string search, int page)
+        {
+            PaginatedResponse<Store> stores = await _storeService.GetStoresAsync(search, page);
+
+            _stores = stores.QueryResult;
+
+            MaxPages = stores.Meta is null ? stores.MaxPages : stores.Meta.MaxPages;
+
+            return _stores;
+        }
+    }
+}

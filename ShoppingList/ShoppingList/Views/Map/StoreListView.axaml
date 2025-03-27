@@ -1,0 +1,94 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="clr-namespace:ShoppingList.ViewModels.Map"
+             x:DataType="vm:StoreListViewModel"
+             x:Class="ShoppingList.Views.Map.StoreListView"
+             xmlns:progRing="clr-namespace:AvaloniaProgressRing;assembly=AvaloniaProgressRing">
+  <Grid RowDefinitions="Auto, *">
+
+    <TextBlock Grid.Row="0" Text="{DynamicResource AvailableStores}" Classes="h1" HorizontalAlignment="Center" Margin="30"/>
+
+    <Grid Grid.Row="1" RowDefinitions="Auto, *">
+
+      <Grid Grid.Row="0"  ColumnDefinitions="*, Auto" Margin="20 20 20 30">
+        <TextBox Grid.Column="0" Text="{Binding SearchInput}" MaxLength="20"
+                 Watermark="{DynamicResource SearchHereWatermark}"/>
+        <Button Grid.Column="1" Command="{Binding SearchCommand}" Margin="10 0 0 0">
+          <PathIcon Data="{StaticResource search_regular}" Classes="white_foreground maxi"/>
+        </Button>
+      </Grid>
+
+      <Grid Grid.Row="1" IsVisible="{Binding !IsLoading}" RowDefinitions="*, Auto">
+        <ScrollViewer Grid.Row="0" IsVisible="{Binding !EmptyStores}" >
+          <ItemsControl ItemsSource="{Binding Stores}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <Border Classes="setting household_item" Margin="20 5" Padding="8">
+                  <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="Auto, *, Auto">
+                    <PathIcon Grid.Column="0" Grid.RowSpan="2"
+                              Data="{StaticResource building_shop_regular}"
+                              Classes="maxi white_foreground" Margin="0 0 8 0"/>
+                    <TextBlock Grid.Column="1" Grid.Row="0" TextWrapping="Wrap"
+                               Text="{Binding Name}" Margin="0 0 0 5"
+                               Classes="inverted_colors"/>
+                    <TextBlock Grid.Column="1" Grid.Row="1" TextWrapping="Wrap"
+                               Text="{Binding Location}"
+                               Classes="mini inverted_colors" />
+                    <Grid Grid.Column="2" Grid.RowSpan="2">
+
+                      <Grid  IsVisible="{Binding !IsLoading}">
+                        <Button Classes="trans_bg"
+                                Command="{Binding LoadStoreCommand}">
+                          <PathIcon Data="{StaticResource chevron_right_regular}" Classes="white_foreground"/>
+                        </Button>
+                      </Grid>
+
+                      <progRing:ProgressRing Width="30"
+                                               Height="30"
+                                               Margin="0 0 15 0"
+                                               IsVisible="{Binding IsLoading}"
+                                               IsActive="{Binding IsLoading}"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center"
+                                               Foreground="{StaticResource MainBG}"/>
+                    </Grid>
+                  </Grid>
+                </Border>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </ScrollViewer>
+
+        <Grid Grid.Row="1" Margin="20 10" IsVisible="{Binding !EmptyStores}" ColumnDefinitions="*, Auto, *">
+          <Button Grid.Column="0" HorizontalAlignment="Center" Classes="wide" Command="{Binding TurnPageBackwardCommand}">
+            <PathIcon Data="{StaticResource chevron_left_regular}" Classes="white_foreground"/>
+          </Button>
+          <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Center">
+            <TextBlock Text="{Binding Page}"/>
+            <TextBlock Text=" / "/>
+            <TextBlock Text="{Binding MaxPage}"/>
+          </StackPanel>
+          <Button Grid.Column="2" HorizontalAlignment="Center" Classes="wide" Command="{Binding TurnPageForwardCommand}">
+            <PathIcon Data="{StaticResource chevron_right_regular}" Classes="white_foreground"/>
+          </Button>
+        </Grid>
+
+        <TextBlock Grid.RowSpan="2" IsVisible="{Binding EmptyStores}"
+               Text="{DynamicResource NoMatchFound}" Classes="h2"
+                 HorizontalAlignment="Center" VerticalAlignment="Center"/>
+      </Grid>
+
+      <progRing:ProgressRing  Grid.Row="1"
+                              Width="80"
+                              Height="80"
+                              IsVisible="{Binding IsLoading}"
+                              IsActive="{Binding IsLoading}"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              Foreground="{StaticResource MainBtnBG}"/>
+    </Grid>
+  </Grid>
+</UserControl>

@@ -21,5 +21,10 @@ namespace ShoppingList.Core
 
         [JsonPropertyName("updated_at")]
         public DateTime UpdatedAt { get; init; }
+
+        public override string ToString()
+        {
+            return $"{Country},{ZipCode} {City}, {Street}, {Detail}";
+        }
     }
 }

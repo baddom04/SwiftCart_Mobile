@@ -48,14 +48,14 @@ namespace ShoppingList.ViewModels
             MyHouseholdsModel myHouseholds = new();
             Menus = new Dictionary<MenuIcon, MainViewModelBase>
             {
-                { new MenuIcon("Map", "globe_regular"), new MapViewModel() },
+                { new MenuIcon("Map", "globe_regular"), new MainMapViewModel(showNotification) },
                 { new MenuIcon("Shopping list", "cart_regular"), new MainGroceryPageViewModel(userAccount, myHouseholds, showNotification, showLoading) },
                 { new MenuIcon("Social", "people_regular"), new MainSocialPanelViewModel(myHouseholds, userAccount, showNotification, showLoading) },
                 { new MenuIcon("Settings", "settings_regular"), new MainSettingsViewModel(userAccount, showLoading, showNotification, changePage) },
             };
 
             MenuItems = [.. Menus.Select(item => item.Key)];
-            _selectedMenuItem = MenuItems[1];
+            _selectedMenuItem = MenuItems[0];
             _currentPage = Menus[_selectedMenuItem];
             _userAccount = userAccount;
             _showLoading = showLoading;

@@ -33,15 +33,13 @@ namespace ShoppingList.Persistor.Services
             await ValidateResponse(response, cancellationToken);
         }
 
-        public async Task<HouseholdsResponse> GetAllHouseholdsAsync(string search, int page, CancellationToken cancellationToken = default)
+        public async Task<PaginatedResponse<Household>> GetAllHouseholdsAsync(string search, int page, CancellationToken cancellationToken = default)
         {
-            string endpoint = "households" + (!string.IsNullOrWhiteSpace(search) ? "/" + Uri.EscapeDataString(search) : "");
-
-            HttpResponseMessage response = await _httpClient.GetAsync($"{endpoint}?per_page={NetworkSettings.HouseholdPerPage}&page={page}", cancellationToken);
+            HttpResponseMessage response = await _httpClient.GetAsync($"households/search?search={Uri.EscapeDataString(search)}&per_page={NetworkSettings.HouseholdPerPage}&page={page}", cancellationToken);
 
             await ValidateResponse(response, cancellationToken);
 
-            HouseholdsResponse? households = await response.Content.ReadFromJsonAsync<HouseholdsResponse>(cancellationToken);
+            PaginatedResponse<Household>? households = await response.Content.ReadFromJsonAsync<PaginatedResponse<Household>>(cancellationToken);
 
             return households ?? throw new NullReferenceException(nameof(households));
         }
@@ -63,7 +61,7 @@ namespace ShoppingList.Persistor.Services
 
             await ValidateResponse(response, cancellationToken);
 
-            HouseholdsResponse? households = await response.Content.ReadFromJsonAsync<HouseholdsResponse>(cancellationToken);
+            PaginatedResponse<Household>? households = await response.Content.ReadFromJsonAsync<PaginatedResponse<Household>>(cancellationToken);
 
             return households is null ? throw new NullReferenceException(nameof(households)) : households.QueryResult;
         }

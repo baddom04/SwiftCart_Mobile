@@ -29,6 +29,12 @@ namespace ShoppingList.Persistor
             services.AddHttpClient<IApplicationService, ApplicationService>(configureClient).AddHttpMessageHandler<AuthDelegatingHandler>();
             services.AddHttpClient<IGroceryService, GroceryService>(configureClient).AddHttpMessageHandler<AuthDelegatingHandler>();
             services.AddHttpClient<ICommentService, CommentService>(configureClient).AddHttpMessageHandler<AuthDelegatingHandler>();
+            services.AddHttpClient<IStoreService, StoreService>(configureClient).AddHttpMessageHandler<AuthDelegatingHandler>();
+            services.AddHttpClient<IMapService, MapService>(configureClient).AddHttpMessageHandler<AuthDelegatingHandler>();
+            services.AddHttpClient<ISectionService, SectionService>(configureClient).AddHttpMessageHandler<AuthDelegatingHandler>();
+            services.AddHttpClient<IMapSegmentService, MapSegmentService>(configureClient).AddHttpMessageHandler<AuthDelegatingHandler>();
+            services.AddHttpClient<IProductService, ProductService>(configureClient).AddHttpMessageHandler<AuthDelegatingHandler>();
+            services.AddHttpClient<ILocationService, LocationService>(configureClient).AddHttpMessageHandler<AuthDelegatingHandler>();
 
             Services = services.BuildServiceProvider();
         }

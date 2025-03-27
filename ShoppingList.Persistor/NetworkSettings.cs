@@ -7,6 +7,7 @@ public static class NetworkSettings
 {
     public static Uri BaseAddress { get; }
     public static int HouseholdPerPage { get; } = 5;
+    public static int StoresPerPage { get; } = 10;
 
     static NetworkSettings()
     {

@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:vm="clr-namespace:ShoppingList.ViewModels.Map"
-             x:DataType="vm:MapViewModel"
-             x:Class="ShoppingList.Views.Map.MapView">
-  
+             x:DataType="vm:StoreSettingsViewModel"
+             x:Class="ShoppingList.Views.Map.StoreSettingsView">
+  Welcome to Avalonia!
 </UserControl>

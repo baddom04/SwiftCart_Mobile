@@ -1,4 +1,5 @@
 ﻿using ShoppingList.Core;
+using ShoppingList.Persistor.DTO;
 using ShoppingList.Persistor.Services.Interfaces;
 using System.Net.Http.Json;
 
@@ -33,13 +34,13 @@ namespace ShoppingList.Persistor.Services
             return store ?? throw new NullReferenceException();
         }
 
-        public async Task<IEnumerable<Store>> GetStoresAsync(CancellationToken cancellationToken = default)
+        public async Task<PaginatedResponse<Store>> GetStoresAsync(string search, int page, CancellationToken cancellationToken = default)
         {
-            HttpResponseMessage response = await _httpClient.GetAsync($"stores", cancellationToken);
+            HttpResponseMessage response = await _httpClient.GetAsync($"stores/search?search={Uri.EscapeDataString(search)}&per_page={NetworkSettings.StoresPerPage}&page={page}", cancellationToken);
 
             await ValidateResponse(response, cancellationToken);
 
-            IEnumerable<Store>? stores = await response.Content.ReadFromJsonAsync<IEnumerable<Store>>(cancellationToken);
+            PaginatedResponse<Store>? stores = await response.Content.ReadFromJsonAsync<PaginatedResponse<Store>>(cancellationToken);
 
             return stores ?? throw new NullReferenceException();
         }

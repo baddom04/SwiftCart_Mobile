@@ -22,18 +22,18 @@ internal class SocialPanelViewModel : ViewModelBase
     public ReactiveCommand<Unit, Unit> ManageHouseholdsPageCommand { get; }
     public ObservableCollection<HouseholdSearchResultViewModel> Households { get; } = [];
 
-    private bool _showLoading;
+    private bool _isLoading;
     public bool IsLoading
     {
-        get { return _showLoading; }
-        set { this.RaiseAndSetIfChanged(ref _showLoading, value); }
+        get { return _isLoading; }
+        private set { this.RaiseAndSetIfChanged(ref _isLoading, value); }
     }
 
     private int _page;
     public int Page
     {
         get { return _page; }
-        set { this.RaiseAndSetIfChanged(ref _page, value); }
+        private set { this.RaiseAndSetIfChanged(ref _page, value); }
     }
 
     private int _maxPage;
