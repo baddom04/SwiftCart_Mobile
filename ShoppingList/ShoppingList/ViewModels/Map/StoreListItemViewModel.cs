@@ -21,12 +21,14 @@ namespace ShoppingList.ViewModels.Map
         public ReactiveCommand<Unit, Unit> LoadStoreCommand { get; }
         private readonly StoreListItemModel _model;
         private readonly Action<ViewModelBase> _changeToPage;
+        private readonly Action<MapPages> _changePage;
         private readonly Action<NotificationType, string> _showNotification;
-        public StoreListItemViewModel(StoreListItemModel model, Action<NotificationType, string> showNotification, Action<ViewModelBase> changePage)
+        public StoreListItemViewModel(StoreListItemModel model, Action<NotificationType, string> showNotification, Action<ViewModelBase> changeToPage, Action<MapPages> changePage)
         {
             _model = model;
             _showNotification = showNotification;
-            _changeToPage = changePage;
+            _changeToPage = changeToPage;
+            _changePage = changePage;
             Name = _model.StoreWithoutMap.Name;
             Location = _model.StoreWithoutMap.Location;
             LoadStoreCommand = ReactiveCommand.CreateFromTask(LoadStoreAsync);
@@ -37,7 +39,7 @@ namespace ShoppingList.ViewModels.Map
 
             try
             {
-                MapViewModel map = new(new MapModel(await _model.GetFullStoreAsync()));
+                MapViewModel map = new(new MapModel(await _model.GetFullStoreAsync()), _changeToPage, _changePage);
                 IsLoading = false;
                 _changeToPage(map);
             }

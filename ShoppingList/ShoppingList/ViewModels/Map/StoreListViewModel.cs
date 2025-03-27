@@ -41,13 +41,15 @@ namespace ShoppingList.ViewModels.Map
         }
 
         private readonly Action<NotificationType, string> _showNotification;
-        private readonly Action<ViewModelBase> _changePage;
+        private readonly Action<ViewModelBase> _changeToPage;
+        private readonly Action<MapPages> _changePage;
         private readonly StoreListModel _model;
 
-        public StoreListViewModel(StoreListModel model, Action<NotificationType, string> showNotification, Action<ViewModelBase> changePage)
+        public StoreListViewModel(StoreListModel model, Action<NotificationType, string> showNotification, Action<ViewModelBase> changeToPage, Action<MapPages> changePage)
         {
             _model = model;
             _showNotification = showNotification;
+            _changeToPage = changeToPage;
             _changePage = changePage;
             SearchCommand = ReactiveCommand.CreateFromTask(() => Search());
 
@@ -69,7 +71,7 @@ namespace ShoppingList.ViewModels.Map
             {
                 Stores.Clear();
                 Stores.AddRange((await _model.GetStoresAsync(SearchInput, Page))
-                    .Select(store => new StoreListItemViewModel(new StoreListItemModel(store), _showNotification, _changePage)));
+                    .Select(store => new StoreListItemViewModel(new StoreListItemModel(store), _showNotification, _changeToPage, _changePage)));
 
                 MaxPage = _model.MaxPages;
             }

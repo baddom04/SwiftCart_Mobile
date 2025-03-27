@@ -16,7 +16,7 @@ namespace ShoppingList.ViewModels.Map
         {
             _pages = new()
             {
-                { MapPages.StoreList, new StoreListViewModel(new StoreListModel(), showNotification, ChangeToPage) },
+                { MapPages.StoreList, new StoreListViewModel(new StoreListModel(), showNotification, ChangeToPage, ChangePage) },
                 { MapPages.StoreSettings, new StoreSettingsViewModel() },
             };
 

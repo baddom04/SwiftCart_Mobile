@@ -6,5 +6,44 @@
              xmlns:vm="clr-namespace:ShoppingList.ViewModels.Map"
              x:DataType="vm:MapViewModel"
              x:Class="ShoppingList.Views.Map.MapView">
-  
+  <Grid RowDefinitions="Auto, *">
+
+    <Grid Grid.Row="0" Margin="20 30">
+      <Button VerticalAlignment="Center" Classes="trans_bg" HorizontalAlignment="Left"
+              Command="{Binding GoBackCommand}">
+        <PathIcon Data="{StaticResource arrow_left_regular}" Classes="maxi"/>
+      </Button>
+      <TextBlock Classes="h1" Text="{Binding Name}" HorizontalAlignment="Center"
+                 VerticalAlignment="Center" TextWrapping="Wrap"/>
+      <Button VerticalAlignment="Center" HorizontalAlignment="Right"
+              Command="{Binding StoreSettingsPageCommand}">
+        <PathIcon Data="{StaticResource options_regular}" Classes="maxi white_foreground"/>
+      </Button>
+    </Grid>
+
+    <Grid Grid.Row="1" VerticalAlignment="Stretch" RowDefinitions="Auto, *">
+
+      <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+        <Button Content="Zoom In" Click="ZoomInButton_Click" />
+        <Button Content="Zoom Out" Click="ZoomOutButton_Click" Margin="5 0"/>
+      </StackPanel>
+
+      <Border Grid.Row="1" Margin="10">
+        <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                      VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden">
+          <Canvas x:Name="MapCanvas" RenderTransformOrigin="0 0" HorizontalAlignment="Stretch" 
+                  VerticalAlignment="Stretch">
+            <Canvas.RenderTransform>
+              <TransformGroup>
+                <ScaleTransform ScaleX="1" ScaleY="1" />
+                <TranslateTransform X="0" Y="0" />
+              </TransformGroup>
+            </Canvas.RenderTransform>
+          </Canvas>
+        </ScrollViewer>
+      </Border>
+      
+    </Grid>
+
+  </Grid>
 </UserControl>
