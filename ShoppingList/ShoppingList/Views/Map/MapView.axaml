@@ -64,8 +64,10 @@
       </Grid>
 
       <Border Margin="10">
-        <ScrollViewer HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                      VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden">
+        <ScrollViewer x:Name="MapScrollViewer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                      VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+                      VerticalScrollBarVisibility="Visible" 
+                      HorizontalScrollBarVisibility="Visible">
           <Canvas x:Name="MapCanvas" RenderTransformOrigin="0 0" HorizontalAlignment="Stretch"
                   VerticalAlignment="Stretch">
             <Canvas.RenderTransform>
