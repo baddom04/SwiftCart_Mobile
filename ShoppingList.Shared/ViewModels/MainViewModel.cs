@@ -1,14 +1,9 @@
 ﻿using ReactiveUI;
-using ShoppingList.Shared;
 using ShoppingList.Shared.Model.Settings;
 using ShoppingList.Shared.Utils;
-using ShoppingList.Shared.ViewModels;
-using ShoppingList.ViewModels.Login;
-using ShoppingList.ViewModels.Register;
-using System.Collections.Generic;
 using System.Reactive;
 
-namespace ShoppingList.ViewModels
+namespace ShoppingList.Shared.ViewModels
 {
     public class MainViewModel : MainViewModelBase<MainPage>
     {
@@ -46,9 +41,9 @@ namespace ShoppingList.ViewModels
         {
             _pages = new Dictionary<MainPage, ViewModelBase>()
             {
-                { MainPage.Login, new LoginViewModel(userAccount, ChangePage, ShowLoading) },
-                { MainPage.Register, new RegisterViewModel(userAccount, ChangePage, ShowLoading) },
-                { MainPage.Main, new LoggedInViewModel(userAccount, ChangePage, ShowLoading, ShowNotificationDialog) },
+                //{ MainPage.Login, new LoginViewModel(userAccount, ChangePage, ShowLoading) },
+                //{ MainPage.Register, new RegisterViewModel(userAccount, ChangePage, ShowLoading) },
+                //{ MainPage.Main, new LoggedInViewModel(userAccount, ChangeMainPage, ShowLoading, ShowNotificationDialog) },
             };
 
             _currentPage = _pages[MainPage.Login];
@@ -62,11 +57,11 @@ namespace ShoppingList.ViewModels
             NotificationMessage = null;
             NotificationType = null;
         }
-        private void ShowLoading(bool isLoading)
+        protected void ShowLoading(bool isLoading)
         {
             IsLoading = isLoading;
         }
-        private void ShowNotificationDialog(NotificationType type, string message)
+        protected void ShowNotificationDialog(NotificationType type, string message)
         {
             ShowNotification = true;
             NotificationMessage = message;
@@ -75,7 +70,7 @@ namespace ShoppingList.ViewModels
 
         public override void ChangeToDefaultPage()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 

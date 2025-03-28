@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 
 namespace ShoppingList.Utils
 {
-    public static class FuzzyMatcher
+    internal static class FuzzyMatcher
     {
         private const double SCORE_CONTINUE_MATCH = 1.0;
         private const double SCORE_SPACE_WORD_JUMP = 0.9;

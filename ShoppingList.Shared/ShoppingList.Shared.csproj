@@ -16,8 +16,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ViewModels\Login\" />
     <Folder Include="Views\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ShoppingList.Shared.Model\ShoppingList.Shared.Model.csproj" />
   </ItemGroup>
 
 </Project>

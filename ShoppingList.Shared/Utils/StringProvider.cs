@@ -1,10 +1,9 @@
 ﻿using Avalonia;
 using Avalonia.Controls;
-using System.Collections.Generic;
 
-namespace ShoppingList.Utils
+namespace ShoppingList.Shared.Utils
 {
-    internal static class StringProvider
+    internal class StringProvider
     {
         internal static string GetString(string key)
         {
