@@ -1,6 +1,6 @@
 ﻿using ReactiveUI;
 
-namespace ShoppingList.ViewModels
+namespace ShoppingList.Shared
 {
     public abstract class ViewModelBase : ReactiveObject
     {

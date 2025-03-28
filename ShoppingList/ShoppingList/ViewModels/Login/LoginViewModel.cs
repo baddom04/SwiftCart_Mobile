@@ -1,5 +1,6 @@
 ﻿using ReactiveUI;
 using ShoppingList.Model.Settings;
+using ShoppingList.Shared;
 using ShoppingList.Utils;
 using System;
 using System.Reactive;
@@ -37,7 +38,7 @@ namespace ShoppingList.ViewModels.Login
 
         private async Task Login()
         {
-            //if (!Validate()) return;
+            if (!Validate()) return;
 
             _showLoading(true);
 

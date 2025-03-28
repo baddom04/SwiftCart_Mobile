@@ -1,5 +1,6 @@
 ﻿using ReactiveUI;
 using ShoppingList.Model.Settings;
+using ShoppingList.Shared;
 using ShoppingList.Utils;
 using System;
 using System.Reactive;

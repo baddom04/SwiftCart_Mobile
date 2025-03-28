@@ -1,6 +1,6 @@
 ﻿using ReactiveUI;
 using ShoppingList.Core;
-using ShoppingList.Model.Map;
+using ShoppingList.Shared;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Reactive;

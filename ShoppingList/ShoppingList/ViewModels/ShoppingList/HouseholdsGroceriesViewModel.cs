@@ -3,6 +3,7 @@ using ShoppingList.Core;
 using ShoppingList.Model.Settings;
 using ShoppingList.Model.ShoppingList;
 using ShoppingList.Model.Social;
+using ShoppingList.Shared;
 using ShoppingList.Utils;
 using ShoppingList.ViewModels.Shared;
 using System;

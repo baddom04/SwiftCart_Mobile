@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
-using ShoppingList.ViewModels;
+using ShoppingList.Shared;
 using System;
 
 namespace ShoppingList

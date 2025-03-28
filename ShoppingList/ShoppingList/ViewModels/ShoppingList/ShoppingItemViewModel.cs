@@ -4,6 +4,7 @@ using ShoppingList.Core;
 using ShoppingList.Core.Enums;
 using ShoppingList.Model.Settings;
 using ShoppingList.Model.ShoppingList;
+using ShoppingList.Shared;
 using ShoppingList.Utils;
 using System;
 using System.Collections.ObjectModel;
@@ -15,33 +16,6 @@ namespace ShoppingList.ViewModels.ShoppingList
 {
     internal class ShoppingItemViewModel : ViewModelBase
     {
-        //private ShoppingItem _item;
-        //public ShoppingItem Item
-        //{
-        //    get { return _item; }
-        //    set { this.RaiseAndSetIfChanged(ref _item, value); }
-        //}
-
-        //private bool _isExpanded;
-        //public bool IsExpanded
-        //{
-        //    get { return _isExpanded; }
-        //    set { this.RaiseAndSetIfChanged(ref _isExpanded, value); }
-        //}
-
-        //public bool IsOwner => true;
-        //public string QuantityDisplay => Item.Quantity + " " + Item.Unit.ToString();
-        //public ReactiveCommand<Unit, bool> ToggleExpandedCommand { get; }
-        //public ReactiveCommand<Unit, Unit> EditCommand { get; }
-        //public Action Editing { get; }
-        //public ShoppingItemViewModel(ShoppingItem item, Action editing)
-        //{
-        //    _item = item;
-        //    ToggleExpandedCommand = ReactiveCommand.Create(() => IsExpanded = !IsExpanded);
-        //    Editing = editing;
-        //    EditCommand = ReactiveCommand.Create(() => editing());
-        //}
-
         public string Name { get; }
         public int? Quantity { get; }
         public UnitType? Unit { get; }

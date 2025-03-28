@@ -1,8 +1,9 @@
 ﻿using ShoppingList.Model.Settings;
 using ShoppingList.Utils;
-using ShoppingList.ViewModels.Shared;
+using ShoppingList.Shared.ViewModels;
 using System;
 using System.Collections.Generic;
+using ShoppingList.Shared;
 
 namespace ShoppingList.ViewModels.Settings
 {

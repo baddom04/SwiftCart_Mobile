@@ -3,6 +3,7 @@ using ReactiveUI;
 using ShoppingList.Core;
 using ShoppingList.Core.Enums;
 using ShoppingList.Model.Map;
+using ShoppingList.Shared;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

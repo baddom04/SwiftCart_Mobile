@@ -2,6 +2,7 @@
 using ReactiveUI;
 using ShoppingList.Model;
 using ShoppingList.Model.Social;
+using ShoppingList.Shared;
 using ShoppingList.Utils;
 using System;
 using System.Collections.Generic;

@@ -5,6 +5,7 @@ using ShoppingList.Core;
 using ReactiveUI;
 using System.Reactive;
 using ShoppingList.Model.Settings;
+using ShoppingList.Shared;
 
 namespace ShoppingList.ViewModels.Settings;
 

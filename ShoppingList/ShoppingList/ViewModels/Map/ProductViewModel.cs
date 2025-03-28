@@ -1,7 +1,7 @@
 ﻿using ReactiveUI;
 using ShoppingList.Core;
 using ShoppingList.Model.Map;
-using System.ComponentModel;
+using ShoppingList.Shared;
 using System.Reactive;
 
 namespace ShoppingList.ViewModels.Map

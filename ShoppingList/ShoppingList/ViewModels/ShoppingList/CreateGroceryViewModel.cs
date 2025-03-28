@@ -2,6 +2,7 @@
 using ShoppingList.Core;
 using ShoppingList.Core.Enums;
 using ShoppingList.Model.ShoppingList;
+using ShoppingList.Shared;
 using ShoppingList.Utils;
 using System;
 using System.Collections.Generic;

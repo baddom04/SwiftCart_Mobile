@@ -1,4 +1,5 @@
 ﻿using ReactiveUI;
+using ShoppingList.Shared;
 using System.Reactive;
 
 namespace ShoppingList.ViewModels.Shared
