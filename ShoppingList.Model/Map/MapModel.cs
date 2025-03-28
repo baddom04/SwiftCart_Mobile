@@ -6,17 +6,17 @@ namespace ShoppingList.Model.Map
     {
         public Store Store { get; } = store;
         private readonly HashSet<int> _markedMapSegmentIds = [];
-        private readonly List<Product> _selectedProducts = [];
+        public List<Product> SelectedProducts { get; } = [];
         private Section? _selectedSection;
 
         public void Select(Product product)
         {
-            _selectedProducts.Add(product);
+            SelectedProducts.Add(product);
             _markedMapSegmentIds.Add(product.MapSegmentId);
         }
         public void UnSelect(Product product)
         {
-            _selectedProducts.Remove(product);
+            SelectedProducts.Remove(product);
             _markedMapSegmentIds.Remove(product.MapSegmentId);
         }
         public void SelectSection(Section section)

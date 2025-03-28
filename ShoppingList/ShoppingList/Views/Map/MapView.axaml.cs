@@ -83,12 +83,12 @@ public partial class MapView : UserControl
 
             if (segment.Marked)
             {
-                Avalonia.Application.Current!.TryFindResource("star_regular", out var res);
 
                 border.BorderBrush = Brushes.Red;
                 border.BorderThickness = new Thickness(1);
                 border.ZIndex = 1;
 
+                Avalonia.Application.Current!.TryFindResource("star_regular", out var res);
                 border.Child = new PathIcon
                 {
                     Data = res as StreamGeometry,

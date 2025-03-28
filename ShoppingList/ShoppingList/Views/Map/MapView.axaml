@@ -26,61 +26,69 @@
       </Button>
     </Grid>
 
-    <Grid Grid.Row="1" VerticalAlignment="Stretch">
+    <SplitView Grid.Row="1" VerticalAlignment="Stretch"
+               DisplayMode="Overlay">
+      <SplitView.Pane>
+        
+      </SplitView.Pane>
+      <SplitView.Content>
+        <Grid >
 
-      <Grid ColumnDefinitions="5*, *, Auto" Margin="20" VerticalAlignment="Bottom"
-            ZIndex="2">
+          <Border Margin="10">
+            <ScrollViewer x:Name="MapScrollViewer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                          VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+                          VerticalScrollBarVisibility="Hidden"
+                          HorizontalScrollBarVisibility="Hidden">
+              <Canvas x:Name="MapCanvas" RenderTransformOrigin="0 0" HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch">
+                <Canvas.RenderTransform>
+                  <TransformGroup>
+                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                    <TranslateTransform X="0" Y="0" />
+                  </TransformGroup>
+                </Canvas.RenderTransform>
+              </Canvas>
+            </ScrollViewer>
+          </Border>
 
-        <Border Grid.Column="0" Classes="mainbg_floater">
-          <ItemsControl ItemsSource="{Binding SegmentTypes}">
-            <ItemsControl.ItemsPanel>
-              <ItemsPanelTemplate>
-                <WrapPanel Orientation="Horizontal"/>
-              </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-              <DataTemplate>
-                <StackPanel Orientation="Horizontal" Spacing="8" Margin="4 0">
-                  <Border Width="20" Height="20"
-                          Background="{Binding, Converter={StaticResource SegmentTypeToColorConverter}}"/>
-                  <TextBlock VerticalAlignment="Center"
-                             Text="{Binding, Converter={StaticResource SegmentTypeToTextConverter}}"/>
-                </StackPanel>
-              </DataTemplate>
-            </ItemsControl.ItemTemplate>
-          </ItemsControl>
-        </Border>
+          <Grid ColumnDefinitions="5*, *, Auto" Margin="20" VerticalAlignment="Bottom"
+                ZIndex="2">
 
-        <Border Grid.Column="2" Classes="mainbg_floater">
-          <StackPanel Spacing="10" HorizontalAlignment="Center">
-            <Button Click="ZoomInButton_Click">
-              <PathIcon Data="{StaticResource zoom_in_regular}" Classes="maxi white_foreground"/>
-            </Button>
-            <Button Click="ZoomOutButton_Click">
-              <PathIcon Data="{StaticResource zoom_out_regular}" Classes="maxi white_foreground"/>
-            </Button>
-          </StackPanel>
-        </Border>
-      </Grid>
+            <Border Grid.Column="0" Classes="mainbg_floater">
+              <ItemsControl ItemsSource="{Binding SegmentTypes}">
+                <ItemsControl.ItemsPanel>
+                  <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal"/>
+                  </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate>
+                    <StackPanel Orientation="Horizontal" Spacing="8" Margin="4 0">
+                      <Border Width="20" Height="20"
+                              Background="{Binding, Converter={StaticResource SegmentTypeToColorConverter}}"/>
+                      <TextBlock VerticalAlignment="Center"
+                                 Text="{Binding, Converter={StaticResource SegmentTypeToTextConverter}}"/>
+                    </StackPanel>
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
+            </Border>
 
-      <Border Margin="10">
-        <ScrollViewer x:Name="MapScrollViewer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                      VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
-                      VerticalScrollBarVisibility="Hidden" 
-                      HorizontalScrollBarVisibility="Hidden">
-          <Canvas x:Name="MapCanvas" RenderTransformOrigin="0 0" HorizontalAlignment="Stretch"
-                  VerticalAlignment="Stretch">
-            <Canvas.RenderTransform>
-              <TransformGroup>
-                <ScaleTransform ScaleX="1" ScaleY="1" />
-                <TranslateTransform X="0" Y="0" />
-              </TransformGroup>
-            </Canvas.RenderTransform>
-          </Canvas>
-        </ScrollViewer>
-      </Border>
+            <Border Grid.Column="2" Classes="mainbg_floater">
+              <StackPanel Spacing="10" HorizontalAlignment="Center">
+                <Button Click="ZoomInButton_Click">
+                  <PathIcon Data="{StaticResource zoom_in_regular}" Classes="maxi white_foreground"/>
+                </Button>
+                <Button Click="ZoomOutButton_Click">
+                  <PathIcon Data="{StaticResource zoom_out_regular}" Classes="maxi white_foreground"/>
+                </Button>
+              </StackPanel>
+            </Border>
+          </Grid>
 
-    </Grid>
+        </Grid>
+      </SplitView.Content>
+    </SplitView>
 
   </Grid>
 </UserControl>

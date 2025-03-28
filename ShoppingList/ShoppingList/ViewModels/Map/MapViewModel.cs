@@ -1,4 +1,5 @@
-﻿using ReactiveUI;
+﻿using DynamicData;
+using ReactiveUI;
 using ShoppingList.Core;
 using ShoppingList.Core.Enums;
 using ShoppingList.Model.Map;
@@ -12,11 +13,27 @@ namespace ShoppingList.ViewModels.Map
 {
     internal class MapViewModel : ViewModelBase
     {
+        private bool _isPaneOpen;
+        public bool IsPaneOpen
+        {
+            get { return _isPaneOpen; }
+            private set { this.RaiseAndSetIfChanged(ref _isPaneOpen, value); }
+        }
+
         public ReactiveCommand<Unit, Unit> GoBackCommand { get; }
         public ReactiveCommand<Unit, Unit> StoreSettingsPageCommand { get; }
+        public ReactiveCommand<Unit, Unit> UnSelectSegmentCommand { get; }
         public string Name { get; }
         public IEnumerable<MapSegment> MapSegments { get; }
         public ObservableCollection<SegmentType> SegmentTypes { get; } = [];
+
+        private MapSegment? _selectedMapSegment;
+        public MapSegment? SelectedMapSegment
+        {
+            get { return _selectedMapSegment; }
+            set { this.RaiseAndSetIfChanged(ref _selectedMapSegment, value); }
+        }
+        public ObservableCollection<Product> SelectedProductsOnSegment { get; } = [];
 
         private readonly Action<MapPages> _changePage;
         private readonly Action<ViewModelBase> _changeToPage;
@@ -35,12 +52,28 @@ namespace ShoppingList.ViewModels.Map
             SegmentTypes.Remove(SegmentType.Empty);
 
             GoBackCommand = ReactiveCommand.Create(() => _changePage(MapPages.StoreList));
-
+            UnSelectSegmentCommand = ReactiveCommand.Create(UnSelectSegment);
             StoreSettingsPageCommand = ReactiveCommand.Create(() =>
             {
                 _settings ??= new StoreSettingsViewModel(_model, showLoading, () => _changeToPage(this));
                 _changeToPage(_settings);
             });
+
+            this.WhenAnyValue(x => x.SelectedMapSegment).Subscribe(OnMapSegmentSelected);
+        }
+
+        private void UnSelectSegment()
+        {
+            SelectedProductsOnSegment.Clear();
+            SelectedMapSegment = null;
+            IsPaneOpen = false;
+        }
+
+        private void OnMapSegmentSelected(MapSegment? segment)
+        {
+            if (segment == null) return;
+            IsPaneOpen = true;
+            SelectedProductsOnSegment.AddRange(_model.SelectedProducts);
         }
     }
 }
