@@ -1,9 +1,8 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
-using Avalonia.Platform;
-using Avalonia.Threading;
 using ShoppingList.Converters;
 using ShoppingList.Core;
 using ShoppingList.ViewModels.Map;
@@ -12,6 +11,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reactive.Linq;
+using System.Threading.Tasks;
 
 namespace ShoppingList.Views.Map;
 
@@ -78,12 +78,14 @@ public partial class MapView : UserControl
                 Background = (IBrush)_toColorConverter.Convert(segment.Type, typeof(IBrush), null, CultureInfo.CurrentCulture)!,
                 BorderBrush = Brushes.LightGray,
                 BorderThickness = new Thickness(1),
-                DataContext = segment
+                DataContext = segment,
             };
+
+
+            border.PointerReleased += OnMapSegmentSelected;
 
             if (segment.Marked)
             {
-
                 border.BorderBrush = Brushes.Red;
                 border.BorderThickness = new Thickness(1);
                 border.ZIndex = 1;
@@ -110,6 +112,16 @@ public partial class MapView : UserControl
 
         CenterScrollViewerContent();
     }
+
+    private void OnMapSegmentSelected(object? sender, PointerReleasedEventArgs e)
+    {
+        if (sender is not Border border || border.DataContext is not MapSegment segment) throw new ArgumentException(null, nameof(sender));
+        (DataContext as MapViewModel)!.SelectedMapSegment = segment;
+
+        if ((DataContext as MapViewModel)!.SelectedProductsOnSegment.Count != 0)
+            ProductOverlay.IsPaneOpen = true;
+    }
+
     private void UpdateTransforms()
     {
         if (_canvas.RenderTransform is TransformGroup tg)

@@ -5,6 +5,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:vm="clr-namespace:ShoppingList.ViewModels.Map"
              xmlns:converters="clr-namespace:ShoppingList.Converters"
+             xmlns:controls="clr-namespace:ShoppingList.Views.CustomControls"
              x:DataType="vm:MapViewModel"
              x:Class="ShoppingList.Views.Map.MapView">
   <UserControl.Resources>
@@ -26,13 +27,41 @@
       </Button>
     </Grid>
 
-    <SplitView Grid.Row="1" VerticalAlignment="Stretch"
-               DisplayMode="Overlay">
+    <SplitView Grid.Row="1" VerticalAlignment="Stretch" x:Name="ProductOverlay"
+               DisplayMode="Overlay" PanePlacement="Right"
+               IsPaneOpen="{Binding IsPaneOpen, Mode=TwoWay}"
+               PaneBackground="Transparent">
       <SplitView.Pane>
-        
+        <Border Classes="mainbg_floater" Margin="10">
+          <Grid RowDefinitions="Auto, *">
+            <Grid Grid.Row="0" Margin="20 30" ColumnDefinitions="Auto, *">
+              <Button Grid.Column="0" VerticalAlignment="Center" Classes="trans_bg" HorizontalAlignment="Left"
+                      Command="{Binding UnSelectSegmentCommand}">
+                <PathIcon Data="{StaticResource arrow_left_regular}" Classes="maxi"/>
+              </Button>
+              <TextBlock Grid.Column="1" Classes="h2" Text="{DynamicResource AvailableProducts}"
+                         TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Grid>
+            <ScrollViewer Grid.Row="1">
+              <ItemsControl ItemsSource="{Binding SelectedProductsOnSegment}">
+                <ItemsControl.ItemTemplate>
+                  <DataTemplate>
+                    <controls:ProductListItem ProductName="{Binding Product.Name}"
+                                              Brand="{Binding Product.Brand}"
+                                              IsSelected="{Binding IsSelected, Mode=TwoWay}"
+                                              CanChangeSelection="False"
+                                              OpenCommand="{Binding OpenCommand}"
+                                              IsOpen="{Binding IsOpen}"
+                                              Description="{Binding Product.Description}"/>
+                  </DataTemplate>
+                </ItemsControl.ItemTemplate>
+              </ItemsControl>
+            </ScrollViewer>
+          </Grid>
+        </Border>
       </SplitView.Pane>
       <SplitView.Content>
-        <Grid >
+        <Grid>
 
           <Border Margin="10">
             <ScrollViewer x:Name="MapScrollViewer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"

@@ -38,6 +38,7 @@ namespace ShoppingList.ViewModels.Map
         public ObservableCollection<ProductViewModel> SearchResults { get; } = [];
         public ObservableCollection<SectionViewModel> Sections { get; } = [];
         public ObservableCollection<ProductViewModel> MiscProducts { get; } = [];
+        public List<ProductViewModel> AllProducts { get; } = [];
         public ReactiveCommand<Unit, Unit> GoBackCommand { get; }
         public ReactiveCommand<Unit, Unit> ClearCommand { get; }
         public ReactiveCommand<Unit, Unit> SearchCommand { get; }
@@ -45,7 +46,6 @@ namespace ShoppingList.ViewModels.Map
 
         private readonly MapModel _model;
         private readonly Action _goBack;
-        private readonly List<ProductViewModel> _allProducts = [];
         private readonly Action<bool> _showLoading;
         public StoreSettingsViewModel(MapModel model, Action<bool> showLoading, Action goBack)
         {
@@ -77,7 +77,7 @@ namespace ShoppingList.ViewModels.Map
 
         private IEnumerable<ProductViewModel> Search()
         {
-            return _allProducts
+            return AllProducts
                 .Select(p => new
                 {
                     Product = p,
@@ -102,7 +102,7 @@ namespace ShoppingList.ViewModels.Map
         }
         private void ClearAllSelection()
         {
-            _allProducts.ForEach(p => p.IsSelected = false);
+            AllProducts.ForEach(p => p.IsSelected = false);
             _model.Clear();
         }
 
@@ -131,7 +131,7 @@ namespace ShoppingList.ViewModels.Map
                     else
                         misc.Add(productViewModel);
 
-                    _allProducts.Add(productViewModel);
+                    AllProducts.Add(productViewModel);
                 }
             }
 

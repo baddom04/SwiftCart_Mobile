@@ -51,6 +51,14 @@ public partial class ProductListItem : UserControl
         set => SetValue(IsSelectedProperty, value);
     }
 
+    public static readonly StyledProperty<bool> CanChangeSelectionProperty =
+        AvaloniaProperty.Register<UserListItemView, bool>(nameof(CanChangeSelection), defaultValue: true);
+    public bool CanChangeSelection
+    {
+        get => GetValue(CanChangeSelectionProperty);
+        set => SetValue(CanChangeSelectionProperty, value);
+    }
+
     public static readonly StyledProperty<ICommand> OpenCommandProperty =
         AvaloniaProperty.Register<UserListItemView, ICommand>(nameof(OpenCommand));
     public ICommand OpenCommand
