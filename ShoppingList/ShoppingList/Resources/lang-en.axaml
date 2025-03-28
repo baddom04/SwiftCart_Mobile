@@ -141,6 +141,7 @@
   <!--MapPages-->
   <x:String x:Key="AvailableStores">Available stores</x:String>
   <x:String x:Key="AvailableProducts">Available products</x:String>
+  <x:String x:Key="Miscellaneous">Miscellaneous</x:String>
   <!--^Errors-->
   <x:String x:Key="SearchStoresError">Search stores error&#x0a;</x:String>
   <x:String x:Key="StoreQueryError">Store query error&#x0a;</x:String>

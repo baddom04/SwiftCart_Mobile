@@ -138,8 +138,15 @@ namespace ShoppingList.ViewModels.Map
             MiscProducts.AddRange(misc);
             foreach (Section section in _model.Store.Map!.Sections)
             {
-                Sections.Add(new SectionViewModel(_model, section, temp[section.Id]));
+                Sections.Add(new SectionViewModel(section, temp[section.Id]));
             }
+            Section miscSection = new()
+            {
+                Id = -1,
+                Name = StringProvider.GetString("Miscellaneous"),
+                MapId = _model.Store.Map.Id,
+            };
+            Sections.Add(new SectionViewModel(miscSection, misc));
         }
     }
 }

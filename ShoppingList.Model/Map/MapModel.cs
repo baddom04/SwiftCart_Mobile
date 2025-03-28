@@ -27,7 +27,7 @@ namespace ShoppingList.Model.Map
             _selectedSection = section;
 
             Store.Map!.MapSegments
-                    .Where(ms => ms.SectionId == section.Id)
+                    .Where(ms => section.Id == -1 ? ms.SectionId == null : ms.SectionId == section.Id)
                     .Select(ms => ms.Id)
                     .ToList()
                     .ForEach(id => _markedMapSegmentIds.Add(id));
@@ -41,7 +41,7 @@ namespace ShoppingList.Model.Map
 
 
             Store.Map!.MapSegments
-                    .Where(ms => ms.SectionId == _selectedSection.Id)
+                    .Where(ms => _selectedSection.Id == -1 ? ms.SectionId == null : ms.SectionId == _selectedSection.Id)
                     .Select(ms => ms.Id)
                     .ToList()
                     .ForEach(id => _markedMapSegmentIds.Remove(id));
@@ -58,7 +58,7 @@ namespace ShoppingList.Model.Map
             Store.Map!.MapSegments
                 .ToList()
                 .ForEach(ms => 
-                { 
+                {
                     if (_markedMapSegmentIds.Contains(ms.Id)) 
                         ms.Marked = true; 
                     else 

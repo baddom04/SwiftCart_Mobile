@@ -19,11 +19,9 @@ namespace ShoppingList.ViewModels.Map
         }
         public ReactiveCommand<Unit, bool> OpenCommand { get; }
 
-        private readonly MapModel _model;
         public Section Section { get; }
-        public SectionViewModel(MapModel model, Section section, IEnumerable<ProductViewModel> products)
+        public SectionViewModel(Section section, IEnumerable<ProductViewModel> products)
         {
-            _model = model;
             Section = section;
 
             Products = [.. products];
