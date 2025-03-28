@@ -3,6 +3,7 @@ using ShoppingList.Utils;
 using ShoppingList.Shared.ViewModels;
 using System;
 using ShoppingList.Shared;
+using ShoppingList.Shared.Utils;
 
 namespace ShoppingList.ViewModels.Map
 {

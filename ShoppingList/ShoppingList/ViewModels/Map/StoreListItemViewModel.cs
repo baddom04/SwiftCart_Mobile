@@ -2,6 +2,7 @@
 using ShoppingList.Core;
 using ShoppingList.Model.Map;
 using ShoppingList.Shared;
+using ShoppingList.Shared.Utils;
 using ShoppingList.Utils;
 using System;
 using System.Reactive;

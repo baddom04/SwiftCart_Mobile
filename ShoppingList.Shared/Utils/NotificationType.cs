@@ -1,4 +1,4 @@
-﻿namespace ShoppingList.Utils
+﻿namespace ShoppingList.Shared.Utils
 {
     public enum NotificationType
     {

@@ -1,6 +1,7 @@
 ﻿using ReactiveUI;
 using ShoppingList.Shared;
 using ShoppingList.Shared.Model.Settings;
+using ShoppingList.Shared.Utils;
 using ShoppingList.Utils;
 using ShoppingList.ViewModels.Login;
 using ShoppingList.ViewModels.Register;

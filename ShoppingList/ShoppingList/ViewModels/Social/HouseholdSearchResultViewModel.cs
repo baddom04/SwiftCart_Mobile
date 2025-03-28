@@ -2,6 +2,7 @@
 using ShoppingList.Core;
 using ShoppingList.Core.Enums;
 using ShoppingList.Model.Social;
+using ShoppingList.Shared.Utils;
 using ShoppingList.Utils;
 using ShoppingList.ViewModels.Shared;
 using System;

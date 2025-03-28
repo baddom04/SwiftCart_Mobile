@@ -4,6 +4,7 @@ using ShoppingList.Core;
 using ShoppingList.Model.ShoppingList;
 using ShoppingList.Shared;
 using ShoppingList.Shared.Model.Settings;
+using ShoppingList.Shared.Utils;
 using ShoppingList.Utils;
 using ShoppingList.ViewModels.Shared;
 using System;

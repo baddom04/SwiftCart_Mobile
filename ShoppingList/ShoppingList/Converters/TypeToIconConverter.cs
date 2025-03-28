@@ -2,6 +2,7 @@
 using Avalonia.Controls;
 using Avalonia.Data.Converters;
 using Avalonia.Media;
+using ShoppingList.Shared.Utils;
 using ShoppingList.Utils;
 using System;
 using System.Collections.Generic;
