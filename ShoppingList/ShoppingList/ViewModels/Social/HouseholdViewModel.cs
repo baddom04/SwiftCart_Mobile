@@ -2,8 +2,8 @@
 using ReactiveUI;
 using ShoppingList.Core;
 using ShoppingList.Core.Enums;
-using ShoppingList.Model.Settings;
 using ShoppingList.Model.Social;
+using ShoppingList.Shared.Model.Settings;
 using ShoppingList.Utils;
 using ShoppingList.ViewModels.Shared;
 using System;

@@ -1,12 +1,11 @@
 ﻿using ReactiveUI;
-using ShoppingList.Model.Settings;
 using ShoppingList.Model.Social;
 using ShoppingList.Shared;
+using ShoppingList.Shared.Model.Settings;
 using ShoppingList.Shared.ViewModels;
 using ShoppingList.Utils;
 using ShoppingList.ViewModels.Map;
 using ShoppingList.ViewModels.Settings;
-using ShoppingList.ViewModels.Shared;
 using ShoppingList.ViewModels.ShoppingList;
 using ShoppingList.ViewModels.Social;
 using System;

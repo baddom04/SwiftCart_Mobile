@@ -2,9 +2,9 @@
 using ReactiveUI;
 using ShoppingList.Core;
 using ShoppingList.Core.Enums;
-using ShoppingList.Model.Settings;
 using ShoppingList.Model.ShoppingList;
 using ShoppingList.Shared;
+using ShoppingList.Shared.Model.Settings;
 using ShoppingList.Utils;
 using System;
 using System.Collections.ObjectModel;

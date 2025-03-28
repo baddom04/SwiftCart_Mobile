@@ -1,7 +1,6 @@
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using ShoppingList.Model.Settings;
-using ShoppingList.Model.Social;
+using ShoppingList.Shared.Model.Settings;
 using ShoppingList.ViewModels;
 using ShoppingList.Views;
 

@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ViewModels\Login\" />
     <Folder Include="Views\" />
   </ItemGroup>
 

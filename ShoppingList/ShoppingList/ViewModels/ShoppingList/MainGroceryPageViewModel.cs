@@ -1,11 +1,11 @@
 ﻿using ShoppingList.Core;
-using ShoppingList.Model.Settings;
 using ShoppingList.Model.ShoppingList;
 using ShoppingList.Model.Social;
-using ShoppingList.Utils;
-using ShoppingList.Shared.ViewModels;
-using System;
 using ShoppingList.Shared;
+using ShoppingList.Shared.Model.Settings;
+using ShoppingList.Shared.ViewModels;
+using ShoppingList.Utils;
+using System;
 
 namespace ShoppingList.ViewModels.ShoppingList
 {

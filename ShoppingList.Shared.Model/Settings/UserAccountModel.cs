@@ -3,7 +3,7 @@ using ShoppingList.Persistor.Services.Interfaces;
 using ShoppingList.Persistor;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace ShoppingList.Model.Settings
+namespace ShoppingList.Shared.Model.Settings
 {
     public class UserAccountModel
     {
