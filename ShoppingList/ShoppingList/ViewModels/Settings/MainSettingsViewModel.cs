@@ -2,7 +2,6 @@
 using ShoppingList.Shared.Model.Settings;
 using ShoppingList.Shared.Utils;
 using ShoppingList.Shared.ViewModels;
-using ShoppingList.Utils;
 using System;
 using System.Collections.Generic;
 

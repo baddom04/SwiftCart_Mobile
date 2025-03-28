@@ -1,3 +1,4 @@
+using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using ShoppingList.Shared;
@@ -14,6 +15,12 @@ namespace ShoppingList
 
             var name = data.GetType().FullName!.Replace("ViewModel", "View", StringComparison.Ordinal);
             var type = Type.GetType(name);
+
+            // If can't find the type, check in this project as well, not in ShoppingList.Shared
+            if (type == null)
+                name = name.Replace(".Shared", "");
+
+            type = Type.GetType(name);
 
             if (type != null)
             {

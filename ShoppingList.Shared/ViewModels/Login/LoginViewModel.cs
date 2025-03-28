@@ -5,7 +5,7 @@ using System.Reactive;
 
 namespace ShoppingList.Shared.ViewModels.Login
 {
-    internal class LoginViewModel : ViewModelBase
+    public class LoginViewModel : ViewModelBase
     {
         public ReactiveCommand<Unit, Unit> RegisterPageCommand { get; }
         public string EmailInput { get; set; } = string.Empty;

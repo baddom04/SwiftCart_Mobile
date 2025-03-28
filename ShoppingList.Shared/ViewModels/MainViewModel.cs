@@ -1,6 +1,8 @@
 ﻿using ReactiveUI;
 using ShoppingList.Shared.Model.Settings;
 using ShoppingList.Shared.Utils;
+using ShoppingList.Shared.ViewModels.Login;
+using ShoppingList.Shared.ViewModels.Register;
 using System.Reactive;
 
 namespace ShoppingList.Shared.ViewModels
@@ -41,9 +43,8 @@ namespace ShoppingList.Shared.ViewModels
         {
             _pages = new Dictionary<MainPage, ViewModelBase>()
             {
-                //{ MainPage.Login, new LoginViewModel(userAccount, ChangePage, ShowLoading) },
-                //{ MainPage.Register, new RegisterViewModel(userAccount, ChangePage, ShowLoading) },
-                //{ MainPage.Main, new LoggedInViewModel(userAccount, ChangeMainPage, ShowLoading, ShowNotificationDialog) },
+                { MainPage.Login, new LoginViewModel(userAccount, ChangePage, ShowLoading) },
+                { MainPage.Register, new RegisterViewModel(userAccount, ChangePage, ShowLoading) },
             };
 
             _currentPage = _pages[MainPage.Login];

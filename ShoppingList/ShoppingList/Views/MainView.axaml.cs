@@ -7,7 +7,7 @@ namespace ShoppingList.Views
 {
     public partial class MainView : UserControl
     {
-        public MainView(MainViewModel viewModel)
+        public MainView(MobileMainViewModel viewModel)
         {
             InitializeComponent();
             DataContext = viewModel;

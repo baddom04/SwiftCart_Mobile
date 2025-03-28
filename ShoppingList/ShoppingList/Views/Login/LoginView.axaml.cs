@@ -1,5 +1,5 @@
 using Avalonia.Controls;
-using ShoppingList.ViewModels.Login;
+using ShoppingList.Shared.ViewModels.Login;
 
 namespace ShoppingList.Views.Login;
 
@@ -14,7 +14,7 @@ public partial class LoginView : UserControl
 
     private async void LoginView_Loaded(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        LoginViewModel viewModel = (DataContext as LoginViewModel)!;
+        if (DataContext is not LoginViewModel viewModel) throw new System.Exception("Not correct DataContext");
         await viewModel.TryLogin();
     }
 }

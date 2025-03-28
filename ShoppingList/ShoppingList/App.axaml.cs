@@ -16,7 +16,7 @@ namespace ShoppingList
 
         public override void OnFrameworkInitializationCompleted()
         {
-            var mainViewModel = new MainViewModel(new UserAccountModel());
+            var mainViewModel = new MobileMainViewModel(new UserAccountModel());
 
             MainView = new MainView(mainViewModel);
 
