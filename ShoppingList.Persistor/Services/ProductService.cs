@@ -6,9 +6,9 @@ namespace ShoppingList.Persistor.Services
 {
     internal class ProductService(HttpClient client) : APIService(client), IProductService
     {
-        public async Task CreateProductAsync(int segment_id, string name, string brand, string description, CancellationToken cancellationToken = default)
+        public async Task CreateProductAsync(int segment_id, string name, string brand, string description, decimal price, CancellationToken cancellationToken = default)
         {
-            var payload = new { name, brand, description };
+            var payload = new { name, brand, description, price };
 
             HttpResponseMessage response = await _httpClient.PostAsJsonAsync($"segments/{segment_id}/products", payload, cancellationToken);
 
@@ -44,9 +44,9 @@ namespace ShoppingList.Persistor.Services
             return products ?? throw new NullReferenceException();
         }
 
-        public async Task UpdateProductAsync(int segment_id, int product_id, string name, string brand, string description, CancellationToken cancellationToken = default)
+        public async Task UpdateProductAsync(int segment_id, int product_id, string name, string brand, string description, decimal price, CancellationToken cancellationToken = default)
         {
-            var payload = new { name, brand, description };
+            var payload = new { name, brand, description, price };
 
             HttpResponseMessage response = await _httpClient.PostAsJsonAsync($"segments/{segment_id}/products/{product_id}", payload, cancellationToken);
 
