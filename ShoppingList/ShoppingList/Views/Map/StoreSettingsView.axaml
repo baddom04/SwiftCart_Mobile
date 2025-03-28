@@ -5,6 +5,7 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:vm="clr-namespace:ShoppingList.ViewModels.Map"
              xmlns:progRing="clr-namespace:AvaloniaProgressRing;assembly=AvaloniaProgressRing"
+             xmlns:controls="clr-namespace:ShoppingList.Views.CustomControls"
              x:DataType="vm:StoreSettingsViewModel"
              x:Class="ShoppingList.Views.Map.StoreSettingsView">
   <Grid RowDefinitions="Auto, *">
@@ -38,29 +39,12 @@
             <ItemsControl ItemsSource="{Binding SearchResults}" IsVisible="{Binding ShowSearchResults}">
               <ItemsControl.ItemTemplate>
                 <DataTemplate>
-                  <Border Classes="shopping_list_item" Margin="20 5" Padding="8"
-                          Classes.shopping_list_item_selected="{Binding IsSelected}">
-                    <Grid RowDefinitions="Auto, Auto, Auto" ColumnDefinitions="Auto, *, Auto">
-                      <ToggleSwitch Grid.Column="0" Grid.RowSpan="2" IsChecked="{Binding IsSelected}"
-                                    OffContent="" OnContent="" Margin="0 0 8 0"/>
-                      <TextBlock Grid.Column="1" Grid.Row="0" TextWrapping="Wrap"
-                                 Text="{Binding Product.Name}" Margin="0 0 0 5"/>
-                      <TextBlock Grid.Column="1" Grid.Row="1" TextWrapping="Wrap"
-                                 Text="{Binding Product.Brand}"
-                                 Classes="mini" />
-                      <Grid Grid.Column="2" Grid.RowSpan="2">
-                        <Button Classes="trans_bg" Command="{Binding OpenCommand}"
-                                Classes.halfAnimatedIn="{Binding IsOpen}"
-                                Classes.halfAnimatedOut="{Binding !IsOpen}">
-                          <PathIcon Data="{StaticResource chevron_right_regular}"
-                                    Classes="maxi btn_foreground"/>
-                        </Button>
-                      </Grid>
-                      <TextBlock Grid.Row="2" Grid.ColumnSpan="3" Margin="10"
-                                 Text="{Binding Product.Description}" TextWrapping="Wrap"
-                                 IsVisible="{Binding IsOpen}"/>
-                    </Grid>
-                  </Border>
+                  <controls:ProductListItem ProductName="{Binding Product.Name}"
+                                            Brand="{Binding Product.Brand}"
+                                            IsSelected="{Binding IsSelected, Mode=TwoWay}"
+                                            OpenCommand="{Binding OpenCommand}"
+                                            IsOpen="{Binding IsOpen}"
+                                            Description="{Binding Product.Description}"/>
                 </DataTemplate>
               </ItemsControl.ItemTemplate>
             </ItemsControl>
@@ -92,29 +76,12 @@
                       <ItemsControl Grid.Row="1" Margin="0 10 0 0" ItemsSource="{Binding Products}" IsVisible="{Binding IsOpen}">
                         <ItemsControl.ItemTemplate>
                           <DataTemplate>
-                            <Border Classes="shopping_list_item" Margin="20 5" Padding="8"
-                                    Classes.shopping_list_item_selected="{Binding IsSelected}">
-                              <Grid RowDefinitions="Auto, Auto, Auto" ColumnDefinitions="Auto, *, Auto">
-                                <ToggleSwitch Grid.Column="0" Grid.RowSpan="2" IsChecked="{Binding IsSelected}"
-                                              OffContent="" OnContent="" Margin="0 0 8 0"/>
-                                <TextBlock Grid.Column="1" Grid.Row="0" TextWrapping="Wrap"
-                                           Text="{Binding Product.Name}" Margin="0 0 0 5"/>
-                                <TextBlock Grid.Column="1" Grid.Row="1" TextWrapping="Wrap"
-                                           Text="{Binding Product.Brand}"
-                                           Classes="mini" />
-                                <Grid Grid.Column="2" Grid.RowSpan="2">
-                                  <Button Classes="trans_bg" Command="{Binding OpenCommand}"
-                                          Classes.halfAnimatedIn="{Binding IsOpen}"
-                                          Classes.halfAnimatedOut="{Binding !IsOpen}">
-                                    <PathIcon Data="{StaticResource chevron_right_regular}"
-                                              Classes="maxi btn_foreground"/>
-                                  </Button>
-                                </Grid>
-                                <TextBlock Grid.Row="2" Grid.ColumnSpan="3" Margin="10"
-                                           Text="{Binding Product.Description}" TextWrapping="Wrap"
-                                           IsVisible="{Binding IsOpen}"/>
-                              </Grid>
-                            </Border>
+                            <controls:ProductListItem ProductName="{Binding Product.Name}"
+                                            Brand="{Binding Product.Brand}"
+                                            IsSelected="{Binding IsSelected, Mode=TwoWay}"
+                                            OpenCommand="{Binding OpenCommand}"
+                                            IsOpen="{Binding IsOpen}"
+                                            Description="{Binding Product.Description}"/>
                           </DataTemplate>
                         </ItemsControl.ItemTemplate>
                       </ItemsControl>

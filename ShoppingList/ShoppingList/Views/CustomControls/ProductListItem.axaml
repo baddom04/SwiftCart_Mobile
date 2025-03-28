@@ -1,0 +1,32 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ShoppingList.Views.CustomControls.ProductListItem"
+             xmlns:local="clr-namespace:ShoppingList.Views.CustomControls"
+             x:Name="Root">
+  <Border Classes="shopping_list_item" Margin="20 5" Padding="8"
+          Classes.shopping_list_item_selected="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type local:ProductListItem}}}">
+    <Grid RowDefinitions="Auto, Auto, Auto" ColumnDefinitions="Auto, *, Auto">
+      <ToggleSwitch Grid.Column="0" Grid.RowSpan="2" IsChecked="{Binding IsSelected, ElementName=Root, Mode=TwoWay}"
+                    OffContent="" OnContent="" Margin="0 0 8 0"/>
+      <TextBlock Grid.Column="1" Grid.Row="0" TextWrapping="Wrap"
+                 Text="{Binding ProductName, RelativeSource={RelativeSource AncestorType={x:Type local:ProductListItem}}}" Margin="0 0 0 5"/>
+      <TextBlock Grid.Column="1" Grid.Row="1" TextWrapping="Wrap"
+                 Text="{Binding Brand, RelativeSource={RelativeSource AncestorType={x:Type local:ProductListItem}}}"
+                 Classes="mini" />
+      <Grid Grid.Column="2" Grid.RowSpan="2">
+        <Button Classes="trans_bg" Command="{Binding OpenCommand, RelativeSource={RelativeSource AncestorType={x:Type local:ProductListItem}}}"
+                Classes.halfAnimatedIn="{Binding IsOpen, RelativeSource={RelativeSource AncestorType={x:Type local:ProductListItem}}}"
+                Classes.halfAnimatedOut="{Binding !IsOpen, RelativeSource={RelativeSource AncestorType={x:Type local:ProductListItem}}}">
+          <PathIcon Data="{StaticResource chevron_right_regular}"
+                    Classes="maxi btn_foreground"/>
+        </Button>
+      </Grid>
+      <TextBlock Grid.Row="2" Grid.ColumnSpan="3" Margin="10"
+                 Text="{Binding Description, RelativeSource={RelativeSource AncestorType={x:Type local:ProductListItem}}}" TextWrapping="Wrap"
+                 IsVisible="{Binding IsOpen, RelativeSource={RelativeSource AncestorType={x:Type local:ProductListItem}}}"/>
+    </Grid>
+  </Border>
+</UserControl>
