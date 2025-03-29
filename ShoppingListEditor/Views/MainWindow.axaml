@@ -7,5 +7,66 @@
         x:Class="ShoppingListEditor.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
-        Title="ShoppingListEditor">
+        Title="ShoppingListEditor"
+        ExtendClientAreaToDecorationsHint="True"
+        WindowStartupLocation="CenterScreen"
+        Background="{StaticResource SecBG}"
+        xmlns:progRing="clr-namespace:AvaloniaProgressRing;assembly=AvaloniaProgressRing"
+        xmlns:converters="clr-namespace:ShoppingList.Shared.Converters;assembly=ShoppingList.Shared">
+  <Window.Resources>
+    <converters:TypeToIconConverter x:Key="TypeToIconConverter"/>
+    <converters:TypeToForegroundConverter x:Key="TypeToForegroundConverter"/>
+  </Window.Resources>
+  <Grid x:Name="MainGrid">
+
+    <!--Loading-->
+    <Border ZIndex="3"
+            Background="#80000000"
+            IsVisible="{Binding IsLoading}"
+            VerticalAlignment="Stretch"
+            HorizontalAlignment="Stretch">
+      <Border CornerRadius="10" Background="{StaticResource MainBG}"
+              HorizontalAlignment="Center" VerticalAlignment="Center"
+              MaxWidth="300" ZIndex="4" Padding="30">
+        <progRing:ProgressRing Width="80"
+                              Height="80"
+                              IsActive="{Binding IsLoading}"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Center"
+                              Foreground="{StaticResource MainBtnBG}"/>
+      </Border>
+    </Border>
+
+    <!--ErrorMessage-->
+    <Border ZIndex="3"
+            Background="#80000000"
+            IsVisible="{Binding ShowNotification}"
+            VerticalAlignment="Stretch"
+            HorizontalAlignment="Stretch">
+      <Border CornerRadius="10" Background="{StaticResource MainBG}"
+              HorizontalAlignment="Center" VerticalAlignment="Center"
+              MaxWidth="300" ZIndex="4" Padding="30">
+        <Grid RowDefinitions="Auto, Auto, *, Auto">
+          <PathIcon Grid.Row="0" Data="{Binding NotificationType, Converter={StaticResource TypeToIconConverter}}"
+                    Foreground="{Binding NotificationType, Converter={StaticResource TypeToForegroundConverter}}"
+                    Classes="notification"/>
+          <TextBlock Grid.Row="1" Classes="h3" Text="{Binding NotificationType}"
+                     Margin="10"
+                     HorizontalAlignment="Center" TextAlignment="Center"/>
+          <TextBlock Grid.Row="2" TextAlignment="Center" Margin="10"
+                     Text="{Binding NotificationMessage}" TextWrapping="Wrap"/>
+          <Button Grid.Row="3" Content="{DynamicResource Ok}"
+                  Command="{Binding HideNotificationCommand}" HorizontalContentAlignment="Center"
+                  HorizontalAlignment="Center" Classes="shopping_list_button"/>
+        </Grid>
+      </Border>
+    </Border>
+
+
+    <TransitioningContentControl Content="{Binding CurrentPage}">
+      <TransitioningContentControl.PageTransition>
+        <CrossFade Duration="0:00:00.200" />
+      </TransitioningContentControl.PageTransition>
+    </TransitioningContentControl>
+  </Grid>
 </Window>

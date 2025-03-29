@@ -1,0 +1,33 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:ShoppingList.Shared.ViewModels.Register;assembly=ShoppingList.Shared"
+             xmlns:controls="clr-namespace:ShoppingListEditor.Views.CustomControls"
+             mc:Ignorable="d" d:DesignWidth="405" d:DesignHeight="800"
+             x:Class="ShoppingListEditor.Views.Register.RegisterView"
+             x:DataType="vm:RegisterViewModel">
+  <Grid ColumnDefinitions="*, *, *" RowDefinitions="*, Auto, *">
+    <Border MinWidth="400" Grid.Column="1" Classes="mainbg_floater rounded" Grid.Row="1">
+      <Grid RowDefinitions="*, Auto, 5*, *, *"  HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10 30 10 50">
+        <TextBlock Grid.Row="0" Text="{DynamicResource Register}" Classes="h1" Margin="30" HorizontalAlignment="Center"/>
+
+        <controls:ErrorDisplay Grid.Row="1" ErrorMessage="{Binding ErrorMessage}"/>
+
+        <StackPanel Grid.Row="2" Margin="30 10" Spacing="10">
+          <TextBlock Text="{DynamicResource Username}" />
+          <TextBox Watermark="{DynamicResource UsernameWatermark}" Text="{Binding UsernameInput}"/>
+          <TextBlock Text="{DynamicResource Email}" Margin="0 10 0 0"/>
+          <TextBox Watermark="{DynamicResource EmailWatermark}" Margin="0 0 0 10" Text="{Binding EmailInput}"/>
+          <TextBlock Text="{DynamicResource Password}"/>
+          <controls:PasswordBox Password="{Binding PasswordInput, Mode=TwoWay}"/>
+        </StackPanel>
+        <Button Grid.Row="3" Margin="15" Classes="big" Content="{DynamicResource Register}" HorizontalAlignment="Center" Command="{Binding RegisterCommand}"/>
+        <StackPanel Grid.Row="4" HorizontalAlignment="Center" Margin="10" Orientation="Horizontal">
+          <TextBlock VerticalAlignment="Center" Classes="mini" Text="{DynamicResource AlreadyHaveAnAccount}"/>
+          <Button Classes="text" Content="{DynamicResource LoginHere}" Command="{Binding LoginPageCommand}"/>
+        </StackPanel>
+      </Grid>
+    </Border>
+  </Grid>
+</UserControl>

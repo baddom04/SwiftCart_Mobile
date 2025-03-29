@@ -1,4 +1,3 @@
-using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
 using ShoppingList.Shared;
@@ -18,9 +17,11 @@ namespace ShoppingList
 
             // If can't find the type, check in this project as well, not in ShoppingList.Shared
             if (type == null)
+            {
                 name = name.Replace(".Shared", "");
+                type = Type.GetType(name);
+            }
 
-            type = Type.GetType(name);
 
             if (type != null)
             {

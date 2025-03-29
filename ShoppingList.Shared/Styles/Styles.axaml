@@ -346,6 +346,9 @@
       <Setter Property="Padding" Value="5"/>
       <Setter Property="Background" Value="{StaticResource MainBG}"/>
     </Style>
+    <Style Selector="^.rounded">
+      <Setter Property="CornerRadius" Value="20"/>
+    </Style>
   </Style>
 
   <Style Selector="TextBox">

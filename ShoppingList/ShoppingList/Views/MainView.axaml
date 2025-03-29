@@ -3,7 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:vm="clr-namespace:ShoppingList.Shared.ViewModels;assembly=ShoppingList.Shared"
-             xmlns:converters="clr-namespace:ShoppingList.Converters"
+             xmlns:converters="clr-namespace:ShoppingList.Shared.Converters;assembly=ShoppingList.Shared"
              mc:Ignorable="d" d:DesignWidth="450" d:DesignHeight="800"
              x:Class="ShoppingList.Views.MainView"
              x:DataType="vm:MainViewModel"

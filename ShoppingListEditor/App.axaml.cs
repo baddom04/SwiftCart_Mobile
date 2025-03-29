@@ -1,6 +1,7 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
+using ShoppingList.Shared.Model.Settings;
 using ShoppingListEditor.ViewModels;
 using ShoppingListEditor.Views;
 
@@ -12,14 +13,13 @@ namespace ShoppingListEditor
         {
             AvaloniaXamlLoader.Load(this);
         }
-
         public override void OnFrameworkInitializationCompleted()
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 desktop.MainWindow = new MainWindow
                 {
-                    DataContext = new MainWindowViewModel(),
+                    DataContext = new MainWindowViewModel(new UserAccountModel()),
                 };
             }
 

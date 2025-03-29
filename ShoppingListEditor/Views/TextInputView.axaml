@@ -1,0 +1,29 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ShoppingListEditor.Views.TextInputView">
+  <Border x:Name="DialogOverlay" ZIndex="1"
+            Background="#80000000"
+            IsVisible="False"
+            VerticalAlignment="Stretch"
+            HorizontalAlignment="Stretch">
+    <Border CornerRadius="10" Background="{StaticResource MainBG}"
+            HorizontalAlignment="Center" VerticalAlignment="Center"
+            MaxWidth="300" ZIndex="2" Padding="30">
+      <Grid RowDefinitions="Auto, Auto, Auto" VerticalAlignment="Center">
+        <TextBlock Grid.Row="0" x:Name="Instruction"
+                   HorizontalAlignment="Left" VerticalAlignment="Top"
+                   TextWrapping="Wrap" TextAlignment="Center" Margin="10"/>
+        <TextBox Grid.Row="1" x:Name="Input" Watermark="Aa" TextChanged="OnTextChanged" Margin="10"/>
+        <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="10">
+          <Button x:Name="SendInputBtn" Content="{DynamicResource Ok}" Margin="5" Width="100" 
+                  Click="SendInput_Click" HorizontalAlignment="Right" IsDefault="True"/>
+          <Button Content="{DynamicResource Cancel}" Margin="5" Width="100" 
+                  Click="Cancel_Click" HorizontalAlignment="Right"/>
+        </StackPanel>
+      </Grid>
+    </Border>
+  </Border>
+</UserControl>

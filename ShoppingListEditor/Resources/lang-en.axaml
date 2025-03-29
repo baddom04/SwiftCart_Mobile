@@ -1,4 +1,27 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-  <!-- Add Resources Here -->
+  <!--NotificationView-->
+  <x:String x:Key="Ok">Ok</x:String>
+  
+  <!--ConfirmationView-->
+  <x:String x:Key="Confirm">Confirm</x:String>
+  <x:String x:Key="Cancel">Cancel</x:String>
+  
+  <!--LoginView-->
+  <x:String x:Key="Login">Login</x:String>
+  <x:String x:Key="Email">Email</x:String>
+  <x:String x:Key="Password">Password</x:String>
+  <x:String x:Key="DontHaveAnAccount">Don't have an account?</x:String>
+  <x:String x:Key="RegisterHere">Register here.</x:String>
+  <x:String x:Key="EmailWatermark">john@example.com</x:String>
+  <x:String x:Key="PasswordWatermark">********</x:String>
+  
+  <!--RegisterView-->
+  <x:String x:Key="Register">Register</x:String>
+  <x:String x:Key="Username">Username</x:String>
+  <x:String x:Key="AlreadyHaveAnAccount">Already have an account?</x:String>
+  <x:String x:Key="LoginHere">Login here.</x:String>
+  <x:String x:Key="UsernameWatermark">John Smith</x:String>
+  
+  
 </ResourceDictionary>

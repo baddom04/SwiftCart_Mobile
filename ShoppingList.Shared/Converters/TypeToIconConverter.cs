@@ -3,14 +3,11 @@ using Avalonia.Controls;
 using Avalonia.Data.Converters;
 using Avalonia.Media;
 using ShoppingList.Shared.Utils;
-using ShoppingList.Utils;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
 
-namespace ShoppingList.Converters
+namespace ShoppingList.Shared.Converters
 {
-    internal class TypeToIconConverter : IValueConverter
+    public class TypeToIconConverter : IValueConverter
     {
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {

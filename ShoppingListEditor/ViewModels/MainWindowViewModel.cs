@@ -1,9 +1,13 @@
-﻿namespace ShoppingListEditor.ViewModels
+﻿using ShoppingList.Shared.Model.Settings;
+using ShoppingList.Shared.ViewModels;
+
+namespace ShoppingListEditor.ViewModels
 {
-    public class MainWindowViewModel : ViewModelBase
+    public class MainWindowViewModel : MainViewModel
     {
-#pragma warning disable CA1822 // Mark members as static
-        public string Greeting => "Welcome to Avalonia!";
-#pragma warning restore CA1822 // Mark members as static
+        public MainWindowViewModel(UserAccountModel account) : base(account)
+        {
+            _pages[MainPage.Main] = new LoggedInViewModel();
+        }
     }
 }

@@ -1,30 +1,38 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-  <x:String x:Key="Login">Login</x:String>
-  <x:String x:Key="Email">Email</x:String>
-  <x:String x:Key="Password">Password</x:String>
-  <x:String x:Key="Confirm">Confirm</x:String>
-  <x:String x:Key="Cancel">Cancel</x:String>
   <x:String x:Key="ItemDetails">Item details</x:String>
   <x:String x:Key="ShoppingList">Shopping list</x:String>
   <x:String x:Key="MapView">Map view</x:String>
   <x:String x:Key="Settings">Settings</x:String>
   <x:String x:Key="SocialPanel">Social panel</x:String>
-  <x:String x:Key="Ok">Ok</x:String>
   <x:String x:Key="Comment">Comment</x:String>
   <x:String x:Key="EmptyName">The item's name cannot be empty!</x:String>
   <x:String x:Key="DeleteGroceryConfirmQuestion">Are you sure you want to delete this item?</x:String>
   <x:String x:Key="ItemNameWatermark">Your item's name</x:String>
   <x:String x:Key="ItemDescriptionWatermark">This is an optional description for your item</x:String>
+
+  <!--NotificationView-->
+  <x:String x:Key="Ok">Ok</x:String>
+
+  <!--ConfirmationView-->
+  <x:String x:Key="Confirm">Confirm</x:String>
+  <x:String x:Key="Cancel">Cancel</x:String>
+
+  <!--LoginView-->
+  <x:String x:Key="Login">Login</x:String>
+  <x:String x:Key="Email">Email</x:String>
+  <x:String x:Key="Password">Password</x:String>
   <x:String x:Key="DontHaveAnAccount">Don't have an account?</x:String>
   <x:String x:Key="RegisterHere">Register here.</x:String>
+  <x:String x:Key="EmailWatermark">john@example.com</x:String>
+  <x:String x:Key="PasswordWatermark">********</x:String>
+
+  <!--RegisterView-->
   <x:String x:Key="Register">Register</x:String>
   <x:String x:Key="Username">Username</x:String>
   <x:String x:Key="AlreadyHaveAnAccount">Already have an account?</x:String>
   <x:String x:Key="LoginHere">Login here.</x:String>
   <x:String x:Key="UsernameWatermark">John Smith</x:String>
-  <x:String x:Key="EmailWatermark">john@example.com</x:String>
-  <x:String x:Key="PasswordWatermark">********</x:String>
   
   <!--UnitTypes-->
   <x:String x:Key="None">None</x:String>

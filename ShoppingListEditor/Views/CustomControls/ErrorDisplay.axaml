@@ -1,0 +1,21 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ShoppingListEditor.Views.CustomControls.ErrorDisplay"
+             xmlns:local="clr-namespace:ShoppingListEditor.Views.CustomControls">
+  <Border Grid.Row="1" Classes="loginError"
+            Margin="30 10" IsVisible="{Binding ErrorMessage, RelativeSource={RelativeSource AncestorType={x:Type local:ErrorDisplay}}, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+    <Grid ColumnDefinitions="Auto, *">
+      <PathIcon Grid.Column="0" Data="{StaticResource error_circle_regular}"
+                Classes="loginError" VerticalAlignment="Center"
+                Margin="0 0 10 0"/>
+      <TextBlock Grid.Column="1" Classes="loginError"
+                 VerticalAlignment="Center"
+                 TextAlignment="Left"
+                 Text="{Binding ErrorMessage, RelativeSource={RelativeSource AncestorType={x:Type local:ErrorDisplay}}}"
+                 TextWrapping="Wrap"/>
+    </Grid>
+  </Border>
+</UserControl>
