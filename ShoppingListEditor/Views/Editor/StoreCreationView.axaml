@@ -19,11 +19,11 @@
         <StackPanel Grid.Row="2" Margin="30 10" Spacing="10">
           <TextBlock Text="{DynamicResource StoreName}"/>
           <TextBox Watermark="{DynamicResource StoreNameWatermark}" Text="{Binding StoreNameInput}"
-                   AcceptsReturn="True"/>
+                   TextWrapping="Wrap" MaxLength="50"/>
         </StackPanel>
         
-        <Button Grid.Row="3" Margin="15" Classes="big" Content="{DynamicResource Create}" 
-                HorizontalAlignment="Center" Command="{Binding CreateStoreCommand}"/>
+        <Button Grid.Row="3" Margin="15" Classes="big" Content="{DynamicResource Create}"
+                HorizontalAlignment="Center" Command="{Binding CreateStoreCommand}" IsDefault="True"/>
       </Grid>
     </Border>
   </Grid>

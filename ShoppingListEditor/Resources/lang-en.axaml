@@ -41,5 +41,23 @@
   <x:String x:Key="StoreNameTooLong">The store's name must be a maximum of 50 characters.</x:String>
   <x:String x:Key="StoreCreationError">Store creation error&#x0a;</x:String>
   
-  
+  <!--CreateLocationView-->
+  <x:String x:Key="SetLocation">Set location</x:String>
+  <x:String x:Key="Country">Country</x:String>
+  <x:String x:Key="CountryWatermark">Hungary</x:String>
+  <x:String x:Key="City">City</x:String>
+  <x:String x:Key="CityWatermark">Budapest</x:String>
+  <x:String x:Key="ZipCode">Zip code</x:String>
+  <x:String x:Key="ZipCodeWatermark">1234</x:String>
+  <x:String x:Key="Street">Street</x:String>
+  <x:String x:Key="StreetWatermark">Szent János utca 48.</x:String>
+  <x:String x:Key="Details">Details</x:String>
+  <x:String x:Key="DetailsWatermark">2.emelet 1.ajtó</x:String>
+  <x:String x:Key="Set">Set</x:String>
+  <!--^Errors-->
+  <x:String x:Key="SmthMissing">Please enter the</x:String>
+  <x:String x:Key="ZipCodeLengthError">The zip code must be exactly 4 characters.</x:String>
+  <x:String x:Key="ZipCodeNotNumber">The zip code must be a number</x:String>
+  <x:String x:Key="LocationCreationError">Location creation error&#x0a;</x:String>
+
 </ResourceDictionary>

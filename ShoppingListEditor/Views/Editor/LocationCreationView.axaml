@@ -3,6 +3,40 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="ShoppingListEditor.Views.Editor.LocationCreationView">
-  <TextBlock Text="Location view" HorizontalAlignment="Center" VerticalAlignment="Center" Classes="h1"/>
+             xmlns:vm="clr-namespace:ShoppingListEditor.ViewModels.Editor"
+             x:Class="ShoppingListEditor.Views.Editor.LocationCreationView"
+             x:DataType="vm:LocationCreationViewModel"
+             xmlns:controls="clr-namespace:ShoppingListEditor.Views.CustomControls">
+  <Grid ColumnDefinitions="*, *, *" RowDefinitions="*, Auto, *">
+    <Border MinWidth="400" Grid.Column="1" Classes="mainbg_floater rounded" Grid.Row="1">
+      <Grid RowDefinitions="*, Auto, 5*, *"  HorizontalAlignment="Stretch" VerticalAlignment="Top"
+            Margin="10 30 10 50">
+        <TextBlock Grid.Row="0" Text="{DynamicResource SetLocation}" Classes="h1" Margin="30"
+                   HorizontalAlignment="Center"/>
+
+        <controls:ErrorDisplay Grid.Row="1" ErrorMessage="{Binding ErrorMessage}"/>
+
+        <StackPanel Grid.Row="2" Margin="30 10" Spacing="10">
+          <TextBlock Text="{DynamicResource Country}"/>
+          <TextBox Watermark="{DynamicResource CountryWatermark}" Text="{Binding CountryInput}"
+                   TextWrapping="Wrap"/>
+          <TextBlock Text="{DynamicResource City}"/>
+          <TextBox Watermark="{DynamicResource CityWatermark}" Text="{Binding CityInput}"
+                   TextWrapping="Wrap"/>
+          <TextBlock Text="{DynamicResource ZipCode}"/>
+          <TextBox Watermark="{DynamicResource ZipCodeWatermark}" Text="{Binding ZipCodeInput}"
+                   TextWrapping="Wrap" MaxLength="4"/>
+          <TextBlock Text="{DynamicResource Street}"/>
+          <TextBox Watermark="{DynamicResource StreetWatermark}" Text="{Binding StreetInput}"
+                   TextWrapping="Wrap"/>
+          <TextBlock Text="{DynamicResource Details}"/>
+          <TextBox Watermark="{DynamicResource DetailsWatermark}" Text="{Binding DetailsInput}"
+                   TextWrapping="Wrap"/>
+        </StackPanel>
+
+        <Button Grid.Row="3" Margin="15" Classes="big" Content="{DynamicResource Set}"
+                HorizontalAlignment="Center" Command="{Binding CreateLocationCommand}" IsDefault="True"/>
+      </Grid>
+    </Border>
+  </Grid>
 </UserControl>
