@@ -28,7 +28,7 @@ namespace ShoppingListEditor.ViewModels
 
             _pages = new Dictionary<LoggedInPages, ViewModelBase>()
             {
-                { LoggedInPages.Store, new StoreCreationViewModel() },
+                { LoggedInPages.Store, new StoreCreationViewModel(_model, ChangePage, _showLoading, _showNotification) },
                 { LoggedInPages.Location, new LocationCreationViewModel() },
                 { LoggedInPages.Map, new MapCreationViewModel() },
                 { LoggedInPages.Editor, new EditorViewModel() },

@@ -3,6 +3,28 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="ShoppingListEditor.Views.Editor.StoreCreationView">
-  <TextBlock Text="Store view" HorizontalAlignment="Center" VerticalAlignment="Center" Classes="h1"/>
+             xmlns:vm="clr-namespace:ShoppingListEditor.ViewModels.Editor"
+             x:DataType="vm:StoreCreationViewModel"
+             x:Class="ShoppingListEditor.Views.Editor.StoreCreationView"
+             xmlns:controls="clr-namespace:ShoppingListEditor.Views.CustomControls">
+  <Grid ColumnDefinitions="*, *, *" RowDefinitions="*, Auto, *">
+    <Border MinWidth="400" Grid.Column="1" Classes="mainbg_floater rounded" Grid.Row="1">
+      <Grid RowDefinitions="*, Auto, 5*, *"  HorizontalAlignment="Stretch" VerticalAlignment="Top" 
+            Margin="10 30 10 50">
+        <TextBlock Grid.Row="0" Text="{DynamicResource CreateNewStore}" Classes="h1" Margin="30" 
+                   HorizontalAlignment="Center"/>
+
+        <controls:ErrorDisplay Grid.Row="1" ErrorMessage="{Binding ErrorMessage}"/>
+
+        <StackPanel Grid.Row="2" Margin="30 10" Spacing="10">
+          <TextBlock Text="{DynamicResource StoreName}"/>
+          <TextBox Watermark="{DynamicResource StoreNameWatermark}" Text="{Binding StoreNameInput}"
+                   AcceptsReturn="True"/>
+        </StackPanel>
+        
+        <Button Grid.Row="3" Margin="15" Classes="big" Content="{DynamicResource Create}" 
+                HorizontalAlignment="Center" Command="{Binding CreateStoreCommand}"/>
+      </Grid>
+    </Border>
+  </Grid>
 </UserControl>

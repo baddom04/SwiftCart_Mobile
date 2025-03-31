@@ -31,5 +31,15 @@
   <!--^Errors-->
   <x:String x:Key="UserStoreQueryError">User store query error&#x0a;</x:String>
   
+  <!--CreateStoreView-->
+  <x:String x:Key="CreateNewStore">Create store</x:String>
+  <x:String x:Key="StoreName">Name</x:String>
+  <x:String x:Key="StoreNameWatermark">Spar Allee</x:String>
+  <x:String x:Key="Create">Create</x:String>
+  <!--^Errors-->
+  <x:String x:Key="StoreNameEmpty">Please enter the store name.</x:String>
+  <x:String x:Key="StoreNameTooLong">The store's name must be a maximum of 50 characters.</x:String>
+  <x:String x:Key="StoreCreationError">Store creation error&#x0a;</x:String>
+  
   
 </ResourceDictionary>
