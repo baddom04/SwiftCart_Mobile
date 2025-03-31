@@ -1,0 +1,43 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="clr-namespace:ShoppingListEditor.ViewModels"
+             x:Class="ShoppingListEditor.Views.UserSettingsView"
+             x:DataType="vm:UserSettingsViewModel">
+  <Border Classes="pane_settings">
+    <Grid VerticalAlignment="Bottom" RowDefinitions="Auto, Auto, Auto">
+
+      <Border Grid.Row="0" Padding="15">
+        <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto">
+          <PathIcon Grid.Column="0" Grid.RowSpan="2" Data="{StaticResource person_regular}"
+                    Classes="maxi white_foreground" Margin="5 0 10 0"/>
+          <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding User.Name}" IsVisible="{Binding IsPaneOpen}"
+                     Classes="h3 inverted_colors"/>
+          <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding User.Email}" IsVisible="{Binding IsPaneOpen}"
+                     Classes="mini inverted_colors"/>
+        </Grid>
+      </Border>
+
+      <Border Grid.Row="1" PointerPressed="Logout_PointerPressed" Padding="15" Classes="pane_setting">
+        <Grid ColumnDefinitions="Auto, *">
+          <PathIcon Grid.Column="0" Classes="maxi white_foreground" Data="{StaticResource sign_out_regular}"
+                    Margin="5 0 10 0"/>
+          <TextBlock Grid.Column="1" Text="{DynamicResource Logout}" Classes="inverted_colors"
+                     VerticalAlignment="Center" IsVisible="{Binding IsPaneOpen}"/>
+        </Grid>
+      </Border>
+
+      <Border Grid.Row="2" PointerPressed="DeleteUser_PointerPressed" Padding="15" Classes="pane_setting">
+        <Grid ColumnDefinitions="Auto, *">
+          <PathIcon Grid.Column="0" Classes="maxi white_foreground" Data="{StaticResource person_delete_regular}"
+                    Margin="5 0 10 0"/>
+          <TextBlock Grid.Column="1" Text="{DynamicResource DeleteUser}" Classes="inverted_colors"
+                     IsVisible="{Binding IsPaneOpen}"
+                     VerticalAlignment="Center"/>
+        </Grid>
+      </Border>
+    </Grid>
+  </Border>
+</UserControl>

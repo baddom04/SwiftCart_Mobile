@@ -9,6 +9,7 @@ namespace ShoppingListEditor
 {
     public partial class App : Application
     {
+        public static MainWindow MainView { get; private set; } = null!;
         public override void Initialize()
         {
             AvaloniaXamlLoader.Load(this);
@@ -17,10 +18,12 @@ namespace ShoppingListEditor
         {
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
-                desktop.MainWindow = new MainWindow
+                MainView = new MainWindow
                 {
                     DataContext = new MainWindowViewModel(new UserAccountModel()),
                 };
+
+                desktop.MainWindow = MainView;
             }
 
             base.OnFrameworkInitializationCompleted();

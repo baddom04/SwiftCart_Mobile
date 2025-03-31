@@ -88,6 +88,11 @@
       <Setter Property="Background" Value="{StaticResource MainBtnPressedBG}"/>
     </Style>
 
+    <Style Selector="^:pointerover /template/ ContentPresenter" >
+      <Setter Property="Foreground" Value="{StaticResource MainBG}"/>
+      <Setter Property="Background" Value="{StaticResource MainBtnPressedBG}"/>
+    </Style>
+
     <Style Selector="^:disabled /template/ ContentPresenter" >
       <Setter Property="Background" Value="{StaticResource MainBtnBG}"/>
       <Setter Property="Opacity" Value="0.5"/>
@@ -348,6 +353,12 @@
     </Style>
     <Style Selector="^.rounded">
       <Setter Property="CornerRadius" Value="20"/>
+    </Style>
+    <Style Selector="^.pane_settings">
+      <Setter Property="Background" Value="{StaticResource MainBtnPressedBG}"/>
+    </Style>
+    <Style Selector="^.pane_setting:pointerover">
+      <Setter Property="Background" Value="{StaticResource MainBtnBG}"/>
     </Style>
   </Style>
 

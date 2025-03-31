@@ -24,6 +24,10 @@
   <x:String x:Key="UsernameWatermark">John Smith</x:String>
   
   <!--LoggedInView-->
+  <x:String x:Key="Logout">Log out</x:String>
+  <x:String x:Key="DeleteUser">Delete user</x:String>
+  <x:String x:Key="ConfirmLogoutQuestion">Are you sure you want to logout?</x:String>
+  <x:String x:Key="ConfirmDeleteUserQuestion">Are you sure you delete this user?&#x0a;Any corresponding Store data will be deleted as well.</x:String>
   <!--^Errors-->
   <x:String x:Key="UserStoreQueryError">User store query error&#x0a;</x:String>
   

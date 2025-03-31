@@ -23,7 +23,7 @@ internal class SettingsViewModel(UserAccountModel userAccount, Action<MainPage> 
     public User? User
     {
         get { return _user; }
-        set { this.RaiseAndSetIfChanged(ref _user, value); }
+        private set { this.RaiseAndSetIfChanged(ref _user, value); }
     }
 
 

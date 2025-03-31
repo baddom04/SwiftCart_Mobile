@@ -1,4 +1,5 @@
 ﻿using ShoppingList.Shared;
+using ShoppingList.Shared.Model.Settings;
 using ShoppingList.Shared.Utils;
 using ShoppingList.Shared.ViewModels;
 using ShoppingListEditor.Model;
@@ -13,11 +14,14 @@ namespace ShoppingListEditor.ViewModels
 {
     internal class LoggedInViewModel : MainViewModelBase<LoggedInPages>
     {
+        public UserSettingsViewModel UserSettings { get; }
         private readonly EditorModel _model;
         private readonly Action<bool> _showLoading;
         private readonly Action<NotificationType, string> _showNotification;
-        public LoggedInViewModel(EditorModel model, Action<bool> showLoading, Action<NotificationType, string> showNotification)
+        public LoggedInViewModel(UserAccountModel account, EditorModel model, Action<MainPage> changePage, Action<bool> showLoading, Action<NotificationType, string> showNotification)
         {
+            UserSettings = new UserSettingsViewModel(account, changePage, showLoading, showNotification);
+
             _model = model;
             _showLoading = showLoading;
             _showNotification = showNotification;
@@ -60,7 +64,7 @@ namespace ShoppingListEditor.ViewModels
 
         public override void ChangeToDefaultPage()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
     internal enum LoggedInPages

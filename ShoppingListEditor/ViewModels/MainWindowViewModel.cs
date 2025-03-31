@@ -8,7 +8,7 @@ namespace ShoppingListEditor.ViewModels
     {
         public MainWindowViewModel(UserAccountModel account) : base(account)
         {
-            _pages[MainPage.Main] = new LoggedInViewModel(new EditorModel(), ShowLoading, ShowNotificationDialog);
+            _pages[MainPage.Main] = new LoggedInViewModel(account, new EditorModel(), ChangePage, ShowLoading, ShowNotificationDialog);
         }
     }
 }

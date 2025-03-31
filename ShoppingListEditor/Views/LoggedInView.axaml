@@ -6,9 +6,27 @@
              xmlns:vm="clr-namespace:ShoppingListEditor.ViewModels"
              x:Class="ShoppingListEditor.Views.LoggedInView"
              x:DataType="vm:LoggedInViewModel">
-  <TransitioningContentControl Content="{Binding CurrentPage}">
-    <TransitioningContentControl.PageTransition>
-      <CrossFade Duration="0:00:00.200" />
-    </TransitioningContentControl.PageTransition>
-  </TransitioningContentControl>
+  <SplitView PanePlacement="Left"
+             PaneBackground="{StaticResource MainBtnBG}"
+             CompactPaneLength="60"
+             DisplayMode="CompactOverlay"
+             IsPaneOpen="{Binding UserSettings.IsPaneOpen}">
+    <SplitView.Pane>
+      <Grid RowDefinitions="Auto, *, Auto" VerticalAlignment="Stretch">
+        <Button Grid.Row="0" Command="{Binding UserSettings.TogglePaneCommand}" Classes="trans_bg"
+                Margin="10">
+          <PathIcon Data="{StaticResource line_horizontal_3_regular}" 
+                Classes="maxi white_foreground"/>
+        </Button>
+        <ContentControl Grid.Row="2" Content="{Binding UserSettings}" VerticalAlignment="Stretch"/>
+      </Grid>
+    </SplitView.Pane>
+    <SplitView.Content>
+      <TransitioningContentControl Content="{Binding CurrentPage}">
+        <TransitioningContentControl.PageTransition>
+          <CrossFade Duration="0:00:00.200" />
+        </TransitioningContentControl.PageTransition>
+      </TransitioningContentControl>
+    </SplitView.Content>
+  </SplitView>
 </UserControl>
