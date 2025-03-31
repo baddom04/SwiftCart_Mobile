@@ -15,7 +15,7 @@ namespace ShoppingList.Core
 
         [JsonPropertyName("updated_at")]
         public DateTime UpdatedAt { get; init; }
-        public required Location Location { get; init; }
+        public Location? Location { get; init; }
         public Map? Map { get; init; }
     }
 }

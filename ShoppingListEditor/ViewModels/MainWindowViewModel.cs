@@ -1,5 +1,6 @@
 ﻿using ShoppingList.Shared.Model.Settings;
 using ShoppingList.Shared.ViewModels;
+using ShoppingListEditor.Model;
 
 namespace ShoppingListEditor.ViewModels
 {
@@ -7,7 +8,7 @@ namespace ShoppingListEditor.ViewModels
     {
         public MainWindowViewModel(UserAccountModel account) : base(account)
         {
-            _pages[MainPage.Main] = new LoggedInViewModel();
+            _pages[MainPage.Main] = new LoggedInViewModel(new EditorModel(), ShowLoading, ShowNotificationDialog);
         }
     }
 }

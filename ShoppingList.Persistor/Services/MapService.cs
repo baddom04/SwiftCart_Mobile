@@ -6,13 +6,17 @@ namespace ShoppingList.Persistor.Services
 {
     internal class MapService(HttpClient client) : APIService(client), IMapService
     {
-        public async Task CreateMapAsync(int store_id, int x_size, int y_size, CancellationToken cancellationToken = default)
+        public async Task<Map> CreateMapAsync(int store_id, int x_size, int y_size, CancellationToken cancellationToken = default)
         {
             var payload = new { x_size, y_size };
 
             HttpResponseMessage response = await _httpClient.PostAsJsonAsync($"stores/{store_id}/map", payload, cancellationToken);
 
             await ValidateResponse(response, cancellationToken);
+
+            Map? map = await response.Content.ReadFromJsonAsync<Map>(cancellationToken);
+
+            return map ?? throw new NullReferenceException();
         }
 
         public async Task DeleteMapAsync(int store_id, CancellationToken cancellationToken = default)
@@ -33,13 +37,17 @@ namespace ShoppingList.Persistor.Services
             return map ?? throw new NullReferenceException();
         }
 
-        public async Task UpdateMapAsync(int store_id, int x_size, int y_size, CancellationToken cancellationToken = default)
+        public async Task<Map> UpdateMapAsync(int store_id, int x_size, int y_size, CancellationToken cancellationToken = default)
         {
             var payload = new { x_size, y_size };
 
             HttpResponseMessage response = await _httpClient.PutAsJsonAsync($"stores/{store_id}/map", payload, cancellationToken);
 
             await ValidateResponse(response, cancellationToken);
+
+            Map? map = await response.Content.ReadFromJsonAsync<Map>(cancellationToken);
+
+            return map ?? throw new NullReferenceException();
         }
     }
 }

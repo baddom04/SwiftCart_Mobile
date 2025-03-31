@@ -27,6 +27,18 @@ namespace ShoppingList.Persistor.Services
             await ValidateResponse(response, cancellationToken);
         }
 
+        public async Task<Store?> GetMyStoreAsync(CancellationToken cancellationToken = default)
+        {
+            HttpResponseMessage response = await _httpClient.GetAsync("stores/my", cancellationToken);
+
+            await ValidateResponse(response, cancellationToken);
+
+            if(response.StatusCode == System.Net.HttpStatusCode.NoContent)
+                return null;
+
+            return await response.Content.ReadFromJsonAsync<Store?>(cancellationToken);
+        }
+
         public async Task<Store> GetStoreAsync(int store_id, CancellationToken cancellationToken = default)
         {
             HttpResponseMessage response = await _httpClient.GetAsync($"stores/{store_id}", cancellationToken);
@@ -49,13 +61,17 @@ namespace ShoppingList.Persistor.Services
             return stores ?? throw new NullReferenceException();
         }
 
-        public async Task UpdateStoreAsync(int store_id, string name, CancellationToken cancellationToken = default)
+        public async Task<Store> UpdateStoreAsync(int store_id, string name, CancellationToken cancellationToken = default)
         {
             var payload = new { name };
 
             HttpResponseMessage response = await _httpClient.PutAsJsonAsync($"stores/{store_id}", payload, cancellationToken);
 
             await ValidateResponse(response, cancellationToken);
+
+            Store? store = await response.Content.ReadFromJsonAsync<Store>(cancellationToken);
+
+            return store ?? throw new NullReferenceException();
         }
     }
 }

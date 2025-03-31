@@ -3,6 +3,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="ShoppingListEditor.Views.LoggedInView">
-  Welcome to Avalonia!
+             xmlns:vm="clr-namespace:ShoppingListEditor.ViewModels"
+             x:Class="ShoppingListEditor.Views.LoggedInView"
+             x:DataType="vm:LoggedInViewModel">
+  <TransitioningContentControl Content="{Binding CurrentPage}">
+    <TransitioningContentControl.PageTransition>
+      <CrossFade Duration="0:00:00.200" />
+    </TransitioningContentControl.PageTransition>
+  </TransitioningContentControl>
 </UserControl>

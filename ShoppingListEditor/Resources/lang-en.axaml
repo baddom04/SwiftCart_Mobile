@@ -23,5 +23,9 @@
   <x:String x:Key="LoginHere">Login here.</x:String>
   <x:String x:Key="UsernameWatermark">John Smith</x:String>
   
+  <!--LoggedInView-->
+  <!--^Errors-->
+  <x:String x:Key="UserStoreQueryError">User store query error&#x0a;</x:String>
+  
   
 </ResourceDictionary>
