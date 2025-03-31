@@ -7,13 +7,17 @@ namespace ShoppingList.Persistor.Services
 {
     internal class StoreService(HttpClient client) : APIService(client), IStoreService
     {
-        public async Task CreateStoreAsync(string name, CancellationToken cancellationToken = default)
+        public async Task<Store> CreateStoreAsync(string name, CancellationToken cancellationToken = default)
         {
             var payload = new { name };
 
             HttpResponseMessage response = await _httpClient.PostAsJsonAsync("stores", payload, cancellationToken);
 
             await ValidateResponse(response, cancellationToken);
+
+            Store? store = await response.Content.ReadFromJsonAsync<Store>(cancellationToken);
+
+            return store ?? throw new NullReferenceException();
         }
 
         public async Task DeleteStoreAsync(int store_id, CancellationToken cancellationToken = default)
