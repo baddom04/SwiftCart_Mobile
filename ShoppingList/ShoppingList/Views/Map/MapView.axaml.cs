@@ -32,23 +32,21 @@ public partial class MapView : UserControl
     private double _originalHeight;
 
     private double _squareSize = 50;
-    private readonly Canvas _canvas;
 
     private readonly SegmentTypeToColorConverter _toColorConverter = new();
     public MapView()
     {
         InitializeComponent();
 
-        _canvas = this.FindControl<Canvas>("MapCanvas") ?? throw new Exception("Could not find Canvas");
-        _canvas.SizeChanged += Canvas_SizeChanged;
+        MapCanvas.SizeChanged += Canvas_SizeChanged;
     }
 
     private void Canvas_SizeChanged(object? sender, SizeChangedEventArgs e)
     {
         _mapSegments = LoadMapSegments();
-        if (_canvas.Bounds.Width > 0 && _canvas.Bounds.Height > 0)
+        if (MapCanvas.Bounds.Width > 0 && MapCanvas.Bounds.Height > 0)
         {
-            _canvas.SizeChanged -= Canvas_SizeChanged;
+            MapCanvas.SizeChanged -= Canvas_SizeChanged;
             RenderMapSegments();
         }
     }
@@ -60,16 +58,16 @@ public partial class MapView : UserControl
         int maxX = _mapSegments.Max(m => m.X) + 1;
         int maxY = _mapSegments.Max(m => m.Y) + 1;
 
-        double availableWidth = _canvas.Bounds.Width;
-        double availableHeight = _canvas.Bounds.Height;
+        double availableWidth = MapCanvas.Bounds.Width;
+        double availableHeight = MapCanvas.Bounds.Height;
 
         _squareSize = Math.Min(availableWidth / maxX, availableHeight / maxY);
 
         _originalWidth = maxX * _squareSize;
         _originalHeight = maxY * _squareSize;
 
-        _canvas.Width = _originalWidth;
-        _canvas.Height = _originalHeight;
+        MapCanvas.Width = _originalWidth;
+        MapCanvas.Height = _originalHeight;
 
 
         foreach (var segment in _mapSegments)
@@ -108,7 +106,7 @@ public partial class MapView : UserControl
             Canvas.SetLeft(border, _extraPadding / 2 + segment.X * _squareSize);
             Canvas.SetTop(border, _extraPadding / 2 + segment.Y * _squareSize);
 
-            _canvas.Children.Add(border);
+            MapCanvas.Children.Add(border);
         }
 
         UpdateTransforms();
@@ -127,7 +125,7 @@ public partial class MapView : UserControl
 
     private void UpdateTransforms()
     {
-        if (_canvas.RenderTransform is TransformGroup tg)
+        if (MapCanvas.RenderTransform is TransformGroup tg)
         {
             foreach (var transform in tg.Children)
             {
@@ -144,8 +142,8 @@ public partial class MapView : UserControl
             }
         }
 
-        _canvas.Width = _originalWidth * _zoom + _extraPadding;
-        _canvas.Height = _originalHeight * _zoom + _extraPadding;
+        MapCanvas.Width = _originalWidth * _zoom + _extraPadding;
+        MapCanvas.Height = _originalHeight * _zoom + _extraPadding;
     }
     public void ZoomInButton_Click(object sender, RoutedEventArgs e)
     {
@@ -161,11 +159,7 @@ public partial class MapView : UserControl
 
     private void CenterScrollViewerContent()
     {
-        var scrollViewer = this.FindControl<ScrollViewer>("MapScrollViewer");
-        if (scrollViewer != null)
-        {
-            scrollViewer.Offset = new Vector(_extraPadding / 2, _extraPadding / 2);
-        }
+        MapScrollViewer.Offset = new Vector(_extraPadding / 2, _extraPadding / 2);
     }
 
     private List<MapSegment> LoadMapSegments()
