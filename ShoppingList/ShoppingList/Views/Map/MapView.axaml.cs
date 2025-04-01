@@ -17,6 +17,9 @@ namespace ShoppingList.Views.Map;
 
 public partial class MapView : UserControl
 {
+    private Point _previousPoint;
+    private bool _isPanning = false;
+
     private List<MapSegment>? _mapSegments;
 
     private double _zoom = 1.0;
@@ -168,5 +171,44 @@ public partial class MapView : UserControl
     private List<MapSegment> LoadMapSegments()
     {
         return (DataContext as MapViewModel)!.MapSegments.ToList();
+    }
+
+    private void Canvas_PointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        if (sender is not Canvas canvas) throw new ArgumentException(null, nameof(sender));
+
+        if (!e.GetCurrentPoint(null).Properties.IsMiddleButtonPressed) return;
+
+        _isPanning = true;
+        _previousPoint = e.GetPosition(MapScrollViewer);
+        canvas.Cursor = new Cursor(StandardCursorType.Hand);
+        e.Pointer.Capture(sender as IInputElement);
+        e.Handled = true;
+    }
+
+    private void Canvas_PointerMoved(object? sender, PointerEventArgs e)
+    {
+        if (!_isPanning) return;
+
+        Point currentPoint = e.GetPosition(MapScrollViewer);
+        Vector delta = currentPoint - _previousPoint;
+
+        double newHorizontalOffset = MapScrollViewer.Offset.X - delta.X;
+        double newVerticalOffset = MapScrollViewer.Offset.Y - delta.Y;
+        MapScrollViewer.Offset = new Vector(newHorizontalOffset, newVerticalOffset);
+
+        _previousPoint = currentPoint;
+        e.Handled = true;
+    }
+
+    private void Canvas_PointerReleased(object? sender, PointerReleasedEventArgs e)
+    {
+        if (sender is not Canvas canvas) throw new ArgumentException(null, nameof(sender));
+        if (!_isPanning || e.InitialPressMouseButton != MouseButton.Middle) return;
+
+        _isPanning = false;
+        canvas.Cursor = new Cursor(StandardCursorType.Arrow);
+        e.Pointer.Capture(null);
+        e.Handled = true;
     }
 }

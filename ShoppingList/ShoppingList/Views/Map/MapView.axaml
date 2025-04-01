@@ -69,7 +69,10 @@
                           VerticalScrollBarVisibility="Hidden"
                           HorizontalScrollBarVisibility="Hidden">
               <Canvas x:Name="MapCanvas" RenderTransformOrigin="0 0" HorizontalAlignment="Stretch"
-                      VerticalAlignment="Stretch">
+                      VerticalAlignment="Stretch" 
+                      PointerPressed="Canvas_PointerPressed" 
+                      PointerMoved="Canvas_PointerMoved"
+                      PointerReleased="Canvas_PointerReleased">
                 <Canvas.RenderTransform>
                   <TransformGroup>
                     <ScaleTransform ScaleX="1" ScaleY="1" />
