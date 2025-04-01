@@ -9,7 +9,7 @@ using System.Globalization;
 
 namespace ShoppingList.Converters
 {
-    internal class RoletoColorConverter : IValueConverter
+    internal class RoleToColorConverter : IValueConverter
     {
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {

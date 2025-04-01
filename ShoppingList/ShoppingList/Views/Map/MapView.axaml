@@ -4,13 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:vm="clr-namespace:ShoppingList.ViewModels.Map"
-             xmlns:converters="clr-namespace:ShoppingList.Converters"
+             xmlns:shared_converters="clr-namespace:ShoppingList.Shared.Converters;assembly=ShoppingList.Shared"
              xmlns:controls="clr-namespace:ShoppingList.Views.CustomControls"
              x:DataType="vm:MapViewModel"
              x:Class="ShoppingList.Views.Map.MapView">
   <UserControl.Resources>
-    <converters:SegmentTypeToColorConverter x:Key="SegmentTypeToColorConverter"/>
-    <converters:SegmentTypeToTextConverter x:Key="SegmentTypeToTextConverter"/>
+    <shared_converters:SegmentTypeToColorConverter x:Key="SegmentTypeToColorConverter"/>
+    <shared_converters:SegmentTypeToTextConverter x:Key="SegmentTypeToTextConverter"/>
   </UserControl.Resources>
   <Grid RowDefinitions="Auto, *">
 

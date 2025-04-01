@@ -176,13 +176,4 @@
   <x:String x:Key="ApplicationsQueryError">Application query error&#x0a;</x:String>
   <x:String x:Key="MyHouseholdsQueryError">Household query error&#x0a;</x:String>
   
-  <!--SegmentTypes-->
-  <x:String x:Key="Shelf">Shelf</x:String>
-  <x:String x:Key="Fridge">Fridge</x:String>
-  <x:String x:Key="Empty">Empty</x:String>
-  <x:String x:Key="Outside">Outside</x:String>
-  <x:String x:Key="CashRegister">CashRegister</x:String>
-  <x:String x:Key="Entrance">Entrance</x:String>
-  <x:String x:Key="Wall">Wall</x:String>
-  
 </ResourceDictionary>

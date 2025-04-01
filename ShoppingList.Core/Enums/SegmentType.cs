@@ -9,7 +9,6 @@ namespace ShoppingList.Core.Enums
         Shelf,
         Fridge,
         Empty,
-        Outside,
         CashRegister,
         Entrance,
         Wall

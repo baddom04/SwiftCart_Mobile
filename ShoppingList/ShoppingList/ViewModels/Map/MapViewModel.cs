@@ -50,7 +50,6 @@ namespace ShoppingList.ViewModels.Map
             _settings = new StoreSettingsViewModel(_model, showLoading, () => _changeToPage(this));
 
             SegmentTypes = [.. MapSegments.Select(segment => segment.Type).Distinct()];
-            SegmentTypes.Remove(SegmentType.Outside);
             SegmentTypes.Remove(SegmentType.Empty);
 
             GoBackCommand = ReactiveCommand.Create(() => _changePage(MapPages.StoreList));

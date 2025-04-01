@@ -5,13 +5,13 @@ using Avalonia.Interactivity;
 using Avalonia.Media;
 using ShoppingList.Converters;
 using ShoppingList.Core;
+using ShoppingList.Shared.Converters;
 using ShoppingList.ViewModels.Map;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reactive.Linq;
-using System.Threading.Tasks;
 
 namespace ShoppingList.Views.Map;
 

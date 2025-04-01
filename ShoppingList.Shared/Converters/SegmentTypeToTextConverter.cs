@@ -1,12 +1,11 @@
 ﻿using Avalonia.Data.Converters;
 using ShoppingList.Core.Enums;
-using ShoppingList.Utils;
-using System;
+using ShoppingList.Shared.Utils;
 using System.Globalization;
 
-namespace ShoppingList.Converters
+namespace ShoppingList.Shared.Converters
 {
-    internal class SegmentTypeToTextConverter : IValueConverter
+    public class SegmentTypeToTextConverter : IValueConverter
     {
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {

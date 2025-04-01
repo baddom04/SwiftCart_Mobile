@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using ShoppingList.Core;
+using ShoppingList.Core.Enums;
 using ShoppingList.Persistor;
 using ShoppingList.Persistor.Services.Interfaces;
 using ShoppingListEditor.Model.Editables;
@@ -15,10 +16,23 @@ namespace ShoppingListEditor.Model
             private set { _store = value; StoreChanged?.Invoke(); }
         }
         public event Action? StoreChanged;
+        public event Action? MapChanged;
+        public event Action? SectionsChanged;
 
         private readonly IStoreService _storeService = AppServiceProvider.Services.GetRequiredService<IStoreService>();
         private readonly ILocationService _locationService = AppServiceProvider.Services.GetRequiredService<ILocationService>();
         private readonly IMapService _mapService = AppServiceProvider.Services.GetRequiredService<IMapService>();
+
+        public EditorModel()
+        {
+            StoreChanged += EditorModel_StoreChanged;
+        }
+
+        private void EditorModel_StoreChanged()
+        {
+            MapChanged?.Invoke();
+            SectionsChanged?.Invoke();
+        }
 
         public async Task<StoreEditable?> GetUsersStoreAsync()
         {
@@ -90,26 +104,64 @@ namespace ShoppingListEditor.Model
                 throw new InvalidOperationException("Map already exists");
 
             Map map = await _mapService.CreateMapAsync(Store.Id, x_size, y_size);
-            Store.Map = new MapEditable()
-            {
-                Id = map.Id,
-                XSize = map.XSize,
-                YSize = map.YSize,
-                StoreId = map.StoreId,
-                MapSegments = [],
-                Sections = [],
-            };
+            Store.Map = MapEditable.FromMap(map);
+            MapChanged?.Invoke();
         }
         public async Task UpdateMapAsync(int x_size, int y_size)
         {
             if (Store is null || Store.Id == default)
-                throw new InvalidOperationException("The store to add the location to does not exist.");
+                throw new InvalidOperationException("The store to add the location to does not exist");
             if (Store.Map is null)
                 throw new InvalidOperationException("Map does not exist");
 
             Map map = await _mapService.UpdateMapAsync(Store.Id, x_size, y_size);
-            Store.Map.XSize = map.XSize;
-            Store.Map.YSize = map.YSize;
+            Store.Map.SetSizes(map.XSize, map.YSize);
+            MapChanged?.Invoke();
+        }
+        public void SetSegmentEmpty(MapSegmentEditable segment)
+        {
+            if (Store is null || Store.Id == default)
+                throw new InvalidOperationException("The store to add the location to does not exist");
+            if (Store.Map is null)
+                throw new InvalidOperationException("Map does not exist");
+
+            if (Store.Map.MapSegments[segment.Y, segment.X] != segment)
+                throw new InvalidDataException("The given segment is not the same as in the Store model");
+
+            segment.SectionId = null;
+            segment.Products.Clear();
+            segment.Type = SegmentType.Empty;
+        }
+        public void AddSection(string name)
+        {
+            if (Store is null || Store.Id == default)
+                throw new InvalidOperationException("The store to add the location to does not exist");
+            if (Store.Map is null)
+                throw new InvalidOperationException("Map does not exist");
+            if (Store.Map.Sections.Any(s => s.Name == name))
+                throw new InvalidOperationException("This section already exists");
+
+            Store.Map.Sections.Add(new SectionEditable()
+            {
+                Name = name,
+                MapId = Store.Map.Id,
+            });
+
+            SectionsChanged?.Invoke();
+        }
+        public void RemoveSection(string name) 
+        {
+            if (Store is null || Store.Id == default)
+                throw new InvalidOperationException("The store to add the location to does not exist");
+            if (Store.Map is null)
+                throw new InvalidOperationException("Map does not exist");
+
+            SectionEditable? toRemove = Store.Map.Sections.FirstOrDefault(s => s.Name == name);
+            if (toRemove is null) return;
+
+            Store.Map.Sections.Remove(toRemove);
+
+            SectionsChanged?.Invoke();
         }
     }
 }

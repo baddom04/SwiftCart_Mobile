@@ -1,6 +1,5 @@
 ﻿using ReactiveUI;
 using ShoppingList.Shared;
-using ShoppingList.Shared.Utils;
 using ShoppingListEditor.Model;
 using ShoppingListEditor.Utils;
 using System;
@@ -11,6 +10,13 @@ namespace ShoppingListEditor.ViewModels.Editor
 {
     internal class MapCreationViewModel : ViewModelBase
     {
+        public bool IsUpdating => GetIsUpdating();
+        private bool GetIsUpdating()
+        {
+            if (_model.Store is null) return false;
+            else return _model.Store.Map is not null;
+        }
+
         private string? _errorMessage;
         public string? ErrorMessage
         {
@@ -32,6 +38,7 @@ namespace ShoppingListEditor.ViewModels.Editor
             set { this.RaiseAndSetIfChanged(ref _ySize, value); }
         }
         public ReactiveCommand<Unit, Unit> SetMapDimensionsCommand { get; }
+        public ReactiveCommand<Unit, Unit> GoBackCommand { get; }
 
         private readonly EditorModel _model;
         private readonly Action<LoggedInPages> _changePage;
@@ -42,13 +49,19 @@ namespace ShoppingListEditor.ViewModels.Editor
             _changePage = changePage;
             _showLoading = showLoading;
             SetMapDimensionsCommand = ReactiveCommand.CreateFromTask(SetMapDimensions);
+            GoBackCommand = ReactiveCommand.Create(() => _changePage(LoggedInPages.Editor),
+                this.WhenAnyValue(x => x.IsUpdating, isUpdating => isUpdating == true));
         }
         private async Task SetMapDimensions()
         {
             _showLoading(true);
             try
             {
-                await _model.CreateMapAsync(XSize, YSize);
+                if(_model.Store!.Map is null)
+                    await _model.CreateMapAsync(XSize, YSize);
+                else
+                    await _model.UpdateMapAsync(XSize, YSize);
+
                 _changePage(LoggedInPages.Editor);
                 ErrorMessage = null;
             }

@@ -1,12 +1,11 @@
 ﻿using Avalonia.Data.Converters;
 using Avalonia.Media;
 using ShoppingList.Core.Enums;
-using System;
 using System.Globalization;
 
-namespace ShoppingList.Converters
+namespace ShoppingList.Shared.Converters
 {
-    internal class SegmentTypeToColorConverter : IValueConverter
+    public class SegmentTypeToColorConverter : IValueConverter
     {
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
@@ -19,7 +18,6 @@ namespace ShoppingList.Converters
                 SegmentType.Shelf => Brushes.SaddleBrown,
                 SegmentType.Fridge => Brushes.LightBlue,
                 SegmentType.Wall => Brushes.DarkGray,
-                SegmentType.Outside => Brushes.White,
                 SegmentType.Empty => Brushes.White,
                 _ => Brushes.White,
             };
