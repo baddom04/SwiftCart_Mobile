@@ -8,7 +8,13 @@ namespace ShoppingListEditor.Model
 {
     public class EditorModel
     {
-        public StoreEditable? Store { get; private set; }
+        private StoreEditable? _store;
+        public StoreEditable? Store
+        {
+            get { return _store; }
+            private set { _store = value; StoreChanged?.Invoke(); }
+        }
+        public event Action? StoreChanged;
 
         private readonly IStoreService _storeService = AppServiceProvider.Services.GetRequiredService<IStoreService>();
         private readonly ILocationService _locationService = AppServiceProvider.Services.GetRequiredService<ILocationService>();
@@ -34,6 +40,14 @@ namespace ShoppingListEditor.Model
 
             Store newStore = await _storeService.UpdateStoreAsync(Store.Id, name);
             Store.Name = newStore.Name;
+        }
+        public async Task DeleteStoreAsync()
+        {
+            if (Store is null || Store.Id == default)
+                throw new InvalidOperationException("Store does not exist");
+
+            await _storeService.DeleteStoreAsync(Store.Id);
+            Store = null;
         }
         public async Task CreateLocationAsync(string country, string zip_code, string city, string street, string detail)
         {

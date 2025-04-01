@@ -20,7 +20,7 @@ namespace ShoppingListEditor.ViewModels
         private readonly Action<NotificationType, string> _showNotification;
         public LoggedInViewModel(UserAccountModel account, EditorModel model, Action<MainPage> changePage, Action<bool> showLoading, Action<NotificationType, string> showNotification)
         {
-            UserSettings = new UserSettingsViewModel(account, changePage, showLoading, showNotification);
+            UserSettings = new UserSettingsViewModel(account, model, ChangePage, changePage, showLoading, showNotification);
 
             _model = model;
             _showLoading = showLoading;
@@ -28,9 +28,9 @@ namespace ShoppingListEditor.ViewModels
 
             _pages = new Dictionary<LoggedInPages, ViewModelBase>()
             {
-                { LoggedInPages.Store, new StoreCreationViewModel(_model, ChangePage, _showLoading, _showNotification) },
-                { LoggedInPages.Location, new LocationCreationViewModel(_model, ChangePage, _showLoading, _showNotification) },
-                { LoggedInPages.Map, new MapCreationViewModel() },
+                { LoggedInPages.Store, new StoreCreationViewModel(_model, ChangePage, _showLoading) },
+                { LoggedInPages.Location, new LocationCreationViewModel(_model, ChangePage, _showLoading) },
+                { LoggedInPages.Map, new MapCreationViewModel(_model, ChangePage, _showLoading) },
                 { LoggedInPages.Editor, new EditorViewModel() },
             };
         }

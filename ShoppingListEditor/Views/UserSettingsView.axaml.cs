@@ -32,4 +32,11 @@ public partial class UserSettingsView : UserControl
 
         await (DataContext as UserSettingsViewModel)!.DeleteUser();
     }
+    private async void DeleteStore_PointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        bool result = await App.MainView.ShowConfirmDialog("ConfirmDeleteStoreQuestion");
+        if (!result) return;
+
+        await (DataContext as UserSettingsViewModel)!.DeleteStore();
+    }
 }

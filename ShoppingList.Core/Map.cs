@@ -20,9 +20,9 @@ namespace ShoppingList.Core
 
         [JsonPropertyName("updated_at")]
         public DateTime UpdatedAt { get; init; }
-        public required IEnumerable<Section> Sections { get; init; }
+        public IEnumerable<Section> Sections { get; init; } = [];
 
         [JsonPropertyName("map_segments")]
-        public required IEnumerable<MapSegment> MapSegments { get; init; }
+        public IEnumerable<MapSegment> MapSegments { get; init; } = [];
     }
 }

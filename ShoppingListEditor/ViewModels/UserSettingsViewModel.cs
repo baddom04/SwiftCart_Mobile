@@ -4,6 +4,7 @@ using ShoppingList.Shared;
 using ShoppingList.Shared.Model.Settings;
 using ShoppingList.Shared.Utils;
 using ShoppingList.Shared.ViewModels;
+using ShoppingListEditor.Model;
 using ShoppingListEditor.Utils;
 using System;
 using System.Reactive;
@@ -19,6 +20,12 @@ namespace ShoppingListEditor.ViewModels
             get { return _isPaneOpen; }
             private set { this.RaiseAndSetIfChanged(ref _isPaneOpen, value); }
         }
+        private bool _isStoreDeletable;
+        public bool IsStoreDeletable
+        {
+            get { return _isStoreDeletable; }
+            private set { this.RaiseAndSetIfChanged(ref _isStoreDeletable, value); }
+        }
         public ReactiveCommand<Unit, bool> TogglePaneCommand { get; }
 
         private User? _user;
@@ -29,17 +36,42 @@ namespace ShoppingListEditor.ViewModels
         }
 
         private readonly UserAccountModel _account;
+        private readonly EditorModel _model;
         private readonly Action<bool> _showLoading;
-        private readonly Action<MainPage> _changePage;
+        private readonly Action<MainPage> _changeMainPage;
+        private readonly Action<LoggedInPages> _changePage;
         private readonly Action<NotificationType, string> _showNotification;
 
-        public UserSettingsViewModel(UserAccountModel account, Action<MainPage> changePage, Action<bool> showLoading, Action<NotificationType, string> showNotification)
+        public UserSettingsViewModel(UserAccountModel account, EditorModel model, Action<LoggedInPages> changePage, Action<MainPage> changeMainPage, Action<bool> showLoading, Action<NotificationType, string> showNotification)
         {
             TogglePaneCommand = ReactiveCommand.Create(() => IsPaneOpen = !IsPaneOpen);
             _account = account;
+            _model = model;
             _changePage = changePage;
+            _changeMainPage = changeMainPage;
             _showLoading = showLoading;
             _showNotification = showNotification;
+
+            _model.StoreChanged += () => IsStoreDeletable = _model.Store is not null;
+        }
+        public async Task DeleteStore()
+        {
+            _showLoading(true);
+
+            try
+            {
+                await _model.DeleteStoreAsync();
+                _changePage(LoggedInPages.Store);
+            }
+            catch (Exception ex)
+            {
+                string message = $"{StringProvider.GetString("DeleteStoreError")}{ex.Message}";
+                _showNotification(NotificationType.Error, message);
+            }
+            finally
+            {
+                _showLoading(false);
+            }
         }
 
         public async Task DeleteUser()
@@ -50,7 +82,7 @@ namespace ShoppingListEditor.ViewModels
             {
                 await _account.DeleteUserAsync();
 
-                _changePage(MainPage.Login);
+                _changeMainPage(MainPage.Login);
             }
             catch (Exception ex)
             {
@@ -71,7 +103,7 @@ namespace ShoppingListEditor.ViewModels
             {
                 await _account.LogoutAsync();
 
-                _changePage(MainPage.Login);
+                _changeMainPage(MainPage.Login);
             }
             catch (Exception ex)
             {

@@ -14,14 +14,14 @@
   </UserControl.Resources>
   <Grid RowDefinitions="Auto, *">
 
-    <Grid Grid.Row="0" Margin="20 30">
-      <Button VerticalAlignment="Center" Classes="trans_bg" HorizontalAlignment="Left"
+    <Grid Grid.Row="0" Margin="20 30 20 10" ColumnDefinitions="Auto, *, Auto">
+      <Button Grid.Column="0" VerticalAlignment="Center" Classes="trans_bg" HorizontalAlignment="Left"
               Command="{Binding GoBackCommand}">
         <PathIcon Data="{StaticResource arrow_left_regular}" Classes="maxi"/>
       </Button>
-      <TextBlock Classes="h1" Text="{Binding Name}" HorizontalAlignment="Center"
+      <TextBlock Grid.Column="1" Classes="h1" Text="{Binding Name}" HorizontalAlignment="Center"
                  VerticalAlignment="Center" TextWrapping="Wrap"/>
-      <Button VerticalAlignment="Center" HorizontalAlignment="Right"
+      <Button Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right"
               Command="{Binding StoreSettingsPageCommand}">
         <PathIcon Data="{StaticResource options_regular}" Classes="maxi white_foreground"/>
       </Button>

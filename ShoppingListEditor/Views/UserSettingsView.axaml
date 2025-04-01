@@ -7,7 +7,7 @@
              x:Class="ShoppingListEditor.Views.UserSettingsView"
              x:DataType="vm:UserSettingsViewModel">
   <Border Classes="pane_settings">
-    <Grid VerticalAlignment="Bottom" RowDefinitions="Auto, Auto, Auto">
+    <Grid VerticalAlignment="Bottom" RowDefinitions="Auto, Auto, Auto, Auto">
 
       <Border Grid.Row="0" Padding="15">
         <Grid ColumnDefinitions="Auto, *" RowDefinitions="Auto, Auto">
@@ -29,7 +29,17 @@
         </Grid>
       </Border>
 
-      <Border Grid.Row="2" PointerPressed="DeleteUser_PointerPressed" Padding="15" Classes="pane_setting">
+      <Border Grid.Row="2" PointerPressed="DeleteStore_PointerPressed" Padding="15" Classes="pane_setting"
+              IsVisible="{Binding IsStoreDeletable}">
+        <Grid ColumnDefinitions="Auto, *">
+          <PathIcon Grid.Column="0" Classes="maxi white_foreground" Data="{StaticResource delete_regular}"
+                    Margin="5 0 10 0"/>
+          <TextBlock Grid.Column="1" Text="{DynamicResource DeleteStore}" Classes="inverted_colors"
+                     VerticalAlignment="Center" IsVisible="{Binding IsPaneOpen}"/>
+        </Grid>
+      </Border>
+
+      <Border Grid.Row="3" PointerPressed="DeleteUser_PointerPressed" Padding="15" Classes="pane_setting">
         <Grid ColumnDefinitions="Auto, *">
           <PathIcon Grid.Column="0" Classes="maxi white_foreground" Data="{StaticResource person_delete_regular}"
                     Margin="5 0 10 0"/>

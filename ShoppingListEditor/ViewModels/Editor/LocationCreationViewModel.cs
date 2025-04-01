@@ -29,13 +29,11 @@ namespace ShoppingListEditor.ViewModels.Editor
         private readonly EditorModel _model;
         private readonly Action<LoggedInPages> _changePage;
         private readonly Action<bool> _showLoading;
-        private readonly Action<NotificationType, string> _showNotification;
-        public LocationCreationViewModel(EditorModel model, Action<LoggedInPages> changePage, Action<bool> showLoading, Action<NotificationType, string> showNotification)
+        public LocationCreationViewModel(EditorModel model, Action<LoggedInPages> changePage, Action<bool> showLoading)
         {
             _model = model;
             _changePage = changePage;
             _showLoading = showLoading;
-            _showNotification = showNotification;
 
             CreateLocationCommand = ReactiveCommand.CreateFromTask(CreateStoreAsync);
         }
