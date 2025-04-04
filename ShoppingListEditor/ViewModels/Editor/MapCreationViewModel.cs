@@ -51,13 +51,24 @@ namespace ShoppingListEditor.ViewModels.Editor
             SetMapDimensionsCommand = ReactiveCommand.CreateFromTask(SetMapDimensions);
             GoBackCommand = ReactiveCommand.Create(() => _changePage(LoggedInPages.Editor),
                 this.WhenAnyValue(x => x.IsUpdating, isUpdating => isUpdating == true));
+
+            _model.MapChanged += OnMapChanged;
         }
+
+        private void OnMapChanged()
+        {
+            if (_model.Store is null || _model.Store.Map is null) return;
+
+            XSize = _model.Store.Map.XSize;
+            YSize = _model.Store.Map.YSize;
+        }
+
         private async Task SetMapDimensions()
         {
             _showLoading(true);
             try
             {
-                if(_model.Store!.Map is null)
+                if(!IsUpdating)
                     await _model.CreateMapAsync(XSize, YSize);
                 else
                     await _model.UpdateMapAsync(XSize, YSize);

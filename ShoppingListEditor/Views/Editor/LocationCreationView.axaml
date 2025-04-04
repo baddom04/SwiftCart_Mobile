@@ -11,8 +11,14 @@
     <Border MinWidth="400" Grid.Column="1" Classes="mainbg_floater rounded" Grid.Row="1">
       <Grid RowDefinitions="*, Auto, 5*, *"  HorizontalAlignment="Stretch" VerticalAlignment="Top"
             Margin="10 30 10 50">
-        <TextBlock Grid.Row="0" Text="{DynamicResource SetLocation}" Classes="h1" Margin="30"
-                   HorizontalAlignment="Center"/>
+        <Grid Grid.Row="0">
+          <Button VerticalAlignment="Center" Classes="trans_bg" HorizontalAlignment="Left"
+              Command="{Binding GoBackCommand}" IsVisible="{Binding IsUpdating}">
+            <PathIcon Data="{StaticResource arrow_left_regular}" Classes="maxi"/>
+          </Button>
+          <TextBlock Grid.Row="0" Text="{DynamicResource SetLocation}" Classes="h1" Margin="30"
+                     HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Grid>
 
         <controls:ErrorDisplay Grid.Row="1" ErrorMessage="{Binding ErrorMessage}"/>
 

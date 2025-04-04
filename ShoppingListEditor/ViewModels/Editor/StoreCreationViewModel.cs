@@ -12,16 +12,18 @@ namespace ShoppingListEditor.ViewModels.Editor
 {
     internal class StoreCreationViewModel : ViewModelBase
     {
+        public bool IsUpdating => _model.Store is not null;
         public string StoreNameInput { get; set; } = string.Empty;
 
-		private string? _errorMessage;
-		public string? ErrorMessage
-		{
-			get { return _errorMessage; }
-			private set { this.RaiseAndSetIfChanged(ref _errorMessage, value); }
-		}
+        private string? _errorMessage;
+        public string? ErrorMessage
+        {
+            get { return _errorMessage; }
+            private set { this.RaiseAndSetIfChanged(ref _errorMessage, value); }
+        }
 
         public ReactiveCommand<Unit, Unit> CreateStoreCommand { get; }
+        public ReactiveCommand<Unit, Unit> GoBackCommand { get; }
 
         private readonly EditorModel _model;
         private readonly Action<LoggedInPages> _changePage;
@@ -33,6 +35,17 @@ namespace ShoppingListEditor.ViewModels.Editor
             _showLoading = showLoading;
 
             CreateStoreCommand = ReactiveCommand.CreateFromTask(CreateStoreAsync);
+
+            GoBackCommand = ReactiveCommand.Create(() => _changePage(LoggedInPages.Editor),
+                this.WhenAnyValue(x => x.IsUpdating, isUpdating => isUpdating == true));
+
+            _model.StoreChanged += OnStoreChanged;
+        }
+
+        private void OnStoreChanged()
+        {
+            if (_model.Store is null) return;
+            StoreNameInput = _model.Store.Name;
         }
 
         private async Task CreateStoreAsync()
@@ -42,8 +55,12 @@ namespace ShoppingListEditor.ViewModels.Editor
             _showLoading(true);
             try
             {
-                await _model.CreateStoreAsync(StoreNameInput);
-                _changePage(LoggedInPages.Location);
+                if (!IsUpdating)
+                    await _model.CreateStoreAsync(StoreNameInput);
+                else
+                    await _model.UpdateStoreAsync(StoreNameInput);
+
+                    _changePage(LoggedInPages.Location);
                 ErrorMessage = null;
             }
             catch (Exception ex)
@@ -64,7 +81,7 @@ namespace ShoppingListEditor.ViewModels.Editor
                 ErrorMessage = StringProvider.GetString("StoreNameEmpty");
                 return false;
             }
-            else if(trimmedStoreName.Length > 50)
+            else if (trimmedStoreName.Length > 50)
             {
                 ErrorMessage = StringProvider.GetString("StoreNameTooLong");
                 return false;

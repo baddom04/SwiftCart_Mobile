@@ -9,9 +9,12 @@ namespace ShoppingList.Converters
     {
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
+            if (value == null) return null;
             if (value is not HouseholdRelationship relationship)
                 throw new ArgumentException(null, nameof(value));
 
+            if(parameter is not null)
+                return relationship != HouseholdRelationship.NonMember;
             return relationship == HouseholdRelationship.NonMember;
         }
 

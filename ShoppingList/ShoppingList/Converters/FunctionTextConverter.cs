@@ -9,6 +9,7 @@ namespace ShoppingList.Converters
     {
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
+            if (value == null) return null;
             (bool condition, string appendage) = value switch
             {
                 bool isUpdating => (isUpdating, "Item"),

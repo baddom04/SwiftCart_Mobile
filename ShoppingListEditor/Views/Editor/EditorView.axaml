@@ -3,14 +3,68 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="clr-namespace:ShoppingListEditor.ViewModels.Editor"
+             xmlns:enumns="clr-namespace:ShoppingListEditor.ViewModels"
+             x:DataType="vm:EditorViewModel"
+             xmlns:shared_converters ="clr-namespace:ShoppingList.Shared.Converters;assembly=ShoppingList.Shared"
              x:Class="ShoppingListEditor.Views.Editor.EditorView">
+  <UserControl.Resources>
+    <shared_converters:SegmentTypeToColorConverter x:Key="SegmentTypeToColorConverter"/>
+    <shared_converters:SegmentTypeToTextConverter x:Key="SegmentTypeToTextConverter"/>
+  </UserControl.Resources>
   <Grid>
-    <Border HorizontalAlignment="Left" VerticalAlignment="Top" Classes="mainbg_floater">
-      <ListBox>
-        
-      </ListBox>
-    </Border>
-    
+    <Grid RowDefinitions="Auto, Auto" ZIndex="1" HorizontalAlignment="Left" VerticalAlignment="Top" >
+      <Border Grid.Row="0"
+              Classes="mainbg_floater" Margin="10 20 10 0">
+        <ListBox ItemsSource="{Binding SegmentTypes}"
+                 SelectedItem="{Binding SelectedSegmentType}"
+                 CornerRadius="5">
+          <ListBox.ItemTemplate>
+            <DataTemplate>
+              <StackPanel Orientation="Horizontal" Spacing="8" Margin="4 0">
+                <Border Width="20" Height="20"
+                        Background="{Binding, Converter={StaticResource SegmentTypeToColorConverter}}"/>
+                <TextBlock VerticalAlignment="Center"
+                           Text="{Binding, Converter={StaticResource SegmentTypeToTextConverter}}"/>
+              </StackPanel>
+            </DataTemplate>
+          </ListBox.ItemTemplate>
+        </ListBox>
+      </Border>
+
+      <Grid Grid.Row="1" Margin="10 20 10 0" ColumnDefinitions="Auto, Auto">
+        <Border Grid.Column="0" Classes="mainbg_floater" HorizontalAlignment="Left" Margin="0 0 10 0">
+          <StackPanel Spacing="10" HorizontalAlignment="Center">
+            <Button Click="ZoomInButton_Click">
+              <PathIcon Data="{StaticResource zoom_in_regular}" Classes="maxi white_foreground"/>
+            </Button>
+            <Button Click="ZoomOutButton_Click">
+              <PathIcon Data="{StaticResource zoom_out_regular}" Classes="maxi white_foreground"/>
+            </Button>
+          </StackPanel>
+        </Border>
+
+        <Border Grid.Column="1" Classes="mainbg_floater" HorizontalAlignment="Right" 
+                VerticalAlignment="Top">
+          <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="Auto, Auto">
+            <Button Grid.Row="0" Grid.Column="0" Command="{Binding ChangePageCommand}" CommandParameter="{x:Static enumns:LoggedInPages.Map}">
+              <PathIcon Data="{StaticResource resize_table_regular}" Classes="maxi white_foreground"/>
+            </Button>
+            <Button Grid.Row="0" Grid.Column="1" Command="{Binding ChangePageCommand}" CommandParameter="{x:Static enumns:LoggedInPages.Location}">
+              <PathIcon Data="{StaticResource location_regular}" Classes="maxi white_foreground"/>
+            </Button>
+            <Button Grid.Row="1" Grid.Column="0" Command="{Binding ChangePageCommand}" CommandParameter="{x:Static enumns:LoggedInPages.Store}">
+              <PathIcon Data="{StaticResource text_edit_style_regular}" Classes="maxi white_foreground"/>
+            </Button>
+            <Button Grid.Row="1" Grid.Column="1">
+              <PathIcon Data="{StaticResource upload_regular}" Classes="maxi white_foreground"/>
+            </Button>
+          </Grid>
+        </Border>
+      </Grid>
+
+    </Grid>
+
     <ScrollViewer x:Name="MapScrollViewer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                             VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
       <Canvas x:Name="MapCanvas" RenderTransformOrigin="0 0" HorizontalAlignment="Stretch"

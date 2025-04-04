@@ -17,6 +17,7 @@ namespace ShoppingListEditor.Model
         }
         public event Action? StoreChanged;
         public event Action? MapChanged;
+        public event Action? LocationChanged;
         public event Action? SectionsChanged;
 
         private readonly IStoreService _storeService = AppServiceProvider.Services.GetRequiredService<IStoreService>();
@@ -32,6 +33,7 @@ namespace ShoppingListEditor.Model
         {
             MapChanged?.Invoke();
             SectionsChanged?.Invoke();
+            LocationChanged?.Invoke();
         }
 
         public async Task<StoreEditable?> GetUsersStoreAsync()
@@ -81,6 +83,7 @@ namespace ShoppingListEditor.Model
                 ZipCode = location.ZipCode,
                 StoreId = location.StoreId,
             };
+            LocationChanged?.Invoke();
         }
         public async Task UpdateLocationAsync(string country, string zip_code, string city, string street, string detail)
         {
@@ -95,6 +98,7 @@ namespace ShoppingListEditor.Model
             Store.Location.Detail = location.Detail;
             Store.Location.City = location.City;
             Store.Location.Street = location.Street;
+            LocationChanged?.Invoke();
         }
         public async Task CreateMapAsync(int x_size, int y_size)
         {

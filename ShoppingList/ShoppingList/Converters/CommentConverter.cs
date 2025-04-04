@@ -9,6 +9,7 @@ namespace ShoppingList.Converters
     {
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
+            if (value == null) return null;
             if (value is not Comment comment) return value;
 
             return $"{comment.Content}";

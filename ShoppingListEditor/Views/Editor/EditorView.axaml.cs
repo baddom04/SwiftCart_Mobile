@@ -37,7 +37,6 @@ public partial class EditorView : UserControl
         InitializeComponent();
         MapCanvas.SizeChanged += Canvas_SizeChanged;
     }
-
     private void Canvas_SizeChanged(object? sender, SizeChangedEventArgs e)
     {
         _mapSegments = LoadMapSegments();
@@ -59,7 +58,7 @@ public partial class EditorView : UserControl
         double availableHeight = MapCanvas.Bounds.Height;
 
         _squareSize = Math.Min(availableWidth / maxX, availableHeight / maxY);
-        _squareSize /= 1.3;
+        //_squareSize /= 1.3;
 
         _originalWidth = maxX * _squareSize;
         _originalHeight = maxY * _squareSize;
@@ -115,13 +114,16 @@ public partial class EditorView : UserControl
     }
     public void ZoomInButton_Click(object sender, RoutedEventArgs e)
     {
-        _zoom *= 1.2;
-        UpdateTransforms();
+        UpdateZoom(1.2);
     }
 
     public void ZoomOutButton_Click(object sender, RoutedEventArgs e)
     {
-        _zoom /= 1.2;
+        UpdateZoom(5d/6d);
+    }
+    private void UpdateZoom(double amount)
+    {
+        _zoom *= amount;
         UpdateTransforms();
     }
 

@@ -38,7 +38,7 @@
                       <Button IsVisible="{Binding Relationship, Converter={StaticResource IsNonMemberConverter}}"
                                   Content="{DynamicResource Apply}" Command="{Binding HouseholdOperationCommand}"
                                   VerticalAlignment="Center" Classes="inverted_colors bigger_text"/>
-                      <TextBlock IsVisible="{Binding !Relationship, Converter={StaticResource IsNonMemberConverter}}"
+                      <TextBlock IsVisible="{Binding Relationship, Converter={StaticResource IsNonMemberConverter}, ConverterParameter=N}"
                                  Text="{Binding Relationship, Converter={StaticResource HouseholdRelationshipToStringConverter}}"
                                  Classes="inverted_colors"
                                  VerticalAlignment="Center"/>

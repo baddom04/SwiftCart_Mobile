@@ -71,6 +71,7 @@
   <x:String x:Key="Owner">Owner</x:String>
   <x:String x:Key="Member">Member</x:String>
   <x:String x:Key="Applied">Applied</x:String>
+  <x:String x:Key="NonMember">NonMember</x:String>
   
   <!--Manage Applications Page-->
   <x:String x:Key="MyApplications">My applications</x:String>

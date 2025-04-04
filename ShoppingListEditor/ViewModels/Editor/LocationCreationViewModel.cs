@@ -11,6 +11,12 @@ namespace ShoppingListEditor.ViewModels.Editor
 {
     internal class LocationCreationViewModel : ViewModelBase
     {
+        public bool IsUpdating => GetIsUpdating();
+        private bool GetIsUpdating()
+        {
+            if (_model.Store is null) return false;
+            else return _model.Store.Location is not null;
+        }
         public string CountryInput { get; set; } = string.Empty;
         public string CityInput { get; set; } = string.Empty;
         public string ZipCodeInput { get; set; } = string.Empty;
@@ -26,6 +32,8 @@ namespace ShoppingListEditor.ViewModels.Editor
 
         public ReactiveCommand<Unit, Unit> CreateLocationCommand { get; }
 
+        public ReactiveCommand<Unit, Unit> GoBackCommand { get; }
+
         private readonly EditorModel _model;
         private readonly Action<LoggedInPages> _changePage;
         private readonly Action<bool> _showLoading;
@@ -36,6 +44,22 @@ namespace ShoppingListEditor.ViewModels.Editor
             _showLoading = showLoading;
 
             CreateLocationCommand = ReactiveCommand.CreateFromTask(CreateStoreAsync);
+
+            _model.LocationChanged += OnLocationChanged;
+
+            GoBackCommand = ReactiveCommand.Create(() => _changePage(LoggedInPages.Editor),
+                this.WhenAnyValue(x => x.IsUpdating, isUpdating => isUpdating == true));
+        }
+
+        private void OnLocationChanged()
+        {
+            if (_model.Store is null || _model.Store.Location is null) return;
+
+            CountryInput = _model.Store.Location.Country;
+            CityInput = _model.Store.Location.City;
+            ZipCodeInput = _model.Store.Location.ZipCode;
+            StreetInput = _model.Store.Location.Street;
+            DetailsInput = _model.Store.Location.Detail;
         }
 
         private async Task CreateStoreAsync()
@@ -45,7 +69,11 @@ namespace ShoppingListEditor.ViewModels.Editor
             _showLoading(true);
             try
             {
-                await _model.CreateLocationAsync(CountryInput, ZipCodeInput, CityInput, StreetInput, DetailsInput);
+                if(!IsUpdating)
+                    await _model.CreateLocationAsync(CountryInput, ZipCodeInput, CityInput, StreetInput, DetailsInput);
+                else
+                    await _model.UpdateLocationAsync(CountryInput, ZipCodeInput, CityInput, StreetInput, DetailsInput);
+
                 _changePage(LoggedInPages.Map);
                 ErrorMessage = null;
             }

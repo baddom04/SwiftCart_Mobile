@@ -9,6 +9,7 @@ namespace ShoppingList.Shared.Converters
     {
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
+            if (value == null) return null;
             if (value is not SegmentType type) throw new ArgumentException(null, nameof(value));
 
             return StringProvider.GetString(type.ToString());

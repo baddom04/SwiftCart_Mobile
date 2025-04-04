@@ -10,6 +10,7 @@ namespace ShoppingList.Converters
     {
         public object? Convert(IList<object?> values, Type targetType, object? parameter, CultureInfo culture)
         {
+            if (values == null) return null;
             if (values.Count < 2)
                 return string.Empty;
 

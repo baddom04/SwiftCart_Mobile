@@ -10,6 +10,13 @@
   <ItemGroup>
     <AvaloniaResource Include="Assets\**" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <AvaloniaXaml Remove="Styles\**" />
+    <Compile Remove="Styles\**" />
+    <EmbeddedResource Remove="Styles\**" />
+    <None Remove="Styles\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Avalonia" Version="$(AvaloniaVersion)" />
@@ -25,9 +32,5 @@
     <ProjectReference Include="..\..\ShoppingList.Model\ShoppingList.Model.csproj" />
     <ProjectReference Include="..\..\ShoppingList.Shared.Model\ShoppingList.Shared.Model.csproj" />
     <ProjectReference Include="..\..\ShoppingList.Shared\ShoppingList.Shared.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Styles\" />
   </ItemGroup>
 </Project>

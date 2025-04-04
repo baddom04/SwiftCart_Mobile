@@ -8,7 +8,8 @@ namespace ShoppingList.Converters
     {
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            if(value is not bool isOwner) throw new ArgumentException(null, nameof(value));
+            if (value == null) return null;
+            if (value is not bool isOwner) throw new ArgumentException(null, nameof(value));
 
             return isOwner ? 1d : 0d;
         }

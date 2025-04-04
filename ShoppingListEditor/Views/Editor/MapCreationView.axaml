@@ -38,7 +38,7 @@
 
         </StackPanel>
 
-        <Button Grid.Row="3" Margin="15" Classes="big" Content="{DynamicResource Create}"
+        <Button Grid.Row="3" Margin="15" Classes="big" Content="{DynamicResource Set}"
                 HorizontalAlignment="Center" Command="{Binding SetMapDimensionsCommand}" IsDefault="True"/>
       </Grid>
     </Border>

@@ -21,6 +21,7 @@ namespace ShoppingList.Converters
             ];
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
+            if (value == null) return null;
             string randomKey = _buildingKeys[new Random().Next(_buildingKeys.Count)];
 
             Application.Current!.TryFindResource(randomKey, out var resource);

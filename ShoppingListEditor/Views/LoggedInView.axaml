@@ -14,9 +14,10 @@
     <SplitView.Pane>
       <Grid RowDefinitions="Auto, *, Auto" VerticalAlignment="Stretch">
         <Button Grid.Row="0" Command="{Binding UserSettings.TogglePaneCommand}" Classes="trans_bg"
+                HorizontalAlignment="Stretch"
                 Margin="10">
           <PathIcon Data="{StaticResource line_horizontal_3_regular}" 
-                Classes="maxi white_foreground"/>
+                Classes="maxi white_foreground" HorizontalAlignment="Center"/>
         </Button>
         <ContentControl Grid.Row="2" Content="{Binding UserSettings}" VerticalAlignment="Stretch"/>
       </Grid>

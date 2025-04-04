@@ -10,7 +10,8 @@ namespace ShoppingList.Converters
     {
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            if(value is not UserRole role) throw new ArgumentException(null, nameof(value));
+            if (value == null) return null;
+            if (value is not UserRole role) throw new ArgumentException(null, nameof(value));
 
             return StringProvider.GetString(role.ToString());
         }

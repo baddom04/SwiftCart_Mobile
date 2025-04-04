@@ -23,7 +23,7 @@ namespace ShoppingListEditor.ViewModels.Editor
             private set { this.RaiseAndSetIfChanged(ref _isPaneOpen, value); }
         }
 
-        public ReactiveCommand<Unit, Unit> ChangeSizesCommand { get; }
+        public ReactiveCommand<LoggedInPages, Unit> ChangePageCommand { get; }
         public IReadOnlyCollection<SegmentType> SegmentTypes { get; }
         public SegmentType SelectedSegmentType { get; set; } = SegmentType.Shelf;
 
@@ -38,7 +38,7 @@ namespace ShoppingListEditor.ViewModels.Editor
 
             _model.MapChanged += OnMapChanged;
 
-            ChangeSizesCommand = ReactiveCommand.Create(() => _changePage(LoggedInPages.Map));
+            ChangePageCommand = ReactiveCommand.Create<LoggedInPages>(lip => _changePage(lip));
 
             SegmentTypes = [.. Enum.GetValues(typeof(SegmentType)).Cast<SegmentType>()];
 
