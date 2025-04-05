@@ -188,7 +188,7 @@ namespace ShoppingListEditor.Model
             segment.Type = updated.Type;
             segment.SectionId = updated.SectionId;
         }
-        public async void AddSection(string name)
+        public async Task AddSection(string name)
         {
             if (Store is null || Store.Id == default)
                 throw new InvalidOperationException("The store to add the location to does not exist");
@@ -208,7 +208,7 @@ namespace ShoppingListEditor.Model
 
             SectionsChanged?.Invoke();
         }
-        public async void RemoveSection(SectionEditable section)
+        public async Task RemoveSection(SectionEditable section)
         {
             if (Store is null || Store.Id == default)
                 throw new InvalidOperationException("The store to add the location to does not exist");
@@ -222,6 +222,21 @@ namespace ShoppingListEditor.Model
             await _sectionService.DeleteSectionAsync(Store.Map.Id, section.Id);
 
             Store.Map.Sections.Remove(section);
+
+            SectionsChanged?.Invoke();
+        }
+        public async Task UpdateSectionAsync(SectionEditable section)
+        {
+            if (Store is null || Store.Id == default)
+                throw new InvalidOperationException("The store to add the location to does not exist");
+            if (Store.Map is null)
+                throw new InvalidOperationException("Map does not exist");
+            if (!Store.Map.Sections.Contains(section))
+                throw new InvalidDataException("Section does not exist in the collection");
+            if (section.Id == default)
+                throw new InvalidDataException("The given section does not have an Id");
+
+            await _sectionService.UpdateSectionAsync(Store.Map.Id, section.Id, section.Name);
 
             SectionsChanged?.Invoke();
         }

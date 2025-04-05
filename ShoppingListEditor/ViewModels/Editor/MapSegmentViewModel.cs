@@ -23,6 +23,8 @@ namespace ShoppingListEditor.ViewModels.Editor
         public ReactiveCommand<Unit, Unit> ToProductPageCommand { get; }
         public ReactiveCommand<SegmentType, Unit> UploadSegmentCommand { get; }
         public ObservableCollection<SectionEditable> Sections { get; }
+        public ObservableCollection<ProductEditable> Products { get; } = [];
+        public bool IsProductsEmpty => Products.Count == 0;
 
         private int _selectedSection;
         public int SelectedSection
@@ -48,6 +50,7 @@ namespace ShoppingListEditor.ViewModels.Editor
         public MapSegmentViewModel(MapSegmentEditable segment, EditorModel model, Action<ViewModelBase?> setPaneContent, Action<bool> showLoading, Action<NotificationType, string> showNotification, Action<PanePage> changePane)
         {
             _segment = segment;
+            _model = model;
             _showLoading = showLoading;
             _showNotification = showNotification;
             _changePane = changePane;
@@ -55,8 +58,6 @@ namespace ShoppingListEditor.ViewModels.Editor
             X = segment.X;
             Y = segment.Y;
             Type = segment.Type;
-
-            _segment.TypeChanged += () => Type = segment.Type;
 
             Sections = [
                 new SectionEditable()
@@ -67,11 +68,12 @@ namespace ShoppingListEditor.ViewModels.Editor
                 },
             ];
 
-            _model = model;
             if (_model.Store is not null && _model.Store.Map is not null)
                 Sections.AddRange(_model.Store.Map.Sections);
 
             _selectedSection = Sections.IndexOf(Sections.FirstOrDefault(s => s.Id == _segment.SectionId) ?? Sections[0]);
+            Products.CollectionChanged += (s, e) => this.RaisePropertyChanged(nameof(IsProductsEmpty));
+            _segment.TypeChanged += () => Type = segment.Type;
 
             _model.SectionsChanged += () =>
             {
@@ -82,6 +84,7 @@ namespace ShoppingListEditor.ViewModels.Editor
                     Name = StringProvider.GetString("None"),
                     MapId = _segment.MapId,
                 });
+
                 if (_model.Store is not null && _model.Store.Map is not null)
                     Sections.AddRange(_model.Store!.Map!.Sections);
             };

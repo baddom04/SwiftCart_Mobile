@@ -81,5 +81,7 @@
   <!--^Errors-->
   <x:String x:Key="SegmentUploadError">Segment upload error&#x0a;</x:String>
   <x:String x:Key="SectionChangeError">Section change error&#x0a;</x:String>
+  <x:String x:Key="SectionCreationError">Section creation error&#x0a;</x:String>
+  <x:String x:Key="SectionUpdateError">Section update error&#x0a;</x:String>
 
 </ResourceDictionary>

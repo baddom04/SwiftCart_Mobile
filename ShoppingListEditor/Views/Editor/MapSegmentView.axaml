@@ -43,9 +43,11 @@
           <PathIcon Data="{StaticResource add_regular}" Classes="maxi white_foreground"/>
         </Button>
       </Grid>
-      
+
       <ScrollViewer Grid.Row="3">
-        <ItemsControl/>
+        <Grid>
+          <ItemsControl/>
+        </Grid>
       </ScrollViewer>
     </Grid>
 
