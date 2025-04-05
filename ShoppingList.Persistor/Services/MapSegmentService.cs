@@ -7,13 +7,17 @@ namespace ShoppingList.Persistor.Services
 {
     internal class MapSegmentService(HttpClient client) : APIService(client), IMapSegmentService
     {
-        public async Task CreateMapSegmentAsync(int map_id, int x, int y, SegmentType type, int section_id, CancellationToken cancellationToken = default)
+        public async Task<MapSegment> CreateMapSegmentAsync(int map_id, int x, int y, SegmentType type, int? section_id, CancellationToken cancellationToken = default)
         {
-            var payload = new { x, y, type, section_id };
+            var payload = new { x, y, type = type.ToString().ToLower(), section_id };
 
             HttpResponseMessage response = await _httpClient.PostAsJsonAsync($"maps/{map_id}/segments", payload, cancellationToken);
 
             await ValidateResponse(response, cancellationToken);
+
+            MapSegment? mapSegments = await response.Content.ReadFromJsonAsync<MapSegment>(cancellationToken);
+
+            return mapSegments ?? throw new NullReferenceException();
         }
 
         public async Task DeleteMapSegmentAsync(int map_id, int segment_id, CancellationToken cancellationToken = default)
@@ -34,13 +38,17 @@ namespace ShoppingList.Persistor.Services
             return mapSegments ?? throw new NullReferenceException();
         }
 
-        public async Task UpdateMapSegmentAsync(int map_id, int segment_id, int x, int y, SegmentType type, int section_id, CancellationToken cancellationToken = default)
+        public async Task<MapSegment> UpdateMapSegmentAsync(int map_id, int segment_id, int x, int y, SegmentType type, int? section_id, CancellationToken cancellationToken = default)
         {
-            var payload = new { x, y, type, section_id };
+            var payload = new { x, y, type = type.ToString().ToLower(), section_id };
 
             HttpResponseMessage response = await _httpClient.PutAsJsonAsync($"maps/{map_id}/segments/{segment_id}", payload, cancellationToken);
 
             await ValidateResponse(response, cancellationToken);
+
+            MapSegment? mapSegments = await response.Content.ReadFromJsonAsync<MapSegment>(cancellationToken);
+
+            return mapSegments ?? throw new NullReferenceException();
         }
     }
 }

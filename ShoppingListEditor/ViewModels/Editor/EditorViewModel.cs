@@ -2,6 +2,7 @@
 using ReactiveUI;
 using ShoppingList.Core.Enums;
 using ShoppingList.Shared;
+using ShoppingList.Shared.Utils;
 using ShoppingList.Shared.ViewModels;
 using ShoppingListEditor.Model;
 using ShoppingListEditor.Model.Editables;
@@ -34,15 +35,19 @@ namespace ShoppingListEditor.ViewModels.Editor
         }
 
 
-        public ObservableCollection<MapSegmentEditable> MapSegments { get; } = [];
+        public ObservableCollection<MapSegmentViewModel> MapSegments { get; } = [];
         public event Action? MapChanged;
 
         private readonly EditorModel _model;
         private readonly Action<LoggedInPages> _changePage;
-        public EditorViewModel(EditorModel model, Action<LoggedInPages> changePage)
+        private readonly Action<bool> _showLoading;
+        private readonly Action<NotificationType, string> _showNotification;
+        public EditorViewModel(EditorModel model, Action<LoggedInPages> changePage, Action<bool> showLoading, Action<NotificationType, string> showNotification)
         {
             _model = model;
             _changePage = changePage;
+            _showLoading = showLoading;
+            _showNotification = showNotification;
 
             _model.MapChanged += OnMapChanged;
 
@@ -66,7 +71,7 @@ namespace ShoppingListEditor.ViewModels.Editor
             {
                 for (int x = 0; x < _model.Store.Map.XSize; x++)
                 {
-                    MapSegments.Add(_model.Store.Map.MapSegments[y, x]);
+                    MapSegments.Add(new MapSegmentViewModel(_model.Store.Map.MapSegments[y, x], _model, ChangeToPage, _showLoading, _showNotification));
                 }
             }
             MapChanged?.Invoke();

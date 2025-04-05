@@ -1,10 +1,10 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Data;
-using Avalonia.Data.Converters;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
+using ReactiveUI;
 using ShoppingList.Core.Enums;
 using ShoppingList.Shared.Converters;
 using ShoppingListEditor.Converters;
@@ -23,7 +23,7 @@ public partial class EditorView : UserControl
     private Point _previousPoint;
     private bool _isPanning = false;
 
-    private List<MapSegmentEditable>? _mapSegments;
+    private List<MapSegmentViewModel>? _mapSegments;
 
     private double _zoom = 1.0;
     private readonly double _panX = 0;
@@ -142,7 +142,7 @@ public partial class EditorView : UserControl
         MapScrollViewer.Offset = new Vector(_extraPadding / 2, _extraPadding / 2);
     }
 
-    private List<MapSegmentEditable> LoadMapSegments()
+    private List<MapSegmentViewModel> LoadMapSegments()
     {
         return [.. (DataContext as EditorViewModel)!.MapSegments];
     }
@@ -186,17 +186,23 @@ public partial class EditorView : UserControl
         e.Handled = true;
     }
 
-    private Button CreateButton(MapSegmentEditable segment)
+    private Button CreateButton(MapSegmentViewModel segment)
     {
         var btn = new Button
         {
             Width = _squareSize,
             Height = _squareSize,
-            Background = (IBrush)_toColorConverter.Convert(segment.Type, typeof(IBrush), null, CultureInfo.CurrentCulture)!,
             BorderBrush = Brushes.LightGray,
             BorderThickness = new Thickness(1),
             DataContext = segment,
+            Command = segment.UploadSegmentCommand,
         };
+
+        btn.Bind(BackgroundProperty, new Binding("Type") { Converter = _toColorConverter });
+        btn.Bind(Button.CommandParameterProperty, new Binding("SelectedSegmentType")
+        {
+            Source = DataContext as EditorViewModel
+        });
 
         foreach (SegmentType type in Enum.GetValues(typeof(SegmentType)))
         {
@@ -211,7 +217,7 @@ public partial class EditorView : UserControl
         {
             Converter = _toBoolConverter,
             ConverterParameter = type,
-            Source = (DataContext as EditorViewModel)
+            Source = DataContext as EditorViewModel
         };
     }
 }

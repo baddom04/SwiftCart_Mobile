@@ -10,8 +10,15 @@ namespace ShoppingListEditor.Model.Editables
         public int Y { get; set; }
         public int MapId { get; set; }
         public int? SectionId { get; set; }
-        public SegmentType Type { get; set; }
+
+        private SegmentType _type;
+        public SegmentType Type
+        {
+            get { return _type; }
+            set { _type = value; TypeChanged?.Invoke(); }
+        }
         public required List<ProductEditable> Products { get; set; }
+        public event Action? TypeChanged;
 
         public static MapSegmentEditable FromMapSegment(MapSegment segment)
         {

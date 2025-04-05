@@ -15,6 +15,7 @@ namespace ShoppingListEditor.Model
             get { return _store; }
             private set { _store = value; StoreChanged?.Invoke(); }
         }
+
         public event Action? StoreChanged;
         public event Action? MapChanged;
         public event Action? LocationChanged;
@@ -23,6 +24,7 @@ namespace ShoppingListEditor.Model
         private readonly IStoreService _storeService = AppServiceProvider.Services.GetRequiredService<IStoreService>();
         private readonly ILocationService _locationService = AppServiceProvider.Services.GetRequiredService<ILocationService>();
         private readonly IMapService _mapService = AppServiceProvider.Services.GetRequiredService<IMapService>();
+        private readonly IMapSegmentService _segmentService = AppServiceProvider.Services.GetRequiredService<IMapSegmentService>();
 
         public EditorModel()
         {
@@ -122,7 +124,7 @@ namespace ShoppingListEditor.Model
             Store.Map.SetSizes(map.XSize, map.YSize);
             MapChanged?.Invoke();
         }
-        public void SetSegmentEmpty(MapSegmentEditable segment)
+        public async Task UploadSegmentAsync(MapSegmentEditable segment)
         {
             if (Store is null || Store.Id == default)
                 throw new InvalidOperationException("The store to add the location to does not exist");
@@ -132,6 +134,31 @@ namespace ShoppingListEditor.Model
             if (Store.Map.MapSegments[segment.Y, segment.X] != segment)
                 throw new InvalidDataException("The given segment is not the same as in the Store model");
 
+            MapSegment createdSegment = segment.Id == default 
+                ? await _segmentService.CreateMapSegmentAsync(segment.MapId, segment.X, segment.Y, segment.Type, segment.SectionId)
+                : await _segmentService.UpdateMapSegmentAsync(segment.MapId, segment.Id, segment.X, segment.Y, segment.Type, segment.SectionId);
+
+            segment.Id = createdSegment.Id;
+            segment.X = createdSegment.X;
+            segment.Y = createdSegment.Y;
+            segment.Type = createdSegment.Type;
+            segment.SectionId = createdSegment.SectionId;
+        }
+        public async Task DeleteSegmentAsync(MapSegmentEditable segment)
+        {
+            if (Store is null || Store.Id == default)
+                throw new InvalidOperationException("The store to add the location to does not exist");
+            if (Store.Map is null)
+                throw new InvalidOperationException("Map does not exist");
+
+            if (Store.Map.MapSegments[segment.Y, segment.X] != segment)
+                throw new InvalidDataException("The given segment is not the same as in the Store model");
+            if(segment.Id == default)
+                throw new InvalidDataException("The given segment does not have an Id");
+
+            await _segmentService.DeleteMapSegmentAsync(segment.MapId, segment.Id);
+
+            segment.Id = default;
             segment.SectionId = null;
             segment.Products.Clear();
             segment.Type = SegmentType.Empty;

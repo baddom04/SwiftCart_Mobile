@@ -72,5 +72,10 @@
   <x:String x:Key="MapDimensions">Map dimensions</x:String>
   <!--^Errors-->
   <x:String x:Key="MapCreationError">Map creation error&#x0a;</x:String>
+  
+  <!--EditorView-->
+  
+  <!--^Errors-->
+  <x:String x:Key="SegmentUploadError">Segment upload error&#x0a;</x:String>
 
 </ResourceDictionary>

@@ -21,7 +21,7 @@ namespace ShoppingList.Core
 
         [JsonPropertyName("updated_at")]
         public DateTime UpdatedAt { get; init; }
-        public required IEnumerable<Product> Products { get; init; }
+        public IEnumerable<Product> Products { get; init; } = [];
 
         public bool Marked { get; set; }
     }
