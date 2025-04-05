@@ -6,6 +6,7 @@ using ShoppingList.Shared.Utils;
 using ShoppingListEditor.Model;
 using ShoppingListEditor.Model.Editables;
 using ShoppingListEditor.Utils;
+using ShoppingListEditor.ViewModels.Editor.Pane;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -23,7 +24,7 @@ namespace ShoppingListEditor.ViewModels.Editor
         public ReactiveCommand<Unit, Unit> ToProductPageCommand { get; }
         public ReactiveCommand<SegmentType, Unit> UploadSegmentCommand { get; }
         public ObservableCollection<SectionEditable> Sections { get; }
-        public ObservableCollection<ProductEditable> Products { get; } = [];
+        public ObservableCollection<ProductViewModel> Products { get; }
         public bool IsProductsEmpty => Products.Count == 0;
 
         private int _selectedSection;
@@ -46,14 +47,14 @@ namespace ShoppingListEditor.ViewModels.Editor
         private readonly MapSegmentEditable _segment;
         private readonly Action<bool> _showLoading;
         private readonly Action<NotificationType, string> _showNotification;
-        private readonly Action<PanePage> _changePane;
-        public MapSegmentViewModel(MapSegmentEditable segment, EditorModel model, Action<ViewModelBase?> setPaneContent, Action<bool> showLoading, Action<NotificationType, string> showNotification, Action<PanePage> changePane)
+        private readonly Action<ViewModelBase?> _setPaneContent;
+        public MapSegmentViewModel(MapSegmentEditable segment, EditorModel model, Action<ViewModelBase?> setPaneContent, Action<bool> showLoading, Action<NotificationType, string> showNotification)
         {
             _segment = segment;
             _model = model;
+            _setPaneContent = setPaneContent;
             _showLoading = showLoading;
             _showNotification = showNotification;
-            _changePane = changePane;
 
             X = segment.X;
             Y = segment.Y;
@@ -67,9 +68,17 @@ namespace ShoppingListEditor.ViewModels.Editor
                     MapId = _segment.MapId,
                 },
             ];
+            Products = [.. GetProducts()];
+            _segment.Products.CollectionChanged += (s, e) =>
+            {
+                Products.Clear();
+                Products.AddRange(GetProducts());
+            };
+
 
             if (_model.Store is not null && _model.Store.Map is not null)
                 Sections.AddRange(_model.Store.Map.Sections);
+
 
             _selectedSection = Sections.IndexOf(Sections.FirstOrDefault(s => s.Id == _segment.SectionId) ?? Sections[0]);
             Products.CollectionChanged += (s, e) => this.RaisePropertyChanged(nameof(IsProductsEmpty));
@@ -87,16 +96,23 @@ namespace ShoppingListEditor.ViewModels.Editor
 
                 if (_model.Store is not null && _model.Store.Map is not null)
                     Sections.AddRange(_model.Store!.Map!.Sections);
+
+                _selectedSection = Sections.IndexOf(Sections.FirstOrDefault(s => s.Id == _segment.SectionId) ?? Sections[0]);
             };
 
             OpenDetailPaneCommand = ReactiveCommand.Create(() => setPaneContent(this));
             CloseDetailPaneCommand = ReactiveCommand.Create(() => setPaneContent(null));
             UploadSegmentCommand = ReactiveCommand.CreateFromTask<SegmentType>(UploadSegmentAsync);
-            ToSectionPageCommand = ReactiveCommand.Create(() => _changePane(PanePage.Section));
-            ToProductPageCommand = ReactiveCommand.Create(() => _changePane(PanePage.Product));
+            ToSectionPageCommand = ReactiveCommand.Create(() => setPaneContent(new SectionPaneViewModel(_model, _showLoading, _showNotification) { GoBack = () => setPaneContent(this) }));
+            ToProductPageCommand = ReactiveCommand.Create(() => setPaneContent(new ProductPaneViewModel(_model, _segment, _showLoading, _showNotification) { GoBack = () => setPaneContent(this) }));
 
             this.WhenAnyValue(x => x.SelectedSection).Subscribe(async (section) => await OnSelectedSectionChanged(section));
         }
+        private IEnumerable<ProductViewModel> GetProducts()
+        {
+            return [.. _segment.Products.Select(p => new ProductViewModel(_model, _segment, p, _showLoading, _showNotification, _setPaneContent, () => _setPaneContent(this)))];
+        }
+
         private bool _first = true;
         private async Task OnSelectedSectionChanged(int index)
         {
@@ -106,7 +122,7 @@ namespace ShoppingListEditor.ViewModels.Editor
                 return;
             }
 
-            if(index == -1) return;
+            if (index == -1) return;
 
             _showLoading(true);
             try

@@ -3,6 +3,47 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="clr-namespace:ShoppingListEditor.ViewModels.Editor.Pane"
+             x:DataType="vm:SectionPaneViewModel"
              x:Class="ShoppingListEditor.Views.Editor.Pane.SectionPaneView">
-  Welcome to Avalonia!
+  <Grid RowDefinitions="Auto, *, Auto">
+
+    <Grid Grid.Row="0">
+      <Button VerticalAlignment="Center" Classes="mainbg" HorizontalAlignment="Left"
+          Command="{Binding GoBackCommand}">
+        <PathIcon Data="{StaticResource arrow_left_regular}" Classes="maxi"/>
+      </Button>
+      <TextBlock Grid.Row="0" Text="{DynamicResource Sections}" Classes="h1" Margin="30"
+                 HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
+    </Grid>
+
+    <ScrollViewer Grid.Row="1">
+      <Grid>
+        <ItemsControl ItemsSource="{Binding Sections}" IsVisible="{Binding !IsEmptySections}">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <Border Classes="mainbg_floater" Margin="10" Padding="5">
+                <Grid ColumnDefinitions="Auto, *, Auto, Auto">
+                  <TextBlock Grid.Column="0" Text="{Binding Name}" VerticalAlignment="Center"
+                             TextWrapping="Wrap"/>
+                  <Button Grid.Column="2" Click="UpdateSection_Click" Margin="5 0">
+                    <PathIcon Data="{StaticResource edit_regular}" Classes="white_foreground"/>
+                  </Button>
+                  <Button Grid.Column="3" Command="{Binding DeleteSectionCommand}" Classes="danger">
+                    <PathIcon Data="{StaticResource delete_regular}" Classes="white_foreground"/>
+                  </Button>
+                </Grid>
+              </Border>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        <TextBlock IsVisible="{Binding IsEmptySections}" Text="{DynamicResource NoSectionsFound}"
+                   HorizontalAlignment="Center" VerticalAlignment="Center" Classes="h2"/>
+      </Grid>
+    </ScrollViewer>
+
+    <Button Grid.Row="2" Click="AddSection_Click" HorizontalAlignment="Center" Margin="0 15">
+      <PathIcon Data="{StaticResource add_regular}" Classes="maxi white_foreground"/>
+    </Button>
+  </Grid>
 </UserControl>

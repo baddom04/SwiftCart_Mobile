@@ -53,7 +53,7 @@ namespace ShoppingListEditor.ViewModels.Editor.Pane
             _showLoading(true);
             try
             {
-                await _model.RemoveSection(_section);
+                await _model.RemoveSectionAsync(_section);
             }
             catch (Exception ex)
             {

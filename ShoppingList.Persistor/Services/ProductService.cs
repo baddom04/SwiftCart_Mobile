@@ -6,13 +6,17 @@ namespace ShoppingList.Persistor.Services
 {
     internal class ProductService(HttpClient client) : APIService(client), IProductService
     {
-        public async Task CreateProductAsync(int segment_id, string name, string brand, string description, decimal price, CancellationToken cancellationToken = default)
+        public async Task<Product> CreateProductAsync(int segment_id, string name, string brand, string description, decimal price, CancellationToken cancellationToken = default)
         {
             var payload = new { name, brand, description, price };
 
             HttpResponseMessage response = await _httpClient.PostAsJsonAsync($"segments/{segment_id}/products", payload, cancellationToken);
 
             await ValidateResponse(response, cancellationToken);
+
+            Product? product = await response.Content.ReadFromJsonAsync<Product>(cancellationToken);
+
+            return product ?? throw new NullReferenceException();
         }
 
         public async Task DeleteProductAsync(int segment_id, int product_id, CancellationToken cancellationToken = default)
@@ -44,13 +48,17 @@ namespace ShoppingList.Persistor.Services
             return products ?? throw new NullReferenceException();
         }
 
-        public async Task UpdateProductAsync(int segment_id, int product_id, string name, string brand, string description, decimal price, CancellationToken cancellationToken = default)
+        public async Task<Product> UpdateProductAsync(int segment_id, int product_id, string name, string brand, string description, decimal price, CancellationToken cancellationToken = default)
         {
             var payload = new { name, brand, description, price };
 
             HttpResponseMessage response = await _httpClient.PostAsJsonAsync($"segments/{segment_id}/products/{product_id}", payload, cancellationToken);
 
             await ValidateResponse(response, cancellationToken);
+
+            Product? product = await response.Content.ReadFromJsonAsync<Product>(cancellationToken);
+
+            return product ?? throw new NullReferenceException();
         }
     }
 }

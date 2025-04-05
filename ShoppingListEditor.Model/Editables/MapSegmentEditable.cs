@@ -1,5 +1,6 @@
 ﻿using ShoppingList.Core;
 using ShoppingList.Core.Enums;
+using System.Collections.ObjectModel;
 
 namespace ShoppingListEditor.Model.Editables
 {
@@ -17,7 +18,7 @@ namespace ShoppingListEditor.Model.Editables
             get { return _type; }
             set { _type = value; TypeChanged?.Invoke(); }
         }
-        public required List<ProductEditable> Products { get; set; }
+        public required ObservableCollection<ProductEditable> Products { get; set; }
         public event Action? TypeChanged;
 
         public static MapSegmentEditable FromMapSegment(MapSegment segment)

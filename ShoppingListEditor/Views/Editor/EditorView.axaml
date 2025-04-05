@@ -15,7 +15,7 @@
   <SplitView PanePlacement="Right"
              DisplayMode="Inline"
              IsPaneOpen="{Binding IsPaneOpen}"
-             OpenPaneLength="400"
+             OpenPaneLength="450"
              PaneBackground="Transparent"
              x:Name="EditOverlay">
     <SplitView.Pane>
@@ -74,8 +74,8 @@
                         Margin="2">
                   <PathIcon Data="{StaticResource text_edit_style_regular}" Classes="maxi white_foreground"/>
                 </Button>
-                <Button Grid.Row="1" Grid.Column="1" Margin="2">
-                  <PathIcon Data="{StaticResource upload_regular}" Classes="maxi white_foreground"/>
+                <Button Grid.Row="1" Grid.Column="1" Margin="2" Command="{Binding SectionsPaneCommand}">
+                  <PathIcon Data="{StaticResource apps_list_regular}" Classes="maxi white_foreground"/>
                 </Button>
               </Grid>
             </Border>
@@ -84,7 +84,8 @@
         </Grid>
 
         <ScrollViewer x:Name="MapScrollViewer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                                VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+                      VerticalContentAlignment="Center" HorizontalContentAlignment="Center"
+                      VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden">
           <Canvas x:Name="MapCanvas" RenderTransformOrigin="0 0" HorizontalAlignment="Stretch"
                   VerticalAlignment="Stretch"
                   PointerPressed="Canvas_PointerPressed"

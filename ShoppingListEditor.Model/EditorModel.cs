@@ -26,6 +26,7 @@ namespace ShoppingListEditor.Model
         private readonly IMapService _mapService = AppServiceProvider.Services.GetRequiredService<IMapService>();
         private readonly IMapSegmentService _segmentService = AppServiceProvider.Services.GetRequiredService<IMapSegmentService>();
         private readonly ISectionService _sectionService = AppServiceProvider.Services.GetRequiredService<ISectionService>();
+        private readonly IProductService _productService = AppServiceProvider.Services.GetRequiredService<IProductService>();
 
         public EditorModel()
         {
@@ -38,7 +39,6 @@ namespace ShoppingListEditor.Model
             SectionsChanged?.Invoke();
             LocationChanged?.Invoke();
         }
-
         public async Task<StoreEditable?> GetUsersStoreAsync()
         {
             Store = StoreEditable.FromStore(await _storeService.GetMyStoreAsync());
@@ -76,16 +76,7 @@ namespace ShoppingListEditor.Model
                 throw new InvalidOperationException("Location already exists");
 
             Location location = await _locationService.CreateLocationAsync(Store.Id, country, zip_code, city, street, detail);
-            Store.Location = new LocationEditable()
-            {
-                Id = location.Id,
-                Country = location.Country,
-                Street = location.Street,
-                Detail = location.Detail,
-                City = location.City,
-                ZipCode = location.ZipCode,
-                StoreId = location.StoreId,
-            };
+            Store.Location = LocationEditable.FromLocation(location);
             LocationChanged?.Invoke();
         }
         public async Task UpdateLocationAsync(string country, string zip_code, string city, string street, string detail)
@@ -188,7 +179,7 @@ namespace ShoppingListEditor.Model
             segment.Type = updated.Type;
             segment.SectionId = updated.SectionId;
         }
-        public async Task AddSection(string name)
+        public async Task AddSectionAsync(string name)
         {
             if (Store is null || Store.Id == default)
                 throw new InvalidOperationException("The store to add the location to does not exist");
@@ -199,23 +190,18 @@ namespace ShoppingListEditor.Model
 
             Section? section = await _sectionService.CreateSectionAsync(Store.Map.Id, name);
 
-            Store.Map.Sections.Add(new SectionEditable()
-            {
-                Id = section.Id,
-                Name = section.Name,
-                MapId = Store.Map.Id,
-            });
+            Store.Map.Sections.Add(SectionEditable.FromSection(section));
 
             SectionsChanged?.Invoke();
         }
-        public async Task RemoveSection(SectionEditable section)
+        public async Task RemoveSectionAsync(SectionEditable section)
         {
             if (Store is null || Store.Id == default)
                 throw new InvalidOperationException("The store to add the location to does not exist");
             if (Store.Map is null)
                 throw new InvalidOperationException("Map does not exist");
             if (!Store.Map.Sections.Contains(section))
-                throw new InvalidDataException("Section does not exist in the collection");
+                throw new InvalidDataException("Section is not part of the collection");
             if (section.Id == default)
                 throw new InvalidDataException("The given section does not have an Id");
 
@@ -232,13 +218,56 @@ namespace ShoppingListEditor.Model
             if (Store.Map is null)
                 throw new InvalidOperationException("Map does not exist");
             if (!Store.Map.Sections.Contains(section))
-                throw new InvalidDataException("Section does not exist in the collection");
+                throw new InvalidDataException("Section is not part of the collection");
             if (section.Id == default)
                 throw new InvalidDataException("The given section does not have an Id");
 
             await _sectionService.UpdateSectionAsync(Store.Map.Id, section.Id, section.Name);
 
             SectionsChanged?.Invoke();
+        }
+        public async Task DeleteProductAsync(MapSegmentEditable segment, ProductEditable product)
+        {
+            if (Store is null || Store.Id == default)
+                throw new InvalidOperationException("The store to add the location to does not exist");
+            if (Store.Map is null)
+                throw new InvalidOperationException("Map does not exist");
+            if (!segment.Products.Contains(product))
+                throw new InvalidDataException("The given product is not part of the collection");
+            if (segment.Id != product.MapSegmentId)
+                throw new InvalidDataException("The given product does not belong to the given segment");
+
+            await _productService.DeleteProductAsync(segment.Id, product.Id);
+
+            segment.Products.Remove(product);
+        }
+        public async Task CreateProductAsync(MapSegmentEditable segment, string nameInput, string descriptionInput, string brandInput, string priceInput)
+        {
+            if (Store is null || Store.Id == default)
+                throw new InvalidOperationException("The store to add the location to does not exist");
+            if (Store.Map is null)
+                throw new InvalidOperationException("Map does not exist");
+            if (!decimal.TryParse(priceInput, out var price))
+                throw new InvalidDataException("Price is not in the correct format");
+
+            Product product = await _productService.CreateProductAsync(segment.Id, nameInput, descriptionInput, brandInput, price);
+
+            segment.Products.Add(ProductEditable.FromProduct(product));
+        }
+        public async Task UpdateProductAsync(MapSegmentEditable segment, int productId, string nameInput, string descriptionInput, string brandInput, string priceInput)
+        {
+            if (Store is null || Store.Id == default)
+                throw new InvalidOperationException("The store to add the location to does not exist");
+            if (Store.Map is null)
+                throw new InvalidOperationException("Map does not exist");
+            if (!decimal.TryParse(priceInput, out var price))
+                throw new InvalidDataException("Price is not in the correct format");
+
+            Product product = await _productService.UpdateProductAsync(segment.Id, productId, nameInput, descriptionInput, brandInput, price);
+
+            int index = segment.Products.IndexOf(segment.Products.First(p => p.Id == productId));
+            segment.Products.RemoveAt(index);
+            segment.Products.Insert(index, ProductEditable.FromProduct(product));
         }
     }
 }

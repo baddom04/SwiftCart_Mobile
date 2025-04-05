@@ -1,6 +1,5 @@
 ﻿using DynamicData;
 using ReactiveUI;
-using ShoppingList.Shared;
 using ShoppingList.Shared.Utils;
 using ShoppingListEditor.Model;
 using ShoppingListEditor.Utils;
@@ -13,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace ShoppingListEditor.ViewModels.Editor.Pane
 {
-    internal class SectionPaneViewModel : ViewModelBase
+    internal class SectionPaneViewModel : PanePageViewModel
     {
         public ObservableCollection<SectionViewModel> Sections { get; }
         public bool IsEmptySections => Sections.Count == 0;
@@ -22,16 +21,13 @@ namespace ShoppingListEditor.ViewModels.Editor.Pane
         private readonly EditorModel _model;
         private readonly Action<bool> _showLoading;
         private readonly Action<NotificationType, string> _showNotification;
-        private readonly Action _goBack;
-
-        public SectionPaneViewModel(EditorModel model, Action<bool> showLoading, Action<NotificationType, string> showNotification, Action goBack)
+        public SectionPaneViewModel(EditorModel model, Action<bool> showLoading, Action<NotificationType, string> showNotification)
         {
             _model = model;
             _showLoading = showLoading;
             _showNotification = showNotification;
-            _goBack = goBack;
             Sections = [..GetSections()];
-            GoBackCommand = ReactiveCommand.Create(_goBack);
+            GoBackCommand = ReactiveCommand.Create(() => GoBack!());
 
             Sections.CollectionChanged += (s, e) => this.RaisePropertyChanged(nameof(IsEmptySections));
             _model.SectionsChanged += () =>
@@ -42,15 +38,16 @@ namespace ShoppingListEditor.ViewModels.Editor.Pane
         }
         private IEnumerable<SectionViewModel> GetSections()
         {
-            return _model.Store!.Map!.Sections.Select(s => new SectionViewModel(_model, s, _showLoading, _showNotification));
+            if (_model.Store is null || _model.Store.Map is null) return [];
+            return _model.Store.Map.Sections.Select(s => new SectionViewModel(_model, s, _showLoading, _showNotification));
         }
 
-        public async Task AddSection(string name)
+        public async Task AddSectionAsync(string name)
         {
             _showLoading(true);
             try
             {
-                await _model.AddSection(name);
+                await _model.AddSectionAsync(name);
             }
             catch (Exception ex)
             {

@@ -276,6 +276,14 @@
       <Setter Property="Background" Value="{DynamicResource RedButtonBGEnd}"/>
     </Style>
 
+    <Style Selector="^.danger:pointerover">
+      <Setter Property="Background" Value="{DynamicResource RedButtonBGEnd}"/>
+    </Style>
+
+    <Style Selector="^.danger:pressed">
+      <Setter Property="Background" Value="{DynamicResource RedButtonBGEnd}"/>
+    </Style>
+
     <Style Selector="^.success">
       <Setter Property="Background" Value="{DynamicResource Green}"/>
     </Style>

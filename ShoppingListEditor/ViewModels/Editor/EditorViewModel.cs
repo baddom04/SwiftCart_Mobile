@@ -24,6 +24,7 @@ namespace ShoppingListEditor.ViewModels.Editor
         }
 
         public ReactiveCommand<LoggedInPages, Unit> ChangePageCommand { get; }
+        public ReactiveCommand<Unit, Unit> SectionsPaneCommand { get; }
         public IReadOnlyCollection<SegmentType> SegmentTypes { get; }
 
         private SegmentType _selectedSegmentType = SegmentType.Shelf;
@@ -56,8 +57,10 @@ namespace ShoppingListEditor.ViewModels.Editor
             _pages = new Dictionary<PanePage, ViewModelBase>()
             {
                 { PanePage.Product, new ProductPaneViewModel() },
-                { PanePage.Section, new SectionPaneViewModel() },
+                { PanePage.Section, new SectionPaneViewModel(_model, _showLoading, _showNotification) },
             };
+
+            SectionsPaneCommand = ReactiveCommand.Create(() => SetPaneContent(new SectionPaneViewModel(_model, _showLoading, _showNotification) { GoBack = () => IsPaneOpen = false }));
         }
         private void OnMapChanged()
         {
@@ -69,7 +72,7 @@ namespace ShoppingListEditor.ViewModels.Editor
             {
                 for (int x = 0; x < _model.Store.Map.XSize; x++)
                 {
-                    MapSegments.Add(new MapSegmentViewModel(_model.Store.Map.MapSegments[y, x], _model, SetPaneContent, _showLoading, _showNotification, ChangePage));
+                    MapSegments.Add(new MapSegmentViewModel(_model.Store.Map.MapSegments[y, x], _model, SetPaneContent, _showLoading, _showNotification));
                 }
             }
             MapChanged?.Invoke();
