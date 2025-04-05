@@ -25,7 +25,14 @@ namespace ShoppingListEditor.ViewModels.Editor
 
         public ReactiveCommand<LoggedInPages, Unit> ChangePageCommand { get; }
         public IReadOnlyCollection<SegmentType> SegmentTypes { get; }
-        public SegmentType SelectedSegmentType { get; set; } = SegmentType.Shelf;
+
+        private SegmentType _selectedSegmentType = SegmentType.Shelf;
+        public SegmentType SelectedSegmentType
+        {
+            get { return _selectedSegmentType; }
+            set { this.RaiseAndSetIfChanged(ref _selectedSegmentType, value); }
+        }
+
 
         public ObservableCollection<MapSegmentEditable> MapSegments { get; } = [];
         public event Action? MapChanged;

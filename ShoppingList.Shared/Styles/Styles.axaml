@@ -1,5 +1,6 @@
 <Styles xmlns="https://github.com/avaloniaui"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:media="clr-namespace:Avalonia.Media;assembly=Avalonia.Visuals">
   <Design.PreviewWith>
     <UserControl>
       <Border Padding="20">
@@ -266,7 +267,27 @@
     <Style Selector="^.success">
       <Setter Property="Background" Value="{DynamicResource Green}"/>
     </Style>
+
+    <Style Selector="^.Shelf:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="SaddleBrown"/>
+    </Style>
+    <Style Selector="^.Entrance:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="LightGreen"/>
+    </Style>
+    <Style Selector="^.Wall:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="DarkGray"/>
+    </Style>
+    <Style Selector="^.Fridge:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="LightBlue"/>
+    </Style>
+    <Style Selector="^.CashRegister:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="LightSalmon"/>
+    </Style>
+    <Style Selector="^.Empty:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="White"/>
+    </Style>
   </Style>
+
 
   <Style Selector="ToggleSwitch">
     <Style Selector="^:checked /template/ Border#SwitchKnobBounds">

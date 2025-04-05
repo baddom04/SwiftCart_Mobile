@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using ShoppingList.Core.JsonConverters;
+using System.Text.Json.Serialization;
 
 namespace ShoppingList.Core
 {
@@ -6,6 +7,9 @@ namespace ShoppingList.Core
     {
         public int Id { get; init; }
         public required string Name { get; init; }
+
+        [JsonConverter(typeof(BoolFromIntegerConverter))]
+        public bool Published { get; init; }
 
         [JsonPropertyName("user_id")]
         public int UserId { get; init; }

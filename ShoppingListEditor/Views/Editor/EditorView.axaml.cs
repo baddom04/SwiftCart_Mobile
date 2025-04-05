@@ -1,11 +1,16 @@
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Data;
+using Avalonia.Data.Converters;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
+using ShoppingList.Core.Enums;
 using ShoppingList.Shared.Converters;
+using ShoppingListEditor.Converters;
 using ShoppingListEditor.Model.Editables;
 using ShoppingListEditor.ViewModels.Editor;
+using ShoppingListEditor.Views.Editor.Utils;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -32,6 +37,8 @@ public partial class EditorView : UserControl
     private double _squareSize = 50;
 
     private readonly SegmentTypeToColorConverter _toColorConverter = new();
+    private readonly SegmentTypeToBoolConverter _toBoolConverter = new();
+
     public EditorView()
     {
         InitializeComponent();
@@ -80,20 +87,12 @@ public partial class EditorView : UserControl
 
         foreach (var segment in _mapSegments)
         {
-            var border = new Border
-            {
-                Width = _squareSize,
-                Height = _squareSize,
-                Background = (IBrush)_toColorConverter.Convert(segment.Type, typeof(IBrush), null, CultureInfo.CurrentCulture)!,
-                BorderBrush = Brushes.LightGray,
-                BorderThickness = new Thickness(1),
-                DataContext = segment,
-            };
+            var button = CreateButton(segment);
 
-            Canvas.SetLeft(border, _extraPadding / 2 + segment.X * _squareSize);
-            Canvas.SetTop(border, _extraPadding / 2 + segment.Y * _squareSize);
+            Canvas.SetLeft(button, _extraPadding / 2 + segment.X * _squareSize);
+            Canvas.SetTop(button, _extraPadding / 2 + segment.Y * _squareSize);
 
-            MapCanvas.Children.Add(border);
+            MapCanvas.Children.Add(button);
         }
 
         UpdateTransforms();
@@ -185,5 +184,34 @@ public partial class EditorView : UserControl
         canvas.Cursor = new Cursor(StandardCursorType.Arrow);
         e.Pointer.Capture(null);
         e.Handled = true;
+    }
+
+    private Button CreateButton(MapSegmentEditable segment)
+    {
+        var btn = new Button
+        {
+            Width = _squareSize,
+            Height = _squareSize,
+            Background = (IBrush)_toColorConverter.Convert(segment.Type, typeof(IBrush), null, CultureInfo.CurrentCulture)!,
+            BorderBrush = Brushes.LightGray,
+            BorderThickness = new Thickness(1),
+            DataContext = segment,
+        };
+
+        foreach (SegmentType type in Enum.GetValues(typeof(SegmentType)))
+        {
+            btn.BindStyleClass(type.ToString(), CreateBinding(type));
+        }
+
+        return btn;
+    }
+    private Binding CreateBinding(SegmentType type)
+    {
+        return new Binding("SelectedSegmentType")
+        {
+            Converter = _toBoolConverter,
+            ConverterParameter = type,
+            Source = (DataContext as EditorViewModel)
+        };
     }
 }
