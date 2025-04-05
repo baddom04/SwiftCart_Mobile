@@ -3,7 +3,6 @@ using ReactiveUI;
 using ShoppingList.Core.Enums;
 using ShoppingList.Shared;
 using ShoppingList.Shared.Utils;
-using ShoppingList.Shared.ViewModels;
 using ShoppingListEditor.Model;
 using ShoppingListEditor.ViewModels.Editor.Pane;
 using System;
@@ -14,8 +13,15 @@ using System.Reactive;
 
 namespace ShoppingListEditor.ViewModels.Editor
 {
-    internal class EditorViewModel : MainViewModelBase<PanePage>
+    internal class EditorViewModel : ViewModelBase
     {
+        private ViewModelBase? _currentPage;
+        public ViewModelBase? CurrentPage
+        {
+            get { return _currentPage; }
+            private set { this.RaiseAndSetIfChanged(ref _currentPage, value); }
+        }
+
         private bool _isPaneOpen;
         public bool IsPaneOpen
         {
@@ -54,12 +60,6 @@ namespace ShoppingListEditor.ViewModels.Editor
 
             SegmentTypes = [.. Enum.GetValues(typeof(SegmentType)).Cast<SegmentType>()];
 
-            _pages = new Dictionary<PanePage, ViewModelBase>()
-            {
-                { PanePage.Product, new ProductPaneViewModel() },
-                { PanePage.Section, new SectionPaneViewModel(_model, _showLoading, _showNotification) },
-            };
-
             SectionsPaneCommand = ReactiveCommand.Create(() => SetPaneContent(new SectionPaneViewModel(_model, _showLoading, _showNotification) { GoBack = () => IsPaneOpen = false }));
         }
         private void OnMapChanged()
@@ -78,11 +78,6 @@ namespace ShoppingListEditor.ViewModels.Editor
             MapChanged?.Invoke();
         }
 
-        public override void ChangeToDefaultPage()
-        {
-            throw new NotImplementedException();
-        }
-
         private void SetPaneContent(ViewModelBase? viewModel)
         {
             if (viewModel is null)
@@ -94,10 +89,5 @@ namespace ShoppingListEditor.ViewModels.Editor
             CurrentPage = viewModel;
             IsPaneOpen = true;
         }
-    }
-    internal enum PanePage
-    {
-        Section,
-        Product
     }
 }

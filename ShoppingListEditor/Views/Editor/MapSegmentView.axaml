@@ -5,7 +5,11 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              xmlns:vm="clr-namespace:ShoppingListEditor.ViewModels.Editor"
              x:DataType="vm:MapSegmentViewModel"
-             x:Class="ShoppingListEditor.Views.Editor.MapSegmentView">
+             x:Class="ShoppingListEditor.Views.Editor.MapSegmentView"
+             xmlns:converters ="clr-namespace:ShoppingListEditor.Converters">
+  <UserControl.Resources>
+    <converters:AppendFtConverter x:Key="AppendFtConverter"/>
+  </UserControl.Resources>
   <Grid RowDefinitions="Auto, *">
 
     <Grid Grid.Row="0">
@@ -46,7 +50,48 @@
 
       <ScrollViewer Grid.Row="3">
         <Grid>
-          <ItemsControl/>
+          <ItemsControl IsVisible="{Binding !IsProductsEmpty}" ItemsSource="{Binding Products}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <Border Classes="mainbg_floater" Margin="10" Padding="10">
+                  <Grid RowDefinitions="Auto, Auto, Auto, Auto" ColumnDefinitions="*, Auto">
+                    <TextBlock Grid.Column="0" Grid.Row="0" TextWrapping="Wrap"
+                               Text="{Binding Name}" Margin="0 0 0 5"/>
+                    <TextBlock Grid.Column="0" Grid.Row="1" TextWrapping="Wrap"
+                               Text="{Binding Brand}" Classes="mini" />
+                    <Grid Grid.Column="2" Grid.RowSpan="2" ColumnDefinitions="Auto, Auto">
+                      <TextBlock Grid.Column="0" TextWrapping="Wrap" Margin="5 0"
+                               Text="{Binding Price, Converter={StaticResource AppendFtConverter}}" Classes="mini" VerticalAlignment="Center"/>
+                      <Button Grid.Column="1" Classes="mainbg" Command="{Binding OpenCommand}"
+                              Classes.halfAnimatedIn="{Binding IsOpen}"
+                              Classes.halfAnimatedOut="{Binding !IsOpen}">
+                        <PathIcon Data="{StaticResource chevron_right_regular}"
+                                  Classes="btn_foreground"/>
+                      </Button>
+                    </Grid>
+                    <TextBlock Grid.Row="2" Grid.ColumnSpan="3" Margin="10"
+                               Text="{Binding Description}" TextWrapping="Wrap"
+                               IsVisible="{Binding IsOpen}"/>
+                    <Grid Grid.Row="3" Grid.ColumnSpan="3" ColumnDefinitions="*, *"
+                                 HorizontalAlignment="Stretch" Margin="0 5">
+                      <Button Grid.Column="0" HorizontalAlignment="Center" 
+                              Command="{Binding UpdateCommand}">
+                        <PathIcon Data="{StaticResource edit_regular}"
+                                  Classes="white_foreground"/>
+                      </Button>
+                      <Button Grid.Column="1" HorizontalAlignment="Center"
+                              Command="{Binding DeleteCommand}" Classes="danger">
+                        <PathIcon Data="{StaticResource delete_regular}"
+                                  Classes="white_foreground"/>
+                      </Button>
+                    </Grid>
+                  </Grid>
+                </Border>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+          <TextBlock IsVisible="{Binding IsProductsEmpty}" Text="{DynamicResource NoProductsFound}"
+                   HorizontalAlignment="Center" VerticalAlignment="Center" Classes="h2"/>
         </Grid>
       </ScrollViewer>
     </Grid>

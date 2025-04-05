@@ -12,12 +12,20 @@ namespace ShoppingListEditor.ViewModels.Editor.Pane
 {
     internal class ProductViewModel : ViewModelBase
     {
+        private bool _isOpen;
+        public bool IsOpen
+        {
+            get { return _isOpen; }
+            private set { this.RaiseAndSetIfChanged(ref _isOpen, value); }
+        }
+
         public string Name { get; }
         public string Brand { get; }
         public string Description { get; }
         public decimal Price { get; }
         public ReactiveCommand<Unit, Unit> UpdateCommand { get; }
         public ReactiveCommand<Unit, Unit> DeleteCommand { get; }
+        public ReactiveCommand<Unit, bool> OpenCommand { get; }
 
         private readonly EditorModel _model;
         private readonly ProductEditable _product;
@@ -39,6 +47,7 @@ namespace ShoppingListEditor.ViewModels.Editor.Pane
 
             UpdateCommand = ReactiveCommand.Create(() => setPaneContent(new ProductPaneViewModel(_model, _segment, _product, _showLoading, _showNotification) { GoBack = goBack }));
             DeleteCommand = ReactiveCommand.CreateFromTask(DeleteProductAsync);
+            OpenCommand = ReactiveCommand.Create(() => IsOpen = !IsOpen);
         }
 
         private async Task DeleteProductAsync()

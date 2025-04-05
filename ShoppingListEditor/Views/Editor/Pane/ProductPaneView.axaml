@@ -2,7 +2,47 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="ShoppingListEditor.Views.Editor.Pane.ProductPaneView">
-  Welcome to Avalonia!
+             mc:Ignorable="d" d:DesignWidth="400" d:DesignHeight="800"
+             xmlns:vm="clr-namespace:ShoppingListEditor.ViewModels.Editor.Pane"
+             x:DataType="vm:ProductPaneViewModel"
+             x:Class="ShoppingListEditor.Views.Editor.Pane.ProductPaneView"
+             xmlns:controls="clr-namespace:ShoppingListEditor.Views.CustomControls">
+  <Grid RowDefinitions="Auto, *">
+
+    <Grid Grid.Row="0">
+      <Button VerticalAlignment="Center" Classes="mainbg" HorizontalAlignment="Left"
+          Command="{Binding GoBackCommand}">
+        <PathIcon Data="{StaticResource arrow_left_regular}" Classes="maxi"/>
+      </Button>
+      <TextBlock IsVisible="{Binding !IsUpdating}" Text="{DynamicResource CreateProduct}" Classes="h1" Margin="30"
+                 HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
+      <TextBlock IsVisible="{Binding IsUpdating}" Text="{DynamicResource UpdateProduct}" Classes="h1" Margin="30"
+                 HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
+    </Grid>
+    <ScrollViewer Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+      <Grid  RowDefinitions="Auto, 5*, *"  HorizontalAlignment="Stretch"
+            VerticalAlignment="Top" Margin="10 30 10 50">
+
+        <controls:ErrorDisplay ErrorMessage="{Binding ErrorMessage}" Grid.Row="0"/>
+
+        <StackPanel Grid.Row="1" Margin="30 10" Spacing="10">
+          <TextBlock Text="{DynamicResource Name}" />
+          <TextBox Watermark="{DynamicResource NameWatermark}" Text="{Binding NameInput}"/>
+          <TextBlock Text="{DynamicResource Brand}" />
+          <TextBox Watermark="{DynamicResource BrandWatermark}" Text="{Binding BrandInput}"/>
+          <TextBlock Text="{DynamicResource Description}" />
+          <TextBox Watermark="{DynamicResource DescriptionWatermark}"
+                   Text="{Binding DescriptionInput}" TextWrapping="Wrap"/>
+          <TextBlock Text="{DynamicResource Price}" />
+          <TextBox Watermark="{DynamicResource PriceWatermark}" Text="{Binding PriceInput}"/>
+        </StackPanel>
+        <Button IsVisible="{Binding IsUpdating}" Grid.Row="2" Margin="15" Classes="big"
+                Content="{DynamicResource Update}"
+                HorizontalAlignment="Center" Command="{Binding UpdateCommand}"/>
+        <Button IsVisible="{Binding !IsUpdating}" Grid.Row="2" Margin="15" Classes="big"
+                Content="{DynamicResource Create}"
+                HorizontalAlignment="Center" Command="{Binding CreateCommand}"/>
+      </Grid>
+    </ScrollViewer>
+  </Grid>
 </UserControl>

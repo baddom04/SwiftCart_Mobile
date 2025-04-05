@@ -5,6 +5,6 @@ namespace ShoppingListEditor.ViewModels.Editor.Pane
 {
     internal class PanePageViewModel : ViewModelBase
     {
-        public Action? GoBack { get; set; }
+        public required Action GoBack { get; set; }
     }
 }

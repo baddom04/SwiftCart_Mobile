@@ -247,10 +247,10 @@ namespace ShoppingListEditor.Model
                 throw new InvalidOperationException("The store to add the location to does not exist");
             if (Store.Map is null)
                 throw new InvalidOperationException("Map does not exist");
-            if (!decimal.TryParse(priceInput, out var price))
+            if (!uint.TryParse(priceInput, out var price))
                 throw new InvalidDataException("Price is not in the correct format");
 
-            Product product = await _productService.CreateProductAsync(segment.Id, nameInput, descriptionInput, brandInput, price);
+            Product product = await _productService.CreateProductAsync(segment.Id, nameInput, brandInput, descriptionInput, price);
 
             segment.Products.Add(ProductEditable.FromProduct(product));
         }
@@ -260,10 +260,10 @@ namespace ShoppingListEditor.Model
                 throw new InvalidOperationException("The store to add the location to does not exist");
             if (Store.Map is null)
                 throw new InvalidOperationException("Map does not exist");
-            if (!decimal.TryParse(priceInput, out var price))
+            if (!uint.TryParse(priceInput, out var price))
                 throw new InvalidDataException("Price is not in the correct format");
 
-            Product product = await _productService.UpdateProductAsync(segment.Id, productId, nameInput, descriptionInput, brandInput, price);
+            Product product = await _productService.UpdateProductAsync(segment.Id, productId, nameInput, brandInput, descriptionInput, price);
 
             int index = segment.Products.IndexOf(segment.Products.First(p => p.Id == productId));
             segment.Products.RemoveAt(index);

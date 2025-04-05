@@ -1,10 +1,4 @@
 ﻿using ShoppingList.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace ShoppingListEditor.Model.Editables
 {
@@ -14,7 +8,7 @@ namespace ShoppingListEditor.Model.Editables
         public required string Name { get; set; }
         public required string Brand { get; set; }
         public required string Description { get; set; }
-        public required decimal Price { get; set; }
+        public required uint Price { get; set; }
         public int MapSegmentId { get; set; }
         public static ProductEditable FromProduct(Product product)
         {

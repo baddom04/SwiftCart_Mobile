@@ -38,7 +38,7 @@
   <x:String x:Key="UserQueryError">User query error&#x0a;</x:String>
   
   <!--CreateStoreView-->
-  <x:String x:Key="CreateNewStore">Create store</x:String>
+  <x:String x:Key="CreateNewStore">Store name</x:String>
   <x:String x:Key="StoreName">Name</x:String>
   <x:String x:Key="StoreNameWatermark">Spar Allee</x:String>
   <x:String x:Key="Create">Create</x:String>
@@ -81,6 +81,18 @@
   <x:String x:Key="Sections">Sections</x:String>
   <x:String x:Key="SectionName">Section name</x:String>
   <x:String x:Key="NoSectionsFound">- No sections found -</x:String>
+  <x:String x:Key="NoProductsFound">- No products found -</x:String>
+  <x:String x:Key="CreateProduct">Create product</x:String>
+  <x:String x:Key="UpdateProduct">Update product</x:String>
+  <x:String x:Key="Name">Name</x:String>
+  <x:String x:Key="NameWatermark">Apple</x:String>
+  <x:String x:Key="Description">Description</x:String>
+  <x:String x:Key="DescriptionWatermark">This is an example description for an apple.</x:String>
+  <x:String x:Key="Brand">Brand</x:String>
+  <x:String x:Key="BrandWatermark">Microsoft</x:String>
+  <x:String x:Key="Price">Price</x:String>
+  <x:String x:Key="PriceWatermark">200</x:String>
+  <x:String x:Key="Update">Update</x:String>
   <!--^Errors-->
   <x:String x:Key="SegmentUploadError">Segment upload error&#x0a;</x:String>
   <x:String x:Key="SectionChangeError">Section change error&#x0a;</x:String>
@@ -88,5 +100,9 @@
   <x:String x:Key="SectionUpdateError">Section update error&#x0a;</x:String>
   <x:String x:Key="ProductDeleteError">Product delete error&#x0a;</x:String>
   <x:String x:Key="ProductUploadError">Product upload error&#x0a;</x:String>
+  <x:String x:Key="ProductNameTooLong">The product's name must be a maximum of 20 characters.</x:String>
+  <x:String x:Key="BrandTooLong">The products's brand must be a maximum of 20 characters.</x:String>
+  <x:String x:Key="DescriptionTooLong">The products's description must be a maximum of 255 characters.</x:String>
+  <x:String x:Key="IncorrectPriceFormat">The price must be a positive integer.</x:String>
 
 </ResourceDictionary>
