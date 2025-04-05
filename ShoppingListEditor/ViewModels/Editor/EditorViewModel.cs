@@ -5,7 +5,6 @@ using ShoppingList.Shared;
 using ShoppingList.Shared.Utils;
 using ShoppingList.Shared.ViewModels;
 using ShoppingListEditor.Model;
-using ShoppingListEditor.Model.Editables;
 using ShoppingListEditor.ViewModels.Editor.Pane;
 using System;
 using System.Collections.Generic;
@@ -33,7 +32,6 @@ namespace ShoppingListEditor.ViewModels.Editor
             get { return _selectedSegmentType; }
             set { this.RaiseAndSetIfChanged(ref _selectedSegmentType, value); }
         }
-
 
         public ObservableCollection<MapSegmentViewModel> MapSegments { get; } = [];
         public event Action? MapChanged;
@@ -71,7 +69,7 @@ namespace ShoppingListEditor.ViewModels.Editor
             {
                 for (int x = 0; x < _model.Store.Map.XSize; x++)
                 {
-                    MapSegments.Add(new MapSegmentViewModel(_model.Store.Map.MapSegments[y, x], _model, ChangeToPage, _showLoading, _showNotification));
+                    MapSegments.Add(new MapSegmentViewModel(_model.Store.Map.MapSegments[y, x], _model, SetPaneContent, _showLoading, _showNotification, ChangePage));
                 }
             }
             MapChanged?.Invoke();
@@ -82,7 +80,7 @@ namespace ShoppingListEditor.ViewModels.Editor
             throw new NotImplementedException();
         }
 
-        private void ChangeToPage(ViewModelBase? viewModel)
+        private void SetPaneContent(ViewModelBase? viewModel)
         {
             if (viewModel is null)
             {

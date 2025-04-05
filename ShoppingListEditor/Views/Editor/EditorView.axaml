@@ -12,79 +12,93 @@
     <shared_converters:SegmentTypeToColorConverter x:Key="SegmentTypeToColorConverter"/>
     <shared_converters:SegmentTypeToTextConverter x:Key="SegmentTypeToTextConverter"/>
   </UserControl.Resources>
-  <Grid>
-    <Grid RowDefinitions="Auto, Auto" ZIndex="1" HorizontalAlignment="Left" VerticalAlignment="Top" >
-      <Border Grid.Row="0"
-              Classes="mainbg_floater" Margin="10 20 10 0">
-        <ListBox ItemsSource="{Binding SegmentTypes}"
-                 SelectedItem="{Binding SelectedSegmentType}"
-                 CornerRadius="5">
-          <ListBox.ItemTemplate>
-            <DataTemplate>
-              <StackPanel Orientation="Horizontal" Spacing="8" Margin="4 0">
-                <Border Width="20" Height="20"
-                        Background="{Binding, Converter={StaticResource SegmentTypeToColorConverter}}"/>
-                <TextBlock VerticalAlignment="Center"
-                           Text="{Binding, Converter={StaticResource SegmentTypeToTextConverter}}"/>
-              </StackPanel>
-            </DataTemplate>
-          </ListBox.ItemTemplate>
-        </ListBox>
+  <SplitView PanePlacement="Right"
+             DisplayMode="Inline"
+             IsPaneOpen="{Binding IsPaneOpen}"
+             OpenPaneLength="400"
+             PaneBackground="Transparent"
+             x:Name="EditOverlay">
+    <SplitView.Pane>
+      <Border Classes="mainbg_floater" Margin="30 40 30 30" Padding="10">
+        <TransitioningContentControl Content="{Binding CurrentPage}"/>
       </Border>
+    </SplitView.Pane>
+    <SplitView.Content>
+      <Grid>
+        <Grid RowDefinitions="Auto, Auto" ZIndex="1" HorizontalAlignment="Left" VerticalAlignment="Top" >
+          <Border Grid.Row="0"
+                  Classes="mainbg_floater" Margin="10 20 10 0">
+            <ListBox ItemsSource="{Binding SegmentTypes}"
+                     SelectedItem="{Binding SelectedSegmentType}"
+                     CornerRadius="5">
+              <ListBox.ItemTemplate>
+                <DataTemplate>
+                  <StackPanel Orientation="Horizontal" Spacing="8" Margin="4 0">
+                    <Border Width="20" Height="20"
+                            Background="{Binding, Converter={StaticResource SegmentTypeToColorConverter}}"/>
+                    <TextBlock VerticalAlignment="Center"
+                               Text="{Binding, Converter={StaticResource SegmentTypeToTextConverter}}"/>
+                  </StackPanel>
+                </DataTemplate>
+              </ListBox.ItemTemplate>
+            </ListBox>
+          </Border>
 
-      <Grid Grid.Row="1" Margin="10 20 10 0" ColumnDefinitions="Auto, Auto">
-        <Border Grid.Column="0" Classes="mainbg_floater" HorizontalAlignment="Left" Margin="0 0 10 0">
-          <StackPanel Spacing="10" HorizontalAlignment="Center">
-            <Button Click="ZoomInButton_Click">
-              <PathIcon Data="{StaticResource zoom_in_regular}" Classes="maxi white_foreground"/>
-            </Button>
-            <Button Click="ZoomOutButton_Click">
-              <PathIcon Data="{StaticResource zoom_out_regular}" Classes="maxi white_foreground"/>
-            </Button>
-          </StackPanel>
-        </Border>
+          <Grid Grid.Row="1" Margin="10 20 10 0" ColumnDefinitions="Auto, Auto">
+            <Border Grid.Column="0" Classes="mainbg_floater" HorizontalAlignment="Left" Margin="0 0 10 0">
+              <StackPanel Spacing="10" HorizontalAlignment="Center">
+                <Button Click="ZoomInButton_Click">
+                  <PathIcon Data="{StaticResource zoom_in_regular}" Classes="maxi white_foreground"/>
+                </Button>
+                <Button Click="ZoomOutButton_Click">
+                  <PathIcon Data="{StaticResource zoom_out_regular}" Classes="maxi white_foreground"/>
+                </Button>
+              </StackPanel>
+            </Border>
 
-        <Border Grid.Column="1" Classes="mainbg_floater" HorizontalAlignment="Right" 
-                VerticalAlignment="Top">
-          <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="Auto, Auto">
-            <Button Grid.Row="0" Grid.Column="0" Command="{Binding ChangePageCommand}" 
-                    CommandParameter="{x:Static enumns:LoggedInPages.Map}"
-                    Margin="2">
-              <PathIcon Data="{StaticResource resize_table_regular}" Classes="maxi white_foreground"/>
-            </Button>
-            <Button Grid.Row="0" Grid.Column="1" Command="{Binding ChangePageCommand}" 
-                    CommandParameter="{x:Static enumns:LoggedInPages.Location}"
-                    Margin="2">
-              <PathIcon Data="{StaticResource location_regular}" Classes="maxi white_foreground"/>
-            </Button>
-            <Button Grid.Row="1" Grid.Column="0" Command="{Binding ChangePageCommand}" 
-                    CommandParameter="{x:Static enumns:LoggedInPages.Store}"
-                    Margin="2">
-              <PathIcon Data="{StaticResource text_edit_style_regular}" Classes="maxi white_foreground"/>
-            </Button>
-            <Button Grid.Row="1" Grid.Column="1" Margin="2">
-              <PathIcon Data="{StaticResource upload_regular}" Classes="maxi white_foreground"/>
-            </Button>
+            <Border Grid.Column="1" Classes="mainbg_floater" HorizontalAlignment="Right"
+                    VerticalAlignment="Top">
+              <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="Auto, Auto">
+                <Button Grid.Row="0" Grid.Column="0" Command="{Binding ChangePageCommand}"
+                        CommandParameter="{x:Static enumns:LoggedInPages.Map}"
+                        Margin="2">
+                  <PathIcon Data="{StaticResource resize_table_regular}" Classes="maxi white_foreground"/>
+                </Button>
+                <Button Grid.Row="0" Grid.Column="1" Command="{Binding ChangePageCommand}"
+                        CommandParameter="{x:Static enumns:LoggedInPages.Location}"
+                        Margin="2">
+                  <PathIcon Data="{StaticResource location_regular}" Classes="maxi white_foreground"/>
+                </Button>
+                <Button Grid.Row="1" Grid.Column="0" Command="{Binding ChangePageCommand}"
+                        CommandParameter="{x:Static enumns:LoggedInPages.Store}"
+                        Margin="2">
+                  <PathIcon Data="{StaticResource text_edit_style_regular}" Classes="maxi white_foreground"/>
+                </Button>
+                <Button Grid.Row="1" Grid.Column="1" Margin="2">
+                  <PathIcon Data="{StaticResource upload_regular}" Classes="maxi white_foreground"/>
+                </Button>
+              </Grid>
+            </Border>
           </Grid>
-        </Border>
+
+        </Grid>
+
+        <ScrollViewer x:Name="MapScrollViewer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                                VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
+          <Canvas x:Name="MapCanvas" RenderTransformOrigin="0 0" HorizontalAlignment="Stretch"
+                  VerticalAlignment="Stretch"
+                  PointerPressed="Canvas_PointerPressed"
+                  PointerMoved="Canvas_PointerMoved"
+                  PointerReleased="Canvas_PointerReleased">
+            <Canvas.RenderTransform>
+              <TransformGroup>
+                <ScaleTransform ScaleX="1" ScaleY="1" />
+                <TranslateTransform X="0" Y="0" />
+              </TransformGroup>
+            </Canvas.RenderTransform>
+          </Canvas>
+        </ScrollViewer>
       </Grid>
-
-    </Grid>
-
-    <ScrollViewer x:Name="MapScrollViewer" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
-                            VerticalContentAlignment="Center" HorizontalContentAlignment="Center">
-      <Canvas x:Name="MapCanvas" RenderTransformOrigin="0 0" HorizontalAlignment="Stretch"
-              VerticalAlignment="Stretch"
-              PointerPressed="Canvas_PointerPressed"
-              PointerMoved="Canvas_PointerMoved"
-              PointerReleased="Canvas_PointerReleased">
-        <Canvas.RenderTransform>
-          <TransformGroup>
-            <ScaleTransform ScaleX="1" ScaleY="1" />
-            <TranslateTransform X="0" Y="0" />
-          </TransformGroup>
-        </Canvas.RenderTransform>
-      </Canvas>
-    </ScrollViewer>
-  </Grid>
+    </SplitView.Content>
+  </SplitView>
 </UserControl>

@@ -1,4 +1,5 @@
-﻿using ReactiveUI;
+﻿using DynamicData;
+using ReactiveUI;
 using ShoppingList.Core.Enums;
 using ShoppingList.Shared;
 using ShoppingList.Shared.Utils;
@@ -7,6 +8,8 @@ using ShoppingListEditor.Model.Editables;
 using ShoppingListEditor.Utils;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Reactive;
 using System.Threading.Tasks;
 
@@ -16,17 +19,13 @@ namespace ShoppingListEditor.ViewModels.Editor
     {
         public ReactiveCommand<Unit, Unit> OpenDetailPaneCommand { get; }
         public ReactiveCommand<Unit, Unit> CloseDetailPaneCommand { get; }
+        public ReactiveCommand<Unit, Unit> ToSectionPageCommand { get; }
+        public ReactiveCommand<Unit, Unit> ToProductPageCommand { get; }
         public ReactiveCommand<SegmentType, Unit> UploadSegmentCommand { get; }
+        public ObservableCollection<SectionEditable> Sections { get; }
 
-        private IReadOnlyCollection<SectionEditable> _sections;
-        public IReadOnlyCollection<SectionEditable> Sections
-        {
-            get { return _sections; }
-            private set { this.RaiseAndSetIfChanged(ref _sections, value); }
-        }
-
-        private SectionEditable? _selectedSection;
-        public SectionEditable? SelectedSection
+        private int _selectedSection;
+        public int SelectedSection
         {
             get { return _selectedSection; }
             set { this.RaiseAndSetIfChanged(ref _selectedSection, value); }
@@ -41,16 +40,17 @@ namespace ShoppingListEditor.ViewModels.Editor
             private set { this.RaiseAndSetIfChanged(ref _type, value); }
         }
 
-
         private readonly EditorModel _model;
         private readonly MapSegmentEditable _segment;
         private readonly Action<bool> _showLoading;
         private readonly Action<NotificationType, string> _showNotification;
-        public MapSegmentViewModel(MapSegmentEditable segment, EditorModel model, Action<ViewModelBase?> setPaneContent, Action<bool> showLoading, Action<NotificationType, string> showNotification)
+        private readonly Action<PanePage> _changePane;
+        public MapSegmentViewModel(MapSegmentEditable segment, EditorModel model, Action<ViewModelBase?> setPaneContent, Action<bool> showLoading, Action<NotificationType, string> showNotification, Action<PanePage> changePane)
         {
             _segment = segment;
             _showLoading = showLoading;
             _showNotification = showNotification;
+            _changePane = changePane;
 
             X = segment.X;
             Y = segment.Y;
@@ -58,12 +58,67 @@ namespace ShoppingListEditor.ViewModels.Editor
 
             _segment.TypeChanged += () => Type = segment.Type;
 
+            Sections = [
+                new SectionEditable()
+                {
+                    Id = -1,
+                    Name = StringProvider.GetString("None"),
+                    MapId = _segment.MapId,
+                },
+            ];
+
             _model = model;
-            _sections = [.. _model.Store!.Map!.Sections];
+            if (_model.Store is not null && _model.Store.Map is not null)
+                Sections.AddRange(_model.Store.Map.Sections);
+
+            _selectedSection = Sections.IndexOf(Sections.FirstOrDefault(s => s.Id == _segment.SectionId) ?? Sections[0]);
+
+            _model.SectionsChanged += () =>
+            {
+                Sections.Clear();
+                Sections.Add(new SectionEditable()
+                {
+                    Id = -1,
+                    Name = StringProvider.GetString("None"),
+                    MapId = _segment.MapId,
+                });
+                if (_model.Store is not null && _model.Store.Map is not null)
+                    Sections.AddRange(_model.Store!.Map!.Sections);
+            };
 
             OpenDetailPaneCommand = ReactiveCommand.Create(() => setPaneContent(this));
             CloseDetailPaneCommand = ReactiveCommand.Create(() => setPaneContent(null));
             UploadSegmentCommand = ReactiveCommand.CreateFromTask<SegmentType>(UploadSegmentAsync);
+            ToSectionPageCommand = ReactiveCommand.Create(() => _changePane(PanePage.Section));
+            ToProductPageCommand = ReactiveCommand.Create(() => _changePane(PanePage.Product));
+
+            this.WhenAnyValue(x => x.SelectedSection).Subscribe(async (section) => await OnSelectedSectionChanged(section));
+        }
+        private bool _first = true;
+        private async Task OnSelectedSectionChanged(int index)
+        {
+            if (_first)
+            {
+                _first = false;
+                return;
+            }
+
+            if(index == -1) return;
+
+            _showLoading(true);
+            try
+            {
+                await _model.ChangeSectionOnSegmentAsync(_segment, Sections[index]);
+            }
+            catch (Exception ex)
+            {
+                string msg = $"{StringProvider.GetString("SectionChangeError")}{ex.Message}";
+                _showNotification(NotificationType.Error, msg);
+            }
+            finally
+            {
+                _showLoading(false);
+            }
         }
         private async Task UploadSegmentAsync(SegmentType type)
         {

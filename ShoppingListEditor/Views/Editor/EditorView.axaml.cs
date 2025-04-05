@@ -9,6 +9,7 @@ using ShoppingList.Core.Enums;
 using ShoppingList.Shared.Converters;
 using ShoppingListEditor.Converters;
 using ShoppingListEditor.Model.Editables;
+using ShoppingListEditor.Utils;
 using ShoppingListEditor.ViewModels.Editor;
 using ShoppingListEditor.Views.Editor.Utils;
 using System;
@@ -209,8 +210,28 @@ public partial class EditorView : UserControl
             btn.BindStyleClass(type.ToString(), CreateBinding(type));
         }
 
+        if(segment.Type == SegmentType.Fridge || segment.Type == SegmentType.Shelf)
+        {
+            ContextMenu menu = new();
+            MenuItem item = new()
+            {
+                Header = StringProvider.GetString("Details"),
+                Command = segment.OpenDetailPaneCommand,
+            };
+            item.PointerPressed += OnDetails_PointerPressed;
+            menu.Items.Add(item);
+            btn.ContextMenu = menu;
+        }
+
         return btn;
     }
+
+    private void OnDetails_PointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        if(sender is not MenuItem) throw new ArgumentException(null, nameof(sender));
+        EditOverlay.IsPaneOpen = true;
+    }
+
     private Binding CreateBinding(SegmentType type)
     {
         return new Binding("SelectedSegmentType")

@@ -25,6 +25,7 @@ namespace ShoppingListEditor.Model
         private readonly ILocationService _locationService = AppServiceProvider.Services.GetRequiredService<ILocationService>();
         private readonly IMapService _mapService = AppServiceProvider.Services.GetRequiredService<IMapService>();
         private readonly IMapSegmentService _segmentService = AppServiceProvider.Services.GetRequiredService<IMapSegmentService>();
+        private readonly ISectionService _sectionService = AppServiceProvider.Services.GetRequiredService<ISectionService>();
 
         public EditorModel()
         {
@@ -163,7 +164,31 @@ namespace ShoppingListEditor.Model
             segment.Products.Clear();
             segment.Type = SegmentType.Empty;
         }
-        public void AddSection(string name)
+        public async Task ChangeSectionOnSegmentAsync(MapSegmentEditable segment, SectionEditable section)
+        {
+            if (Store is null || Store.Id == default)
+                throw new InvalidOperationException("The store to add the location to does not exist");
+            if (Store.Map is null)
+                throw new InvalidOperationException("Map does not exist");
+
+            if (Store.Map.MapSegments[segment.Y, segment.X] != segment)
+                throw new InvalidDataException("The given segment is not the same as in the Store model");
+            if (!Store.Map.Sections.Contains(section) && section.Id != -1)
+                throw new InvalidDataException("Section does not exist in the collection");
+            if (segment.Id == default)
+                throw new InvalidDataException("The given segment does not have an Id");
+            if (section.Id == default)
+                throw new InvalidDataException("The given section does not have an Id");
+
+            MapSegment updated = await _segmentService.UpdateMapSegmentAsync(segment.MapId, segment.Id, segment.X, segment.Y, segment.Type, section.Id == -1 ? null : section.Id);
+
+            segment.Id = updated.Id;
+            segment.X = updated.X;
+            segment.Y = updated.Y;
+            segment.Type = updated.Type;
+            segment.SectionId = updated.SectionId;
+        }
+        public async void AddSection(string name)
         {
             if (Store is null || Store.Id == default)
                 throw new InvalidOperationException("The store to add the location to does not exist");
@@ -172,25 +197,31 @@ namespace ShoppingListEditor.Model
             if (Store.Map.Sections.Any(s => s.Name == name))
                 throw new InvalidOperationException("This section already exists");
 
+            Section? section = await _sectionService.CreateSectionAsync(Store.Map.Id, name);
+
             Store.Map.Sections.Add(new SectionEditable()
             {
-                Name = name,
+                Id = section.Id,
+                Name = section.Name,
                 MapId = Store.Map.Id,
             });
 
             SectionsChanged?.Invoke();
         }
-        public void RemoveSection(string name) 
+        public async void RemoveSection(SectionEditable section)
         {
             if (Store is null || Store.Id == default)
                 throw new InvalidOperationException("The store to add the location to does not exist");
             if (Store.Map is null)
                 throw new InvalidOperationException("Map does not exist");
+            if (!Store.Map.Sections.Contains(section))
+                throw new InvalidDataException("Section does not exist in the collection");
+            if (section.Id == default)
+                throw new InvalidDataException("The given section does not have an Id");
 
-            SectionEditable? toRemove = Store.Map.Sections.FirstOrDefault(s => s.Name == name);
-            if (toRemove is null) return;
+            await _sectionService.DeleteSectionAsync(Store.Map.Id, section.Id);
 
-            Store.Map.Sections.Remove(toRemove);
+            Store.Map.Sections.Remove(section);
 
             SectionsChanged?.Invoke();
         }

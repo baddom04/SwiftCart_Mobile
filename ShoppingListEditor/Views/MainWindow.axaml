@@ -17,7 +17,7 @@
     <converters:TypeToIconConverter x:Key="TypeToIconConverter"/>
     <converters:TypeToForegroundConverter x:Key="TypeToForegroundConverter"/>
   </Window.Resources>
-  <Grid x:Name="MainGrid">
+  <Grid x:Name="MainGrid" Margin="8">
 
     <!--Loading-->
     <Border ZIndex="3"

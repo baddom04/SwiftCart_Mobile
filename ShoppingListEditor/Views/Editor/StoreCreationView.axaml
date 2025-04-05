@@ -12,7 +12,7 @@
       <Grid RowDefinitions="*, Auto, 5*, *"  HorizontalAlignment="Stretch" VerticalAlignment="Top" 
             Margin="10 30 10 50">
         <Grid Grid.Row="0">
-          <Button VerticalAlignment="Center" Classes="trans_bg" HorizontalAlignment="Left"
+          <Button VerticalAlignment="Center" Classes="mainbg" HorizontalAlignment="Left"
               Command="{Binding GoBackCommand}" IsVisible="{Binding IsUpdating}">
             <PathIcon Data="{StaticResource arrow_left_regular}" Classes="maxi"/>
           </Button>

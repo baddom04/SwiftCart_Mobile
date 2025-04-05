@@ -74,8 +74,12 @@
   <x:String x:Key="MapCreationError">Map creation error&#x0a;</x:String>
   
   <!--EditorView-->
-  
+  <x:String x:Key="EditSegment">Edit segment</x:String>
+  <x:String x:Key="SelectedSection">Selected section</x:String>
+  <x:String x:Key="Products">Products</x:String>
+  <x:String x:Key="None">None</x:String>
   <!--^Errors-->
   <x:String x:Key="SegmentUploadError">Segment upload error&#x0a;</x:String>
+  <x:String x:Key="SectionChangeError">Section change error&#x0a;</x:String>
 
 </ResourceDictionary>

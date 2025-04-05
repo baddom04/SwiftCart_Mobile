@@ -107,6 +107,18 @@
       <Setter Property="Background" Value="Transparent"/>
     </Style>
 
+    <Style Selector="^.mainbg /template/ ContentPresenter">
+      <Setter Property="Background" Value="{StaticResource MainBG}"/>
+    </Style>
+    
+    <Style Selector="^.mainbg:pressed /template/ ContentPresenter">
+      <Setter Property="Background" Value="{StaticResource SecBG}"/>
+    </Style>
+    
+    <Style Selector="^.mainbg:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="{StaticResource SecBG}"/>
+    </Style>
+
     <Style Selector="^.item_action">
       <Setter Property="Width" Value="50"/>
       <Setter Property="Background" Value="{StaticResource MainBtnBG}"/>

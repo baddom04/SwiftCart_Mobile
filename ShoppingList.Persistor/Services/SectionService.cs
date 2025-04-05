@@ -6,13 +6,17 @@ namespace ShoppingList.Persistor.Services
 {
     internal class SectionService(HttpClient client) : APIService(client), ISectionService
     {
-        public async Task CreateSectionAsync(int map_id, string name, CancellationToken cancellationToken = default)
+        public async Task<Section> CreateSectionAsync(int map_id, string name, CancellationToken cancellationToken = default)
         {
             var payload = new { name };
 
             HttpResponseMessage response = await _httpClient.PostAsJsonAsync($"maps/{map_id}/sections", payload, cancellationToken);
 
             await ValidateResponse(response, cancellationToken);
+
+            Section? sections = await response.Content.ReadFromJsonAsync<Section>(cancellationToken);
+
+            return sections ?? throw new NullReferenceException();
         }
 
         public async Task DeleteSectionAsync(int map_id, int section_id, CancellationToken cancellationToken = default)
@@ -33,13 +37,17 @@ namespace ShoppingList.Persistor.Services
             return sections ?? throw new NullReferenceException();
         }
 
-        public async Task UpdateSectionAsync(int map_id, int section_id, string name, CancellationToken cancellationToken = default)
+        public async Task<Section> UpdateSectionAsync(int map_id, int section_id, string name, CancellationToken cancellationToken = default)
         {
             var payload = new { name };
 
             HttpResponseMessage response = await _httpClient.PutAsJsonAsync($"maps/{map_id}/sections/{section_id}", payload, cancellationToken);
 
             await ValidateResponse(response, cancellationToken);
+
+            Section? sections = await response.Content.ReadFromJsonAsync<Section>(cancellationToken);
+
+            return sections ?? throw new NullReferenceException();
         }
     }
 }

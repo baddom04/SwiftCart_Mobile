@@ -1,0 +1,53 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             xmlns:vm="clr-namespace:ShoppingListEditor.ViewModels.Editor"
+             x:DataType="vm:MapSegmentViewModel"
+             x:Class="ShoppingListEditor.Views.Editor.MapSegmentView">
+  <Grid RowDefinitions="Auto, *">
+
+    <Grid Grid.Row="0">
+      <Button VerticalAlignment="Center" Classes="mainbg" HorizontalAlignment="Left"
+          Command="{Binding CloseDetailPaneCommand}">
+        <PathIcon Data="{StaticResource arrow_left_regular}" Classes="maxi"/>
+      </Button>
+      <TextBlock Grid.Row="0" Text="{DynamicResource SetLocation}" Classes="h1" Margin="30"
+                 HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap"/>
+    </Grid>
+
+    <Grid Grid.Row="1" RowDefinitions="Auto, Auto, Auto, *">
+      <Grid Grid.Row="0" ColumnDefinitions="Auto, *, Auto">
+        <TextBlock Grid.Column="0" Text="{DynamicResource SelectedSection}"
+                   VerticalAlignment="Center"
+                   Classes="h3"/>
+        <Button Grid.Column="2" Command="{Binding ToSectionPageCommand}">
+          <PathIcon Data="{StaticResource options_regular}" Classes="maxi white_foreground"/>
+        </Button>
+      </Grid>
+
+      <ComboBox Grid.Row="1" Margin="0 15" ItemsSource="{Binding Sections}" x:Name="Test"
+                SelectedIndex="{Binding SelectedSection}" HorizontalAlignment="Stretch">
+        <ComboBox.ItemTemplate>
+          <DataTemplate>
+            <TextBlock Text="{Binding Name}" />
+          </DataTemplate>
+        </ComboBox.ItemTemplate>
+      </ComboBox>
+
+      <Grid Grid.Row="2" ColumnDefinitions="Auto, *, Auto">
+        <TextBlock Grid.Column="0" Text="{DynamicResource SelectedSection}"
+                   VerticalAlignment="Center" Classes="h3"/>
+        <Button Grid.Column="2" Command="{Binding ToProductPageCommand}">
+          <PathIcon Data="{StaticResource add_regular}" Classes="maxi white_foreground"/>
+        </Button>
+      </Grid>
+      
+      <ScrollViewer Grid.Row="3">
+        <ItemsControl/>
+      </ScrollViewer>
+    </Grid>
+
+  </Grid>
+</UserControl>
