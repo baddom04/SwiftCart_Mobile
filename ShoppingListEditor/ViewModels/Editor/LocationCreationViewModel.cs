@@ -1,6 +1,5 @@
 ﻿using ReactiveUI;
 using ShoppingList.Shared;
-using ShoppingList.Shared.Utils;
 using ShoppingListEditor.Model;
 using ShoppingListEditor.Utils;
 using System;
@@ -9,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace ShoppingListEditor.ViewModels.Editor
 {
-    internal class LocationCreationViewModel : ViewModelBase
+    internal class LocationCreationViewModel : StorePropertyEditor
     {
-        public bool IsUpdating => GetIsUpdating();
+        public override bool IsUpdating => GetIsUpdating();
         private bool GetIsUpdating()
         {
             if (_model.Store is null) return false;
@@ -69,12 +68,17 @@ namespace ShoppingListEditor.ViewModels.Editor
             _showLoading(true);
             try
             {
-                if(!IsUpdating)
+                if (!IsUpdating)
+                {
                     await _model.CreateLocationAsync(CountryInput, ZipCodeInput, CityInput, StreetInput, DetailsInput);
+                    _changePage(LoggedInPages.Map);
+                }
                 else
+                {
                     await _model.UpdateLocationAsync(CountryInput, ZipCodeInput, CityInput, StreetInput, DetailsInput);
+                    _changePage(LoggedInPages.Editor);
+                }
 
-                _changePage(LoggedInPages.Map);
                 ErrorMessage = null;
             }
             catch (Exception ex)
@@ -88,7 +92,7 @@ namespace ShoppingListEditor.ViewModels.Editor
         }
         private bool Validate()
         {
-            if(!ValidateNotEmtpy(CountryInput, "Country")
+            if (!ValidateNotEmtpy(CountryInput, "Country")
                 || !ValidateNotEmtpy(CityInput, "City")
                 || !ValidateNotEmtpy(ZipCodeInput, "ZipCode")
                 || !ValidateNotEmtpy(StreetInput, "Street")
@@ -99,12 +103,12 @@ namespace ShoppingListEditor.ViewModels.Editor
 
             string trimmedZipCode = ZipCodeInput.Trim();
 
-            if(!int.TryParse(trimmedZipCode, out int _))
+            if (!int.TryParse(trimmedZipCode, out int _))
             {
                 ErrorMessage = StringProvider.GetString("ZipCodeNotNumber");
                 return false;
             }
-            if(trimmedZipCode.Length != 4)
+            if (trimmedZipCode.Length != 4)
             {
                 ErrorMessage = StringProvider.GetString("ZipCodeLengthError");
                 return false;

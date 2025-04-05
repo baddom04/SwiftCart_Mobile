@@ -54,6 +54,8 @@ namespace ShoppingListEditor.Model.Editables
         }
         public void SetSizes(int x_size, int y_size)
         {
+            XSize = x_size;
+            YSize = y_size;
             MapSegmentEditable[,] newSegments = new MapSegmentEditable[y_size, x_size];
 
             for (int y = 0; y < y_size; y++)

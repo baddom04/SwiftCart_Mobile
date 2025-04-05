@@ -1,4 +1,5 @@
-﻿using ShoppingList.Shared;
+﻿using ReactiveUI;
+using ShoppingList.Shared;
 using ShoppingList.Shared.Model.Settings;
 using ShoppingList.Shared.Utils;
 using ShoppingList.Shared.ViewModels;
@@ -65,6 +66,13 @@ namespace ShoppingListEditor.ViewModels
         public override void ChangeToDefaultPage()
         {
             throw new NotImplementedException();
+        }
+        protected override void ChangePage(LoggedInPages page)
+        {
+            CurrentPage = _pages[page];
+
+            if (page is LoggedInPages.Editor) return;
+            (CurrentPage as StorePropertyEditor)!.RaiseIsUpdatingPropertyChanged();
         }
     }
     internal enum LoggedInPages

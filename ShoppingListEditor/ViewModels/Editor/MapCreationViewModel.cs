@@ -1,5 +1,4 @@
 ﻿using ReactiveUI;
-using ShoppingList.Shared;
 using ShoppingListEditor.Model;
 using ShoppingListEditor.Utils;
 using System;
@@ -8,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace ShoppingListEditor.ViewModels.Editor
 {
-    internal class MapCreationViewModel : ViewModelBase
+    internal class MapCreationViewModel : StorePropertyEditor
     {
-        public bool IsUpdating => GetIsUpdating();
+        public override bool IsUpdating => GetIsUpdating();
         private bool GetIsUpdating()
         {
             if (_model.Store is null) return false;

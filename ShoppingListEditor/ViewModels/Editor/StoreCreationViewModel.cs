@@ -1,7 +1,5 @@
-﻿using Microsoft.VisualBasic;
-using ReactiveUI;
+﻿using ReactiveUI;
 using ShoppingList.Shared;
-using ShoppingList.Shared.Utils;
 using ShoppingListEditor.Model;
 using ShoppingListEditor.Utils;
 using System;
@@ -10,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace ShoppingListEditor.ViewModels.Editor
 {
-    internal class StoreCreationViewModel : ViewModelBase
+    internal class StoreCreationViewModel : StorePropertyEditor
     {
-        public bool IsUpdating => _model.Store is not null;
+        public override bool IsUpdating => _model.Store is not null;
         public string StoreNameInput { get; set; } = string.Empty;
 
         private string? _errorMessage;
@@ -56,11 +54,16 @@ namespace ShoppingListEditor.ViewModels.Editor
             try
             {
                 if (!IsUpdating)
+                {
                     await _model.CreateStoreAsync(StoreNameInput);
-                else
-                    await _model.UpdateStoreAsync(StoreNameInput);
-
                     _changePage(LoggedInPages.Location);
+                }
+                else
+                {
+                    await _model.UpdateStoreAsync(StoreNameInput);
+                    _changePage(LoggedInPages.Editor);
+                }
+
                 ErrorMessage = null;
             }
             catch (Exception ex)

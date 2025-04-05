@@ -28,6 +28,7 @@ namespace ShoppingListEditor.ViewModels.Editor
         public SegmentType SelectedSegmentType { get; set; } = SegmentType.Shelf;
 
         public ObservableCollection<MapSegmentEditable> MapSegments { get; } = [];
+        public event Action? MapChanged;
 
         private readonly EditorModel _model;
         private readonly Action<LoggedInPages> _changePage;
@@ -56,11 +57,12 @@ namespace ShoppingListEditor.ViewModels.Editor
 
             for (int y = 0; y < _model.Store.Map.YSize; y++)
             {
-                for (int x = 0; x < _model.Store.Map.YSize; x++)
+                for (int x = 0; x < _model.Store.Map.XSize; x++)
                 {
                     MapSegments.Add(_model.Store.Map.MapSegments[y, x]);
                 }
             }
+            MapChanged?.Invoke();
         }
 
         public override void ChangeToDefaultPage()

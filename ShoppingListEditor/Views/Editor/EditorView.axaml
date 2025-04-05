@@ -47,16 +47,22 @@
         <Border Grid.Column="1" Classes="mainbg_floater" HorizontalAlignment="Right" 
                 VerticalAlignment="Top">
           <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="Auto, Auto">
-            <Button Grid.Row="0" Grid.Column="0" Command="{Binding ChangePageCommand}" CommandParameter="{x:Static enumns:LoggedInPages.Map}">
+            <Button Grid.Row="0" Grid.Column="0" Command="{Binding ChangePageCommand}" 
+                    CommandParameter="{x:Static enumns:LoggedInPages.Map}"
+                    Margin="2">
               <PathIcon Data="{StaticResource resize_table_regular}" Classes="maxi white_foreground"/>
             </Button>
-            <Button Grid.Row="0" Grid.Column="1" Command="{Binding ChangePageCommand}" CommandParameter="{x:Static enumns:LoggedInPages.Location}">
+            <Button Grid.Row="0" Grid.Column="1" Command="{Binding ChangePageCommand}" 
+                    CommandParameter="{x:Static enumns:LoggedInPages.Location}"
+                    Margin="2">
               <PathIcon Data="{StaticResource location_regular}" Classes="maxi white_foreground"/>
             </Button>
-            <Button Grid.Row="1" Grid.Column="0" Command="{Binding ChangePageCommand}" CommandParameter="{x:Static enumns:LoggedInPages.Store}">
+            <Button Grid.Row="1" Grid.Column="0" Command="{Binding ChangePageCommand}" 
+                    CommandParameter="{x:Static enumns:LoggedInPages.Store}"
+                    Margin="2">
               <PathIcon Data="{StaticResource text_edit_style_regular}" Classes="maxi white_foreground"/>
             </Button>
-            <Button Grid.Row="1" Grid.Column="1">
+            <Button Grid.Row="1" Grid.Column="1" Margin="2">
               <PathIcon Data="{StaticResource upload_regular}" Classes="maxi white_foreground"/>
             </Button>
           </Grid>

@@ -36,13 +36,24 @@ public partial class EditorView : UserControl
     {
         InitializeComponent();
         MapCanvas.SizeChanged += Canvas_SizeChanged;
+        Loaded += OnLoaded;
     }
+
+    private void OnLoaded(object? sender, RoutedEventArgs e)
+    {
+        (DataContext as EditorViewModel)!.MapChanged += LoadMap;
+    }
+
     private void Canvas_SizeChanged(object? sender, SizeChangedEventArgs e)
+    {
+        MapCanvas.SizeChanged -= Canvas_SizeChanged;
+        LoadMap();
+    }
+    private void LoadMap()
     {
         _mapSegments = LoadMapSegments();
         if (MapCanvas.Bounds.Width > 0 && MapCanvas.Bounds.Height > 0)
         {
-            MapCanvas.SizeChanged -= Canvas_SizeChanged;
             RenderMapSegments();
         }
     }
@@ -119,7 +130,7 @@ public partial class EditorView : UserControl
 
     public void ZoomOutButton_Click(object sender, RoutedEventArgs e)
     {
-        UpdateZoom(5d/6d);
+        UpdateZoom(5d / 6d);
     }
     private void UpdateZoom(double amount)
     {
