@@ -38,123 +38,130 @@
                           VerticalAlignment="Center"
                           Foreground="{StaticResource MainBtnBG}"/>
 
-      <ScrollViewer>
-        <ItemsControl ItemsSource="{Binding Items}" IsVisible="{Binding !IsLoading}">
-          <ItemsControl.ItemTemplate>
-            <DataTemplate>
-              <Border Classes="shopping_list_item" Margin="20 5" Padding="10">
-                <Grid RowDefinitions="Auto, *">
+      <Grid IsVisible="{Binding !IsLoading}">
 
-                  <Grid Grid.Row="0" ColumnDefinitions="*, Auto, Auto, Auto">
-                    <TextBlock Text="{Binding Name}" Margin="0 0 10 0" Classes="bold"
-                               VerticalAlignment="Center" TextWrapping="Wrap"/>
-                    <TextBlock Grid.Column="1" Text="{Binding Quantity}"
-                               IsVisible="{Binding Quantity, Converter={x:Static ObjectConverters.IsNotNull}}"
-                               VerticalAlignment="Center" Classes="bold"/>
-                    <TextBlock Grid.Column="2" Text="{Binding Unit}" Margin="10 0"
-                               IsVisible="{Binding Quantity, Converter={x:Static ObjectConverters.IsNotNull}}"
-                               VerticalAlignment="Center" Classes="bold"/>
-                    <Button Grid.Column="3" Command="{Binding ExpandCommand}"
-                                Classes.animatedIn="{Binding IsExpanded}"
-                                Classes.animatedOut="{Binding !IsExpanded}">
-                      <PathIcon Data="{StaticResource chevron_down_regular}"
-                                Classes="white_foreground"/>
-                    </Button>
-                  </Grid>
+        <TextBlock IsVisible="{Binding IsEmptyItems}"
+                   Text="{DynamicResource NoItems}" Classes="h2"
+                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-                  <Grid Grid.Row="1" RowDefinitions="Auto, Auto, Auto, Auto"
-                        IsVisible="{Binding IsExpanded}" Margin="0 20 0 0">
-                    <TextBlock Grid.Row="0"
-                               Text="{Binding Description}" TextWrapping="Wrap"
-                               IsVisible="{Binding Description, Converter={x:Static ObjectConverters.IsNotNull}}"
+        <ScrollViewer IsVisible="{Binding !IsEmptyItems}">
+          <ItemsControl ItemsSource="{Binding Items}">
+            <ItemsControl.ItemTemplate>
+              <DataTemplate>
+                <Border Classes="shopping_list_item" Margin="20 5" Padding="10">
+                  <Grid RowDefinitions="Auto, *">
+
+                    <Grid Grid.Row="0" ColumnDefinitions="*, Auto, Auto, Auto">
+                      <TextBlock Text="{Binding Name}" Margin="0 0 10 0" Classes="bold"
+                                 VerticalAlignment="Center" TextWrapping="Wrap"/>
+                      <TextBlock Grid.Column="1" Text="{Binding Quantity}"
+                                 IsVisible="{Binding Quantity, Converter={x:Static ObjectConverters.IsNotNull}}"
+                                 VerticalAlignment="Center" Classes="bold"/>
+                      <TextBlock Grid.Column="2" Text="{Binding Unit}" Margin="10 0"
+                                 IsVisible="{Binding Quantity, Converter={x:Static ObjectConverters.IsNotNull}}"
+                                 VerticalAlignment="Center" Classes="bold"/>
+                      <Button Grid.Column="3" Command="{Binding ExpandCommand}"
+                                  Classes.animatedIn="{Binding IsExpanded}"
+                                  Classes.animatedOut="{Binding !IsExpanded}">
+                        <PathIcon Data="{StaticResource chevron_down_regular}"
+                                  Classes="white_foreground"/>
+                      </Button>
+                    </Grid>
+
+                    <Grid Grid.Row="1" RowDefinitions="Auto, Auto, Auto, Auto"
+                          IsVisible="{Binding IsExpanded}" Margin="0 20 0 0">
+                      <TextBlock Grid.Row="0"
+                                 Text="{Binding Description}" TextWrapping="Wrap"
+                                 IsVisible="{Binding Description, Converter={x:Static ObjectConverters.IsNotNull}}"
                                />
-                    <Grid Grid.Row="1" Margin="0 10 0 5" ColumnDefinitions="Auto, *">
-                      <TextBlock Grid.Column="0" Text="{DynamicResource Creator}" Classes="author"/>
-                      <TextBlock Grid.Column="1" TextWrapping="Wrap" Classes="author" Text="{Binding OwnerName}" HorizontalAlignment="Right"/>
-                    </Grid>
-
-                    <Grid Grid.Row="2" RowDefinitions="Auto, *">
-                      <Button Grid.Row="0" Command="{Binding ExpandCommentsCommand}"
-                              HorizontalAlignment="Center" Classes="text much_bigger_text">
-                        <Button.Content>
-                          <MultiBinding Converter="{StaticResource ExpandCommentsButtonTextConverter}">
-                            <Binding Path="IsCommentsExpanded"/>
-                            <Binding Path="CommentCount"/>
-                          </MultiBinding>
-                        </Button.Content>
-                      </Button>
-
-                      <Grid Grid.Row="1" IsVisible="{Binding IsCommentsExpanded}">
-                        <ItemsControl ItemsSource="{Binding Comments}" IsVisible="{Binding !IsCommentsLoading}">
-                          <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                              <Border  Classes="shopping_list_item" Padding="5" Margin="5"
-                                       Classes.shopping_list_item_owner="{Binding IsMe}">
-                                <Grid ColumnDefinitions="Auto, *, Auto" RowDefinitions="Auto, *">
-                                  <PathIcon Grid.Column="0" Grid.Row="0" Data="{StaticResource person_regular}"
-                                            Margin="0 0 5 0" Classes.white_foreground="{Binding IsMe}"/>
-                                  <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding UserName, Converter={StaticResource AppendColonConverter}}"
-                                             Classes="author"
-                                             Classes.inverted_colors="{Binding IsMe}"
-                                             Margin="0 5" VerticalAlignment="Center" TextWrapping="Wrap"/>
-                                  <TextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" TextWrapping="Wrap"
-                                             Text="{Binding Content}" Margin="0 0 5 0" VerticalAlignment="Center"
-                                             TextAlignment="Start"
-                                             Classes.inverted_colors="{Binding IsMe}"/>
-                                  <Button Grid.Column="2" Grid.Row="0" Classes="danger"
-                                          Command="{Binding DeleteCommand}" HorizontalAlignment="Right">
-                                    <PathIcon Data="{StaticResource delete_regular}" Classes="white_foreground mini"/>
-                                    <Button.IsVisible>
-                                      <MultiBinding Converter="{x:Static BoolConverters.And}">
-                                        <Binding Path="IsMe"/>
-                                        <Binding Path="NotDeleted"/>
-                                      </MultiBinding>
-                                    </Button.IsVisible>
-                                  </Button>
-                                </Grid>
-                              </Border>
-                            </DataTemplate>
-                          </ItemsControl.ItemTemplate>
-                        </ItemsControl>
-
-                        <progRing:ProgressRing
-                                            Width="30"
-                                            Height="30"
-                                            IsVisible="{Binding IsCommentsLoading}"
-                                            IsActive="{Binding IsCommentsLoading}"
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            Foreground="{StaticResource MainBtnBG}"/>
+                      <Grid Grid.Row="1" Margin="0 10 0 5" ColumnDefinitions="Auto, *">
+                        <TextBlock Grid.Column="0" Text="{DynamicResource Creator}" Classes="author"/>
+                        <TextBlock Grid.Column="1" TextWrapping="Wrap" Classes="author" Text="{Binding OwnerName}" HorizontalAlignment="Right"/>
                       </Grid>
+
+                      <Grid Grid.Row="2" RowDefinitions="Auto, *">
+                        <Button Grid.Row="0" Command="{Binding ExpandCommentsCommand}"
+                                HorizontalAlignment="Center" Classes="text much_bigger_text">
+                          <Button.Content>
+                            <MultiBinding Converter="{StaticResource ExpandCommentsButtonTextConverter}">
+                              <Binding Path="IsCommentsExpanded"/>
+                              <Binding Path="CommentCount"/>
+                            </MultiBinding>
+                          </Button.Content>
+                        </Button>
+
+                        <Grid Grid.Row="1" IsVisible="{Binding IsCommentsExpanded}">
+                          <ItemsControl ItemsSource="{Binding Comments}" IsVisible="{Binding !IsCommentsLoading}">
+                            <ItemsControl.ItemTemplate>
+                              <DataTemplate>
+                                <Border  Classes="shopping_list_item" Padding="5" Margin="5"
+                                         Classes.shopping_list_item_owner="{Binding IsMe}">
+                                  <Grid ColumnDefinitions="Auto, *, Auto" RowDefinitions="Auto, *">
+                                    <PathIcon Grid.Column="0" Grid.Row="0" Data="{StaticResource person_regular}"
+                                              Margin="0 0 5 0" Classes.white_foreground="{Binding IsMe}"/>
+                                    <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding UserName, Converter={StaticResource AppendColonConverter}}"
+                                               Classes="author"
+                                               Classes.inverted_colors="{Binding IsMe}"
+                                               Margin="0 5" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                                    <TextBlock Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" TextWrapping="Wrap"
+                                               Text="{Binding Content}" Margin="0 0 5 0" VerticalAlignment="Center"
+                                               TextAlignment="Start"
+                                               Classes.inverted_colors="{Binding IsMe}"/>
+                                    <Button Grid.Column="2" Grid.Row="0" Classes="danger"
+                                            Command="{Binding DeleteCommand}" HorizontalAlignment="Right">
+                                      <PathIcon Data="{StaticResource delete_regular}" Classes="white_foreground mini"/>
+                                      <Button.IsVisible>
+                                        <MultiBinding Converter="{x:Static BoolConverters.And}">
+                                          <Binding Path="IsMe"/>
+                                          <Binding Path="NotDeleted"/>
+                                        </MultiBinding>
+                                      </Button.IsVisible>
+                                    </Button>
+                                  </Grid>
+                                </Border>
+                              </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                          </ItemsControl>
+
+                          <progRing:ProgressRing
+                                              Width="30"
+                                              Height="30"
+                                              IsVisible="{Binding IsCommentsLoading}"
+                                              IsActive="{Binding IsCommentsLoading}"
+                                              HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Foreground="{StaticResource MainBtnBG}"/>
+                        </Grid>
+                      </Grid>
+
+                      <UniformGrid Grid.Row="3" Rows="1" Margin="10">
+                        <Button HorizontalAlignment="Center" Classes="item_action success"
+                                Click="BoughtItem_Click">
+                          <PathIcon Data="{StaticResource money_regular}" Classes="white_foreground maxi"/>
+                        </Button>
+                        <Button IsVisible="{Binding IsOwner}" HorizontalAlignment="Center"
+                                Classes="item_action" Command="{Binding EditCommand}">
+                          <PathIcon Data="{StaticResource edit_regular}" Classes="white_foreground maxi"/>
+                        </Button>
+                        <Button HorizontalAlignment="Center" Classes="item_action"
+                                Click="AddComment_Click">
+                          <PathIcon Data="{StaticResource comment_add_regular}"
+                                    Classes="white_foreground maxi"/>
+                        </Button>
+                        <Button IsVisible="{Binding IsOwner}" HorizontalAlignment="Center"
+                                Classes="item_action danger" Click="DeleteItem_Click">
+                          <PathIcon Data="{StaticResource delete_regular}" Classes="white_foreground maxi"/>
+                        </Button>
+                      </UniformGrid>
+
                     </Grid>
-
-                    <UniformGrid Grid.Row="3" Rows="1" Margin="10">
-                      <Button HorizontalAlignment="Center" Classes="item_action success"
-                              Click="BoughtItem_Click">
-                        <PathIcon Data="{StaticResource money_regular}" Classes="white_foreground maxi"/>
-                      </Button>
-                      <Button IsVisible="{Binding IsOwner}" HorizontalAlignment="Center"
-                              Classes="item_action" Command="{Binding EditCommand}">
-                        <PathIcon Data="{StaticResource edit_regular}" Classes="white_foreground maxi"/>
-                      </Button>
-                      <Button HorizontalAlignment="Center" Classes="item_action"
-                              Click="AddComment_Click">
-                        <PathIcon Data="{StaticResource comment_add_regular}"
-                                  Classes="white_foreground maxi"/>
-                      </Button>
-                      <Button IsVisible="{Binding IsOwner}" HorizontalAlignment="Center"
-                              Classes="item_action danger" Click="DeleteItem_Click">
-                        <PathIcon Data="{StaticResource delete_regular}" Classes="white_foreground maxi"/>
-                      </Button>
-                    </UniformGrid>
-
                   </Grid>
-                </Grid>
-              </Border>
-            </DataTemplate>
-          </ItemsControl.ItemTemplate>
-        </ItemsControl>
-      </ScrollViewer>
+                </Border>
+              </DataTemplate>
+            </ItemsControl.ItemTemplate>
+          </ItemsControl>
+        </ScrollViewer>
+      </Grid>
 
 
     </Grid>

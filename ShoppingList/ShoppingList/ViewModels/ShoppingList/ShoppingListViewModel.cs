@@ -17,6 +17,7 @@ namespace ShoppingList.ViewModels.ShoppingList
 {
     internal class ShoppingListViewModel : HouseholdListItemViewModel
     {
+        public bool IsEmptyItems => Items.Count == 0;
         public ObservableCollection<ShoppingItemViewModel> Items { get; } = [];
         public override ReactiveCommand<Unit, Unit> HouseholdOperationCommand { get; }
         public ReactiveCommand<Unit, Unit> GoBackCommand { get; }
@@ -42,6 +43,8 @@ namespace ShoppingList.ViewModels.ShoppingList
             HouseholdOperationCommand = ReactiveCommand.Create(GoToThisPage);
             GoBackCommand = ReactiveCommand.Create(() => _changePage(GroceryPage.Main));
             CreateGroceryPageCommand = ReactiveCommand.Create(() => _changeToEditingPage(household.Id, null, GoToThisPage));
+
+            Items.CollectionChanged += (s, e) => this.RaisePropertyChanged(nameof(IsEmptyItems));
         }
         private void GoToThisPage()
         {

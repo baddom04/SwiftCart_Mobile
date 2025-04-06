@@ -122,6 +122,7 @@
   <x:String x:Key="ShoppingLists">Shopping lists</x:String>
   <x:String x:Key="CreateItem">Create an item</x:String>
   <x:String x:Key="UpdateItem">Update an item</x:String>
+  <x:String x:Key="NoItems">- No items found -</x:String>
   <x:String x:Key="GroceryNameWatermark">Apple</x:String>
   <x:String x:Key="Quantity">Quantity (optional)</x:String>
   <x:String x:Key="QuantityWatermark">123</x:String>
