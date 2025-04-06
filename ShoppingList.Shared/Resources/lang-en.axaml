@@ -7,6 +7,8 @@
   <x:String x:Key="PasswordMissingError">Please enter your password.</x:String>
   <x:String x:Key="RegisterError">Register error&#x0a;</x:String>
   <x:String x:Key="UsernameMissingError">Please enter your username.</x:String>
+  <x:String x:Key="PasswordsDontMatchError">The given passwords do not match.</x:String>
+  <x:String x:Key="PasswordAgain">Password again</x:String>
 
   <!--SegmentTypes-->
   <x:String x:Key="Shelf">Shelf</x:String>

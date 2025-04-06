@@ -12,6 +12,7 @@ namespace ShoppingList.Shared.ViewModels.Register
         public string UsernameInput { get; set; } = string.Empty;
         public string EmailInput { get; set; } = string.Empty;
         public string PasswordInput { get; set; } = string.Empty;
+        public string PasswordAgainInput { get; set; } = string.Empty;
 
         private string? _errorMessage;
         public string? ErrorMessage
@@ -94,6 +95,12 @@ namespace ShoppingList.Shared.ViewModels.Register
             if (trimmedPassword.Length < 8)
             {
                 ErrorMessage = StringProvider.GetString("PasswordFormatError");
+                return false;
+            }
+
+            if (PasswordAgainInput.Trim() != PasswordInput.Trim()) 
+            {
+                ErrorMessage = StringProvider.GetString("PasswordsDontMatchError");
                 return false;
             }
 

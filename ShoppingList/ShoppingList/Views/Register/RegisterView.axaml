@@ -22,6 +22,8 @@
                MaxLength="50"/>
       <TextBlock Text="{DynamicResource Password}"/>
       <controls:PasswordBox Password="{Binding PasswordInput, Mode=TwoWay}"/>
+      <TextBlock Text="{DynamicResource PasswordAgain}"/>
+      <controls:PasswordBox Password="{Binding PasswordAgainInput, Mode=TwoWay}"/>
     </StackPanel>
     <Button Grid.Row="3" Margin="15" Classes="big" Content="{DynamicResource Register}" HorizontalAlignment="Center" Command="{Binding RegisterCommand}"/>
     <StackPanel Grid.Row="4" HorizontalAlignment="Center" Margin="10" Orientation="Horizontal">
