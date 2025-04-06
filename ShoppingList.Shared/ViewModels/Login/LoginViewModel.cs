@@ -41,7 +41,7 @@ namespace ShoppingList.Shared.ViewModels.Login
 
             try
             {
-                await _model.LoginAsync(EmailInput, PasswordInput);
+                await _model.LoginAsync(EmailInput.Trim(), PasswordInput.Trim());
 
                 _changePage(MainPage.Main);
                 ErrorMessage = null;

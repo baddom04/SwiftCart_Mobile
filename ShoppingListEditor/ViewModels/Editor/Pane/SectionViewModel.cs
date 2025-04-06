@@ -34,7 +34,7 @@ namespace ShoppingListEditor.ViewModels.Editor.Pane
             _showLoading(true);
             try
             {
-                _section.Name = name;
+                _section.Name = name.Trim();
                 await _model.UpdateSectionAsync(_section);
             }
             catch (Exception ex)

@@ -80,7 +80,7 @@ internal class SocialPanelViewModel : ViewModelBase
         {
             Households.Clear();
             Households.AddRange(
-                (await _model.SearchHouseholdsAsync(SearchInput, Page))
+                (await _model.SearchHouseholdsAsync(SearchInput.Trim(), Page))
                 .Select(hh => new HouseholdSearchResultViewModel(new HouseholdListItemModel(hh), _showNotification))
             );
 

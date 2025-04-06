@@ -44,7 +44,7 @@ namespace ShoppingList.ViewModels.Settings
 
             try
             {
-                await _userAccount.UpdatePassword(CurrentPasswordInput, NewPasswordInput);
+                await _userAccount.UpdatePassword(CurrentPasswordInput.Trim(), NewPasswordInput.Trim());
 
                 _changePage(SettingsPage.Main);
                 ErrorMessage = null;

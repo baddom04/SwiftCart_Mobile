@@ -53,12 +53,12 @@ namespace ShoppingList.ViewModels.ShoppingList
 
             try
             {
-                int? quantity = string.IsNullOrWhiteSpace(QuantityInput) ? null : Int32.Parse(QuantityInput);
+                int? quantity = string.IsNullOrWhiteSpace(QuantityInput) ? null : Int32.Parse(QuantityInput.Trim());
 
                 if(Updating)
-                    await _model.UpdateGroceryAsync(_householdId, _groceryId!.Value, NameInput, quantity, UnitInput == UnitType.none ? null : UnitInput, string.IsNullOrWhiteSpace(DescriptionInput) ? null : DescriptionInput);
+                    await _model.UpdateGroceryAsync(_householdId, _groceryId!.Value, NameInput.Trim(), quantity, UnitInput == UnitType.none ? null : UnitInput, string.IsNullOrWhiteSpace(DescriptionInput) ? null : DescriptionInput.Trim());
                 else
-                    await _model.CreateGroceryAsync(_householdId, NameInput, quantity, UnitInput == UnitType.none ? null : UnitInput, string.IsNullOrWhiteSpace(DescriptionInput) ? null : DescriptionInput);
+                    await _model.CreateGroceryAsync(_householdId, NameInput.Trim(), quantity, UnitInput == UnitType.none ? null : UnitInput, string.IsNullOrWhiteSpace(DescriptionInput) ? null : DescriptionInput.Trim());
 
                 ErrorMessage = null;
                 _goBackAction();

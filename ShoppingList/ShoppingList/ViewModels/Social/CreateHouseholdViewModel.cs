@@ -58,7 +58,7 @@ namespace ShoppingList.ViewModels.Social
             {
                 if (HouseholdId == default)
                 {
-                    await _model.CreateHouseholdAsync(NameInput, IdentifierInput);
+                    await _model.CreateHouseholdAsync(NameInput.Trim(), IdentifierInput.Trim());
                 }
                 else
                 {

@@ -73,7 +73,7 @@ namespace ShoppingList.ViewModels.Map
             try
             {
                 Stores.Clear();
-                Stores.AddRange((await _model.GetStoresAsync(SearchInput, Page))
+                Stores.AddRange((await _model.GetStoresAsync(SearchInput.Trim(), Page))
                     .Select(store => new StoreListItemViewModel(new StoreListItemModel(store), _showLoading, _showNotification, _changeToPage, _changePage)));
 
                 MaxPage = _model.MaxPages;

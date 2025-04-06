@@ -78,13 +78,14 @@ namespace ShoppingList.ViewModels.Map
 
         private IEnumerable<ProductViewModel> Search()
         {
+            string trimmedSearch = SearchInput.Trim();
             return AllProducts
                 .Select(p => new
                 {
                     Product = p,
-                    Score = FuzzyMatcher.CommandScore(p.Product.Name, SearchInput) +
-                    FuzzyMatcher.CommandScore(p.Product.Brand, SearchInput) +
-                    FuzzyMatcher.CommandScore(p.Product.Description, SearchInput)
+                    Score = FuzzyMatcher.CommandScore(p.Product.Name, trimmedSearch) +
+                    FuzzyMatcher.CommandScore(p.Product.Brand, trimmedSearch) +
+                    FuzzyMatcher.CommandScore(p.Product.Description, trimmedSearch)
                 })
                 .Where(x => x.Score != 0)
                 .OrderByDescending(x => x.Score)

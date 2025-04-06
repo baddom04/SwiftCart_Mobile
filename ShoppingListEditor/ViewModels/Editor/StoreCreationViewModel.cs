@@ -49,12 +49,12 @@ namespace ShoppingListEditor.ViewModels.Editor
             {
                 if (!IsUpdating)
                 {
-                    await _model.CreateStoreAsync(StoreNameInput);
+                    await _model.CreateStoreAsync(StoreNameInput.Trim());
                     _changePage(LoggedInPages.Location);
                 }
                 else
                 {
-                    await _model.UpdateStoreAsync(StoreNameInput, _model.Store!.Published);
+                    await _model.UpdateStoreAsync(StoreNameInput.Trim(), _model.Store!.Published);
                     _changePage(LoggedInPages.Editor);
                 }
 

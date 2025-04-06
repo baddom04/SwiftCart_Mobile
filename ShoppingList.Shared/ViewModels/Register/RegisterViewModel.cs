@@ -44,7 +44,7 @@ namespace ShoppingList.Shared.ViewModels.Register
 
             try
             {
-                await _model.RegisterAsync(UsernameInput, EmailInput, PasswordInput);
+                await _model.RegisterAsync(UsernameInput.Trim(), EmailInput.Trim(), PasswordInput.Trim());
 
                 _changePage(MainPage.Main);
                 ErrorMessage = null;
