@@ -63,12 +63,12 @@ namespace ShoppingListEditor.ViewModels.Editor
             {
                 if (!IsUpdating)
                 {
-                    await _model.CreateLocationAsync(CountryInput, ZipCodeInput, CityInput, StreetInput, DetailsInput);
+                    await _model.CreateLocationAsync(CountryInput.Trim(), ZipCodeInput.Trim(), CityInput.Trim(), StreetInput.Trim(), string.IsNullOrWhiteSpace(DetailsInput) ? null : DetailsInput.Trim());
                     _changePage(LoggedInPages.Map);
                 }
                 else
                 {
-                    await _model.UpdateLocationAsync(CountryInput, ZipCodeInput, CityInput, StreetInput, DetailsInput);
+                    await _model.UpdateLocationAsync(CountryInput.Trim(), ZipCodeInput.Trim(), CityInput.Trim(), StreetInput.Trim(), string.IsNullOrWhiteSpace(DetailsInput) ? null : DetailsInput.Trim());
                     _changePage(LoggedInPages.Editor);
                 }
 
@@ -88,8 +88,7 @@ namespace ShoppingListEditor.ViewModels.Editor
             if (!ValidateNotEmtpy(CountryInput, "Country")
                 || !ValidateNotEmtpy(CityInput, "City")
                 || !ValidateNotEmtpy(ZipCodeInput, "ZipCode")
-                || !ValidateNotEmtpy(StreetInput, "Street")
-                || !ValidateNotEmtpy(DetailsInput, "Details"))
+                || !ValidateNotEmtpy(StreetInput, "Street"))
             {
                 return false;
             }

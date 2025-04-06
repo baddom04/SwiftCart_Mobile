@@ -72,7 +72,7 @@ namespace ShoppingListEditor.Model
             await _storeService.DeleteStoreAsync(Store.Id);
             Store = null;
         }
-        public async Task CreateLocationAsync(string country, string zip_code, string city, string street, string detail)
+        public async Task CreateLocationAsync(string country, string zip_code, string city, string street, string? detail)
         {
             if (Store is null || Store.Id == default)
                 throw new InvalidOperationException("The store to add the location to, does not exist");
@@ -83,7 +83,7 @@ namespace ShoppingListEditor.Model
             Store.Location = LocationEditable.FromLocation(location);
             LocationChanged?.Invoke();
         }
-        public async Task UpdateLocationAsync(string country, string zip_code, string city, string street, string detail)
+        public async Task UpdateLocationAsync(string country, string zip_code, string city, string street, string? detail)
         {
             if (Store is null || Store.Id == default)
                 throw new InvalidOperationException("The store to add the location to does not exist.");
