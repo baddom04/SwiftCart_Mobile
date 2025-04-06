@@ -25,6 +25,13 @@
     </SplitView.Pane>
     <SplitView.Content>
       <Grid>
+        <Grid HorizontalAlignment="Left" VerticalAlignment="Bottom" ZIndex="1">
+          <Border Classes="mainbg_floater" Margin="10 20">
+            <Button Classes="big success" Command="{Binding ChangePageCommand}" CommandParameter="{x:Static enumns:LoggedInPages.Publish}">
+              <PathIcon Data="{StaticResource upload_regular}" Classes="maxi white_foreground"/>
+            </Button>
+          </Border>
+        </Grid>
         <Grid RowDefinitions="Auto, Auto" ZIndex="1" HorizontalAlignment="Left" VerticalAlignment="Top" >
           <Border Grid.Row="0"
                   Classes="mainbg_floater" Margin="10 20 10 0">

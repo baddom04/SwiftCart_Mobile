@@ -1,0 +1,36 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="ShoppingListEditor.Views.Editor.PublishPageView"
+             xmlns:vm="clr-namespace:ShoppingListEditor.ViewModels.Editor"
+             x:DataType="vm:PublishPageViewModel"
+             xmlns:controls="clr-namespace:ShoppingListEditor.Views.CustomControls">
+  <Grid ColumnDefinitions="*, *, *" RowDefinitions="*, Auto, *">
+    <Border MinWidth="400" Grid.Column="1" Classes="mainbg_floater rounded" Grid.Row="1">
+      <Grid RowDefinitions="*, Auto, 5*, *"  HorizontalAlignment="Stretch" VerticalAlignment="Top"
+            Margin="10 30 10 50">
+        <Grid Grid.Row="0">
+          <Button VerticalAlignment="Center" Classes="mainbg" HorizontalAlignment="Left"
+              Command="{Binding GoBackCommand}" IsVisible="{Binding IsUpdating}">
+            <PathIcon Data="{StaticResource arrow_left_regular}" Classes="maxi"/>
+          </Button>
+          <TextBlock Grid.Row="0" Text="{DynamicResource Visibility}" Classes="h1" Margin="30"
+                     HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Grid>
+
+        <controls:ErrorDisplay Grid.Row="1" ErrorMessage="{Binding ErrorMessage}"/>
+
+        <Grid ColumnDefinitions="Auto, *, Auto" Grid.Row="2" Margin="30 10">
+          <TextBlock Grid.Column="0" Text="{DynamicResource StoreVisibility}"/>
+          <ToggleSwitch Grid.Column="2" IsChecked="{Binding IsPublished}"
+                        OnContent="" OffContent=""/>
+        </Grid>
+
+        <Button Grid.Row="3" Margin="15" Classes="big" Content="{DynamicResource Set}"
+                HorizontalAlignment="Center" Command="{Binding UpdateVisibilityCommand}" IsDefault="True"/>
+      </Grid>
+    </Border>
+  </Grid>
+</UserControl>

@@ -21,21 +21,15 @@ namespace ShoppingListEditor.ViewModels.Editor
         }
 
         public ReactiveCommand<Unit, Unit> CreateStoreCommand { get; }
-        public ReactiveCommand<Unit, Unit> GoBackCommand { get; }
 
-        private readonly EditorModel _model;
         private readonly Action<LoggedInPages> _changePage;
         private readonly Action<bool> _showLoading;
-        public StoreCreationViewModel(EditorModel model, Action<LoggedInPages> changePage, Action<bool> showLoading)
+        public StoreCreationViewModel(EditorModel model, Action<LoggedInPages> changePage, Action<bool> showLoading) : base(model, changePage)
         {
-            _model = model;
             _changePage = changePage;
             _showLoading = showLoading;
 
             CreateStoreCommand = ReactiveCommand.CreateFromTask(CreateStoreAsync);
-
-            GoBackCommand = ReactiveCommand.Create(() => _changePage(LoggedInPages.Editor),
-                this.WhenAnyValue(x => x.IsUpdating, isUpdating => isUpdating == true));
 
             _model.StoreChanged += OnStoreChanged;
         }
@@ -60,7 +54,7 @@ namespace ShoppingListEditor.ViewModels.Editor
                 }
                 else
                 {
-                    await _model.UpdateStoreAsync(StoreNameInput);
+                    await _model.UpdateStoreAsync(StoreNameInput, _model.Store!.Published);
                     _changePage(LoggedInPages.Editor);
                 }
 

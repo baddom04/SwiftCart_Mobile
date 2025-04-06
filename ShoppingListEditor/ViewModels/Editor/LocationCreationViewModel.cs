@@ -31,23 +31,16 @@ namespace ShoppingListEditor.ViewModels.Editor
 
         public ReactiveCommand<Unit, Unit> CreateLocationCommand { get; }
 
-        public ReactiveCommand<Unit, Unit> GoBackCommand { get; }
-
-        private readonly EditorModel _model;
         private readonly Action<LoggedInPages> _changePage;
         private readonly Action<bool> _showLoading;
-        public LocationCreationViewModel(EditorModel model, Action<LoggedInPages> changePage, Action<bool> showLoading)
+        public LocationCreationViewModel(EditorModel model, Action<LoggedInPages> changePage, Action<bool> showLoading) : base(model, changePage)
         {
-            _model = model;
             _changePage = changePage;
             _showLoading = showLoading;
 
             CreateLocationCommand = ReactiveCommand.CreateFromTask(CreateStoreAsync);
 
             _model.LocationChanged += OnLocationChanged;
-
-            GoBackCommand = ReactiveCommand.Create(() => _changePage(LoggedInPages.Editor),
-                this.WhenAnyValue(x => x.IsUpdating, isUpdating => isUpdating == true));
         }
 
         private void OnLocationChanged()

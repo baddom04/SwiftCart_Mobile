@@ -474,7 +474,6 @@
 
   <Style Selector="MenuItem">
     <Setter Property="FontSize" Value="22"/>
-    <Setter Property="FontWeight" Value="DemiBold"/>
   </Style>
 
 </Styles>

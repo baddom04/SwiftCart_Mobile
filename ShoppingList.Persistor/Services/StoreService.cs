@@ -61,9 +61,9 @@ namespace ShoppingList.Persistor.Services
             return stores ?? throw new NullReferenceException();
         }
 
-        public async Task<Store> UpdateStoreAsync(int store_id, string name, CancellationToken cancellationToken = default)
+        public async Task<Store> UpdateStoreAsync(int store_id, string name, bool published, CancellationToken cancellationToken = default)
         {
-            var payload = new { name };
+            var payload = new { name, published };
 
             HttpResponseMessage response = await _httpClient.PutAsJsonAsync($"stores/{store_id}", payload, cancellationToken);
 

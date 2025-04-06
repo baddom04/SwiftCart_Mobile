@@ -37,19 +37,14 @@ namespace ShoppingListEditor.ViewModels.Editor
             set { this.RaiseAndSetIfChanged(ref _ySize, value); }
         }
         public ReactiveCommand<Unit, Unit> SetMapDimensionsCommand { get; }
-        public ReactiveCommand<Unit, Unit> GoBackCommand { get; }
 
-        private readonly EditorModel _model;
         private readonly Action<LoggedInPages> _changePage;
         private readonly Action<bool> _showLoading;
-        public MapCreationViewModel(EditorModel model, Action<LoggedInPages> changePage, Action<bool> showLoading)
+        public MapCreationViewModel(EditorModel model, Action<LoggedInPages> changePage, Action<bool> showLoading) : base(model, changePage)
         {
-            _model = model;
             _changePage = changePage;
             _showLoading = showLoading;
             SetMapDimensionsCommand = ReactiveCommand.CreateFromTask(SetMapDimensions);
-            GoBackCommand = ReactiveCommand.Create(() => _changePage(LoggedInPages.Editor),
-                this.WhenAnyValue(x => x.IsUpdating, isUpdating => isUpdating == true));
 
             _model.MapChanged += OnMapChanged;
         }

@@ -6,6 +6,7 @@ namespace ShoppingListEditor.Model.Editables
     {
         public int Id { get; set; }
         public required string Name { get; set; }
+        public required bool Published { get; set; }
         public LocationEditable? Location { get; set; }
         public MapEditable? Map { get; set; }
 
@@ -19,6 +20,7 @@ namespace ShoppingListEditor.Model.Editables
                 Name = store.Name,
                 Location = LocationEditable.FromLocation(store.Location),
                 Map = MapEditable.FromMap(store.Map),
+                Published = store.Published,
             };
         }
     }

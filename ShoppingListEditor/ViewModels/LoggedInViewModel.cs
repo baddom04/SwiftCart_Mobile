@@ -33,6 +33,7 @@ namespace ShoppingListEditor.ViewModels
                 { LoggedInPages.Location, new LocationCreationViewModel(_model, ChangePage, _showLoading) },
                 { LoggedInPages.Map, new MapCreationViewModel(_model, ChangePage, _showLoading) },
                 { LoggedInPages.Editor, new EditorViewModel(_model, ChangePage, _showLoading, _showNotification) },
+                { LoggedInPages.Publish, new PublishPageViewModel(_model, ChangePage, _showLoading) },
             };
         }
 
@@ -80,6 +81,7 @@ namespace ShoppingListEditor.ViewModels
         Store,
         Location,
         Map,
-        Editor
+        Editor,
+        Publish
     }
 }

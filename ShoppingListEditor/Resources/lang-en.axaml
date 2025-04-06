@@ -104,5 +104,11 @@
   <x:String x:Key="BrandTooLong">The products's brand must be a maximum of 20 characters.</x:String>
   <x:String x:Key="DescriptionTooLong">The products's description must be a maximum of 255 characters.</x:String>
   <x:String x:Key="IncorrectPriceFormat">The price must be a positive integer.</x:String>
+  
+  <!--PublishPageView-->
+  <x:String x:Key="StoreVisibility">Store visibility</x:String>
+  <x:String x:Key="Visibility">Visibility</x:String>
+  <!--^Errors-->
+  <x:String x:Key="VisibilityChangeError">Visibility change error&#x0a;</x:String>
 
 </ResourceDictionary>

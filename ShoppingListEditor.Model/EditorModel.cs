@@ -20,6 +20,7 @@ namespace ShoppingListEditor.Model
         public event Action? MapChanged;
         public event Action? LocationChanged;
         public event Action? SectionsChanged;
+        public event Action? VisibilityChanged;
 
         private readonly IStoreService _storeService = AppServiceProvider.Services.GetRequiredService<IStoreService>();
         private readonly ILocationService _locationService = AppServiceProvider.Services.GetRequiredService<ILocationService>();
@@ -38,6 +39,7 @@ namespace ShoppingListEditor.Model
             MapChanged?.Invoke();
             SectionsChanged?.Invoke();
             LocationChanged?.Invoke();
+            VisibilityChanged?.Invoke();
         }
         public async Task<StoreEditable?> GetUsersStoreAsync()
         {
@@ -50,15 +52,17 @@ namespace ShoppingListEditor.Model
                 throw new InvalidOperationException("Store already exists");
 
             Store newStore = await _storeService.CreateStoreAsync(name);
-            Store = new StoreEditable() { Name = newStore.Name, Id = newStore.Id };
+            Store = new StoreEditable() { Name = newStore.Name, Id = newStore.Id, Published = false };
         }
-        public async Task UpdateStoreAsync(string name)
+        public async Task UpdateStoreAsync(string name, bool published)
         {
             if (Store is null)
                 throw new InvalidOperationException("Store does not exist");
 
-            Store newStore = await _storeService.UpdateStoreAsync(Store.Id, name);
+            Store newStore = await _storeService.UpdateStoreAsync(Store.Id, name, published);
             Store.Name = newStore.Name;
+            Store.Published = published;
+            VisibilityChanged?.Invoke();
         }
         public async Task DeleteStoreAsync()
         {
