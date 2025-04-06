@@ -44,7 +44,7 @@ namespace ShoppingListEditor.ViewModels.Editor
         {
             _changePage = changePage;
             _showLoading = showLoading;
-            SetMapDimensionsCommand = ReactiveCommand.CreateFromTask(SetMapDimensions);
+            SetMapDimensionsCommand = ReactiveCommand.CreateFromTask(SetMapDimensionsAsync);
 
             _model.MapChanged += OnMapChanged;
         }
@@ -57,7 +57,7 @@ namespace ShoppingListEditor.ViewModels.Editor
             YSize = _model.Store.Map.YSize;
         }
 
-        private async Task SetMapDimensions()
+        private async Task SetMapDimensionsAsync()
         {
             _showLoading(true);
             try

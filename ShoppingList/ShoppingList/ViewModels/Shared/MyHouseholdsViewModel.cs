@@ -39,6 +39,6 @@ namespace ShoppingList.ViewModels.Shared
             MyHouseholds.CollectionChanged += (s, e) => this.RaisePropertyChanged(nameof(EmptyMyHouseholds));
         }
 
-        public abstract Task LoadMyHouseholds();
+        public abstract Task LoadMyHouseholdsAsync();
     }
 }

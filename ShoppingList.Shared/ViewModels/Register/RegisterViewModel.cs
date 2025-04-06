@@ -32,10 +32,10 @@ namespace ShoppingList.Shared.ViewModels.Register
             _model = model;
 
             LoginPageCommand = ReactiveCommand.Create(() => _changePage(MainPage.Login));
-            RegisterCommand = ReactiveCommand.CreateFromTask(Register);
+            RegisterCommand = ReactiveCommand.CreateFromTask(RegisterAsync);
         }
 
-        private async Task Register()
+        private async Task RegisterAsync()
         {
             if (!Validate()) return;
 

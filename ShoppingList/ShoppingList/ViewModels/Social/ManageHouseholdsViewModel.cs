@@ -31,7 +31,7 @@ namespace ShoppingList.ViewModels.Social
             CreateHouseholdPageCommand = ReactiveCommand.Create(() => _householdEditingPage(null));
         }
 
-        public override async Task LoadMyHouseholds()
+        public override async Task LoadMyHouseholdsAsync()
         {
             IsLoading = true;
 

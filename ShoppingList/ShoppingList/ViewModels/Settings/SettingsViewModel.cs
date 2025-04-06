@@ -27,7 +27,7 @@ internal class SettingsViewModel(UserAccountModel userAccount, Action<MainPage> 
     }
 
 
-    public async Task DeleteUser()
+    public async Task DeleteUserAsync()
     {
         _showLoading(true);
 
@@ -48,7 +48,7 @@ internal class SettingsViewModel(UserAccountModel userAccount, Action<MainPage> 
         }
     }
 
-    public async Task Logout()
+    public async Task LogoutAsync()
     {
         _showLoading(true);
 
@@ -68,7 +68,7 @@ internal class SettingsViewModel(UserAccountModel userAccount, Action<MainPage> 
             _showLoading(false);
         }
     }
-    public async Task LoadUser()
+    public async Task LoadUserAsync()
     {
         _showLoading(true);
 
@@ -87,7 +87,7 @@ internal class SettingsViewModel(UserAccountModel userAccount, Action<MainPage> 
         }
     }
 
-    public async Task UpdateUsername(string newUsername)
+    public async Task UpdateUsernameAsync(string newUsername)
     {
         _showLoading(true);
 

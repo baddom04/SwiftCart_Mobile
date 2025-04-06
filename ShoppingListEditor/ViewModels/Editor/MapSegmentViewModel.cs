@@ -106,7 +106,7 @@ namespace ShoppingListEditor.ViewModels.Editor
             ToSectionPageCommand = ReactiveCommand.Create(() => setPaneContent(new SectionPaneViewModel(_model, _showLoading, _showNotification) { GoBack = () => setPaneContent(this) }));
             ToProductPageCommand = ReactiveCommand.Create(() => setPaneContent(new ProductPaneViewModel(_model, _segment, _showLoading, _showNotification) { GoBack = () => setPaneContent(this) }));
 
-            this.WhenAnyValue(x => x.SelectedSection).Subscribe(async (section) => await OnSelectedSectionChanged(section));
+            this.WhenAnyValue(x => x.SelectedSection).Subscribe(async (section) => await OnSelectedSectionChangedAsync(section));
         }
         private IEnumerable<ProductViewModel> GetProducts()
         {
@@ -114,7 +114,7 @@ namespace ShoppingListEditor.ViewModels.Editor
         }
 
         private bool _first = true;
-        private async Task OnSelectedSectionChanged(int index)
+        private async Task OnSelectedSectionChangedAsync(int index)
         {
             if (_first)
             {

@@ -54,7 +54,7 @@ namespace ShoppingListEditor.ViewModels
 
             _model.StoreChanged += () => IsStoreDeletable = _model.Store is not null;
         }
-        public async Task DeleteStore()
+        public async Task DeleteStoreAsync()
         {
             _showLoading(true);
 
@@ -74,7 +74,7 @@ namespace ShoppingListEditor.ViewModels
             }
         }
 
-        public async Task DeleteUser()
+        public async Task DeleteUserAsync()
         {
             _showLoading(true);
 
@@ -95,7 +95,7 @@ namespace ShoppingListEditor.ViewModels
             }
         }
 
-        public async Task Logout()
+        public async Task LogoutAsync()
         {
             _showLoading(true);
 
@@ -115,7 +115,7 @@ namespace ShoppingListEditor.ViewModels
                 _showLoading(false);
             }
         }
-        public async Task LoadUser()
+        public async Task LoadUserAsync()
         {
             _showLoading(true);
 

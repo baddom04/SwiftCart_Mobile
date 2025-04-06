@@ -13,6 +13,6 @@ public partial class HouseholdsGroceriesView : UserControl
 
     private async void OnLoaded(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        await (DataContext as HouseholdsGroceriesViewModel)!.LoadMyHouseholds();
+        await (DataContext as HouseholdsGroceriesViewModel)!.LoadMyHouseholdsAsync();
     }
 }

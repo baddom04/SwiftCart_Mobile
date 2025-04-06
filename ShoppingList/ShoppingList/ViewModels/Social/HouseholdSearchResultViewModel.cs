@@ -26,7 +26,7 @@ namespace ShoppingList.ViewModels.Social
         private readonly Action<NotificationType, string> _showNotification;
         public HouseholdSearchResultViewModel(HouseholdListItemModel model, Action<NotificationType, string> showNotification) : base()
         {
-            HouseholdOperationCommand = ReactiveCommand.CreateFromTask(Apply);
+            HouseholdOperationCommand = ReactiveCommand.CreateFromTask(ApplyAsync);
             _model = model;
             _showNotification = showNotification;
 
@@ -41,7 +41,7 @@ namespace ShoppingList.ViewModels.Social
             Relationship = _model.Household.Relationship!.Value;
         }
 
-        private async Task Apply()
+        private async Task ApplyAsync()
         {
             IsLoading = true;
 

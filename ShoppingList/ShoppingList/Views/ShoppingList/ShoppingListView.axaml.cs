@@ -22,7 +22,7 @@ public partial class ShoppingListView : UserControl
         if(sender is not Button btn || btn.DataContext is not ShoppingItemViewModel shoppingItemViewModel)
             throw new ArgumentException(null, nameof(sender));
 
-        bool answer = await App.MainView.ShowConfirmDialog("DeleteItemQuestion");
+        bool answer = await App.MainView.ShowConfirmDialogAsync("DeleteItemQuestion");
         if (!answer) return;
 
         await shoppingItemViewModel.DeleteGroceryAsync();
@@ -33,7 +33,7 @@ public partial class ShoppingListView : UserControl
         if (sender is not Button btn || btn.DataContext is not ShoppingItemViewModel shoppingItemViewModel)
             throw new ArgumentException(null, nameof(sender));
 
-        bool answer = await App.MainView.ShowConfirmDialog("BoughtItemQuestion");
+        bool answer = await App.MainView.ShowConfirmDialogAsync("BoughtItemQuestion");
         if (!answer) return;
 
         await shoppingItemViewModel.DeleteGroceryAsync();
@@ -44,7 +44,7 @@ public partial class ShoppingListView : UserControl
         if (sender is not Button btn || btn.DataContext is not ShoppingItemViewModel shoppingItemViewModel)
             throw new ArgumentException(null, nameof(sender));
 
-        string? answer = await App.MainView.ShowTextInputDialog("NewComment", (str) => !string.IsNullOrWhiteSpace(str) && str.Length <= 255);
+        string? answer = await App.MainView.ShowTextInputDialogAsync("NewComment", (str) => !string.IsNullOrWhiteSpace(str) && str.Length <= 255);
         if (answer is null) return;
 
         await shoppingItemViewModel.AddCommentAsync(answer);

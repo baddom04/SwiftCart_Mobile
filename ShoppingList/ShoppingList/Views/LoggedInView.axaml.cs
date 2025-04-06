@@ -18,7 +18,7 @@ public partial class LoggedInView : UserControl
     private async void LoggedInView_Loaded(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
         SetMenuIconColors(MainMenu);
-        await (DataContext as LoggedInViewModel)!.GetUser();
+        await (DataContext as LoggedInViewModel)!.GetUserAsync();
     }
 
     private void ListBox_SelectionChanged(object? sender, SelectionChangedEventArgs e)

@@ -15,6 +15,6 @@ public partial class StoreListView : UserControl
 
     private async void OnLoaded(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        await (DataContext as StoreListViewModel)!.Search();
+        await (DataContext as StoreListViewModel)!.SearchAsync();
     }
 }

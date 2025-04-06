@@ -14,6 +14,6 @@ public partial class ManageHouseholdsView : UserControl
 
     private async void OnLoaded(object? sender, RoutedEventArgs e)
     {
-        await (DataContext as ManageHouseholdsViewModel)!.LoadMyHouseholds();
+        await (DataContext as ManageHouseholdsViewModel)!.LoadMyHouseholdsAsync();
     }
 }

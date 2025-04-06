@@ -37,7 +37,7 @@ namespace ShoppingListEditor.ViewModels
             };
         }
 
-        public async Task ToStartingPage()
+        public async Task ToStartingPageAsync()
         {
             _showLoading(true);
             try

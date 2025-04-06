@@ -13,6 +13,6 @@ public partial class LoggedInView : UserControl
 
     private async void OnLoaded(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        await (DataContext as LoggedInViewModel)!.ToStartingPage();
+        await (DataContext as LoggedInViewModel)!.ToStartingPageAsync();
     }
 }

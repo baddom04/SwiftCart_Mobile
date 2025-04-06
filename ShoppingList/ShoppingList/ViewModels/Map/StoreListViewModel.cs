@@ -54,18 +54,18 @@ namespace ShoppingList.ViewModels.Map
             _showNotification = showNotification;
             _changeToPage = changeToPage;
             _changePage = changePage;
-            SearchCommand = ReactiveCommand.CreateFromTask(() => Search());
+            SearchCommand = ReactiveCommand.CreateFromTask(() => SearchAsync());
 
-            TurnPageForwardCommand = ReactiveCommand.CreateFromTask(() => Search(Page + 1),
+            TurnPageForwardCommand = ReactiveCommand.CreateFromTask(() => SearchAsync(Page + 1),
             this.WhenAnyValue(x => x.Page, x => x.MaxPage, (page, maxPage) => page != maxPage));
 
-            TurnPageBackwardCommand = ReactiveCommand.CreateFromTask(() => Search(Page - 1),
+            TurnPageBackwardCommand = ReactiveCommand.CreateFromTask(() => SearchAsync(Page - 1),
                 this.WhenAnyValue(x => x.Page, page => page != 1));
 
             Stores.CollectionChanged += (s, e) => this.RaisePropertyChanged(nameof(EmptyStores));
         }
 
-        public async Task Search(int page = 1)
+        public async Task SearchAsync(int page = 1)
         {
             IsLoading = true;
             Page = page;

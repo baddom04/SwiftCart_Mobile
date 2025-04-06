@@ -17,7 +17,7 @@ public partial class SectionPaneView : UserControl
     {
         if (sender is not Button btn) throw new ArgumentException(null, nameof(sender));
 
-        string? newName = await App.MainView.ShowTextInputDialog("SectionName", _validateSectionName);
+        string? newName = await App.MainView.ShowTextInputDialogAsync("SectionName", _validateSectionName);
         if (newName is null) return;
 
         await (DataContext as SectionPaneViewModel)!.AddSectionAsync(newName);
@@ -27,7 +27,7 @@ public partial class SectionPaneView : UserControl
     {
         if (sender is not Button btn || btn.DataContext is not SectionViewModel vm) throw new ArgumentException(null, nameof(sender));
 
-        string? newName = await App.MainView.ShowTextInputDialog("SectionName", _validateSectionName);
+        string? newName = await App.MainView.ShowTextInputDialogAsync("SectionName", _validateSectionName);
         if (newName is null) return;
 
         await vm.UpdateSectionAsync(newName);

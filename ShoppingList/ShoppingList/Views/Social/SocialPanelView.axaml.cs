@@ -13,6 +13,6 @@ public partial class SocialPanelView : UserControl
 
     private async void SocialPanelView_Loaded(object? sender, RoutedEventArgs e)
     {
-        await (DataContext as SocialPanelViewModel)!.Search();
+        await (DataContext as SocialPanelViewModel)!.SearchAsync();
     }
 }

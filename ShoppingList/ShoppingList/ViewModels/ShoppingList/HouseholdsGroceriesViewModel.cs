@@ -19,7 +19,7 @@ namespace ShoppingList.ViewModels.ShoppingList
         private readonly Action<GroceryPage> _changePage = changePage;
         private readonly Action<int, Grocery?, Action> _changeToEditingPage = changeToEditingPage;
 
-        public override async Task LoadMyHouseholds()
+        public override async Task LoadMyHouseholdsAsync()
         {
             IsLoading = true;
 

@@ -65,7 +65,7 @@ namespace ShoppingList.ViewModels
             _showNotification = showNotification;
         }
 
-        public async Task GetUser()
+        public async Task GetUserAsync()
         {
             _showLoading(true);
 

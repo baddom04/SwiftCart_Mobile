@@ -30,10 +30,10 @@ namespace ShoppingList.Shared.ViewModels.Login
             _model = model;
 
             RegisterPageCommand = ReactiveCommand.Create(() => _changePage(MainPage.Register));
-            LoginCommand = ReactiveCommand.Create(Login);
+            LoginCommand = ReactiveCommand.Create(LoginAsync);
         }
 
-        private async Task Login()
+        private async Task LoginAsync()
         {
             if (!Validate()) return;
 
@@ -103,7 +103,7 @@ namespace ShoppingList.Shared.ViewModels.Login
             return true;
         }
 
-        public async Task TryLogin()
+        public async Task TryLoginAsync()
         {
             if (!_firstTimeLoginAttempt) return;
 

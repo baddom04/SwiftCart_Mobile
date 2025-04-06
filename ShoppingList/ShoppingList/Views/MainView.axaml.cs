@@ -12,7 +12,7 @@ namespace ShoppingList.Views
             InitializeComponent();
             DataContext = viewModel;
         }
-        public async Task<bool> ShowConfirmDialog(string questionKey = "ConfirmQuestion")
+        public async Task<bool> ShowConfirmDialogAsync(string questionKey = "ConfirmQuestion")
         {
             ConfirmationView confirmationView = new(questionKey);
             MainGrid.Children.Add(confirmationView);
@@ -22,7 +22,7 @@ namespace ShoppingList.Views
 
             return result;
         }
-        public async Task<string?> ShowTextInputDialog(string instructionKey, Func<string, bool> validateInput)
+        public async Task<string?> ShowTextInputDialogAsync(string instructionKey, Func<string, bool> validateInput)
         {
             TextInputView textInputView = new(instructionKey, validateInput);
 

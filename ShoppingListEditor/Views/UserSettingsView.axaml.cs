@@ -14,29 +14,29 @@ public partial class UserSettingsView : UserControl
 
     private async void OnLoaded(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        await (DataContext as UserSettingsViewModel)!.LoadUser();
+        await (DataContext as UserSettingsViewModel)!.LoadUserAsync();
     }
 
     private async void Logout_PointerPressed(object? sender, PointerPressedEventArgs e)
     {
-        bool result = await App.MainView.ShowConfirmDialog("ConfirmLogoutQuestion");
+        bool result = await App.MainView.ShowConfirmDialogAsync("ConfirmLogoutQuestion");
         if (!result) return;
 
-        await (DataContext as UserSettingsViewModel)!.Logout();
+        await (DataContext as UserSettingsViewModel)!.LogoutAsync();
     }
 
     private async void DeleteUser_PointerPressed(object? sender, PointerPressedEventArgs e)
     {
-        bool result = await App.MainView.ShowConfirmDialog("ConfirmDeleteUserQuestion");
+        bool result = await App.MainView.ShowConfirmDialogAsync("ConfirmDeleteUserQuestion");
         if (!result) return;
 
-        await (DataContext as UserSettingsViewModel)!.DeleteUser();
+        await (DataContext as UserSettingsViewModel)!.DeleteUserAsync();
     }
     private async void DeleteStore_PointerPressed(object? sender, PointerPressedEventArgs e)
     {
-        bool result = await App.MainView.ShowConfirmDialog("ConfirmDeleteStoreQuestion");
+        bool result = await App.MainView.ShowConfirmDialogAsync("ConfirmDeleteStoreQuestion");
         if (!result) return;
 
-        await (DataContext as UserSettingsViewModel)!.DeleteStore();
+        await (DataContext as UserSettingsViewModel)!.DeleteStoreAsync();
     }
 }
