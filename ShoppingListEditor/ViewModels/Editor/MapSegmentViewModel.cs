@@ -19,6 +19,7 @@ namespace ShoppingListEditor.ViewModels.Editor
     internal class MapSegmentViewModel : ViewModelBase
     {
         public ReactiveCommand<Unit, Unit> OpenDetailPaneCommand { get; }
+        public Action OpenDetailPane { get; }
         public ReactiveCommand<Unit, Unit> CloseDetailPaneCommand { get; }
         public ReactiveCommand<Unit, Unit> ToSectionPageCommand { get; }
         public ReactiveCommand<Unit, Unit> ToProductPageCommand { get; }
@@ -100,7 +101,8 @@ namespace ShoppingListEditor.ViewModels.Editor
                 _selectedSection = Sections.IndexOf(Sections.FirstOrDefault(s => s.Id == _segment.SectionId) ?? Sections[0]);
             };
 
-            OpenDetailPaneCommand = ReactiveCommand.Create(() => setPaneContent(this));
+            OpenDetailPane = () => setPaneContent(this);
+            OpenDetailPaneCommand = ReactiveCommand.Create(OpenDetailPane);
             CloseDetailPaneCommand = ReactiveCommand.Create(() => setPaneContent(null));
             UploadSegmentCommand = ReactiveCommand.CreateFromTask<SegmentType>(UploadSegmentAsync);
             ToSectionPageCommand = ReactiveCommand.Create(() => setPaneContent(new SectionPaneViewModel(_model, _showLoading, _showNotification) { GoBack = () => setPaneContent(this) }));

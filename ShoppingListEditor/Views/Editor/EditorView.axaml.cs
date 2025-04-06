@@ -210,25 +210,39 @@ public partial class EditorView : UserControl
             btn.BindStyleClass(type.ToString(), CreateBinding(type));
         }
 
-        if(segment.Type == SegmentType.Fridge || segment.Type == SegmentType.Shelf)
+        if (segment.Type == SegmentType.Fridge || segment.Type == SegmentType.Shelf)
         {
-            ContextMenu menu = new();
-            MenuItem item = new()
-            {
-                Header = StringProvider.GetString("Details"),
-                Command = segment.OpenDetailPaneCommand,
-            };
-            item.PointerPressed += OnDetails_PointerPressed;
-            menu.Items.Add(item);
-            btn.ContextMenu = menu;
+            //ContextMenu menu = new();
+            //MenuItem item = new()
+            //{
+            //    Header = StringProvider.GetString("Details"),
+            //    Command = segment.OpenDetailPaneCommand,
+            //};
+            //item.PointerPressed += OnDetails_PointerPressed;
+            //menu.Items.Add(item);
+            //btn.ContextMenu = menu;
         }
+        btn.PointerPressed += Segment_PointerPressed;
 
         return btn;
     }
 
+    private void Segment_PointerPressed(object? sender, PointerPressedEventArgs e)
+    {
+        if (sender is not Button btn || btn.DataContext is not MapSegmentViewModel segment)
+            throw new ArgumentException(null, nameof(sender));
+
+        if (segment.Type != SegmentType.Shelf && segment.Type != SegmentType.Fridge) return;
+
+        if (e.GetCurrentPoint(null).Properties.PointerUpdateKind != PointerUpdateKind.RightButtonPressed) return;
+
+        segment.OpenDetailPane();
+        EditOverlay.IsPaneOpen = true;
+    }
+
     private void OnDetails_PointerPressed(object? sender, PointerPressedEventArgs e)
     {
-        if(sender is not MenuItem) throw new ArgumentException(null, nameof(sender));
+        if (sender is not MenuItem) throw new ArgumentException(null, nameof(sender));
         EditOverlay.IsPaneOpen = true;
     }
 
