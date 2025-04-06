@@ -10,7 +10,7 @@
 
     <Grid Grid.Row="0">
       <Button VerticalAlignment="Center" Classes="mainbg" HorizontalAlignment="Left"
-          Command="{Binding GoBackCommand}">
+          Command="{Binding GoBackCommand}" ToolTip.Tip="{DynamicResource Back}">
         <PathIcon Data="{StaticResource arrow_left_regular}" Classes="maxi"/>
       </Button>
       <TextBlock Grid.Row="0" Text="{DynamicResource Sections}" Classes="h1" Margin="30"
@@ -26,10 +26,12 @@
                 <Grid ColumnDefinitions="Auto, *, Auto, Auto">
                   <TextBlock Grid.Column="0" Text="{Binding Name}" VerticalAlignment="Center"
                              TextWrapping="Wrap"/>
-                  <Button Grid.Column="2" Click="UpdateSection_Click" Margin="5 0">
+                  <Button Grid.Column="2" Click="UpdateSection_Click" Margin="5 0"
+                          ToolTip.Tip="{DynamicResource Edit}">
                     <PathIcon Data="{StaticResource edit_regular}" Classes="white_foreground"/>
                   </Button>
-                  <Button Grid.Column="3" Command="{Binding DeleteSectionCommand}" Classes="danger">
+                  <Button Grid.Column="3" Command="{Binding DeleteSectionCommand}" Classes="danger"
+                          ToolTip.Tip="{DynamicResource Delete}">
                     <PathIcon Data="{StaticResource delete_regular}" Classes="white_foreground"/>
                   </Button>
                 </Grid>
@@ -42,7 +44,8 @@
       </Grid>
     </ScrollViewer>
 
-    <Button Grid.Row="2" Click="AddSection_Click" HorizontalAlignment="Center" Margin="0 15">
+    <Button Grid.Row="2" Click="AddSection_Click" HorizontalAlignment="Center" Margin="0 15"
+            ToolTip.Tip="{DynamicResource Add}">
       <PathIcon Data="{StaticResource add_regular}" Classes="maxi white_foreground"/>
     </Button>
   </Grid>

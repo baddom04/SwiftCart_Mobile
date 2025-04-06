@@ -27,7 +27,9 @@
       <Grid>
         <Grid HorizontalAlignment="Left" VerticalAlignment="Bottom" ZIndex="1">
           <Border Classes="mainbg_floater" Margin="10 20">
-            <Button Classes="big success" Command="{Binding ChangePageCommand}" CommandParameter="{x:Static enumns:LoggedInPages.Publish}">
+            <Button Classes="big success" Command="{Binding ChangePageCommand}" 
+                    CommandParameter="{x:Static enumns:LoggedInPages.Publish}"
+                    ToolTip.Tip="{DynamicResource VisibilitySetting}">
               <PathIcon Data="{StaticResource upload_regular}" Classes="maxi white_foreground"/>
             </Button>
           </Border>
@@ -54,10 +56,10 @@
           <Grid Grid.Row="1" Margin="10 20 10 0" ColumnDefinitions="Auto, Auto">
             <Border Grid.Column="0" Classes="mainbg_floater" HorizontalAlignment="Left" Margin="0 0 10 0">
               <StackPanel Spacing="10" HorizontalAlignment="Center">
-                <Button Click="ZoomInButton_Click">
+                <Button Click="ZoomInButton_Click" ToolTip.Tip="{DynamicResource ZoomIn}">
                   <PathIcon Data="{StaticResource zoom_in_regular}" Classes="maxi white_foreground"/>
                 </Button>
-                <Button Click="ZoomOutButton_Click">
+                <Button Click="ZoomOutButton_Click" ToolTip.Tip="{DynamicResource ZoomOut}">
                   <PathIcon Data="{StaticResource zoom_out_regular}" Classes="maxi white_foreground"/>
                 </Button>
               </StackPanel>
@@ -68,20 +70,22 @@
               <Grid RowDefinitions="Auto, Auto" ColumnDefinitions="Auto, Auto">
                 <Button Grid.Row="0" Grid.Column="0" Command="{Binding ChangePageCommand}"
                         CommandParameter="{x:Static enumns:LoggedInPages.Map}"
-                        Margin="2">
+                        Margin="2" ToolTip.Tip="{DynamicResource ChangeSize}">
                   <PathIcon Data="{StaticResource resize_table_regular}" Classes="maxi white_foreground"/>
                 </Button>
                 <Button Grid.Row="0" Grid.Column="1" Command="{Binding ChangePageCommand}"
                         CommandParameter="{x:Static enumns:LoggedInPages.Location}"
-                        Margin="2">
+                        Margin="2" ToolTip.Tip="{DynamicResource UpdateLocation}">
                   <PathIcon Data="{StaticResource location_regular}" Classes="maxi white_foreground"/>
                 </Button>
                 <Button Grid.Row="1" Grid.Column="0" Command="{Binding ChangePageCommand}"
                         CommandParameter="{x:Static enumns:LoggedInPages.Store}"
-                        Margin="2">
+                        Margin="2" ToolTip.Tip="{DynamicResource UpdateDisplayName}">
                   <PathIcon Data="{StaticResource text_edit_style_regular}" Classes="maxi white_foreground"/>
                 </Button>
-                <Button Grid.Row="1" Grid.Column="1" Margin="2" Command="{Binding SectionsPaneCommand}">
+                <Button Grid.Row="1" Grid.Column="1" Margin="2" 
+                        Command="{Binding SectionsPaneCommand}"
+                        ToolTip.Tip="{DynamicResource Sections}">
                   <PathIcon Data="{StaticResource apps_list_regular}" Classes="maxi white_foreground"/>
                 </Button>
               </Grid>

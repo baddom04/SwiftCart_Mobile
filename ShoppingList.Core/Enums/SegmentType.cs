@@ -11,6 +11,7 @@ namespace ShoppingList.Core.Enums
         Empty,
         CashRegister,
         Entrance,
-        Wall
+        Wall,
+        Exit
     }
 }

@@ -11,7 +11,7 @@
 
     <Grid Grid.Row="0">
       <Button VerticalAlignment="Center" Classes="mainbg" HorizontalAlignment="Left"
-          Command="{Binding GoBackCommand}">
+          Command="{Binding GoBackCommand}" ToolTip.Tip="{DynamicResource Back}">
         <PathIcon Data="{StaticResource arrow_left_regular}" Classes="maxi"/>
       </Button>
       <TextBlock IsVisible="{Binding !IsUpdating}" Text="{DynamicResource CreateProduct}" Classes="h1" Margin="30"

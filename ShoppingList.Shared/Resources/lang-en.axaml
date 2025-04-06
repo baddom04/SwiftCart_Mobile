@@ -18,4 +18,5 @@
   <x:String x:Key="CashRegister">Cash register</x:String>
   <x:String x:Key="Entrance">Entrance</x:String>
   <x:String x:Key="Wall">Wall</x:String>
+  <x:String x:Key="Exit">Exit</x:String>
 </ResourceDictionary>

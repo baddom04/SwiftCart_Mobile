@@ -20,6 +20,7 @@ namespace ShoppingList.Shared.Converters
                 SegmentType.Fridge => Brushes.LightBlue,
                 SegmentType.Wall => Brushes.DarkGray,
                 SegmentType.Empty => Brushes.White,
+                SegmentType.Exit => Brushes.Red,
                 _ => Brushes.White,
             };
         }

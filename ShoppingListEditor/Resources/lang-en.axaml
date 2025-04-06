@@ -94,6 +94,16 @@
   <x:String x:Key="Price">Price</x:String>
   <x:String x:Key="PriceWatermark">200</x:String>
   <x:String x:Key="Update">Update</x:String>
+  <x:String x:Key="ZoomIn">Zoom in</x:String>
+  <x:String x:Key="ZoomOut">Zoom out</x:String>
+  <x:String x:Key="ChangeSize">Change size</x:String>
+  <x:String x:Key="UpdateLocation">Update location</x:String>
+  <x:String x:Key="UpdateDisplayName">Update name</x:String>
+  <x:String x:Key="Edit">Edit</x:String>
+  <x:String x:Key="Delete">Delete</x:String>
+  <x:String x:Key="Add">Add</x:String>
+  <x:String x:Key="VisibilitySetting">Visibility setting</x:String>
+  <x:String x:Key="Back">Back</x:String>
   <!--^Errors-->
   <x:String x:Key="SegmentUploadError">Segment upload error&#x0a;</x:String>
   <x:String x:Key="SectionChangeError">Section change error&#x0a;</x:String>

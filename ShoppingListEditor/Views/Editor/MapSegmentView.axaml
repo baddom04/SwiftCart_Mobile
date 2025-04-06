@@ -14,7 +14,7 @@
 
     <Grid Grid.Row="0">
       <Button VerticalAlignment="Center" Classes="mainbg" HorizontalAlignment="Left"
-          Command="{Binding CloseDetailPaneCommand}">
+          Command="{Binding CloseDetailPaneCommand}" ToolTip.Tip="{DynamicResource Back}">
         <PathIcon Data="{StaticResource arrow_left_regular}" Classes="maxi"/>
       </Button>
       <TextBlock Grid.Row="0" Text="{DynamicResource EditSegment}" Classes="h1" Margin="30"
@@ -26,7 +26,8 @@
         <TextBlock Grid.Column="0" Text="{DynamicResource SelectedSection}"
                    VerticalAlignment="Center"
                    Classes="h3"/>
-        <Button Grid.Column="2" Command="{Binding ToSectionPageCommand}">
+        <Button Grid.Column="2" Command="{Binding ToSectionPageCommand}" 
+                ToolTip.Tip="{DynamicResource Sections}">
           <PathIcon Data="{StaticResource options_regular}" Classes="maxi white_foreground"/>
         </Button>
       </Grid>
@@ -43,7 +44,8 @@
       <Grid Grid.Row="2" ColumnDefinitions="Auto, *, Auto">
         <TextBlock Grid.Column="0" Text="{DynamicResource Products}"
                    VerticalAlignment="Center" Classes="h3"/>
-        <Button Grid.Column="2" Command="{Binding ToProductPageCommand}">
+        <Button Grid.Column="2" Command="{Binding ToProductPageCommand}"
+                ToolTip.Tip="{DynamicResource Add}">
           <PathIcon Data="{StaticResource add_regular}" Classes="maxi white_foreground"/>
         </Button>
       </Grid>
@@ -76,12 +78,14 @@
                     <Grid Grid.Row="3" Grid.ColumnSpan="3" ColumnDefinitions="*, *"
                                  HorizontalAlignment="Stretch" Margin="0 5">
                       <Button Grid.Column="0" HorizontalAlignment="Center" 
-                              Command="{Binding UpdateCommand}">
+                              Command="{Binding UpdateCommand}"
+                              ToolTip.Tip="{DynamicResource Edit}">
                         <PathIcon Data="{StaticResource edit_regular}"
                                   Classes="white_foreground"/>
                       </Button>
                       <Button Grid.Column="1" HorizontalAlignment="Center"
-                              Command="{Binding DeleteCommand}" Classes="danger">
+                              Command="{Binding DeleteCommand}" Classes="danger"
+                              ToolTip.Tip="{DynamicResource Delete}">
                         <PathIcon Data="{StaticResource delete_regular}"
                                   Classes="white_foreground"/>
                       </Button>

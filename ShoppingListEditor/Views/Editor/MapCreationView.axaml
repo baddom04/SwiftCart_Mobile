@@ -13,7 +13,8 @@
             Margin="10 30 10 50">
         <Grid Grid.Row="0">
           <Button VerticalAlignment="Center" Classes="mainbg" HorizontalAlignment="Left"
-              Command="{Binding GoBackCommand}" IsVisible="{Binding IsUpdating}">
+              Command="{Binding GoBackCommand}" IsVisible="{Binding IsUpdating}"
+                  ToolTip.Tip="{DynamicResource Back}">
             <PathIcon Data="{StaticResource arrow_left_regular}" Classes="maxi"/>
           </Button>
           <TextBlock Grid.Row="0" Text="{DynamicResource MapDimensions}" Classes="h1" Margin="30"
