@@ -57,7 +57,8 @@
   <x:String x:Key="ZipCodeWatermark">1234</x:String>
   <x:String x:Key="Street">Street</x:String>
   <x:String x:Key="StreetWatermark">Szent János utca 48.</x:String>
-  <x:String x:Key="Details">Details (optional)</x:String>
+  <x:String x:Key="Details">Details</x:String>
+  <x:String x:Key="DetailsOpt">Details (optional)</x:String>
   <x:String x:Key="DetailsWatermark">2. emelet 1. ajtó</x:String>
   <x:String x:Key="Set">Set</x:String>
   <!--^Errors-->

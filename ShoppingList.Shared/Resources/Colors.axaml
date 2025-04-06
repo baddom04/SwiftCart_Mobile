@@ -10,6 +10,7 @@
   <SolidColorBrush x:Key="MainBtnBGEnd" Color="#0056b3"/>
   <SolidColorBrush x:Key="RedButtonBGStart" Color="#FF4C4C"/>
   <SolidColorBrush x:Key="RedButtonBGEnd" Color="#B30000"/>
+  <SolidColorBrush x:Key="RedButtonBGEndEnd" Color="#990000"/>
   <SolidColorBrush x:Key="ErrorPrimaryRed" Color="#a80d0d"/>
   <SolidColorBrush x:Key="ErrorSecondaryRed" Color="#ff6969"/>
   <SolidColorBrush x:Key="WarningYellow" Color="#f5b914"/>
@@ -17,4 +18,5 @@
   <SolidColorBrush x:Key="Gold" Color="#f2cc00"/>
   <SolidColorBrush x:Key="Item" Color="#c9aa00"/>
   <SolidColorBrush x:Key="Green" Color="#32a852"/>
+  <SolidColorBrush x:Key="GreenEnd" Color="#288a42"/>
 </ResourceDictionary>

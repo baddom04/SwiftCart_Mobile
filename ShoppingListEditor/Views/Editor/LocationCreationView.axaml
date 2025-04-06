@@ -35,7 +35,7 @@
           <TextBlock Text="{DynamicResource Street}"/>
           <TextBox Watermark="{DynamicResource StreetWatermark}" Text="{Binding StreetInput}"
                    TextWrapping="Wrap"/>
-          <TextBlock Text="{DynamicResource Details}"/>
+          <TextBlock Text="{DynamicResource DetailsOpt}"/>
           <TextBox Watermark="{DynamicResource DetailsWatermark}" Text="{Binding DetailsInput}"
                    TextWrapping="Wrap"/>
         </StackPanel>

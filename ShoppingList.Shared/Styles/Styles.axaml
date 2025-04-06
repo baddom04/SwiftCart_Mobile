@@ -280,16 +280,24 @@
       <Setter Property="Background" Value="{DynamicResource RedButtonBGEnd}"/>
     </Style>
 
-    <Style Selector="^.danger:pointerover">
-      <Setter Property="Background" Value="{DynamicResource RedButtonBGEnd}"/>
+    <Style Selector="^.danger:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="{DynamicResource RedButtonBGEndEnd}"/>
     </Style>
 
-    <Style Selector="^.danger:pressed">
-      <Setter Property="Background" Value="{DynamicResource RedButtonBGEnd}"/>
+    <Style Selector="^.danger:pressed /template/ ContentPresenter">
+      <Setter Property="Background" Value="{DynamicResource RedButtonBGEndEnd}"/>
     </Style>
 
     <Style Selector="^.success">
       <Setter Property="Background" Value="{DynamicResource Green}"/>
+    </Style>
+
+    <Style Selector="^.success:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="{DynamicResource GreenEnd}"/>
+    </Style>
+
+    <Style Selector="^.success:pressed /template/ ContentPresenter">
+      <Setter Property="Background" Value="{DynamicResource GreenEnd}"/>
     </Style>
 
     <Style Selector="^.Shelf:pointerover /template/ ContentPresenter">
