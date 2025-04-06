@@ -272,6 +272,10 @@
       <Setter Property="Background" Value="Transparent"/>
     </Style>
 
+    <Style Selector="^.customButton:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="Transparent"/>
+    </Style>
+
     <Style Selector="^.danger">
       <Setter Property="Background" Value="{DynamicResource RedButtonBGEnd}"/>
     </Style>
