@@ -73,12 +73,6 @@ namespace ShoppingList.Shared.ViewModels.Login
                 ErrorMessage = StringProvider.GetString("EmailMissingError");
                 return false;
             }
-
-            if (trimmedEmail.EndsWith('.'))
-            {
-                ErrorMessage = StringProvider.GetString("EmailFormatError");
-                return false;
-            }
             try
             {
                 var addr = new System.Net.Mail.MailAddress(EmailInput);

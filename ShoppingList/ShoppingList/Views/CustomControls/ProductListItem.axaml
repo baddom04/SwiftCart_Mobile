@@ -5,7 +5,11 @@
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="ShoppingList.Views.CustomControls.ProductListItem"
              xmlns:local="clr-namespace:ShoppingList.Views.CustomControls"
-             x:Name="Root">
+             x:Name="Root"
+             xmlns:shared_converters ="clr-namespace:ShoppingList.Shared.Converters;assembly=ShoppingList.Shared">
+  <UserControl.Resources>
+    <shared_converters:AppendFtConverter x:Key="AppendFtConverter"/>
+  </UserControl.Resources>
   <Border Classes="shopping_list_item" Margin="20 5" Padding="8"
           Classes.shopping_list_item_selected="{Binding IsSelected, RelativeSource={RelativeSource AncestorType={x:Type local:ProductListItem}}}">
     <Grid RowDefinitions="Auto, Auto, Auto" ColumnDefinitions="Auto, *, Auto">
@@ -17,8 +21,11 @@
       <TextBlock Grid.Column="1" Grid.Row="1" TextWrapping="Wrap"
                  Text="{Binding Brand, RelativeSource={RelativeSource AncestorType={x:Type local:ProductListItem}}}"
                  Classes="mini" />
-      <Grid Grid.Column="2" Grid.RowSpan="2">
-        <Button Classes="trans_bg" Command="{Binding OpenCommand, RelativeSource={RelativeSource AncestorType={x:Type local:ProductListItem}}}"
+      <Grid Grid.Column="2" Grid.RowSpan="2" ColumnDefinitions="Auto, Auto">
+        <TextBlock Grid.Column="0" TextWrapping="Wrap" Margin="5 0"
+                                 Text="{Binding Price, RelativeSource={RelativeSource AncestorType={x:Type local:ProductListItem}}, Converter={StaticResource AppendFtConverter}}"
+                                 Classes="mini" VerticalAlignment="Center"/>
+        <Button Grid.Column="1" Classes="trans_bg" Command="{Binding OpenCommand, RelativeSource={RelativeSource AncestorType={x:Type local:ProductListItem}}}"
                 Classes.halfAnimatedIn="{Binding IsOpen, RelativeSource={RelativeSource AncestorType={x:Type local:ProductListItem}}}"
                 Classes.halfAnimatedOut="{Binding !IsOpen, RelativeSource={RelativeSource AncestorType={x:Type local:ProductListItem}}}">
           <PathIcon Data="{StaticResource chevron_right_regular}"

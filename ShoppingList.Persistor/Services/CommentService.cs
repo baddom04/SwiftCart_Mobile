@@ -20,9 +20,9 @@ namespace ShoppingList.Persistor.Services
 
             await ValidateResponse(response, cancellationToken);
 
-            CommentsResponse? comments = await response.Content.ReadFromJsonAsync<CommentsResponse>(cancellationToken);
+            IEnumerable<Comment>? comments = await response.Content.ReadFromJsonAsync<IEnumerable<Comment>>(cancellationToken);
 
-            return comments?.QueryResult ?? throw new NullReferenceException(nameof(comments));
+            return comments ?? throw new NullReferenceException(nameof(comments));
         }
 
         public async Task PostCommentAsync(int household_id, int grocery_id, string content, CancellationToken cancellationToken = default)

@@ -18,10 +18,10 @@
       <PathIcon Grid.Column="0" Grid.RowSpan="2"
                 Data="{Binding, Converter={StaticResource RandomHouseIconConverter}, RelativeSource={RelativeSource AncestorType={x:Type local:HouseholdListItemView}}}"
                 Classes="maxi white_foreground" Margin="0 0 8 0"/>
-      <TextBlock Grid.Column="1" Grid.Row="0"
+      <TextBlock Grid.Column="1" Grid.Row="0" TextWrapping="Wrap"
                  Text="{Binding HouseholdName, RelativeSource={RelativeSource AncestorType={x:Type local:HouseholdListItemView}}}"
                  Classes="inverted_colors"/>
-      <TextBlock Grid.Column="1" Grid.Row="1"
+      <TextBlock Grid.Column="1" Grid.Row="1" TextWrapping="Wrap"
                  Text="{Binding Identifier, Converter={StaticResource AppendAtConverter}, RelativeSource={RelativeSource AncestorType={x:Type local:HouseholdListItemView}}}"
                  Classes="mini inverted_colors" />
       <Grid Grid.Column="2" Grid.RowSpan="2">

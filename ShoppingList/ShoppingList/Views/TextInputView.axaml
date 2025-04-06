@@ -16,7 +16,8 @@
         <TextBlock Grid.Row="0" x:Name="Instruction"
                    HorizontalAlignment="Left" VerticalAlignment="Top"
                    TextWrapping="Wrap" TextAlignment="Center" Margin="10"/>
-        <TextBox Grid.Row="1" x:Name="Input" Watermark="Aa" TextChanged="OnTextChanged" Margin="10"/>
+        <TextBox Grid.Row="1" x:Name="Input" Watermark="Aa" TextChanged="OnTextChanged" Margin="10"
+                 TextWrapping="Wrap" MaxLength="255"/>
         <StackPanel Grid.Row="2" Orientation="Horizontal" Spacing="10">
           <Button x:Name="SendInputBtn" Content="{DynamicResource Ok}" Margin="5" Width="100" 
                   Click="SendInput_Click" HorizontalAlignment="Right" IsDefault="True"/>

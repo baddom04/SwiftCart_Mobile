@@ -15,9 +15,11 @@
     
     <StackPanel Grid.Row="2" Margin="30 10" Spacing="10">
       <TextBlock Text="{DynamicResource Username}" />
-      <TextBox Watermark="{DynamicResource UsernameWatermark}" Text="{Binding UsernameInput}"/>
+      <TextBox Watermark="{DynamicResource UsernameWatermark}" Text="{Binding UsernameInput}" 
+               MaxLength="20"/>
       <TextBlock Text="{DynamicResource Email}" Margin="0 10 0 0"/>
-      <TextBox Watermark="{DynamicResource EmailWatermark}" Margin="0 0 0 10" Text="{Binding EmailInput}"/>
+      <TextBox Watermark="{DynamicResource EmailWatermark}" Margin="0 0 0 10" Text="{Binding EmailInput}"
+               MaxLength="50"/>
       <TextBlock Text="{DynamicResource Password}"/>
       <controls:PasswordBox Password="{Binding PasswordInput, Mode=TwoWay}"/>
     </StackPanel>

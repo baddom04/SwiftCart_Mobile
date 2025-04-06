@@ -10,14 +10,14 @@
              x:Class="ShoppingList.Views.Map.StoreSettingsView">
   <Grid RowDefinitions="Auto, *">
 
-    <Grid Grid.Row="0" Margin="20 30">
-      <Button VerticalAlignment="Center" Classes="trans_bg" HorizontalAlignment="Left"
+    <Grid Grid.Row="0" Margin="20 30" ColumnDefinitions="Auto, *, Auto">
+      <Button Grid.Column="0" VerticalAlignment="Center" Classes="trans_bg" HorizontalAlignment="Left"
               Command="{Binding GoBackCommand}">
         <PathIcon Data="{StaticResource arrow_left_regular}" Classes="maxi"/>
       </Button>
-      <TextBlock Classes="h1" Text="{DynamicResource AvailableProducts}" HorizontalAlignment="Center"
+      <TextBlock Grid.Column="1" Classes="h1" Text="{DynamicResource AvailableProducts}" HorizontalAlignment="Center"
                  VerticalAlignment="Center" TextWrapping="Wrap"/>
-      <Button VerticalAlignment="Center" HorizontalAlignment="Right"
+      <Button Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Right"
               Command="{Binding ClearCommand}">
         <PathIcon Data="{StaticResource erase_regular}" Classes="maxi white_foreground"/>
       </Button>
@@ -41,6 +41,7 @@
                 <DataTemplate>
                   <controls:ProductListItem ProductName="{Binding Product.Name}"
                                             Brand="{Binding Product.Brand}"
+                                            Price="{Binding Product.Price}"
                                             IsSelected="{Binding IsSelected, Mode=TwoWay}"
                                             OpenCommand="{Binding OpenCommand}"
                                             IsOpen="{Binding IsOpen}"
@@ -77,6 +78,7 @@
                         <ItemsControl.ItemTemplate>
                           <DataTemplate>
                             <controls:ProductListItem ProductName="{Binding Product.Name}"
+                                                      Price="{Binding Product.Price}"
                                             Brand="{Binding Product.Brand}"
                                             IsSelected="{Binding IsSelected, Mode=TwoWay}"
                                             OpenCommand="{Binding OpenCommand}"

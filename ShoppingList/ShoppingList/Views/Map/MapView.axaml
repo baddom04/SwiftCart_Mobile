@@ -47,6 +47,7 @@
                 <ItemsControl.ItemTemplate>
                   <DataTemplate>
                     <controls:ProductListItem ProductName="{Binding Product.Name}"
+                                              Price="{Binding Product.Price}"
                                               Brand="{Binding Product.Brand}"
                                               IsSelected="{Binding IsSelected, Mode=TwoWay}"
                                               CanChangeSelection="False"

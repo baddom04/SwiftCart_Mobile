@@ -6,9 +6,9 @@
              xmlns:vm="clr-namespace:ShoppingListEditor.ViewModels.Editor"
              x:DataType="vm:MapSegmentViewModel"
              x:Class="ShoppingListEditor.Views.Editor.MapSegmentView"
-             xmlns:converters ="clr-namespace:ShoppingListEditor.Converters">
+             xmlns:shared_converters ="clr-namespace:ShoppingList.Shared.Converters;assembly=ShoppingList.Shared">
   <UserControl.Resources>
-    <converters:AppendFtConverter x:Key="AppendFtConverter"/>
+    <shared_converters:AppendFtConverter x:Key="AppendFtConverter"/>
   </UserControl.Resources>
   <Grid RowDefinitions="Auto, *">
 
@@ -61,7 +61,8 @@
                                Text="{Binding Brand}" Classes="mini" />
                     <Grid Grid.Column="2" Grid.RowSpan="2" ColumnDefinitions="Auto, Auto">
                       <TextBlock Grid.Column="0" TextWrapping="Wrap" Margin="5 0"
-                               Text="{Binding Price, Converter={StaticResource AppendFtConverter}}" Classes="mini" VerticalAlignment="Center"/>
+                                 Text="{Binding Price, Converter={StaticResource AppendFtConverter}}" 
+                                 Classes="mini" VerticalAlignment="Center"/>
                       <Button Grid.Column="1" Classes="mainbg" Command="{Binding OpenCommand}"
                               Classes.halfAnimatedIn="{Binding IsOpen}"
                               Classes.halfAnimatedOut="{Binding !IsOpen}">

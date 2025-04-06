@@ -14,7 +14,7 @@
     
     <StackPanel Grid.Row="2" Margin="30 10" Spacing="10">
       <TextBlock Text="{DynamicResource Email}" />
-      <TextBox Watermark="{DynamicResource EmailWatermark}" Text="{Binding EmailInput}"/>
+      <TextBox Watermark="{DynamicResource EmailWatermark}" Text="{Binding EmailInput}" MaxLength="50"/>
       <TextBlock Text="{DynamicResource Password}" Margin="0 10 0 0"/>
       <controls:PasswordBox Password="{Binding PasswordInput, Mode=TwoWay}" />
     </StackPanel>

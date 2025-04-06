@@ -27,6 +27,14 @@ public partial class ProductListItem : UserControl
         set => SetValue(BrandProperty, value);
     }
 
+    public static readonly StyledProperty<uint> PriceProperty =
+        AvaloniaProperty.Register<ProductListItem, uint>(nameof(Price));
+    public uint Price
+    {
+        get => GetValue(PriceProperty);
+        set => SetValue(PriceProperty, value);
+    }
+
     public static readonly StyledProperty<bool> IsOpenProperty =
         AvaloniaProperty.Register<UserListItemView, bool>(nameof(IsOpen));
     public bool IsOpen

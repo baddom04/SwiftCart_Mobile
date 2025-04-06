@@ -34,7 +34,7 @@ namespace ShoppingList.ViewModels.Map
             _changeToPage = changeToPage;
             _changePage = changePage;
             Name = _model.StoreWithoutMap.Name;
-            Location = _model.StoreWithoutMap.Location;
+            Location = _model.StoreWithoutMap.Location!;
             LoadStoreCommand = ReactiveCommand.CreateFromTask(LoadStoreAsync);
         }
         public async Task LoadStoreAsync()

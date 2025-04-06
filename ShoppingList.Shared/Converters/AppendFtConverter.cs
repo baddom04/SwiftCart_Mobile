@@ -2,9 +2,9 @@
 using System;
 using System.Globalization;
 
-namespace ShoppingListEditor.Converters
+namespace ShoppingList.Shared.Converters
 {
-    internal class AppendFtConverter : IValueConverter
+    public class AppendFtConverter : IValueConverter
     {
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
