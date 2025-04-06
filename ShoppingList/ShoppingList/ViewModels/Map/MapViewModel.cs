@@ -4,6 +4,7 @@ using ShoppingList.Core;
 using ShoppingList.Core.Enums;
 using ShoppingList.Model.Map;
 using ShoppingList.Shared;
+using ShoppingList.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -25,6 +26,14 @@ namespace ShoppingList.ViewModels.Map
         public ReactiveCommand<Unit, Unit> StoreSettingsPageCommand { get; }
         public ReactiveCommand<Unit, Unit> UnSelectSegmentCommand { get; }
         public string Name { get; }
+
+        private string? _sectionName;
+        public string? SectionName
+        {
+            get { return _sectionName; }
+            private set { this.RaiseAndSetIfChanged(ref _sectionName, value); }
+        }
+
         public IEnumerable<MapSegment> MapSegments { get; }
         public ObservableCollection<SegmentType> SegmentTypes { get; } = [];
 
@@ -64,6 +73,7 @@ namespace ShoppingList.ViewModels.Map
             IsPaneOpen = false;
             SelectedProductsOnSegment.Clear();
             SelectedMapSegment = null;
+            SectionName = null;
         }
 
         private void OnMapSegmentSelected(MapSegment? segment)
@@ -74,7 +84,12 @@ namespace ShoppingList.ViewModels.Map
                 .AddRange(_settings.AllProducts
                     .Where(pvm => pvm.Product.MapSegmentId == segment.Id)
                     .OrderByDescending(pvm => pvm.IsSelected));
-            IsPaneOpen = true;
+
+            SectionName = _model.Store.Map!.Sections.FirstOrDefault(s => s.Id == segment.SectionId)?.Name
+                ?? StringProvider.GetString("None");
+
+            if(SelectedProductsOnSegment.Count != 0)
+                IsPaneOpen = true;
         }
     }
 }

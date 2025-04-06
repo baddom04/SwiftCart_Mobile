@@ -34,29 +34,37 @@
       <SplitView.Pane>
         <Border Classes="mainbg_floater" Margin="10">
           <Grid RowDefinitions="Auto, *">
-            <Grid Grid.Row="0" Margin="20 30" ColumnDefinitions="Auto, *">
-              <Button Grid.Column="0" VerticalAlignment="Center" Classes="trans_bg" HorizontalAlignment="Left"
+            <Grid Grid.Row="0" Margin="20 30" >
+              <Button VerticalAlignment="Center" Classes="trans_bg" HorizontalAlignment="Left"
                       Command="{Binding UnSelectSegmentCommand}">
                 <PathIcon Data="{StaticResource arrow_left_regular}" Classes="maxi"/>
               </Button>
-              <TextBlock Grid.Column="1" Classes="h2" Text="{DynamicResource AvailableProducts}"
-                         TextWrapping="Wrap" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+              <TextBlock Classes="h2" Text="{DynamicResource Details}" TextWrapping="Wrap"
+                         HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Grid>
             <ScrollViewer Grid.Row="1">
-              <ItemsControl ItemsSource="{Binding SelectedProductsOnSegment}">
-                <ItemsControl.ItemTemplate>
-                  <DataTemplate>
-                    <controls:ProductListItem ProductName="{Binding Product.Name}"
-                                              Price="{Binding Product.Price}"
-                                              Brand="{Binding Product.Brand}"
-                                              IsSelected="{Binding IsSelected, Mode=TwoWay}"
-                                              CanChangeSelection="False"
-                                              OpenCommand="{Binding OpenCommand}"
-                                              IsOpen="{Binding IsOpen}"
-                                              Description="{Binding Product.Description}"/>
-                  </DataTemplate>
-                </ItemsControl.ItemTemplate>
-              </ItemsControl>
+              <Grid RowDefinitions="Auto, *">
+                <Border Grid.Row="0" Padding="10" Classes="setting" Margin="20 10">
+                  <Grid ColumnDefinitions="Auto, *, Auto">
+                    <TextBlock Grid.Column="0" Text="{DynamicResource Section}" Classes="inverted_colors"/>
+                    <TextBlock Grid.Column="2" Text="{Binding SectionName}" Classes="inverted_colors"/>
+                  </Grid>
+                </Border>
+                <ItemsControl Grid.Row="1" ItemsSource="{Binding SelectedProductsOnSegment}">
+                  <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                      <controls:ProductListItem ProductName="{Binding Product.Name}"
+                                                Price="{Binding Product.Price}"
+                                                Brand="{Binding Product.Brand}"
+                                                IsSelected="{Binding IsSelected, Mode=TwoWay}"
+                                                CanChangeSelection="False"
+                                                OpenCommand="{Binding OpenCommand}"
+                                                IsOpen="{Binding IsOpen}"
+                                                Description="{Binding Product.Description}"/>
+                    </DataTemplate>
+                  </ItemsControl.ItemTemplate>
+                </ItemsControl>
+              </Grid>
             </ScrollViewer>
           </Grid>
         </Border>
@@ -70,8 +78,8 @@
                           VerticalScrollBarVisibility="Hidden"
                           HorizontalScrollBarVisibility="Hidden">
               <Canvas x:Name="MapCanvas" RenderTransformOrigin="0 0" HorizontalAlignment="Stretch"
-                      VerticalAlignment="Stretch" 
-                      PointerPressed="Canvas_PointerPressed" 
+                      VerticalAlignment="Stretch"
+                      PointerPressed="Canvas_PointerPressed"
                       PointerMoved="Canvas_PointerMoved"
                       PointerReleased="Canvas_PointerReleased">
                 <Canvas.RenderTransform>
