@@ -54,7 +54,7 @@ namespace ShoppingListEditor.ViewModels.Editor.Pane
 
             IsUpdating = true;
             NameInput = product.Name;
-            DescriptionInput = product.Description;
+            DescriptionInput = product.Description ?? string.Empty;
             BrandInput = product.Brand;
             PriceInput = product.Price.ToString();
             _productId = product.Id;
@@ -71,7 +71,7 @@ namespace ShoppingListEditor.ViewModels.Editor.Pane
             _showLoading(true);
             try
             {
-                await _model.CreateProductAsync(_segment, NameInput.Trim(), DescriptionInput.Trim(), BrandInput.Trim(), PriceInput.Trim());
+                await _model.CreateProductAsync(_segment, NameInput.Trim(), string.IsNullOrWhiteSpace(DescriptionInput.Trim()) ? null : DescriptionInput.Trim(), BrandInput.Trim(), PriceInput.Trim());
                 GoBack!();
             }
             catch (Exception ex)
@@ -88,7 +88,7 @@ namespace ShoppingListEditor.ViewModels.Editor.Pane
             _showLoading(true);
             try
             {
-                await _model.UpdateProductAsync(_segment, _productId.Value, NameInput.Trim(), DescriptionInput.Trim(), BrandInput.Trim(), PriceInput.Trim());
+                await _model.UpdateProductAsync(_segment, _productId.Value, NameInput.Trim(), string.IsNullOrWhiteSpace(DescriptionInput.Trim()) ? null : DescriptionInput.Trim(), BrandInput.Trim(), PriceInput.Trim());
                 GoBack!();
             }
             catch (Exception ex)
@@ -103,7 +103,6 @@ namespace ShoppingListEditor.ViewModels.Editor.Pane
         {
             if(!ValidateEmpty(NameInput, nameof(NameInput).Replace("Input", "")) ||
                !ValidateEmpty(BrandInput, nameof(BrandInput).Replace("Input", "")) ||
-               !ValidateEmpty(DescriptionInput, nameof(DescriptionInput).Replace("Input", "")) ||
                !ValidateEmpty(PriceInput, nameof(PriceInput).Replace("Input", "")))
             {
                 return false;

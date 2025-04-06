@@ -7,7 +7,7 @@ namespace ShoppingList.Core
         public int Id { get; init; }
         public required string Name { get; init; }
         public required string Brand { get; init; }
-        public required string Description { get; init; }
+        public string? Description { get; init; }
         public required uint Price { get; init; }
 
         [JsonPropertyName("map_segment_id")]

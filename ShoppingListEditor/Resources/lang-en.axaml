@@ -86,7 +86,7 @@
   <x:String x:Key="UpdateProduct">Update product</x:String>
   <x:String x:Key="Name">Name</x:String>
   <x:String x:Key="NameWatermark">Apple</x:String>
-  <x:String x:Key="Description">Description</x:String>
+  <x:String x:Key="Description">Description (optional)</x:String>
   <x:String x:Key="DescriptionWatermark">This is an example description for an apple.</x:String>
   <x:String x:Key="Brand">Brand</x:String>
   <x:String x:Key="BrandWatermark">Microsoft</x:String>

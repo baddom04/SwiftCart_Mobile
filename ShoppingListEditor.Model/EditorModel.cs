@@ -245,7 +245,7 @@ namespace ShoppingListEditor.Model
 
             segment.Products.Remove(product);
         }
-        public async Task CreateProductAsync(MapSegmentEditable segment, string nameInput, string descriptionInput, string brandInput, string priceInput)
+        public async Task CreateProductAsync(MapSegmentEditable segment, string nameInput, string? descriptionInput, string brandInput, string priceInput)
         {
             if (Store is null || Store.Id == default)
                 throw new InvalidOperationException("The store to add the location to does not exist");
@@ -258,7 +258,7 @@ namespace ShoppingListEditor.Model
 
             segment.Products.Add(ProductEditable.FromProduct(product));
         }
-        public async Task UpdateProductAsync(MapSegmentEditable segment, int productId, string nameInput, string descriptionInput, string brandInput, string priceInput)
+        public async Task UpdateProductAsync(MapSegmentEditable segment, int productId, string nameInput, string? descriptionInput, string brandInput, string priceInput)
         {
             if (Store is null || Store.Id == default)
                 throw new InvalidOperationException("The store to add the location to does not exist");

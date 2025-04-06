@@ -7,7 +7,7 @@ namespace ShoppingListEditor.Model.Editables
         public int Id { get; set; }
         public required string Name { get; set; }
         public required string Brand { get; set; }
-        public required string Description { get; set; }
+        public string? Description { get; set; }
         public required uint Price { get; set; }
         public int MapSegmentId { get; set; }
         public static ProductEditable FromProduct(Product product)
