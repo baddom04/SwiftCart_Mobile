@@ -110,11 +110,11 @@
     <Style Selector="^.mainbg /template/ ContentPresenter">
       <Setter Property="Background" Value="{StaticResource MainBG}"/>
     </Style>
-    
+
     <Style Selector="^.mainbg:pressed /template/ ContentPresenter">
       <Setter Property="Background" Value="{StaticResource SecBG}"/>
     </Style>
-    
+
     <Style Selector="^.mainbg:pointerover /template/ ContentPresenter">
       <Setter Property="Background" Value="{StaticResource SecBG}"/>
     </Style>
@@ -342,7 +342,7 @@
       <Setter Property="BorderBrush" Value="{DynamicResource MainBtnBG}"/>
       <Setter Property="BorderThickness" Value="2"/>
     </Style>
-    
+
     <Style Selector="^.shopping_list_item_owner">
       <Setter Property="CornerRadius" Value="10"/>
       <Setter Property="BoxShadow" Value="1 1 5 0 Gray"/>
@@ -423,6 +423,17 @@
     <Setter Property="CornerRadius" Value="10"/>
     <Setter Property="BorderBrush" Value="{StaticResource MainBtnBG}"/>
     <Setter Property="BorderThickness" Value="2"/>
+  </Style>
+
+  <Style Selector="AutoCompleteBox">
+    <Setter Property="FontSize" Value="19"/>
+    <Setter Property="CornerRadius" Value="10"/>
+    <Setter Property="BorderBrush" Value="{StaticResource MainBtnBG}"/>
+    <Setter Property="BorderThickness" Value="2"/>
+    <Style Selector="^:disabled /template/ ContentPresenter">
+      <Setter Property="Background" Value="{StaticResource MainBtnBG}"/>
+      <Setter Property="Opacity" Value="0.5"/>
+    </Style>
   </Style>
 
   <Style Selector="ComboBox">

@@ -50,9 +50,18 @@ namespace ShoppingList.Persistor.Services
             return store ?? throw new NullReferenceException();
         }
 
-        public async Task<PaginatedResponse<Store>> GetStoresAsync(string search, int page, CancellationToken cancellationToken = default)
+        public async Task<PaginatedResponse<Store>> GetStoresAsync(string search, int page, LocationFilter locationFilter, CancellationToken cancellationToken = default)
         {
-            HttpResponseMessage response = await _httpClient.GetAsync($"stores/search?search={Uri.EscapeDataString(search)}&per_page={NetworkSettings.StoresPerPage}&page={page}", cancellationToken);
+            HttpResponseMessage response = await _httpClient.GetAsync(
+                $"stores/search?" +
+                $"search={Uri.EscapeDataString(search)}" +
+                $"&per_page={NetworkSettings.StoresPerPage}" +
+                $"&page={page}" + 
+                $"&country={Uri.EscapeDataString(locationFilter.Country ?? string.Empty)}" +
+                $"&city={Uri.EscapeDataString(locationFilter.City ?? string.Empty)}" +
+                $"&street={Uri.EscapeDataString(locationFilter.Street ?? string.Empty)}" +
+                $"&detail={Uri.EscapeDataString(locationFilter.Detail ?? string.Empty)}", 
+                cancellationToken);
 
             await ValidateResponse(response, cancellationToken);
 

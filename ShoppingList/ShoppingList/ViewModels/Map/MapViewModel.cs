@@ -45,11 +45,11 @@ namespace ShoppingList.ViewModels.Map
         }
         public ObservableCollection<ProductViewModel> SelectedProductsOnSegment { get; } = [];
 
-        private readonly Action<MapPages> _changePage;
+        private readonly Action<MapPage> _changePage;
         private readonly Action<ViewModelBase> _changeToPage;
         private readonly MapModel _model;
         private readonly StoreSettingsViewModel _settings;
-        public MapViewModel(MapModel model, Action<bool> showLoading, Action<ViewModelBase> changeToPage, Action<MapPages> changePage)
+        public MapViewModel(MapModel model, Action<bool> showLoading, Action<ViewModelBase> changeToPage, Action<MapPage> changePage)
         {
             _model = model;
             _changeToPage = changeToPage;
@@ -61,7 +61,7 @@ namespace ShoppingList.ViewModels.Map
             SegmentTypes = [.. MapSegments.Select(segment => segment.Type).Distinct()];
             SegmentTypes.Remove(SegmentType.Empty);
 
-            GoBackCommand = ReactiveCommand.Create(() => _changePage(MapPages.StoreList));
+            GoBackCommand = ReactiveCommand.Create(() => _changePage(MapPage.StoreList));
             UnSelectSegmentCommand = ReactiveCommand.Create(UnSelectSegment);
             StoreSettingsPageCommand = ReactiveCommand.Create(() => _changeToPage(_settings));
 

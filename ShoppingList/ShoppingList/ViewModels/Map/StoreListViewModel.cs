@@ -1,5 +1,6 @@
 ﻿using DynamicData;
 using ReactiveUI;
+using ShoppingList.Core;
 using ShoppingList.Model.Map;
 using ShoppingList.Shared;
 using ShoppingList.Shared.Utils;
@@ -20,6 +21,7 @@ namespace ShoppingList.ViewModels.Map
         public ReactiveCommand<Unit, Unit> SearchCommand { get; }
         public ReactiveCommand<Unit, Unit> TurnPageForwardCommand { get; }
         public ReactiveCommand<Unit, Unit> TurnPageBackwardCommand { get; }
+        public ReactiveCommand<Unit, Unit> LocationFilterPageCommand { get; }
 
         private bool _isLoading;
         public bool IsLoading
@@ -44,10 +46,12 @@ namespace ShoppingList.ViewModels.Map
 
         private readonly Action<NotificationType, string> _showNotification;
         private readonly Action<ViewModelBase> _changeToPage;
-        private readonly Action<MapPages> _changePage;
+        private readonly Action<MapPage> _changePage;
         private readonly StoreListModel _model;
         private readonly Action<bool> _showLoading;
-        public StoreListViewModel(StoreListModel model, Action<bool> showLoading, Action<NotificationType, string> showNotification, Action<ViewModelBase> changeToPage, Action<MapPages> changePage)
+        public Action<LocationFilter> SetLocationFilter { get; }
+        public LocationFilter LocationFilter { get; private set; }
+        public StoreListViewModel(StoreListModel model, Action<bool> showLoading, Action<NotificationType, string> showNotification, Action<ViewModelBase> changeToPage, Action<MapPage> changePage)
         {
             _model = model;
             _showLoading = showLoading;
@@ -55,6 +59,7 @@ namespace ShoppingList.ViewModels.Map
             _changeToPage = changeToPage;
             _changePage = changePage;
             SearchCommand = ReactiveCommand.CreateFromTask(() => SearchAsync());
+            LocationFilterPageCommand = ReactiveCommand.Create(() => changePage(MapPage.LocationFilter));
 
             TurnPageForwardCommand = ReactiveCommand.CreateFromTask(() => SearchAsync(Page + 1),
             this.WhenAnyValue(x => x.Page, x => x.MaxPage, (page, maxPage) => page != maxPage));
@@ -63,6 +68,9 @@ namespace ShoppingList.ViewModels.Map
                 this.WhenAnyValue(x => x.Page, page => page != 1));
 
             Stores.CollectionChanged += (s, e) => this.RaisePropertyChanged(nameof(EmptyStores));
+
+            LocationFilter = new LocationFilter();
+            SetLocationFilter = (lf) => LocationFilter = lf;
         }
 
         public async Task SearchAsync(int page = 1)
@@ -73,7 +81,7 @@ namespace ShoppingList.ViewModels.Map
             try
             {
                 Stores.Clear();
-                Stores.AddRange((await _model.GetStoresAsync(SearchInput.Trim(), Page))
+                Stores.AddRange((await _model.GetStoresAsync(SearchInput.Trim(), Page, LocationFilter))
                     .Select(store => new StoreListItemViewModel(new StoreListItemModel(store), _showLoading, _showNotification, _changeToPage, _changePage)));
 
                 MaxPage = _model.MaxPages;

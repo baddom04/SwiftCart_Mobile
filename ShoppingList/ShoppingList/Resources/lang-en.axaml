@@ -157,6 +157,15 @@
   <x:String x:Key="SearchStoresError">Search stores error&#x0a;</x:String>
   <x:String x:Key="StoreQueryError">Store query error&#x0a;</x:String>
   
+  <!--LocationFilterPage-->
+  <x:String x:Key="LocationFilter">Location filter</x:String>
+  <x:String x:Key="Country">Country</x:String>
+  <x:String x:Key="City">City</x:String>
+  <x:String x:Key="Street">Street</x:String>
+  <x:String x:Key="Set">Set</x:String>
+  <!--^Errors-->
+  <x:String x:Key="LocationsSearchError">Location search error&#x0a;</x:String>
+  
   <!--Error Messages-->
   <x:String x:Key="EmailFormatError">The given email address is not valid.</x:String>
   <x:String x:Key="EmailMissingError">Please enter your email address.</x:String>

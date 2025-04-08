@@ -24,7 +24,7 @@ namespace ShoppingList.Core
 
         public override string ToString()
         {
-            return $"{Country},{ZipCode} {City}, {Street}, {Detail}";
+            return $"{Country}, {ZipCode}, {City}, {Street}, {Detail}";
         }
     }
 }

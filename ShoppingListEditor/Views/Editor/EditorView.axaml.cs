@@ -4,17 +4,13 @@ using Avalonia.Data;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Media;
-using ReactiveUI;
 using ShoppingList.Core.Enums;
 using ShoppingList.Shared.Converters;
 using ShoppingListEditor.Converters;
-using ShoppingListEditor.Model.Editables;
-using ShoppingListEditor.Utils;
 using ShoppingListEditor.ViewModels.Editor;
 using ShoppingListEditor.Views.Editor.Utils;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 
 namespace ShoppingListEditor.Views.Editor;

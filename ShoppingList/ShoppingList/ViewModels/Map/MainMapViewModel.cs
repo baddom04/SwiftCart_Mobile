@@ -1,37 +1,39 @@
 ﻿using ShoppingList.Model.Map;
-using ShoppingList.Utils;
-using ShoppingList.Shared.ViewModels;
-using System;
 using ShoppingList.Shared;
 using ShoppingList.Shared.Utils;
+using ShoppingList.Shared.ViewModels;
+using System;
 
 namespace ShoppingList.ViewModels.Map
 {
-    internal class MainMapViewModel : MainViewModelBase<MapPages>
+    internal class MainMapViewModel : MainViewModelBase<MapPage>
     {
         public override void ChangeToDefaultPage()
         {
-            ChangePage(MapPages.StoreList);
+            ChangePage(MapPage.StoreList);
         }
 
         public MainMapViewModel(Action<bool> showLoading, Action<NotificationType, string> showNotification)
         {
+            var storeListViewModel = new StoreListViewModel(new StoreListModel(), showLoading, showNotification, ChangeToPage, ChangePage);
             _pages = new()
             {
-                { MapPages.StoreList, new StoreListViewModel(new StoreListModel(), showLoading, showNotification, ChangeToPage, ChangePage) },
+                { MapPage.StoreList, storeListViewModel },
+                { MapPage.LocationFilter, new LocationFilterPageViewModel(new LocationFilterModel(), ChangePage, showNotification, storeListViewModel.SetLocationFilter) }
             };
 
-            _currentPage = _pages[MapPages.StoreList];
+            _currentPage = _pages[MapPage.StoreList];
         }
         private void ChangeToPage(ViewModelBase page)
         {
             CurrentPage = page;
         }
     }
-    internal enum MapPages
+    internal enum MapPage
     {
         StoreList,
         Map,
-        StoreSettings
+        StoreSettings,
+        LocationFilter
     }
 }

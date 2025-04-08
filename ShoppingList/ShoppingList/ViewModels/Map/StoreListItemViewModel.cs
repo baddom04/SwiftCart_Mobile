@@ -23,10 +23,10 @@ namespace ShoppingList.ViewModels.Map
         public ReactiveCommand<Unit, Unit> LoadStoreCommand { get; }
         private readonly StoreListItemModel _model;
         private readonly Action<ViewModelBase> _changeToPage;
-        private readonly Action<MapPages> _changePage;
+        private readonly Action<MapPage> _changePage;
         private readonly Action<NotificationType, string> _showNotification;
         private readonly Action<bool> _showLoading;
-        public StoreListItemViewModel(StoreListItemModel model, Action<bool> showLoading, Action<NotificationType, string> showNotification, Action<ViewModelBase> changeToPage, Action<MapPages> changePage)
+        public StoreListItemViewModel(StoreListItemModel model, Action<bool> showLoading, Action<NotificationType, string> showNotification, Action<ViewModelBase> changeToPage, Action<MapPage> changePage)
         {
             _model = model;
             _showLoading = showLoading;

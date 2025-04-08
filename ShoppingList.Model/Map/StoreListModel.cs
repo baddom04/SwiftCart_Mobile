@@ -13,9 +13,9 @@ namespace ShoppingList.Model.Map
 
         private readonly IStoreService _storeService = AppServiceProvider.Services.GetRequiredService<IStoreService>();
 
-        public async Task<IEnumerable<Store>> GetStoresAsync(string search, int page)
+        public async Task<IEnumerable<Store>> GetStoresAsync(string search, int page, LocationFilter locationFilter)
         {
-            PaginatedResponse<Store> stores = await _storeService.GetStoresAsync(search, page);
+            PaginatedResponse<Store> stores = await _storeService.GetStoresAsync(search, page, locationFilter);
 
             _stores = stores.QueryResult;
 
