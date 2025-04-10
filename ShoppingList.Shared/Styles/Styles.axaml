@@ -336,6 +336,20 @@
     </Style>
   </Style>
 
+  <Style Selector="ToggleButton">
+    <Setter Property="CornerRadius" Value="10"/>
+    <Setter Property="Padding" Value="7"/>
+    <Setter Property="Background" Value="{StaticResource MainBtnBG}"/>
+    <Setter Property="Foreground" Value="{StaticResource MainBG}"/>
+    <Style Selector="^:pointerover /template/ ContentPresenter">
+      <Setter Property="Background" Value="{StaticResource MainBtnBG}"/>
+    </Style>
+    <Style Selector="^:checked /template/ ContentPresenter">
+      <Setter Property="Background" Value="{StaticResource MainBG}"/>
+      <Setter Property="Foreground" Value="{StaticResource MainBtnBG}"/>
+    </Style>
+  </Style>
+
   <Style Selector="Border">
     <Style Selector="^.shopping_list_item">
       <Setter Property="CornerRadius" Value="10"/>
@@ -470,11 +484,11 @@
     <Style Selector="^.menu_icon_selected">
       <Setter Property="Foreground" Value="{StaticResource MainBG}"/>
     </Style>
-    <Style Selector="^.white_foreground">
-      <Setter Property="Foreground" Value="{StaticResource MainBG}"/>
-    </Style>
     <Style Selector="^.btn_foreground">
       <Setter Property="Foreground" Value="{StaticResource MainBtnBG}"/>
+    </Style>
+    <Style Selector="^.white_foreground">
+      <Setter Property="Foreground" Value="{StaticResource MainBG}"/>
     </Style>
     <Style Selector="^.red_foreground">
       <Setter Property="Foreground" Value="{StaticResource ErrorSecondaryRed}"/>

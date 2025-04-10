@@ -8,6 +8,7 @@ namespace ShoppingList.Converters
     {
         public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
+            if (value == null) return null;
             if (value is not string str) throw new ArgumentException(null, nameof(value));
 
             return '@' + str;

@@ -1,5 +1,6 @@
 ﻿using ShoppingList.Model.Map;
 using ShoppingList.Shared;
+using ShoppingList.Shared.Model.Settings;
 using ShoppingList.Shared.Utils;
 using ShoppingList.Shared.ViewModels;
 using System;
@@ -13,9 +14,9 @@ namespace ShoppingList.ViewModels.Map
             ChangePage(MapPage.StoreList);
         }
 
-        public MainMapViewModel(Action<bool> showLoading, Action<NotificationType, string> showNotification)
+        public MainMapViewModel(UserAccountModel account, Action<bool> showLoading, Action<NotificationType, string> showNotification)
         {
-            var storeListViewModel = new StoreListViewModel(new StoreListModel(), showLoading, showNotification, ChangeToPage, ChangePage);
+            var storeListViewModel = new StoreListViewModel(account, new StoreListModel(), showLoading, showNotification, ChangeToPage, ChangePage);
             _pages = new()
             {
                 { MapPage.StoreList, storeListViewModel },

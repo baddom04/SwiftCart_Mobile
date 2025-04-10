@@ -4,6 +4,8 @@ using ShoppingList.Core;
 using ShoppingList.Core.Enums;
 using ShoppingList.Model.Map;
 using ShoppingList.Shared;
+using ShoppingList.Shared.Model.Settings;
+using ShoppingList.Shared.Utils;
 using ShoppingList.Utils;
 using System;
 using System.Collections.Generic;
@@ -49,14 +51,14 @@ namespace ShoppingList.ViewModels.Map
         private readonly Action<ViewModelBase> _changeToPage;
         private readonly MapModel _model;
         private readonly StoreSettingsViewModel _settings;
-        public MapViewModel(MapModel model, Action<bool> showLoading, Action<ViewModelBase> changeToPage, Action<MapPage> changePage)
+        public MapViewModel(UserAccountModel account, MapModel model, Action<bool> showLoading, Action<ViewModelBase> changeToPage, Action<MapPage> changePage, Action<NotificationType, string> showNotification)
         {
             _model = model;
             _changeToPage = changeToPage;
             _changePage = changePage;
             Name = model.Store.Name;
             MapSegments = model.Store.Map!.MapSegments;
-            _settings = new StoreSettingsViewModel(_model, showLoading, () => _changeToPage(this));
+            _settings = new StoreSettingsViewModel(account, _model, showLoading, () => _changeToPage(this), showNotification);
 
             SegmentTypes = [.. MapSegments.Select(segment => segment.Type).Distinct()];
             SegmentTypes.Remove(SegmentType.Empty);

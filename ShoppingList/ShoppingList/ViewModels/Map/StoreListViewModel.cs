@@ -3,6 +3,7 @@ using ReactiveUI;
 using ShoppingList.Core;
 using ShoppingList.Model.Map;
 using ShoppingList.Shared;
+using ShoppingList.Shared.Model.Settings;
 using ShoppingList.Shared.Utils;
 using ShoppingList.Utils;
 using System;
@@ -49,10 +50,12 @@ namespace ShoppingList.ViewModels.Map
         private readonly Action<MapPage> _changePage;
         private readonly StoreListModel _model;
         private readonly Action<bool> _showLoading;
+        private readonly UserAccountModel _account;
         public Action<LocationFilter> SetLocationFilter { get; }
         public LocationFilter LocationFilter { get; private set; }
-        public StoreListViewModel(StoreListModel model, Action<bool> showLoading, Action<NotificationType, string> showNotification, Action<ViewModelBase> changeToPage, Action<MapPage> changePage)
+        public StoreListViewModel(UserAccountModel account, StoreListModel model, Action<bool> showLoading, Action<NotificationType, string> showNotification, Action<ViewModelBase> changeToPage, Action<MapPage> changePage)
         {
+            _account = account;
             _model = model;
             _showLoading = showLoading;
             _showNotification = showNotification;
@@ -82,7 +85,7 @@ namespace ShoppingList.ViewModels.Map
             {
                 Stores.Clear();
                 Stores.AddRange((await _model.GetStoresAsync(SearchInput.Trim(), Page, LocationFilter))
-                    .Select(store => new StoreListItemViewModel(new StoreListItemModel(store), _showLoading, _showNotification, _changeToPage, _changePage)));
+                    .Select(store => new StoreListItemViewModel(_account, new StoreListItemModel(store), _showLoading, _showNotification, _changeToPage, _changePage)));
 
                 MaxPage = _model.MaxPages;
             }

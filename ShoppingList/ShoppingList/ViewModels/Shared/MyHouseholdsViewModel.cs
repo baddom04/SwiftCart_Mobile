@@ -3,7 +3,6 @@ using ShoppingList.Model.Social;
 using ShoppingList.Shared;
 using ShoppingList.Shared.Model.Settings;
 using ShoppingList.Shared.Utils;
-using ShoppingList.Utils;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;

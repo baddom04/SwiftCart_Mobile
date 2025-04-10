@@ -154,6 +154,7 @@
   <x:String x:Key="Details">Details</x:String>
   <x:String x:Key="Section">Section:</x:String>
   <x:String x:Key="Miscellaneous">Miscellaneous</x:String>
+  <x:String x:Key="GroceryListSearch">Search based on you shopping list(s)</x:String>
   <!--^Errors-->
   <x:String x:Key="SearchStoresError">Search stores error&#x0a;</x:String>
   <x:String x:Key="StoreQueryError">Store query error&#x0a;</x:String>

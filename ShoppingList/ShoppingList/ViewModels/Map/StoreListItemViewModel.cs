@@ -2,6 +2,7 @@
 using ShoppingList.Core;
 using ShoppingList.Model.Map;
 using ShoppingList.Shared;
+using ShoppingList.Shared.Model.Settings;
 using ShoppingList.Shared.Utils;
 using ShoppingList.Utils;
 using System;
@@ -26,8 +27,10 @@ namespace ShoppingList.ViewModels.Map
         private readonly Action<MapPage> _changePage;
         private readonly Action<NotificationType, string> _showNotification;
         private readonly Action<bool> _showLoading;
-        public StoreListItemViewModel(StoreListItemModel model, Action<bool> showLoading, Action<NotificationType, string> showNotification, Action<ViewModelBase> changeToPage, Action<MapPage> changePage)
+        private readonly UserAccountModel _account;
+        public StoreListItemViewModel(UserAccountModel account, StoreListItemModel model, Action<bool> showLoading, Action<NotificationType, string> showNotification, Action<ViewModelBase> changeToPage, Action<MapPage> changePage)
         {
+            _account = account;
             _model = model;
             _showLoading = showLoading;
             _showNotification = showNotification;
@@ -37,13 +40,13 @@ namespace ShoppingList.ViewModels.Map
             Location = _model.StoreWithoutMap.Location!;
             LoadStoreCommand = ReactiveCommand.CreateFromTask(LoadStoreAsync);
         }
-        public async Task LoadStoreAsync()
+        private async Task LoadStoreAsync()
         {
             IsLoading = true;
 
             try
             {
-                MapViewModel map = new(new MapModel(await _model.GetFullStoreAsync()), _showLoading, _changeToPage, _changePage);
+                MapViewModel map = new(_account, new MapModel(await _model.GetFullStoreAsync()), _showLoading, _changeToPage, _changePage, _showNotification);
                 IsLoading = false;
                 _changeToPage(map);
             }
