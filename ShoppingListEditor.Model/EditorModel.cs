@@ -120,7 +120,7 @@ namespace ShoppingListEditor.Model
             Store.Map.SetSizes(map.XSize, map.YSize);
             MapChanged?.Invoke();
         }
-        public async Task UploadSegmentAsync(MapSegmentEditable segment)
+        public async Task UploadSegmentAsync(MapSegmentEditable segment, SegmentType type)
         {
             if (Store is null || Store.Id == default)
                 throw new InvalidOperationException("The store to add the location to does not exist");
@@ -131,8 +131,8 @@ namespace ShoppingListEditor.Model
                 throw new InvalidDataException("The given segment is not the same as in the Store model");
 
             MapSegment createdSegment = segment.Id == default 
-                ? await _segmentService.CreateMapSegmentAsync(segment.MapId, segment.X, segment.Y, segment.Type, segment.SectionId)
-                : await _segmentService.UpdateMapSegmentAsync(segment.MapId, segment.Id, segment.X, segment.Y, segment.Type, segment.SectionId);
+                ? await _segmentService.CreateMapSegmentAsync(segment.MapId, segment.X, segment.Y, type, segment.SectionId)
+                : await _segmentService.UpdateMapSegmentAsync(segment.MapId, segment.Id, segment.X, segment.Y, type, segment.SectionId);
 
             segment.Id = createdSegment.Id;
             segment.X = createdSegment.X;

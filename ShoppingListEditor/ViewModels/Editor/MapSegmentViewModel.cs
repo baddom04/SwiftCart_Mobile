@@ -165,8 +165,7 @@ namespace ShoppingListEditor.ViewModels.Editor
                 if (type == SegmentType.Empty)
                     await _model.DeleteSegmentAsync(_segment);
                 else
-                    await _model.UploadSegmentAsync(_segment);
-                _segment.Type = type;
+                    await _model.UploadSegmentAsync(_segment, type);
                 _setPaneContent(null);
             }
             catch (Exception ex)

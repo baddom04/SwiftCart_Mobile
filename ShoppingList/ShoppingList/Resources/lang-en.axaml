@@ -149,6 +149,7 @@
   <x:String x:Key="AddCommentError">Comment creation error&#x0a;</x:String>
   
   <!--MapPages-->
+  <x:String x:Key="AvailableProducts">Available products</x:String>
   <x:String x:Key="AvailableStores">Available stores</x:String>
   <x:String x:Key="Details">Details</x:String>
   <x:String x:Key="Section">Section:</x:String>

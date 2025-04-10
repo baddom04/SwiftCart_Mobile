@@ -80,6 +80,7 @@ public partial class MapView : UserControl
                 BorderBrush = Brushes.LightGray,
                 BorderThickness = new Thickness(1),
                 DataContext = segment,
+                CornerRadius = new CornerRadius(5),
             };
 
 
