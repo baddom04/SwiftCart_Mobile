@@ -139,6 +139,9 @@ namespace ShoppingListEditor.Model
             segment.Y = createdSegment.Y;
             segment.Type = createdSegment.Type;
             segment.SectionId = createdSegment.SectionId;
+
+            if(segment.Type != SegmentType.Shelf || segment.Type != SegmentType.Fridge)
+                segment.Products.Clear();
         }
         public async Task DeleteSegmentAsync(MapSegmentEditable segment)
         {
@@ -272,6 +275,18 @@ namespace ShoppingListEditor.Model
             int index = segment.Products.IndexOf(segment.Products.First(p => p.Id == productId));
             segment.Products.RemoveAt(index);
             segment.Products.Insert(index, ProductEditable.FromProduct(product));
+        }
+        public async Task UpdateProductSegmentAsync(MapSegmentEditable oldSegment, ProductEditable product, MapSegmentEditable newSegment)
+        {
+            if (Store is null || Store.Id == default)
+                throw new InvalidOperationException("The store to add the location to does not exist");
+            if (Store.Map is null)
+                throw new InvalidOperationException("Map does not exist");
+
+            await _productService.UpdateProductSegmentAsync(oldSegment.Id, product.Id, newSegment.Id);
+
+            oldSegment.Products.Remove(product);
+            newSegment.Products.Add(product);
         }
     }
 }

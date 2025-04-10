@@ -319,7 +319,11 @@
       <Setter Property="Background" Value="White"/>
     </Style>
     <Style Selector="^.Exit:pointerover /template/ ContentPresenter">
-      <Setter Property="Background" Value="Red"/>
+      <Setter Property="Background" Value="Firebrick"/>
+    </Style>
+    <Style Selector="^.selected /template/ ContentPresenter">
+      <Setter Property="BorderThickness" Value="5"/>
+      <Setter Property="BorderBrush" Value="{DynamicResource MainBtnBG}"/>
     </Style>
   </Style>
 

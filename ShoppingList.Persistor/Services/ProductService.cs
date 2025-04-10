@@ -60,5 +60,14 @@ namespace ShoppingList.Persistor.Services
 
             return product ?? throw new NullReferenceException();
         }
+
+        public async Task UpdateProductSegmentAsync(int old_segment_id, int product_id, int segment_id, CancellationToken cancellationToken = default)
+        {
+            var payload = new { segment_id };
+
+            HttpResponseMessage response = await _httpClient.PutAsJsonAsync($"segments/{old_segment_id}/products/{product_id}/segment", payload, cancellationToken);
+
+            await ValidateResponse(response, cancellationToken);
+        }
     }
 }

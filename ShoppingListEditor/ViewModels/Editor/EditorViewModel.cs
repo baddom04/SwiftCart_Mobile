@@ -19,14 +19,27 @@ namespace ShoppingListEditor.ViewModels.Editor
         public ViewModelBase? CurrentPage
         {
             get { return _currentPage; }
-            private set { this.RaiseAndSetIfChanged(ref _currentPage, value); }
+            private set 
+            {
+                if(value != _currentPage && _currentPage is MapSegmentViewModel msvm)
+                    msvm.IsSelected = false;
+
+                this.RaiseAndSetIfChanged(ref _currentPage, value); 
+            }
         }
 
         private bool _isPaneOpen;
         public bool IsPaneOpen
         {
             get { return _isPaneOpen; }
-            private set { this.RaiseAndSetIfChanged(ref _isPaneOpen, value); }
+            private set 
+            {
+                this.RaiseAndSetIfChanged(ref _isPaneOpen, value);
+                if (!value && _currentPage is MapSegmentViewModel msvm)
+                {
+                    msvm.IsSelected = false;
+                }
+            }
         }
 
         public ReactiveCommand<LoggedInPages, Unit> ChangePageCommand { get; }
@@ -85,6 +98,9 @@ namespace ShoppingListEditor.ViewModels.Editor
                 IsPaneOpen = false;
                 return;
             }
+
+            if(viewModel is MapSegmentViewModel mapSegmentViewModel)
+                mapSegmentViewModel.IsSelected = true;
 
             CurrentPage = viewModel;
             IsPaneOpen = true;

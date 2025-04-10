@@ -28,11 +28,11 @@ namespace ShoppingListEditor.ViewModels.Editor
         public ObservableCollection<ProductViewModel> Products { get; }
         public bool IsProductsEmpty => Products.Count == 0;
 
-        private int _selectedSection;
-        public int SelectedSection
+        private int _selectedSectionIndex;
+        public int SelectedSectionIndex
         {
-            get { return _selectedSection; }
-            set { this.RaiseAndSetIfChanged(ref _selectedSection, value); }
+            get { return _selectedSectionIndex; }
+            set { this.RaiseAndSetIfChanged(ref _selectedSectionIndex, value); }
         }
         public int X { get; }
         public int Y { get; }
@@ -44,11 +44,20 @@ namespace ShoppingListEditor.ViewModels.Editor
             private set { this.RaiseAndSetIfChanged(ref _type, value); }
         }
 
+        private bool _isSelected;
+        public bool IsSelected
+        {
+            get { return _isSelected; }
+            set { this.RaiseAndSetIfChanged(ref _isSelected, value); }
+        }
+
+
         private readonly EditorModel _model;
         private readonly MapSegmentEditable _segment;
         private readonly Action<bool> _showLoading;
         private readonly Action<NotificationType, string> _showNotification;
         private readonly Action<ViewModelBase?> _setPaneContent;
+        private int _previousSectionIndex;
         public MapSegmentViewModel(MapSegmentEditable segment, EditorModel model, Action<ViewModelBase?> setPaneContent, Action<bool> showLoading, Action<NotificationType, string> showNotification)
         {
             _segment = segment;
@@ -81,7 +90,8 @@ namespace ShoppingListEditor.ViewModels.Editor
                 Sections.AddRange(_model.Store.Map.Sections);
 
 
-            _selectedSection = Sections.IndexOf(Sections.FirstOrDefault(s => s.Id == _segment.SectionId) ?? Sections[0]);
+            _selectedSectionIndex = Sections.IndexOf(Sections.FirstOrDefault(s => s.Id == _segment.SectionId) ?? Sections[0]);
+            _previousSectionIndex = _selectedSectionIndex;
             Products.CollectionChanged += (s, e) => this.RaisePropertyChanged(nameof(IsProductsEmpty));
             _segment.TypeChanged += () => Type = segment.Type;
 
@@ -98,7 +108,7 @@ namespace ShoppingListEditor.ViewModels.Editor
                 if (_model.Store is not null && _model.Store.Map is not null)
                     Sections.AddRange(_model.Store!.Map!.Sections);
 
-                _selectedSection = Sections.IndexOf(Sections.FirstOrDefault(s => s.Id == _segment.SectionId) ?? Sections[0]);
+                _selectedSectionIndex = Sections.IndexOf(Sections.FirstOrDefault(s => s.Id == _segment.SectionId) ?? Sections[0]);
             };
 
             OpenDetailPane = () => setPaneContent(this);
@@ -108,7 +118,7 @@ namespace ShoppingListEditor.ViewModels.Editor
             ToSectionPageCommand = ReactiveCommand.Create(() => setPaneContent(new SectionPaneViewModel(_model, _showLoading, _showNotification) { GoBack = () => setPaneContent(this) }));
             ToProductPageCommand = ReactiveCommand.Create(() => setPaneContent(new ProductPaneViewModel(_model, _segment, _showLoading, _showNotification) { GoBack = () => setPaneContent(this) }));
 
-            this.WhenAnyValue(x => x.SelectedSection).Subscribe(async (section) => await OnSelectedSectionChangedAsync(section));
+            this.WhenAnyValue(x => x.SelectedSectionIndex).Subscribe(async (section) => await OnSelectedSectionChangedAsync(section));
         }
         private IEnumerable<ProductViewModel> GetProducts()
         {
@@ -124,17 +134,19 @@ namespace ShoppingListEditor.ViewModels.Editor
                 return;
             }
 
-            if (index == -1) return;
+            if (index == -1 || index == _previousSectionIndex) return;
 
             _showLoading(true);
             try
             {
                 await _model.ChangeSectionOnSegmentAsync(_segment, Sections[index]);
+                _previousSectionIndex = index;
             }
             catch (Exception ex)
             {
                 string msg = $"{StringProvider.GetString("SectionChangeError")}{ex.Message}";
                 _showNotification(NotificationType.Error, msg);
+                SelectedSectionIndex = _previousSectionIndex;
             }
             finally
             {
@@ -146,11 +158,12 @@ namespace ShoppingListEditor.ViewModels.Editor
             _showLoading(true);
             try
             {
-                _segment.Type = type;
                 if (type == SegmentType.Empty)
                     await _model.DeleteSegmentAsync(_segment);
                 else
                     await _model.UploadSegmentAsync(_segment);
+                _segment.Type = type;
+                _setPaneContent(null);
             }
             catch (Exception ex)
             {

@@ -203,8 +203,9 @@ public partial class EditorView : UserControl
 
         foreach (SegmentType type in Enum.GetValues(typeof(SegmentType)))
         {
-            btn.BindStyleClass(type.ToString(), CreateBinding(type));
+            btn.BindStyleClass(type.ToString(), CreateTypeBinding(type));
         }
+        btn.BindStyleClass("selected", new Binding("IsSelected"));
 
         if (segment.Type == SegmentType.Fridge || segment.Type == SegmentType.Shelf)
         {
@@ -242,7 +243,7 @@ public partial class EditorView : UserControl
         EditOverlay.IsPaneOpen = true;
     }
 
-    private Binding CreateBinding(SegmentType type)
+    private Binding CreateTypeBinding(SegmentType type)
     {
         return new Binding("SelectedSegmentType")
         {
