@@ -4,6 +4,7 @@ using ShoppingList.Core.Enums;
 using ShoppingList.Shared;
 using ShoppingList.Shared.Utils;
 using ShoppingListEditor.Model;
+using ShoppingListEditor.Model.Editables;
 using ShoppingListEditor.ViewModels.Editor.Pane;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace ShoppingListEditor.ViewModels.Editor
         public ViewModelBase? CurrentPage
         {
             get { return _currentPage; }
-            private set 
+            private set
             {
                 if(value != _currentPage && _currentPage is MapSegmentViewModel msvm)
                     msvm.IsSelected = false;
@@ -60,6 +61,7 @@ namespace ShoppingListEditor.ViewModels.Editor
         private readonly Action<LoggedInPages> _changePage;
         private readonly Action<bool> _showLoading;
         private readonly Action<NotificationType, string> _showNotification;
+        private ProductEditable? _productClipBoard;
         public EditorViewModel(EditorModel model, Action<LoggedInPages> changePage, Action<bool> showLoading, Action<NotificationType, string> showNotification)
         {
             _model = model;
@@ -85,7 +87,7 @@ namespace ShoppingListEditor.ViewModels.Editor
             {
                 for (int x = 0; x < _model.Store.Map.XSize; x++)
                 {
-                    MapSegments.Add(new MapSegmentViewModel(_model.Store.Map.MapSegments[y, x], _model, SetPaneContent, _showLoading, _showNotification));
+                    MapSegments.Add(new MapSegmentViewModel(_model.Store.Map.MapSegments[y, x], _model, SetPaneContent, _showLoading, _showNotification, (ProductEditable p) => _productClipBoard = p, () => _productClipBoard));
                 }
             }
             MapChanged?.Invoke();

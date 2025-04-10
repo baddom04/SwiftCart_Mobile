@@ -26,13 +26,14 @@ namespace ShoppingListEditor.ViewModels.Editor.Pane
         public ReactiveCommand<Unit, Unit> UpdateCommand { get; }
         public ReactiveCommand<Unit, Unit> DeleteCommand { get; }
         public ReactiveCommand<Unit, bool> OpenCommand { get; }
+        public ReactiveCommand<Unit, Unit> ToClipBoardCommand { get; }
 
         private readonly EditorModel _model;
         private readonly ProductEditable _product;
         private readonly MapSegmentEditable _segment;
         private readonly Action<bool> _showLoading;
         private readonly Action<NotificationType, string> _showNotification;
-        public ProductViewModel(EditorModel model, MapSegmentEditable segment, ProductEditable product, Action<bool> showLoading, Action<NotificationType, string> showNotification, Action<ViewModelBase?> setPaneContent, Action goBack)
+        public ProductViewModel(EditorModel model, MapSegmentEditable segment, ProductEditable product, Action<bool> showLoading, Action<NotificationType, string> showNotification, Action<ViewModelBase?> setPaneContent, Action goBack, Action<ProductEditable> setProductClipBoard)
         {
             _model = model;
             _segment = segment;
@@ -42,12 +43,13 @@ namespace ShoppingListEditor.ViewModels.Editor.Pane
 
             Name = product.Name;
             Brand = product.Brand;
-            Description = product.Description;
+            Description = product.Description ?? string.Empty;
             Price = product.Price;
 
             UpdateCommand = ReactiveCommand.Create(() => setPaneContent(new ProductPaneViewModel(_model, _segment, _product, _showLoading, _showNotification) { GoBack = goBack }));
             DeleteCommand = ReactiveCommand.CreateFromTask(DeleteProductAsync);
             OpenCommand = ReactiveCommand.Create(() => IsOpen = !IsOpen);
+            ToClipBoardCommand = ReactiveCommand.Create(() => setProductClipBoard(_product));
         }
 
         private async Task DeleteProductAsync()

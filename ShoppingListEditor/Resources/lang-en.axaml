@@ -104,6 +104,8 @@
   <x:String x:Key="Add">Add</x:String>
   <x:String x:Key="VisibilitySetting">Visibility setting</x:String>
   <x:String x:Key="Back">Back</x:String>
+  <x:String x:Key="Paste">Paste</x:String>
+  <x:String x:Key="Copy">Copy</x:String>
   <!--^Errors-->
   <x:String x:Key="SegmentUploadError">Segment upload error&#x0a;</x:String>
   <x:String x:Key="SectionChangeError">Section change error&#x0a;</x:String>

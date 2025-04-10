@@ -24,6 +24,7 @@ namespace ShoppingListEditor.ViewModels.Editor
         public ReactiveCommand<Unit, Unit> ToSectionPageCommand { get; }
         public ReactiveCommand<Unit, Unit> ToProductPageCommand { get; }
         public ReactiveCommand<SegmentType, Unit> UploadSegmentCommand { get; }
+        public ReactiveCommand<Unit, Unit> PasteProductCommand { get; }
         public ObservableCollection<SectionEditable> Sections { get; }
         public ObservableCollection<ProductViewModel> Products { get; }
         public bool IsProductsEmpty => Products.Count == 0;
@@ -58,13 +59,15 @@ namespace ShoppingListEditor.ViewModels.Editor
         private readonly Action<NotificationType, string> _showNotification;
         private readonly Action<ViewModelBase?> _setPaneContent;
         private int _previousSectionIndex;
-        public MapSegmentViewModel(MapSegmentEditable segment, EditorModel model, Action<ViewModelBase?> setPaneContent, Action<bool> showLoading, Action<NotificationType, string> showNotification)
+        private readonly Action<ProductEditable> _setProductClipBoard;
+        public MapSegmentViewModel(MapSegmentEditable segment, EditorModel model, Action<ViewModelBase?> setPaneContent, Action<bool> showLoading, Action<NotificationType, string> showNotification, Action<ProductEditable> setProductClipBoard, Func<ProductEditable?> getProductOnClipBoard)
         {
             _segment = segment;
             _model = model;
             _setPaneContent = setPaneContent;
             _showLoading = showLoading;
             _showNotification = showNotification;
+            _setProductClipBoard = setProductClipBoard;
 
             X = segment.X;
             Y = segment.Y;
@@ -117,12 +120,13 @@ namespace ShoppingListEditor.ViewModels.Editor
             UploadSegmentCommand = ReactiveCommand.CreateFromTask<SegmentType>(UploadSegmentAsync);
             ToSectionPageCommand = ReactiveCommand.Create(() => setPaneContent(new SectionPaneViewModel(_model, _showLoading, _showNotification) { GoBack = () => setPaneContent(this) }));
             ToProductPageCommand = ReactiveCommand.Create(() => setPaneContent(new ProductPaneViewModel(_model, _segment, _showLoading, _showNotification) { GoBack = () => setPaneContent(this) }));
+            PasteProductCommand = ReactiveCommand.CreateFromTask(async () => await CreateProductAsync(getProductOnClipBoard()));
 
             this.WhenAnyValue(x => x.SelectedSectionIndex).Subscribe(async (section) => await OnSelectedSectionChangedAsync(section));
         }
         private IEnumerable<ProductViewModel> GetProducts()
         {
-            return [.. _segment.Products.Select(p => new ProductViewModel(_model, _segment, p, _showLoading, _showNotification, _setPaneContent, () => _setPaneContent(this)))];
+            return [.. _segment.Products.Select(p => new ProductViewModel(_model, _segment, p, _showLoading, _showNotification, _setPaneContent, () => _setPaneContent(this), _setProductClipBoard))];
         }
 
         private bool _first = true;
@@ -174,6 +178,21 @@ namespace ShoppingListEditor.ViewModels.Editor
             {
                 _showLoading(false);
             }
+        }
+        private async Task CreateProductAsync(ProductEditable? product)
+        {
+            if (product == null) return;
+            _showLoading(true);
+            try
+            {
+                await _model.CreateProductAsync(_segment, product.Name, product.Description, product.Brand, product.Price.ToString());
+            }
+            catch (Exception ex)
+            {
+                string msg = $"{StringProvider.GetString("ProductUploadError")}{ex.Message}";
+                _showNotification(NotificationType.Error, msg);
+            }
+            finally { _showLoading(false); }
         }
     }
 }
