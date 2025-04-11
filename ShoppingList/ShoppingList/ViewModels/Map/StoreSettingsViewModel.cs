@@ -135,8 +135,12 @@ namespace ShoppingList.ViewModels.Map
             try
             {
                 MyHouseholds.Clear();
-                MyHouseholds.AddRange(await new MyHouseholdsModel().GetMyHouseholds(_account.User!.Id));
-                SelectedHousehold = MyHouseholds.First();
+                IEnumerable<Household> myhouses = await new MyHouseholdsModel().GetMyHouseholds(_account.User!.Id);
+                if (myhouses.Any())
+                {
+                    MyHouseholds.AddRange(myhouses);
+                    SelectedHousehold = MyHouseholds.First();
+                }
             }
             catch (Exception ex)
             {

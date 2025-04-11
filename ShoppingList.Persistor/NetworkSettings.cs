@@ -8,6 +8,6 @@ public static class NetworkSettings
 
     static NetworkSettings()
     {
-         BaseAddress = new($"http://192.168.0.34:8000/api/");
+         BaseAddress = new($"https://swiftcart-cfb8gcc8edhrb3h8.westeurope-01.azurewebsites.net/api/");
     }
 }

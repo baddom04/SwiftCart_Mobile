@@ -448,10 +448,6 @@
     <Setter Property="CornerRadius" Value="10"/>
     <Setter Property="BorderBrush" Value="{StaticResource MainBtnBG}"/>
     <Setter Property="BorderThickness" Value="2"/>
-    <Style Selector="^:disabled /template/ ContentPresenter">
-      <Setter Property="Background" Value="{StaticResource MainBtnBG}"/>
-      <Setter Property="Opacity" Value="0.5"/>
-    </Style>
   </Style>
 
   <Style Selector="ComboBox">

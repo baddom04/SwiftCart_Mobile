@@ -92,7 +92,7 @@ public partial class MapView : UserControl
                 border.BorderThickness = new Thickness(1);
                 border.ZIndex = 1;
 
-                Avalonia.Application.Current!.TryFindResource("star_regular", out var res);
+                Avalonia.Application.Current!.TryFindResource("location_regular", out var res);
                 border.Child = new PathIcon
                 {
                     Data = res as StreamGeometry,
