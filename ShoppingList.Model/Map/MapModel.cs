@@ -56,6 +56,7 @@ namespace ShoppingList.Model.Map
         public void MarkMapSegments()
         {
             Store.Map!.MapSegments
+                .Where(ms => ms.Type == Core.Enums.SegmentType.Shelf || ms.Type == Core.Enums.SegmentType.Fridge)
                 .ToList()
                 .ForEach(ms => 
                 {
