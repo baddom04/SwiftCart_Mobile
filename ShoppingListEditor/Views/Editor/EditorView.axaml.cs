@@ -81,7 +81,7 @@ public partial class EditorView : UserControl
         MapCanvas.Width = _originalWidth;
         MapCanvas.Height = _originalHeight;
 
-
+        MapCanvas.Children.Clear();
         foreach (var segment in _mapSegments)
         {
             var button = CreateButton(segment);
