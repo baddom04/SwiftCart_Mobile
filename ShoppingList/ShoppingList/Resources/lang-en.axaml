@@ -158,6 +158,7 @@
   <!--^Errors-->
   <x:String x:Key="SearchStoresError">Search stores error&#x0a;</x:String>
   <x:String x:Key="StoreQueryError">Store query error&#x0a;</x:String>
+  <x:String x:Key="NoMapSegmentsError">The requested store does not contain any map information.</x:String>
   
   <!--LocationFilterPage-->
   <x:String x:Key="LocationFilter">Location filter</x:String>
