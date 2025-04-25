@@ -6,6 +6,7 @@ using ShoppingList.Shared.Model.Settings;
 using ShoppingList.Shared.Utils;
 using ShoppingList.Utils;
 using System;
+using System.Linq;
 using System.Reactive;
 using System.Threading.Tasks;
 
@@ -49,6 +50,8 @@ namespace ShoppingList.ViewModels.Map
             try
             {
                 MapViewModel map = new(_account, new MapModel(await _model.GetFullStoreAsync()), _showLoading, _changeToPage, _changePage, _showNotification);
+                if (map.MapSegments.ToList().Count == 0)
+                    throw new Exception(StringProvider.GetString("NoMapSegmentsError"));
                 IsLoading = false;
                 _changeToPage(map);
             }
