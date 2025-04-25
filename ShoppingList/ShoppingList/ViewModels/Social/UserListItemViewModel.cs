@@ -19,7 +19,6 @@ namespace ShoppingList.ViewModels.Social
             private set { this.RaiseAndSetIfChanged(ref _status, value); }
         }
 
-
         private bool _isLoading;
         public bool IsLoading
         {
@@ -30,7 +29,6 @@ namespace ShoppingList.ViewModels.Social
         public ReactiveCommand<Unit, Unit> KickUserCommand { get; }
         public ReactiveCommand<Unit, Unit> AcceptUserCommand { get; }
         public ReactiveCommand<Unit, Unit> RefuseUserCommand { get; }
-
         public string Name { get; }
         public string Email { get; }
         public bool IsOwner { get; }

@@ -17,14 +17,6 @@ namespace ShoppingList.ViewModels.Social
 {
     internal class HouseholdViewModel : HouseholdListItemViewModel
     {
-        public override ReactiveCommand<Unit, Unit> HouseholdOperationCommand { get; }
-        public ReactiveCommand<Unit, Unit> GoBackCommand { get; }
-        public ReactiveCommand<Unit, Unit> EditHouseholdCommand { get; }
-        public ReactiveCommand<Unit, Unit> DeleteHouseholdCommand { get; }
-        public ReactiveCommand<Unit, Unit> LeaveHouseholdCommand { get; }
-        public ReactiveCommand<Unit, bool> MembersDropDownCommand { get; }
-        public ReactiveCommand<Unit, bool> ApplicantsDropDownCommand { get; }
-
         private bool _isMemberLoading;
         public bool IsMemberLoading
         {
@@ -52,8 +44,15 @@ namespace ShoppingList.ViewModels.Social
             get { return _isMembersOpen; }
             private set { this.RaiseAndSetIfChanged(ref _isMembersOpen, value); }
         }
-        public bool IsOwner { get; }
 
+        public override ReactiveCommand<Unit, Unit> HouseholdOperationCommand { get; }
+        public ReactiveCommand<Unit, Unit> GoBackCommand { get; }
+        public ReactiveCommand<Unit, Unit> EditHouseholdCommand { get; }
+        public ReactiveCommand<Unit, Unit> DeleteHouseholdCommand { get; }
+        public ReactiveCommand<Unit, Unit> LeaveHouseholdCommand { get; }
+        public ReactiveCommand<Unit, bool> MembersDropDownCommand { get; }
+        public ReactiveCommand<Unit, bool> ApplicantsDropDownCommand { get; }
+        public bool IsOwner { get; }
         public ObservableCollection<UserListItemViewModel> Members { get; } = [];
         public ObservableCollection<UserListItemViewModel> Applicants { get; } = [];
 

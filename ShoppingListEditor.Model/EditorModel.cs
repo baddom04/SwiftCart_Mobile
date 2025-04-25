@@ -16,12 +16,6 @@ namespace ShoppingListEditor.Model
             private set { _store = value; StoreChanged?.Invoke(); }
         }
 
-        public event Action? StoreChanged;
-        public event Action? MapChanged;
-        public event Action? LocationChanged;
-        public event Action? SectionsChanged;
-        public event Action? VisibilityChanged;
-
         private readonly IStoreService _storeService = AppServiceProvider.Services.GetRequiredService<IStoreService>();
         private readonly ILocationService _locationService = AppServiceProvider.Services.GetRequiredService<ILocationService>();
         private readonly IMapService _mapService = AppServiceProvider.Services.GetRequiredService<IMapService>();
@@ -29,11 +23,16 @@ namespace ShoppingListEditor.Model
         private readonly ISectionService _sectionService = AppServiceProvider.Services.GetRequiredService<ISectionService>();
         private readonly IProductService _productService = AppServiceProvider.Services.GetRequiredService<IProductService>();
 
+        public event Action? StoreChanged;
+        public event Action? MapChanged;
+        public event Action? LocationChanged;
+        public event Action? SectionsChanged;
+        public event Action? VisibilityChanged;
+
         public EditorModel()
         {
             StoreChanged += EditorModel_StoreChanged;
         }
-
         private void EditorModel_StoreChanged()
         {
             MapChanged?.Invoke();

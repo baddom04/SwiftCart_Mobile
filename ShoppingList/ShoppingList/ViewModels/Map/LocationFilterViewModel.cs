@@ -12,9 +12,6 @@ namespace ShoppingList.ViewModels.Map
 {
     internal class LocationFilterViewModel : ViewModelBase
     {
-        public string InputNameKey { get; }
-        public ObservableCollection<string> Data { get; } = [];
-
         private string? _searchResult;
         public string? SearchResult
         {
@@ -22,11 +19,11 @@ namespace ShoppingList.ViewModels.Map
             set { this.RaiseAndSetIfChanged(ref _searchResult, value); }
         }
 
-
+        public string InputNameKey { get; }
+        public ObservableCollection<string> Data { get; } = [];
         public bool IsEnabled => Data.Count > 0;
         public LocationProperty Type { get; }
 
-        public bool FirstSearch = true;
         private readonly LocationPropertyFilter _model;
         private readonly Action<bool> _showLoading;
         private readonly Action<NotificationType, string> _showNotification;

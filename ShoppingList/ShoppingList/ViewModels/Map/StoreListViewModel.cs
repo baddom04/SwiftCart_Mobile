@@ -16,14 +16,6 @@ namespace ShoppingList.ViewModels.Map
 {
     internal class StoreListViewModel : ViewModelBase
     {
-        public string SearchInput { get; set; } = string.Empty;
-        public ObservableCollection<StoreListItemViewModel> Stores { get; } = [];
-        public bool EmptyStores => Stores.Count == 0;
-        public ReactiveCommand<Unit, Unit> SearchCommand { get; }
-        public ReactiveCommand<Unit, Unit> TurnPageForwardCommand { get; }
-        public ReactiveCommand<Unit, Unit> TurnPageBackwardCommand { get; }
-        public ReactiveCommand<Unit, Unit> LocationFilterPageCommand { get; }
-
         private bool _isLoading;
         public bool IsLoading
         {
@@ -45,14 +37,23 @@ namespace ShoppingList.ViewModels.Map
             private set { this.RaiseAndSetIfChanged(ref _maxPage, value); }
         }
 
+        public string SearchInput { get; set; } = string.Empty;
+        public ObservableCollection<StoreListItemViewModel> Stores { get; } = [];
+        public bool EmptyStores => Stores.Count == 0;
+        public ReactiveCommand<Unit, Unit> SearchCommand { get; }
+        public ReactiveCommand<Unit, Unit> TurnPageForwardCommand { get; }
+        public ReactiveCommand<Unit, Unit> TurnPageBackwardCommand { get; }
+        public ReactiveCommand<Unit, Unit> LocationFilterPageCommand { get; }
+        public Action<LocationFilter> SetLocationFilter { get; }
+        public LocationFilter LocationFilter { get; private set; }
+
+
         private readonly Action<NotificationType, string> _showNotification;
         private readonly Action<ViewModelBase> _changeToPage;
         private readonly Action<MapPage> _changePage;
         private readonly StoreListModel _model;
         private readonly Action<bool> _showLoading;
         private readonly UserAccountModel _account;
-        public Action<LocationFilter> SetLocationFilter { get; }
-        public LocationFilter LocationFilter { get; private set; }
         public StoreListViewModel(UserAccountModel account, StoreListModel model, Action<bool> showLoading, Action<NotificationType, string> showNotification, Action<ViewModelBase> changeToPage, Action<MapPage> changePage)
         {
             _account = account;

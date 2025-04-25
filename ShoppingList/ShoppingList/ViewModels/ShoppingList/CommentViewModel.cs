@@ -15,16 +15,15 @@ namespace ShoppingList.ViewModels.ShoppingList
     {
         public string UserName { get; }
         public string Content { get; }
-
         public bool IsMe { get; }
         public bool NotDeleted { get; }
+
         public ReactiveCommand<Unit, Unit> DeleteCommand { get; }
         private readonly ShoppingItemModel _itemModel;
         private readonly Func<Task> _getCommentsAsync;
         private readonly Action<bool> _showLoading;
         private readonly int _commentId;
         private readonly Action<NotificationType, string> _showNotification;
-
         public CommentViewModel(UserAccountModel account, ShoppingItemModel itemModel, Comment comment, Func<Task> getCommentsAsync, Action<bool> showLoading, Action<NotificationType, string> showNotification)
         {
             UserName = comment.User.Name;

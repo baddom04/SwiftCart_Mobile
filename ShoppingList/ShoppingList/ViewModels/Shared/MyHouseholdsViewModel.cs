@@ -11,15 +11,13 @@ namespace ShoppingList.ViewModels.Shared
 {
     internal abstract class MyHouseholdsViewModel : ViewModelBase
     {
-        public virtual ObservableCollection<HouseholdListItemViewModel> MyHouseholds { get; }
-
         private bool _isLoading;
         public bool IsLoading
         {
             get { return _isLoading; }
             protected set { this.RaiseAndSetIfChanged(ref _isLoading, value); }
         }
-
+        public virtual ObservableCollection<HouseholdListItemViewModel> MyHouseholds { get; }
         public bool EmptyMyHouseholds => MyHouseholds.Count == 0;
 
         protected readonly Action<ViewModelBase> _changeToPage;

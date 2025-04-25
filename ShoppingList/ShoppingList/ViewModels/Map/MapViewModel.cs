@@ -24,11 +24,6 @@ namespace ShoppingList.ViewModels.Map
             private set { this.RaiseAndSetIfChanged(ref _isPaneOpen, value); }
         }
 
-        public ReactiveCommand<Unit, Unit> GoBackCommand { get; }
-        public ReactiveCommand<Unit, Unit> StoreSettingsPageCommand { get; }
-        public ReactiveCommand<Unit, Unit> UnSelectSegmentCommand { get; }
-        public string Name { get; }
-
         private string? _sectionName;
         public string? SectionName
         {
@@ -36,15 +31,19 @@ namespace ShoppingList.ViewModels.Map
             private set { this.RaiseAndSetIfChanged(ref _sectionName, value); }
         }
 
-        public IEnumerable<MapSegment> MapSegments { get; }
-        public ObservableCollection<SegmentType> SegmentTypes { get; } = [];
-
         private MapSegment? _selectedMapSegment;
         public MapSegment? SelectedMapSegment
         {
             get { return _selectedMapSegment; }
             set { this.RaiseAndSetIfChanged(ref _selectedMapSegment, value); }
         }
+
+        public ReactiveCommand<Unit, Unit> GoBackCommand { get; }
+        public ReactiveCommand<Unit, Unit> StoreSettingsPageCommand { get; }
+        public ReactiveCommand<Unit, Unit> UnSelectSegmentCommand { get; }
+        public string Name { get; }
+        public IEnumerable<MapSegment> MapSegments { get; }
+        public ObservableCollection<SegmentType> SegmentTypes { get; } = [];
         public ObservableCollection<ProductViewModel> SelectedProductsOnSegment { get; } = [];
 
         private readonly Action<MapPage> _changePage;

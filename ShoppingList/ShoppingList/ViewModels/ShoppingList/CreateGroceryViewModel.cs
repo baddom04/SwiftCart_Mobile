@@ -13,11 +13,6 @@ namespace ShoppingList.ViewModels.ShoppingList
 {
     internal class CreateGroceryViewModel : ViewModelBase
     {
-        public string NameInput { get; set; } = string.Empty;
-        public string? QuantityInput { get; set; }
-        public UnitType UnitInput { get; set; } = UnitType.none;
-        public string? DescriptionInput { get; set; }
-
         private string? _errorMessage;
         public string? ErrorMessage
         {
@@ -25,20 +20,20 @@ namespace ShoppingList.ViewModels.ShoppingList
             private set { this.RaiseAndSetIfChanged(ref _errorMessage, value); }
         }
 
+        public string NameInput { get; set; } = string.Empty;
+        public string? QuantityInput { get; set; }
+        public UnitType UnitInput { get; set; } = UnitType.none;
+        public string? DescriptionInput { get; set; }
         public bool Updating { get; set; }
+        public ReactiveCommand<Unit, Unit> CreateGroceryCommand { get; }
+        public ReactiveCommand<Unit, Unit> GoBackCommand { get; private set; } = null!;
+        public List<UnitType> UnitTypes { get; } = [.. (UnitType[])Enum.GetValues(typeof(UnitType))];
 
         private readonly Action<bool> _showLoading;
         private readonly CreateGroceryModel _model;
         private int _householdId;
         private int? _groceryId;
-
-        public ReactiveCommand<Unit, Unit> CreateGroceryCommand { get; }
-
         private Action _goBackAction = null!;
-        public ReactiveCommand<Unit, Unit> GoBackCommand { get; private set; } = null!;
-
-        public List<UnitType> UnitTypes { get; } = [.. (UnitType[])Enum.GetValues(typeof(UnitType))];
-
         public CreateGroceryViewModel(CreateGroceryModel model, Action<bool> showLoading)
         {
             _model = model;

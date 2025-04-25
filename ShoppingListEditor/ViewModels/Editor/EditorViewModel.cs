@@ -42,11 +42,6 @@ namespace ShoppingListEditor.ViewModels.Editor
                 }
             }
         }
-
-        public ReactiveCommand<LoggedInPages, Unit> ChangePageCommand { get; }
-        public ReactiveCommand<Unit, Unit> SectionsPaneCommand { get; }
-        public IReadOnlyCollection<SegmentType> SegmentTypes { get; }
-
         private SegmentType _selectedSegmentType = SegmentType.Shelf;
         public SegmentType SelectedSegmentType
         {
@@ -54,14 +49,17 @@ namespace ShoppingListEditor.ViewModels.Editor
             set { this.RaiseAndSetIfChanged(ref _selectedSegmentType, value); }
         }
 
+        public ReactiveCommand<LoggedInPages, Unit> ChangePageCommand { get; }
+        public ReactiveCommand<Unit, Unit> SectionsPaneCommand { get; }
+        public IReadOnlyCollection<SegmentType> SegmentTypes { get; }
         public ObservableCollection<MapSegmentViewModel> MapSegments { get; } = [];
-        public event Action? MapChanged;
 
         private readonly EditorModel _model;
         private readonly Action<LoggedInPages> _changePage;
         private readonly Action<bool> _showLoading;
         private readonly Action<NotificationType, string> _showNotification;
         private ProductEditable? _productClipBoard;
+        public event Action? MapChanged;
         public EditorViewModel(EditorModel model, Action<LoggedInPages> changePage, Action<bool> showLoading, Action<NotificationType, string> showNotification)
         {
             _model = model;

@@ -23,7 +23,6 @@ namespace ShoppingListEditor.ViewModels.Editor.Pane
         public string DescriptionInput { get; set; } = string.Empty;
         public string BrandInput { get; set; } = string.Empty;
         public string PriceInput { get; set; } = string.Empty;
-
         public ReactiveCommand<Unit, Unit> CreateCommand { get; }
         public ReactiveCommand<Unit, Unit> UpdateCommand { get; }
         public ReactiveCommand<Unit, Unit> GoBackCommand { get; }

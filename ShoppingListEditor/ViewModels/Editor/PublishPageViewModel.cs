@@ -9,14 +9,14 @@ namespace ShoppingListEditor.ViewModels.Editor
 {
     internal class PublishPageViewModel : StorePropertyEditor
     {
-        public override bool IsUpdating => true;
-
         private string? _errorMessage;
         public string? ErrorMessage
         {
             get { return _errorMessage; }
             private set { this.RaiseAndSetIfChanged(ref _errorMessage, value); }
         }
+
+        public override bool IsUpdating => true;
         public bool IsPublished { get; set; }
         public ReactiveCommand<Unit, Unit> UpdateVisibilityCommand { get; }
 

@@ -8,9 +8,9 @@ namespace ShoppingList.Model.Map
 {
     public class StoreListModel
     {
-        private IEnumerable<Store> _stores = [];
         public int MaxPages { get; private set; }
 
+        private IEnumerable<Store> _stores = [];
         private readonly IStoreService _storeService = AppServiceProvider.Services.GetRequiredService<IStoreService>();
 
         public async Task<IEnumerable<Store>> GetStoresAsync(string search, int page, LocationFilter locationFilter)

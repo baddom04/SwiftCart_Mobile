@@ -5,8 +5,9 @@ namespace ShoppingList.Model.Map
     public class MapModel(Store store)
     {
         public Store Store { get; } = store;
-        private readonly HashSet<int> _markedMapSegmentIds = [];
         public List<Product> SelectedProducts { get; } = [];
+
+        private readonly HashSet<int> _markedMapSegmentIds = [];
         private Section? _selectedSection;
 
         public void Select(Product product)

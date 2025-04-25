@@ -18,26 +18,6 @@ namespace ShoppingListEditor.ViewModels.Editor
 {
     internal class MapSegmentViewModel : ViewModelBase
     {
-        public ReactiveCommand<Unit, Unit> OpenDetailPaneCommand { get; }
-        public Action OpenDetailPane { get; }
-        public ReactiveCommand<Unit, Unit> CloseDetailPaneCommand { get; }
-        public ReactiveCommand<Unit, Unit> ToSectionPageCommand { get; }
-        public ReactiveCommand<Unit, Unit> ToProductPageCommand { get; }
-        public ReactiveCommand<SegmentType, Unit> UploadSegmentCommand { get; }
-        public ReactiveCommand<Unit, Unit> PasteProductCommand { get; }
-        public ObservableCollection<SectionEditable> Sections { get; }
-        public ObservableCollection<ProductViewModel> Products { get; }
-        public bool IsProductsEmpty => Products.Count == 0;
-
-        private int _selectedSectionIndex;
-        public int SelectedSectionIndex
-        {
-            get { return _selectedSectionIndex; }
-            set { this.RaiseAndSetIfChanged(ref _selectedSectionIndex, value); }
-        }
-        public int X { get; }
-        public int Y { get; }
-
         private SegmentType _type;
         public SegmentType Type
         {
@@ -52,6 +32,25 @@ namespace ShoppingListEditor.ViewModels.Editor
             set { this.RaiseAndSetIfChanged(ref _isSelected, value); }
         }
 
+        private int _selectedSectionIndex;
+        public int SelectedSectionIndex
+        {
+            get { return _selectedSectionIndex; }
+            set { this.RaiseAndSetIfChanged(ref _selectedSectionIndex, value); }
+        }
+
+        public ReactiveCommand<Unit, Unit> OpenDetailPaneCommand { get; }
+        public Action OpenDetailPane { get; }
+        public ReactiveCommand<Unit, Unit> CloseDetailPaneCommand { get; }
+        public ReactiveCommand<Unit, Unit> ToSectionPageCommand { get; }
+        public ReactiveCommand<Unit, Unit> ToProductPageCommand { get; }
+        public ReactiveCommand<SegmentType, Unit> UploadSegmentCommand { get; }
+        public ReactiveCommand<Unit, Unit> PasteProductCommand { get; }
+        public ObservableCollection<SectionEditable> Sections { get; }
+        public ObservableCollection<ProductViewModel> Products { get; }
+        public bool IsProductsEmpty => Products.Count == 0;
+        public int X { get; }
+        public int Y { get; }
 
         private readonly EditorModel _model;
         private readonly MapSegmentEditable _segment;

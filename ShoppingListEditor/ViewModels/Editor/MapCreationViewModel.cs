@@ -9,13 +9,6 @@ namespace ShoppingListEditor.ViewModels.Editor
 {
     internal class MapCreationViewModel : StorePropertyEditor
     {
-        public override bool IsUpdating => GetIsUpdating();
-        private bool GetIsUpdating()
-        {
-            if (_model.Store is null) return false;
-            else return _model.Store.Map is not null;
-        }
-
         private string? _errorMessage;
         public string? ErrorMessage
         {
@@ -36,6 +29,8 @@ namespace ShoppingListEditor.ViewModels.Editor
             get { return _ySize; }
             set { this.RaiseAndSetIfChanged(ref _ySize, value); }
         }
+
+        public override bool IsUpdating => GetIsUpdating();
         public ReactiveCommand<Unit, Unit> SetMapDimensionsCommand { get; }
 
         private readonly Action<LoggedInPages> _changePage;
@@ -48,7 +43,11 @@ namespace ShoppingListEditor.ViewModels.Editor
 
             _model.MapChanged += OnMapChanged;
         }
-
+        private bool GetIsUpdating()
+        {
+            if (_model.Store is null) return false;
+            else return _model.Store.Map is not null;
+        }
         private void OnMapChanged()
         {
             if (_model.Store is null || _model.Store.Map is null) return;

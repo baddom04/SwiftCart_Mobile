@@ -48,6 +48,10 @@ namespace ShoppingList.ViewModels.Map
                 _locationsFilters.Add(type, filterViewModel);
             }
         }
+        private void ShowLoading(bool isLoading)
+        {
+            IsLoading = isLoading;
+        }
         public async Task GetPossibleCountriesAsync()
         {
             await _locationsFilters[LocationProperty.Country].SearchAsync();
@@ -56,10 +60,6 @@ namespace ShoppingList.ViewModels.Map
         {
             _setLocationFilter(filter);
             _changePage(MapPage.StoreList);
-        }
-        private void ShowLoading(bool isLoading)
-        {
-            IsLoading = isLoading;
         }
     }
 }

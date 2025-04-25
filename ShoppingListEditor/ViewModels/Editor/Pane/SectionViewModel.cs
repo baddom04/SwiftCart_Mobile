@@ -12,12 +12,13 @@ namespace ShoppingListEditor.ViewModels.Editor.Pane
 {
     internal class SectionViewModel : ViewModelBase
     {
+        public string Name { get; set; }
+        public ReactiveCommand<Unit, Unit> DeleteSectionCommand { get; }
+
         private readonly EditorModel _model;
         private readonly SectionEditable _section;
         private readonly Action<bool> _showLoading;
         private readonly Action<NotificationType, string> _showNotification;
-        public string Name { get; set; }
-        public ReactiveCommand<Unit, Unit> DeleteSectionCommand { get; }
         public SectionViewModel(EditorModel model, SectionEditable section, Action<bool> showLoading, Action<NotificationType, string> showNotification)
         {
             _model = model;
@@ -27,6 +28,20 @@ namespace ShoppingListEditor.ViewModels.Editor.Pane
 
             Name = section.Name;
             DeleteSectionCommand = ReactiveCommand.CreateFromTask(DeleteSectionAsnyc);
+        }
+        private async Task DeleteSectionAsnyc()
+        {
+            _showLoading(true);
+            try
+            {
+                await _model.RemoveSectionAsync(_section);
+            }
+            catch (Exception ex)
+            {
+                string msg = $"{StringProvider.GetString("SectionCreationError")}{ex.Message}";
+                _showNotification(NotificationType.Error, msg);
+            }
+            finally { _showLoading(false); }
         }
         public async Task UpdateSectionAsync(string name)
         {
@@ -47,20 +62,6 @@ namespace ShoppingListEditor.ViewModels.Editor.Pane
             { 
                 _showLoading(false); 
             }
-        }
-        private async Task DeleteSectionAsnyc()
-        {
-            _showLoading(true);
-            try
-            {
-                await _model.RemoveSectionAsync(_section);
-            }
-            catch (Exception ex)
-            {
-                string msg = $"{StringProvider.GetString("SectionCreationError")}{ex.Message}";
-                _showNotification(NotificationType.Error, msg);
-            }
-            finally { _showLoading(false); }
         }
     }
 }

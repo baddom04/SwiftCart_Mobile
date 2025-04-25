@@ -47,13 +47,6 @@ namespace ShoppingList.ViewModels.Map
             private set { this.RaiseAndSetIfChanged(ref _showSearchResults, value); }
         }
 
-        public ObservableCollection<ProductViewModel> SearchResults { get; } = [];
-        public ObservableCollection<SectionViewModel> Sections { get; } = [];
-        public ObservableCollection<Household> MyHouseholds { get; } = [];
-        public bool HasHouseholds => MyHouseholds.Count != 0;
-        public ObservableCollection<SectionViewModel> ShoppingItemSections { get; } = [];
-        public bool HasShoppingItemSections => ShoppingItemSections.Count != 0;
-
         private Household? _selectedHousehold;
         public Household? SelectedHousehold
         {
@@ -61,6 +54,12 @@ namespace ShoppingList.ViewModels.Map
             set { this.RaiseAndSetIfChanged(ref _selectedHousehold, value); }
         }
 
+        public ObservableCollection<ProductViewModel> SearchResults { get; } = [];
+        public ObservableCollection<SectionViewModel> Sections { get; } = [];
+        public ObservableCollection<Household> MyHouseholds { get; } = [];
+        public bool HasHouseholds => MyHouseholds.Count != 0;
+        public ObservableCollection<SectionViewModel> ShoppingItemSections { get; } = [];
+        public bool HasShoppingItemSections => ShoppingItemSections.Count != 0;
         public List<ProductViewModel> AllProducts { get; } = [];
         public ReactiveCommand<Unit, Unit> GoBackCommand { get; }
         public ReactiveCommand<Unit, Unit> ClearCommand { get; }
@@ -91,7 +90,6 @@ namespace ShoppingList.ViewModels.Map
 
             LoadData();
         }
-
         private async Task SearchShoppingList()
         {
             if (SelectedHousehold is null) return;
@@ -113,7 +111,6 @@ namespace ShoppingList.ViewModels.Map
                 IsLoading = false;
             }
         }
-
         private async Task<IEnumerable<SectionViewModel>> GetShoppingItemSections(IEnumerable<Grocery> items)
         {
             List<SectionViewModel> result = [];
@@ -127,32 +124,6 @@ namespace ShoppingList.ViewModels.Map
             });
             return result;
         }
-
-        public async Task GetMyHouseholdsAsync()
-        {
-            IsLoading = true;
-
-            try
-            {
-                MyHouseholds.Clear();
-                IEnumerable<Household> myhouses = await new MyHouseholdsModel().GetMyHouseholds(_account.User!.Id);
-                if (myhouses.Any())
-                {
-                    MyHouseholds.AddRange(myhouses);
-                    SelectedHousehold = MyHouseholds.First();
-                }
-            }
-            catch (Exception ex)
-            {
-                string message = $"{StringProvider.GetString("MyHouseholdsQueryError")}{ex.Message}";
-                _showNotification(NotificationType.Error, message);
-            }
-            finally
-            {
-                IsLoading = false;
-            }
-        }
-
         private async Task OnSectionSelected(Section section)
         {
             ClearAllSelection();
@@ -236,6 +207,30 @@ namespace ShoppingList.ViewModels.Map
                 MapId = _model.Store.Map.Id,
             };
             Sections.Add(new SectionViewModel(miscSection, misc));
+        }
+        public async Task GetMyHouseholdsAsync()
+        {
+            IsLoading = true;
+
+            try
+            {
+                MyHouseholds.Clear();
+                IEnumerable<Household> myhouses = await new MyHouseholdsModel().GetMyHouseholds(_account.User!.Id);
+                if (myhouses.Any())
+                {
+                    MyHouseholds.AddRange(myhouses);
+                    SelectedHousehold = MyHouseholds.First();
+                }
+            }
+            catch (Exception ex)
+            {
+                string message = $"{StringProvider.GetString("MyHouseholdsQueryError")}{ex.Message}";
+                _showNotification(NotificationType.Error, message);
+            }
+            finally
+            {
+                IsLoading = false;
+            }
         }
     }
 }

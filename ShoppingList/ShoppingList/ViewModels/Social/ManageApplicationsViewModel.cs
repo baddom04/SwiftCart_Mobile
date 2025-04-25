@@ -16,23 +16,22 @@ namespace ShoppingList.ViewModels.Social
 {
     internal class ManageApplicationsViewModel : ViewModelBase
     {
-        public ObservableCollection<HouseholdApplicationViewModel> Applications { get; }
-
-        private readonly ManageApplicationsModel _model;
-        private readonly UserAccountModel _account;
-        private readonly Action<NotificationType, string> _showNotification;
-        private readonly Action<SocialPage> _changePage;
-
-        public bool EmptyApplications => Applications.Count == 0;
-        public ReactiveCommand<Unit, Unit> MainPageCommand { get; }
-        public ReactiveCommand<Unit, Unit> ReloadCommand { get; }
-
         private bool _isLoading;
         public bool IsLoading
         {
             get { return _isLoading; }
             set { this.RaiseAndSetIfChanged(ref _isLoading, value); }
         }
+
+        public ObservableCollection<HouseholdApplicationViewModel> Applications { get; }
+        public bool EmptyApplications => Applications.Count == 0;
+        public ReactiveCommand<Unit, Unit> MainPageCommand { get; }
+        public ReactiveCommand<Unit, Unit> ReloadCommand { get; }
+
+        private readonly ManageApplicationsModel _model;
+        private readonly UserAccountModel _account;
+        private readonly Action<NotificationType, string> _showNotification;
+        private readonly Action<SocialPage> _changePage;
         public ManageApplicationsViewModel(UserAccountModel account, ManageApplicationsModel model, Action<NotificationType, string> showNotification, Action<SocialPage> changePage)
         {
             _model = model;

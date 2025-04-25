@@ -7,13 +7,6 @@ namespace ShoppingList.Shared.ViewModels.Register
 {
     public class RegisterViewModel : ViewModelBase
     {
-        public ReactiveCommand<Unit, Unit> LoginPageCommand { get; }
-        public ReactiveCommand<Unit, Unit> RegisterCommand { get; }
-        public string UsernameInput { get; set; } = string.Empty;
-        public string EmailInput { get; set; } = string.Empty;
-        public string PasswordInput { get; set; } = string.Empty;
-        public string PasswordAgainInput { get; set; } = string.Empty;
-
         private string? _errorMessage;
         public string? ErrorMessage
         {
@@ -21,9 +14,15 @@ namespace ShoppingList.Shared.ViewModels.Register
             private set { this.RaiseAndSetIfChanged(ref _errorMessage, value); }
         }
 
+        public ReactiveCommand<Unit, Unit> LoginPageCommand { get; }
+        public ReactiveCommand<Unit, Unit> RegisterCommand { get; }
+        public string UsernameInput { get; set; } = string.Empty;
+        public string EmailInput { get; set; } = string.Empty;
+        public string PasswordInput { get; set; } = string.Empty;
+        public string PasswordAgainInput { get; set; } = string.Empty;
+
         private readonly Action<bool> _showLoading;
         private readonly Action<MainPage> _changePage;
-
         private readonly UserAccountModel _model;
 
         public RegisterViewModel(UserAccountModel model, Action<MainPage> changePage, Action<bool> showLoading)

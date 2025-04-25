@@ -12,21 +12,18 @@ namespace ShoppingList.ViewModels.Social
 {
     internal class HouseholdApplicationViewModel : HouseholdListItemViewModel
     {
-        private readonly int _householdId;
-
         private bool _deleted;
         public bool Deleted
         {
             get { return _deleted; }
             set { this.RaiseAndSetIfChanged(ref _deleted, value); }
         }
-
         public override ReactiveCommand<Unit, Unit> HouseholdOperationCommand { get; }
 
+        private readonly int _householdId;
         private readonly Action<NotificationType, string> _showNotification;
         private readonly HouseholdApplicationModel _model;
         private readonly UserAccountModel _account;
-
         public HouseholdApplicationViewModel(UserAccountModel account, HouseholdApplicationModel model, Action<NotificationType, string> showNotification) : base()
         {
             _model = model;

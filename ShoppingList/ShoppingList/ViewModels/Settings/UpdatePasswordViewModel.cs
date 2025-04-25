@@ -10,13 +10,6 @@ namespace ShoppingList.ViewModels.Settings
 {
     internal class UpdatePasswordViewModel : ViewModelBase
     {
-        public string CurrentPasswordInput { get; set; } = string.Empty;
-        public string NewPasswordInput { get; set; } = string.Empty;
-        public string NewPasswordAgainInput { get; set; } = string.Empty;
-
-        public ReactiveCommand<Unit, Unit> ChangePasswordCommand { get; }
-        public ReactiveCommand<Unit, Unit> GoBackCommand { get; }
-
         private string? _errorMessage;
         public string? ErrorMessage
         {
@@ -24,6 +17,11 @@ namespace ShoppingList.ViewModels.Settings
             private set { this.RaiseAndSetIfChanged(ref _errorMessage, value); }
         }
 
+        public string CurrentPasswordInput { get; set; } = string.Empty;
+        public string NewPasswordInput { get; set; } = string.Empty;
+        public string NewPasswordAgainInput { get; set; } = string.Empty;
+        public ReactiveCommand<Unit, Unit> ChangePasswordCommand { get; }
+        public ReactiveCommand<Unit, Unit> GoBackCommand { get; }
 
         private readonly Action<bool> _showLoading;
         private readonly Action<SettingsPage> _changePage;

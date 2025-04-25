@@ -10,18 +10,6 @@ namespace ShoppingListEditor.ViewModels.Editor
 {
     internal class LocationCreationViewModel : StorePropertyEditor
     {
-        public override bool IsUpdating => GetIsUpdating();
-        private bool GetIsUpdating()
-        {
-            if (_model.Store is null) return false;
-            else return _model.Store.Location is not null;
-        }
-        public string CountryInput { get; set; } = string.Empty;
-        public string CityInput { get; set; } = string.Empty;
-        public string ZipCodeInput { get; set; } = string.Empty;
-        public string StreetInput { get; set; } = string.Empty;
-        public string DetailsInput { get; set; } = string.Empty;
-
         private string? _errorMessage;
         public string? ErrorMessage
         {
@@ -29,6 +17,12 @@ namespace ShoppingListEditor.ViewModels.Editor
             private set { this.RaiseAndSetIfChanged(ref _errorMessage, value); }
         }
 
+        public override bool IsUpdating => GetIsUpdating();
+        public string CountryInput { get; set; } = string.Empty;
+        public string CityInput { get; set; } = string.Empty;
+        public string ZipCodeInput { get; set; } = string.Empty;
+        public string StreetInput { get; set; } = string.Empty;
+        public string DetailsInput { get; set; } = string.Empty;
         public ReactiveCommand<Unit, Unit> CreateLocationCommand { get; }
 
         private readonly Action<LoggedInPages> _changePage;
@@ -42,7 +36,11 @@ namespace ShoppingListEditor.ViewModels.Editor
 
             _model.LocationChanged += OnLocationChanged;
         }
-
+        private bool GetIsUpdating()
+        {
+            if (_model.Store is null) return false;
+            else return _model.Store.Location is not null;
+        }
         private void OnLocationChanged()
         {
             if (_model.Store is null || _model.Store.Location is null) return;
@@ -53,7 +51,6 @@ namespace ShoppingListEditor.ViewModels.Editor
             StreetInput = _model.Store.Location.Street;
             DetailsInput = _model.Store.Location.Detail;
         }
-
         private async Task CreateStoreAsync()
         {
             if (!Validate()) return;

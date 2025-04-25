@@ -16,6 +16,7 @@ namespace ShoppingListEditor.ViewModels
     internal class LoggedInViewModel : MainViewModelBase<LoggedInPages>
     {
         public UserSettingsViewModel UserSettings { get; }
+
         private readonly EditorModel _model;
         private readonly Action<bool> _showLoading;
         private readonly Action<NotificationType, string> _showNotification;
@@ -63,7 +64,6 @@ namespace ShoppingListEditor.ViewModels
                 _showLoading(false);
             }
         }
-
         public override void ChangeToDefaultPage()
         {
             throw new NotImplementedException();

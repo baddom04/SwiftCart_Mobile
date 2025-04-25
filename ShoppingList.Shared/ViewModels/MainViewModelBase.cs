@@ -18,8 +18,8 @@ public abstract class MainViewModelBase<T> : MainViewModelBase where T : Enum
 {
     protected Dictionary<T, ViewModelBase> _pages = [];
 
-    protected virtual void ChangePage(T changeSettingsPage)
+    protected virtual void ChangePage(T page)
     {
-        CurrentPage = _pages[changeSettingsPage];
+        CurrentPage = _pages[page];
     }
 }

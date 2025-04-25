@@ -6,8 +6,9 @@ namespace ShoppingList.Model.Map
 {
     public class LocationFilterModel
     {
-        private readonly ILocationService _locationService = AppServiceProvider.Services.GetRequiredService<ILocationService>();
         public IReadOnlyDictionary<LocationProperty, LocationPropertyFilter> LocationFilters { get; }
+
+        private readonly ILocationService _locationService = AppServiceProvider.Services.GetRequiredService<ILocationService>();
         public LocationFilterModel() 
         {
             Dictionary<LocationProperty, LocationPropertyFilter> _locationFilters = [];
@@ -40,12 +41,6 @@ namespace ShoppingList.Model.Map
     }
     public class LocationPropertyFilter
     {
-        private readonly LocationProperty _type;
-        private readonly ILocationService _locationService;
-        public LocationPropertyFilter? Parent { get; }
-        public LocationPropertyFilter? Child { get; internal set; }
-        public string? Search { get; internal set; }
-
         private IEnumerable<string> _possibles = [];
         public IEnumerable<string> Possibles
         {
@@ -53,8 +48,13 @@ namespace ShoppingList.Model.Map
             internal set { _possibles = value; PossiblesChanged?.Invoke(); }
         }
 
-        public event Action? PossiblesChanged;
+        public LocationPropertyFilter? Parent { get; }
+        public LocationPropertyFilter? Child { get; internal set; }
+        public string? Search { get; internal set; }
 
+        private readonly LocationProperty _type;
+        private readonly ILocationService _locationService;
+        public event Action? PossiblesChanged;
         public LocationPropertyFilter(ILocationService locationService, LocationPropertyFilter? parent, LocationProperty type)
         {
             _type = type;
@@ -63,7 +63,15 @@ namespace ShoppingList.Model.Map
             if (Parent is not null)
                 Parent.PossiblesChanged += async () => await GetPossiblesAsync(Parent.Search);
         }
-
+        private IEnumerable<string?> GetParentSearches()
+        {
+            var current = Parent;
+            while (current != null)
+            {
+                yield return current.Search;
+                current = current.Parent;
+            }
+        }
         public async Task GetPossiblesAsync(string? search)
         {
             if(Parent is not null)
@@ -73,16 +81,6 @@ namespace ShoppingList.Model.Map
             Possibles = Parent is not null && (parentSearches.Any(s => s is null) || search is null)
                 ? []
                 : await _locationService.GetPossiblesAsync(parameters: [.. parentSearches]);
-        }
-
-        private IEnumerable<string?> GetParentSearches()
-        {
-            var current = Parent;
-            while (current != null)
-            {
-                yield return current.Search;
-                current = current.Parent;
-            }
         }
     }
     public enum LocationProperty

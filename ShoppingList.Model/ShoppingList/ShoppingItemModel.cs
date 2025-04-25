@@ -8,9 +8,10 @@ namespace ShoppingList.Model.ShoppingList
 {
     public class ShoppingItemModel(Grocery grocery, int householdId)
     {
+        public Grocery Grocery { get; } = grocery;
+
         private readonly IGroceryService _groceryService = AppServiceProvider.Services.GetRequiredService<IGroceryService>();
         private readonly ICommentService _commentService = AppServiceProvider.Services.GetRequiredService<ICommentService>();
-        public Grocery Grocery { get; } = grocery;
         private IEnumerable<Comment> _comments = [];
         private readonly int _householdId = householdId;
 

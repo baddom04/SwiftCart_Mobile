@@ -35,7 +35,6 @@ namespace ShoppingList.ViewModels.Social
             _householdEditingPage.EditState(household);
             CurrentPage = _householdEditingPage;
         }
-
         public override void ChangeToDefaultPage()
         {
             CurrentPage = _pages[SocialPage.Main];

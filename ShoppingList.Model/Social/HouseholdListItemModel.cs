@@ -7,9 +7,10 @@ namespace ShoppingList.Model.Social
 {
     public class HouseholdListItemModel(Household household)
     {
+        public Household Household { get; } = household;
+
         private readonly IApplicationService _applicationService = AppServiceProvider.Services.GetRequiredService<IApplicationService>();
         private readonly IHouseholdService _householdService = AppServiceProvider.Services.GetRequiredService<IHouseholdService>();
-        public Household Household { get; } = household;
         public event Action? HouseholdChanged;
 
         public async Task ApplyAsync()

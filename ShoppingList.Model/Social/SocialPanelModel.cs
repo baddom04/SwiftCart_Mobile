@@ -8,15 +8,10 @@ namespace ShoppingList.Model.Social
 {
     public class SocialPanelModel
     {
-        private readonly IHouseholdService _householdService;
-
         public IEnumerable<Household>? LoadedHouseholds { get; private set; }
         public int MaxPage { get; private set; } = 1;
 
-        public SocialPanelModel()
-        {
-            _householdService = AppServiceProvider.Services.GetRequiredService<IHouseholdService>();
-        }
+        private readonly IHouseholdService _householdService = AppServiceProvider.Services.GetRequiredService<IHouseholdService>();
 
         public async Task<IEnumerable<Household>> SearchHouseholdsAsync(string search, int page)
         {

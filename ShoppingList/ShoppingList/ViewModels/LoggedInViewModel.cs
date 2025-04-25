@@ -37,8 +37,8 @@ namespace ShoppingList.ViewModels
                 CurrentPage = Menus[value];
             }
         }
-        public ObservableCollection<MenuIcon> MenuItems { get; }
 
+        public ObservableCollection<MenuIcon> MenuItems { get; }
         public Dictionary<MenuIcon, MainViewModelBase> Menus { get; }
 
         private readonly UserAccountModel _userAccount;

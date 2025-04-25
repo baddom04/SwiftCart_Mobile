@@ -19,9 +19,11 @@ namespace ShoppingList.ViewModels.Map
             get { return _isLoading; }
             private set { this.RaiseAndSetIfChanged(ref _isLoading, value); }
         }
+
         public string Name { get; }
         public Location Location { get; }
         public ReactiveCommand<Unit, Unit> LoadStoreCommand { get; }
+
         private readonly StoreListItemModel _model;
         private readonly Action<ViewModelBase> _changeToPage;
         private readonly Action<MapPage> _changePage;

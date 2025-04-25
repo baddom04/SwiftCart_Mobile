@@ -7,17 +7,17 @@ namespace ShoppingList.Shared.ViewModels.Login
 {
     public class LoginViewModel : ViewModelBase
     {
-        public ReactiveCommand<Unit, Unit> RegisterPageCommand { get; }
-        public string EmailInput { get; set; } = string.Empty;
-        public string PasswordInput { get; set; } = string.Empty;
-        public ReactiveCommand<Unit, Task> LoginCommand { get; }
-
         private string? _errorMessage;
         public string? ErrorMessage
         {
             get { return _errorMessage; }
             private set { this.RaiseAndSetIfChanged(ref _errorMessage, value); }
         }
+
+        public ReactiveCommand<Unit, Unit> RegisterPageCommand { get; }
+        public string EmailInput { get; set; } = string.Empty;
+        public string PasswordInput { get; set; } = string.Empty;
+        public ReactiveCommand<Unit, Task> LoginCommand { get; }
 
         private readonly Action<bool> _showLoading;
         private readonly Action<MainPage> _changePage;

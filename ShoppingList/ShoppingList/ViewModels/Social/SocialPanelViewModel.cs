@@ -16,14 +16,6 @@ namespace ShoppingList.ViewModels.Social;
 
 internal class SocialPanelViewModel : ViewModelBase
 {
-    public string SearchInput { get; set; } = string.Empty;
-    public ReactiveCommand<Unit, Unit> SearchCommand { get; }
-    public ReactiveCommand<Unit, Unit> TurnPageForwardCommand { get; }
-    public ReactiveCommand<Unit, Unit> TurnPageBackwardCommand { get; }
-    public ReactiveCommand<Unit, Unit> ManageApplicationsPageCommand { get; }
-    public ReactiveCommand<Unit, Unit> ManageHouseholdsPageCommand { get; }
-    public ObservableCollection<HouseholdSearchResultViewModel> Households { get; } = [];
-
     private bool _isLoading;
     public bool IsLoading
     {
@@ -45,12 +37,18 @@ internal class SocialPanelViewModel : ViewModelBase
         private set { this.RaiseAndSetIfChanged(ref _maxPage, value); }
     }
 
+    public string SearchInput { get; set; } = string.Empty;
+    public ReactiveCommand<Unit, Unit> SearchCommand { get; }
+    public ReactiveCommand<Unit, Unit> TurnPageForwardCommand { get; }
+    public ReactiveCommand<Unit, Unit> TurnPageBackwardCommand { get; }
+    public ReactiveCommand<Unit, Unit> ManageApplicationsPageCommand { get; }
+    public ReactiveCommand<Unit, Unit> ManageHouseholdsPageCommand { get; }
+    public ObservableCollection<HouseholdSearchResultViewModel> Households { get; } = [];
     public bool EmptyHouseholds => Households.Count == 0;
 
     private readonly SocialPanelModel _model;
     private readonly Action<NotificationType, string> _showNotification;
     private readonly Action<SocialPage> _changePage;
-
     public SocialPanelViewModel(SocialPanelModel householdsModel, Action<NotificationType, string> showNotification, Action<SocialPage> changePage)
     {
         _model = householdsModel;

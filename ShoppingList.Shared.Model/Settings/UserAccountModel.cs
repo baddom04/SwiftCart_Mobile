@@ -7,13 +7,10 @@ namespace ShoppingList.Shared.Model.Settings
 {
     public class UserAccountModel
     {
-        private readonly IUserService _service;
         public User? User { get; private set; }
 
-        public UserAccountModel()
-        {
-            _service = AppServiceProvider.Services.GetRequiredService<IUserService>();
-        }
+        private readonly IUserService _service = AppServiceProvider.Services.GetRequiredService<IUserService>();
+
         public async Task LoginAsync(string email, string password)
         {
             await _service.LoginAsync(email, password);

@@ -14,7 +14,7 @@
   </UserControl.Resources>
   <Grid x:Name="MainGrid">
     
-    <!--Loading-->
+    <!--Loading overlay-->
     <Border ZIndex="3"
             Background="#80000000"
             IsVisible="{Binding IsLoading}"
@@ -32,7 +32,7 @@
       </Border>
     </Border>
 
-    <!--ErrorMessage-->
+    <!--Notification overlay-->
     <Border ZIndex="3"
             Background="#80000000"
             IsVisible="{Binding ShowNotification}"
@@ -57,7 +57,7 @@
       </Border>
     </Border>
     
-    
+    <!--Content-->
     <TransitioningContentControl Content="{Binding CurrentPage}">
       <TransitioningContentControl.PageTransition>
         <CrossFade Duration="0:00:00.200" />

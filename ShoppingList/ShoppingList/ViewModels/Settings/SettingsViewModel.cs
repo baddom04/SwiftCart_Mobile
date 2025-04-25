@@ -13,12 +13,6 @@ namespace ShoppingList.ViewModels.Settings;
 
 internal class SettingsViewModel(UserAccountModel userAccount, Action<MainPage> changePage, Action<bool> showLoading, Action<NotificationType, string> showNotification, Action<SettingsPage> changeSettingsPage) : ViewModelBase
 {
-    private readonly UserAccountModel _userAccount = userAccount;
-    private readonly Action<bool> _showLoading = showLoading;
-    private readonly Action<MainPage> _changePage = changePage;
-    private readonly Action<NotificationType, string> _showNotification = showNotification;
-    public ReactiveCommand<Unit, Unit> UpdatePasswordPageCommand { get; } = ReactiveCommand.Create(() => changeSettingsPage(SettingsPage.UpdatePassword));
-
     private User? _user;
     public User? User
     {
@@ -26,7 +20,12 @@ internal class SettingsViewModel(UserAccountModel userAccount, Action<MainPage> 
         private set { this.RaiseAndSetIfChanged(ref _user, value); }
     }
 
+    public ReactiveCommand<Unit, Unit> UpdatePasswordPageCommand { get; } = ReactiveCommand.Create(() => changeSettingsPage(SettingsPage.UpdatePassword));
 
+    private readonly UserAccountModel _userAccount = userAccount;
+    private readonly Action<bool> _showLoading = showLoading;
+    private readonly Action<MainPage> _changePage = changePage;
+    private readonly Action<NotificationType, string> _showNotification = showNotification;
     public async Task DeleteUserAsync()
     {
         _showLoading(true);

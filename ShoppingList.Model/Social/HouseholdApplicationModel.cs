@@ -7,8 +7,9 @@ namespace ShoppingList.Model.Social
 {
     public class HouseholdApplicationModel(Household household)
     {
-        private readonly IApplicationService _applicationService = AppServiceProvider.Services.GetRequiredService<IApplicationService>();
         public Household Household { get; } = household;
+
+        private readonly IApplicationService _applicationService = AppServiceProvider.Services.GetRequiredService<IApplicationService>();
 
         public async Task DeleteApplicationAsync(int household_id, int user_id)
         {

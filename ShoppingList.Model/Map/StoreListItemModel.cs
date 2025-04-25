@@ -7,12 +7,10 @@ namespace ShoppingList.Model.Map
 {
     public class StoreListItemModel(Store storeWithoutMap)
     {
-        private readonly IStoreService _storeService = AppServiceProvider.Services.GetRequiredService<IStoreService>();
-
-        private readonly int _storeId = storeWithoutMap.Id;
-
         public Store StoreWithoutMap { get; } = storeWithoutMap;
 
+        private readonly IStoreService _storeService = AppServiceProvider.Services.GetRequiredService<IStoreService>();
+        private readonly int _storeId = storeWithoutMap.Id;
         public async Task<Store> GetFullStoreAsync()
         {
             Store storeWithMap = await _storeService.GetStoreAsync(_storeId);

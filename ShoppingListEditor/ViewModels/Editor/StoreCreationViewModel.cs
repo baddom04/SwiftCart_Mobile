@@ -10,9 +10,6 @@ namespace ShoppingListEditor.ViewModels.Editor
 {
     internal class StoreCreationViewModel : StorePropertyEditor
     {
-        public override bool IsUpdating => _model.Store is not null;
-        public string StoreNameInput { get; set; } = string.Empty;
-
         private string? _errorMessage;
         public string? ErrorMessage
         {
@@ -20,6 +17,8 @@ namespace ShoppingListEditor.ViewModels.Editor
             private set { this.RaiseAndSetIfChanged(ref _errorMessage, value); }
         }
 
+        public override bool IsUpdating => _model.Store is not null;
+        public string StoreNameInput { get; set; } = string.Empty;
         public ReactiveCommand<Unit, Unit> CreateStoreCommand { get; }
 
         private readonly Action<LoggedInPages> _changePage;

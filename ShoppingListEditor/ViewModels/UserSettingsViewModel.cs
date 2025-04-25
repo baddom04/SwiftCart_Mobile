@@ -20,13 +20,13 @@ namespace ShoppingListEditor.ViewModels
             get { return _isPaneOpen; }
             private set { this.RaiseAndSetIfChanged(ref _isPaneOpen, value); }
         }
+
         private bool _isStoreDeletable;
         public bool IsStoreDeletable
         {
             get { return _isStoreDeletable; }
             private set { this.RaiseAndSetIfChanged(ref _isStoreDeletable, value); }
         }
-        public ReactiveCommand<Unit, bool> TogglePaneCommand { get; }
 
         private User? _user;
         public User? User
@@ -35,13 +35,14 @@ namespace ShoppingListEditor.ViewModels
             private set { this.RaiseAndSetIfChanged(ref _user, value); }
         }
 
+        public ReactiveCommand<Unit, bool> TogglePaneCommand { get; }
+
         private readonly UserAccountModel _account;
         private readonly EditorModel _model;
         private readonly Action<bool> _showLoading;
         private readonly Action<MainPage> _changeMainPage;
         private readonly Action<LoggedInPages> _changePage;
         private readonly Action<NotificationType, string> _showNotification;
-
         public UserSettingsViewModel(UserAccountModel account, EditorModel model, Action<LoggedInPages> changePage, Action<MainPage> changeMainPage, Action<bool> showLoading, Action<NotificationType, string> showNotification)
         {
             TogglePaneCommand = ReactiveCommand.Create(() => IsPaneOpen = !IsPaneOpen);

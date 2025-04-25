@@ -23,21 +23,18 @@ namespace ShoppingList.ViewModels.ShoppingList
             };
             _currentPage = _pages[GroceryPage.Main];
         }
-
-        public override void ChangeToDefaultPage()
-        {
-            CurrentPage = _pages[GroceryPage.Main];
-        }
-
         private void ChangeToPage(ViewModelBase page)
         {
             CurrentPage = page;
         }
-
         private void ChangeToEditingPage(int householdId, Grocery? grocery, Action goBackAction)
         {
             _groceryEditingPage.Initialize(householdId, grocery, goBackAction);
             CurrentPage = _groceryEditingPage;
+        }
+        public override void ChangeToDefaultPage()
+        {
+            CurrentPage = _pages[GroceryPage.Main];
         }
     }
     internal enum GroceryPage
