@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ShoppingListEditor.ViewModels.Editor
 {
-    internal class PublishPageViewModel : StorePropertyEditor
+    internal class PublishPageViewModel : StorePropertyEditorViewModel
     {
         private string? _errorMessage;
         public string? ErrorMessage
@@ -18,7 +18,7 @@ namespace ShoppingListEditor.ViewModels.Editor
 
         public override bool IsUpdating => true;
         public bool IsPublished { get; set; }
-        public ReactiveCommand<Unit, Unit> UpdateVisibilityCommand { get; }
+        public ReactiveCommand<Unit, Unit> SetVisibilityCommand { get; }
 
         private readonly Action<LoggedInPages> _changePage;
         private readonly Action<bool> _showLoading;
@@ -29,10 +29,10 @@ namespace ShoppingListEditor.ViewModels.Editor
 
             _model.VisibilityChanged += () => IsPublished = _model.Store?.Published ?? false;
 
-            UpdateVisibilityCommand = ReactiveCommand.CreateFromTask(UpdateVisibilityAsync);
+            SetVisibilityCommand = ReactiveCommand.CreateFromTask(SetVisibilityAsync);
         }
 
-        private async Task UpdateVisibilityAsync()
+        private async Task SetVisibilityAsync()
         {
             _showLoading(true);
             try

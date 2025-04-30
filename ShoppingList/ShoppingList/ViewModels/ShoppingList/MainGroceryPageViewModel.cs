@@ -29,7 +29,7 @@ namespace ShoppingList.ViewModels.ShoppingList
         }
         private void ChangeToEditingPage(int householdId, Grocery? grocery, Action goBackAction)
         {
-            _groceryEditingPage.Initialize(householdId, grocery, goBackAction);
+            _groceryEditingPage.EditState(householdId, grocery, goBackAction);
             CurrentPage = _groceryEditingPage;
         }
         public override void ChangeToDefaultPage()

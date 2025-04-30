@@ -28,13 +28,13 @@ namespace ShoppingList.ViewModels.Settings
         private readonly UserAccountModel _userAccount;
         public UpdatePasswordViewModel(UserAccountModel userAccount, Action<bool> showLoading, Action<SettingsPage> changePage)
         {
-            ChangePasswordCommand = ReactiveCommand.CreateFromTask(ChangePassword);
+            ChangePasswordCommand = ReactiveCommand.CreateFromTask(ChangePasswordAsync);
             GoBackCommand = ReactiveCommand.Create(() => changePage(SettingsPage.Main));
             _showLoading = showLoading;
             _changePage = changePage;
             _userAccount = userAccount;
         }
-        private async Task ChangePassword()
+        private async Task ChangePasswordAsync()
         {
             if (!Validate()) return;
 

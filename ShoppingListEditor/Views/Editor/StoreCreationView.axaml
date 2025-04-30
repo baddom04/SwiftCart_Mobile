@@ -30,7 +30,7 @@
         </StackPanel>
         
         <Button Grid.Row="3" Margin="15" Classes="big" Content="{DynamicResource Set}"
-                HorizontalAlignment="Center" Command="{Binding CreateStoreCommand}" IsDefault="True"/>
+                HorizontalAlignment="Center" Command="{Binding SetStoreNameCommand}" IsDefault="True"/>
       </Grid>
     </Border>
   </Grid>

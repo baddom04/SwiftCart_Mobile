@@ -42,7 +42,7 @@
         </StackPanel>
 
         <Button Grid.Row="3" Margin="15" Classes="big" Content="{DynamicResource Set}"
-                HorizontalAlignment="Center" Command="{Binding CreateLocationCommand}" IsDefault="True"/>
+                HorizontalAlignment="Center" Command="{Binding SetLocationCommand}" IsDefault="True"/>
       </Grid>
     </Border>
   </Grid>

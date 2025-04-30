@@ -73,7 +73,7 @@ namespace ShoppingListEditor.ViewModels
             CurrentPage = _pages[page];
 
             if (page is LoggedInPages.Editor) return;
-            (CurrentPage as StorePropertyEditor)!.RaiseIsUpdatingPropertyChanged();
+            (CurrentPage as StorePropertyEditorViewModel)!.RaiseIsUpdatingPropertyChanged();
         }
     }
     internal enum LoggedInPages

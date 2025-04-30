@@ -30,7 +30,7 @@
         </Grid>
 
         <Button Grid.Row="3" Margin="15" Classes="big" Content="{DynamicResource Set}"
-                HorizontalAlignment="Center" Command="{Binding UpdateVisibilityCommand}" IsDefault="True"/>
+                HorizontalAlignment="Center" Command="{Binding SetVisibilityCommand}" IsDefault="True"/>
       </Grid>
     </Border>
   </Grid>

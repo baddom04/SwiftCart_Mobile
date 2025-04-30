@@ -6,13 +6,13 @@ using System.Reactive;
 
 namespace ShoppingListEditor.ViewModels.Editor
 {
-    internal class StorePropertyEditor : ViewModelBase
+    internal class StorePropertyEditorViewModel : ViewModelBase
     {
         public virtual bool IsUpdating => false;
         public ReactiveCommand<Unit, Unit> GoBackCommand { get; }
 
         protected readonly EditorModel _model;
-        public StorePropertyEditor(EditorModel model, Action<LoggedInPages> changePage)
+        public StorePropertyEditorViewModel(EditorModel model, Action<LoggedInPages> changePage)
         {
             _model = model;
             GoBackCommand = ReactiveCommand.Create(() => changePage(LoggedInPages.Editor),

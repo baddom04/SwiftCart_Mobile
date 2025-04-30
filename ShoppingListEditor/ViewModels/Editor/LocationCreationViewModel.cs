@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ShoppingListEditor.ViewModels.Editor
 {
-    internal class LocationCreationViewModel : StorePropertyEditor
+    internal class LocationCreationViewModel : StorePropertyEditorViewModel
     {
         private string? _errorMessage;
         public string? ErrorMessage
@@ -23,7 +23,7 @@ namespace ShoppingListEditor.ViewModels.Editor
         public string ZipCodeInput { get; set; } = string.Empty;
         public string StreetInput { get; set; } = string.Empty;
         public string DetailsInput { get; set; } = string.Empty;
-        public ReactiveCommand<Unit, Unit> CreateLocationCommand { get; }
+        public ReactiveCommand<Unit, Unit> SetLocationCommand { get; }
 
         private readonly Action<LoggedInPages> _changePage;
         private readonly Action<bool> _showLoading;
@@ -32,7 +32,7 @@ namespace ShoppingListEditor.ViewModels.Editor
             _changePage = changePage;
             _showLoading = showLoading;
 
-            CreateLocationCommand = ReactiveCommand.CreateFromTask(CreateStoreAsync);
+            SetLocationCommand = ReactiveCommand.CreateFromTask(SetLocationAsync);
 
             _model.LocationChanged += OnLocationChanged;
         }
@@ -51,7 +51,7 @@ namespace ShoppingListEditor.ViewModels.Editor
             StreetInput = _model.Store.Location.Street;
             DetailsInput = _model.Store.Location.Detail;
         }
-        private async Task CreateStoreAsync()
+        private async Task SetLocationAsync()
         {
             if (!Validate()) return;
 

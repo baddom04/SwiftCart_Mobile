@@ -40,12 +40,12 @@ namespace ShoppingList.ViewModels.Social
             _changePage = changePage;
             Applications = [];
             MainPageCommand = ReactiveCommand.Create(() => _changePage(SocialPage.Main));
-            ReloadCommand = ReactiveCommand.CreateFromTask(LoadApplications);
+            ReloadCommand = ReactiveCommand.CreateFromTask(LoadApplicationsAsync);
 
             Applications.CollectionChanged += (s, e) => this.RaisePropertyChanged(nameof(EmptyApplications));
         }
 
-        public async Task LoadApplications()
+        public async Task LoadApplicationsAsync()
         {
             IsLoading = true;
 
@@ -53,7 +53,7 @@ namespace ShoppingList.ViewModels.Social
             {
                 IEnumerable<HouseholdApplicationViewModel> temp = 
                     (await _model
-                    .GetHouseholdsAsync(_account.User!.Id))
+                    .GetAppliedToHouseholdsAsync(_account.User!.Id))
                     .Select(hh => 
                         new HouseholdApplicationViewModel(_account, new HouseholdApplicationModel(hh), _showNotification));
 

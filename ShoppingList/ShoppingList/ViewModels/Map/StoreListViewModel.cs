@@ -47,7 +47,6 @@ namespace ShoppingList.ViewModels.Map
         public Action<LocationFilter> SetLocationFilter { get; }
         public LocationFilter LocationFilter { get; private set; }
 
-
         private readonly Action<NotificationType, string> _showNotification;
         private readonly Action<ViewModelBase> _changeToPage;
         private readonly Action<MapPage> _changePage;

@@ -92,7 +92,7 @@ namespace ShoppingList.ViewModels.ShoppingList
             return false;
         }
 
-        public void Initialize(int householdId, Grocery? grocery, Action goBackAction)
+        public void EditState(int householdId, Grocery? grocery, Action goBackAction)
         {
             Updating = grocery is not null;
             _goBackAction = goBackAction;

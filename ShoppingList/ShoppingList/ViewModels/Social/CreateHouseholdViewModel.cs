@@ -35,7 +35,7 @@ namespace ShoppingList.ViewModels.Social
         public ReactiveCommand<Unit, Unit> GoBackCommand { get; }
         public ReactiveCommand<Unit, Unit> CreateHouseholdCommand { get; }
 
-        private int _householdId;
+        public int HouseholdId { get; private set; }
         private readonly CreateHouseholdModel _model;
         private readonly Action<SocialPage> _changePage;
         private readonly Action<bool> _showLoading;
@@ -56,13 +56,13 @@ namespace ShoppingList.ViewModels.Social
 
             try
             {
-                if (_householdId == default)
+                if (HouseholdId == default)
                 {
                     await _model.CreateHouseholdAsync(NameInput.Trim(), IdentifierInput.Trim());
                 }
                 else
                 {
-                    await _model.UpdateHouseholdAsync(_householdId, NameInput, IdentifierInput);
+                    await _model.UpdateHouseholdAsync(HouseholdId, NameInput, IdentifierInput);
                 }
 
                 _changePage(SocialPage.ManageHouseholds);
@@ -118,7 +118,7 @@ namespace ShoppingList.ViewModels.Social
             ErrorMessage = null;
             NameInput = household is null ? string.Empty : household.Name;
             IdentifierInput = household is null ? string.Empty : household.Identifier;
-            _householdId = household?.Id ?? default;
+            HouseholdId = household?.Id ?? default;
         }
     }
 }

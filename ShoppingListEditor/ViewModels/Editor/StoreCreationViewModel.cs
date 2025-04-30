@@ -1,5 +1,4 @@
 ﻿using ReactiveUI;
-using ShoppingList.Shared;
 using ShoppingListEditor.Model;
 using ShoppingListEditor.Utils;
 using System;
@@ -8,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ShoppingListEditor.ViewModels.Editor
 {
-    internal class StoreCreationViewModel : StorePropertyEditor
+    internal class StoreCreationViewModel : StorePropertyEditorViewModel
     {
         private string? _errorMessage;
         public string? ErrorMessage
@@ -19,7 +18,7 @@ namespace ShoppingListEditor.ViewModels.Editor
 
         public override bool IsUpdating => _model.Store is not null;
         public string StoreNameInput { get; set; } = string.Empty;
-        public ReactiveCommand<Unit, Unit> CreateStoreCommand { get; }
+        public ReactiveCommand<Unit, Unit> SetStoreNameCommand { get; }
 
         private readonly Action<LoggedInPages> _changePage;
         private readonly Action<bool> _showLoading;
@@ -28,7 +27,7 @@ namespace ShoppingListEditor.ViewModels.Editor
             _changePage = changePage;
             _showLoading = showLoading;
 
-            CreateStoreCommand = ReactiveCommand.CreateFromTask(CreateStoreAsync);
+            SetStoreNameCommand = ReactiveCommand.CreateFromTask(SetStoreNameAsync);
 
             _model.StoreChanged += OnStoreChanged;
         }
@@ -39,7 +38,7 @@ namespace ShoppingListEditor.ViewModels.Editor
             StoreNameInput = _model.Store.Name;
         }
 
-        private async Task CreateStoreAsync()
+        private async Task SetStoreNameAsync()
         {
             if (!Validate()) return;
 

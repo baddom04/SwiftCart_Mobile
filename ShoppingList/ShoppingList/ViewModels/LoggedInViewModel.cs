@@ -46,7 +46,6 @@ namespace ShoppingList.ViewModels
         private readonly Action<bool> _showLoading;
         public LoggedInViewModel(UserAccountModel userAccount, Action<MainPage> changePage, Action<bool> showLoading, Action<NotificationType, string> showNotification)
         {
-
             MyHouseholdsModel myHouseholds = new();
             Menus = new Dictionary<MenuIcon, MainViewModelBase>
             {

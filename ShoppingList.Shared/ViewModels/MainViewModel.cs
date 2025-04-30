@@ -7,7 +7,7 @@ using System.Reactive;
 
 namespace ShoppingList.Shared.ViewModels
 {
-    public class MainViewModel : MainViewModelBase<MainPage>
+    public abstract class MainViewModel : MainViewModelBase<MainPage>
     {
         private bool _isLoading;
         public bool IsLoading

@@ -15,7 +15,7 @@ namespace ShoppingList.Model.Social
             _applicationService = AppServiceProvider.Services.GetRequiredService<IApplicationService>();
         }
 
-        public async Task<IEnumerable<Household>> GetHouseholdsAsync(int user_id)
+        public async Task<IEnumerable<Household>> GetAppliedToHouseholdsAsync(int user_id)
         {
             _householdsAppliedTo = await _applicationService.GetAppliedToHouseholdsAsync(user_id);
 

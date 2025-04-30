@@ -13,6 +13,6 @@ public partial class ManageApplicationsView : UserControl
 
     private async void ManageApplicationsView_Loaded(object? sender, Avalonia.Interactivity.RoutedEventArgs e)
     {
-        await (DataContext as ManageApplicationsViewModel)!.LoadApplications();
+        await (DataContext as ManageApplicationsViewModel)!.LoadApplicationsAsync();
     }
 }

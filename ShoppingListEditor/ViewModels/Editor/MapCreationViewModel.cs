@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ShoppingListEditor.ViewModels.Editor
 {
-    internal class MapCreationViewModel : StorePropertyEditor
+    internal class MapCreationViewModel : StorePropertyEditorViewModel
     {
         private string? _errorMessage;
         public string? ErrorMessage

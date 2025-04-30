@@ -21,8 +21,8 @@ namespace ShoppingList.Model.Map
                         _locationService, 
                         !parentType.HasValue 
                             ? null 
-                            : _locationFilters[parentType.Value],
-                        type));
+                            : _locationFilters[parentType.Value]
+                        ));
 
                 parentType = type;
             }
@@ -52,12 +52,10 @@ namespace ShoppingList.Model.Map
         public LocationPropertyFilter? Child { get; internal set; }
         public string? Search { get; internal set; }
 
-        private readonly LocationProperty _type;
         private readonly ILocationService _locationService;
         public event Action? PossiblesChanged;
-        public LocationPropertyFilter(ILocationService locationService, LocationPropertyFilter? parent, LocationProperty type)
+        public LocationPropertyFilter(ILocationService locationService, LocationPropertyFilter? parent)
         {
-            _type = type;
             _locationService = locationService;
             Parent = parent;
             if (Parent is not null)
