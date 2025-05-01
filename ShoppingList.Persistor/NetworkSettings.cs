@@ -8,7 +8,10 @@ public static class NetworkSettings
 
     static NetworkSettings()
     {
+        //Deployed server
         BaseAddress = new($"https://swiftcart-cfb8gcc8edhrb3h8.westeurope-01.azurewebsites.net/api/");
-        //BaseAddress = new($"http://192.168.0.34:8000/api/");
+
+        //For Localhosting
+        //BaseAddress = new($"http://<ip_adress>:8000/api/");
     }
 }

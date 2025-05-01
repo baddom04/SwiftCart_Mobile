@@ -14,8 +14,8 @@ namespace ShoppingList.Persistor.Services
                 ErrorResponse? errorResponse = await response.Content.ReadFromJsonAsync<ErrorResponse>(cancellationToken);
                 if (errorResponse == null)
                     throw new NullReferenceException(nameof(errorResponse));
-
-                throw new HttpRequestException($"{errorResponse.Error?.ToString()}");
+                else
+                    throw new HttpRequestException($"{errorResponse.Error?.ToString()}");
             }
         }
     }

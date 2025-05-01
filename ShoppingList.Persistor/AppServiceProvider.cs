@@ -22,6 +22,7 @@ namespace ShoppingList.Persistor
                 client.BaseAddress = NetworkSettings.BaseAddress;
                 client.DefaultRequestHeaders.Accept.Add(
                     new MediaTypeWithQualityHeaderValue("application/json"));
+                client.Timeout = TimeSpan.FromSeconds(20);
             }
 
             services.AddHttpClient<IUserService, UserService>(configureClient).AddHttpMessageHandler<AuthDelegatingHandler>();

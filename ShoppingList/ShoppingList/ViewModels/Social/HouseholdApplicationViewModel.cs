@@ -6,6 +6,7 @@ using ShoppingList.Utils;
 using ShoppingList.ViewModels.Shared;
 using System;
 using System.Reactive;
+using System.Reactive.Linq;
 using System.Threading.Tasks;
 
 namespace ShoppingList.ViewModels.Social
@@ -35,6 +36,11 @@ namespace ShoppingList.ViewModels.Social
             _householdId = _model.Household.Id;
 
             HouseholdOperationCommand = ReactiveCommand.CreateFromTask(DeleteApplicationAsync);
+            HouseholdOperationCommand.ThrownExceptions.ObserveOn(RxApp.MainThreadScheduler).Subscribe(ex =>
+            {
+                string message = $"{StringProvider.GetString("DeleteApplicationError")}{ex.Message}";
+                _showNotification(NotificationType.Error, message);
+            });
         }
 
         private async Task DeleteApplicationAsync()

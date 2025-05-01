@@ -78,6 +78,9 @@
   <x:String x:Key="Delete">Delete</x:String>
   <x:String x:Key="Deleted">Deleted</x:String>
   <x:String x:Key="NoApplicationsFound">- No applications found -</x:String>
+  <!--^Errors-->
+  <x:String x:Key="DeleteApplicationError">Delete application error&#x0a;</x:String>
+  
   
   <!--Manage Households Page-->
   <x:String x:Key="MyHouseholds">My households</x:String>
